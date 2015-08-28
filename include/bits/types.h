@@ -21,6 +21,19 @@
  * order headers are included. */
 
 
+#include <bits/intconf.h>
+
+
+/**
+ * Returns the maximum value of an unsigned integer type,
+ * in that type.
+ */
+#ifndef __MAX_OF
+# define  __MAX_OF(type)  \
+  (((type)1) << sizeof(type))
+#define
+
+
 /**
  * Signed integer type of the result of subtracting two pointers.
  * May not be greater than the with of type long.
@@ -54,6 +67,16 @@ typedef unsigned long int uptrdiff_t;
 #if defined(__NEED_wchar_t) && !defined(__DEFINED_wchar_t)
 # define __DEFINED_wchar_t
 typedef long int wchar_t;
+# define  __WCHAR_MAX  INTPTR_MAX
+#endif
+
+
+/**
+ * Variant of `wchar_t` cna can hold the value of `WEOF`.
+ */
+#if defined(__NEED_wint_t) && !defined(__DEFINED_wint_t)
+# define __DEFINED_wint_t
+typedef wchar_t wint_t;
 #endif
 
 
@@ -88,5 +111,136 @@ typedef struct
   long long int __lli __attribute__((__aligned__(__alignof__(long long int))));
   long double   __ld  __attribute__((__aligned__(__alignof__(long double))));
 } max_align_t;
+#endif
+
+
+/**
+ * Signed exact-width integer types.
+ * 
+ * These types are guaranteed to use two's complement.
+ */
+#if defined(__NEED_intN_t) && !defined(__DEFINED_intN_t)
+# define __DEFINED_intN_t
+typedef signed __INT8 int8_t;
+typedef signed __INT16 int16_t;
+typedef signed __INT32 int32_t;
+typedef signed __INT64 int64_t;
+#endif
+
+
+/**
+ * Unsigned exact-width integer types.
+ */
+#if defined(__NEED_uintN_t) && !defined(__DEFINED_uintN_t)
+# define __DEFINED_uintN_t
+typedef unsigned __INT8 uint8_t;
+typedef unsigned __INT16 uint16_t;
+typedef unsigned __INT32 uint32_t;
+typedef unsigned __INT64 uint64_t;
+#endif
+
+
+/**
+ * Signed integer types with guaranteed minimum length
+ * with otherwise minimal length.
+ * 
+ * `int_least8_t`, `int_least16_t`, `int_least32_t`, and
+ * `int_least64_t` are guaranteed to be defined.
+ */
+#if defined(__NEED_int_leastN_t) && !defined(__DEFINED_int_leastN_t)
+# define __DEFINED_int_leastN_t
+typedef signed __INT8 int_least8_t;
+typedef signed __INT16 int_least16_t;
+typedef signed __INT32 int_least32_t;
+typedef signed __INT64 int_least64_t;
+#endif
+
+
+/**
+ * Unsigned integer types with guaranteed minimum length
+ * with otherwise minimal length.
+ * 
+ * `uint_least8_t`, `uint_least16_t`, `uint_least32_t`, and
+ * `uint_least64_t` are guaranteed to be defined.
+ */
+#if defined(__NEED_uint_leastN_t) && !defined(__DEFINED_uint_leastN_t)
+# define __DEFINED_uint_leastN_t
+typedef unsigned __INT8 uint_least8_t;
+typedef unsigned __INT16 uint_least16_t;
+typedef unsigned __INT32 uint_least32_t;
+typedef unsigned __INT64 uint_least64_t;
+#endif
+
+
+/**
+ * Signed integer types with guaranteed minimum length
+ * and are thought to be the fastest to in most use-cases.
+ * 
+ * `int_fast8_t`, `int_fast16_t`, `int_fast32_t`, and
+ * `int_fast64_t` are guaranteed to be defined.
+ * It is howevr strongly discouraged to uses this types
+ * in serialised/marshalled data, as they may depend
+ * on the C library the program is compiled against
+ * and the version of that library.
+ */
+#if defined(__NEED_int_fastN_t) && !defined(__DEFINED_int_fastN_t)
+# define __DEFINED_int_fastN_t
+typedef signed __INT_FAST8 int_fast8_t;
+typedef signed __INT_FAST16 int_fast16_t;
+typedef signed __INT_FAST32 int_fast32_t;
+typedef signed __INT_FAST64 int_fast64_t;
+#endif
+
+
+/**
+ * Ubsigned integer types with guaranteed minimum length
+ * and are thought to be the fastest to in most use-cases.
+ * 
+ * `uint_fast8_t`, `uint_fast16_t`, `uint_fast32_t`, and
+ * `uint_fast64_t` are guaranteed to be defined.
+ * It is howevr strongly discouraged to uses this types
+ * in serialised/marshalled data, as they may depend
+ * on the C library the program is compiled against
+ * and the version of that library.
+ */
+#if defined(__NEED_uint_fastN_t) && !defined(__DEFINED_uint_fastN_t)
+# define __DEFINED_uint_fastN_t
+typedef unsigned __INT_FAST8 uint_fast8_t;
+typedef unsigned __INT_FAST16 uint_fast16_t;
+typedef unsigned __INT_FAST32 uint_fast32_t;
+typedef unsigned __INT_FAST64 uint_fast64_t;
+#endif
+
+
+/**
+ * The widest signed integer type available.
+ */
+#if defined(__NEED_intmax_t) && !defined(__DEFINED_intmax_t)
+# define __DEFINED_intmax_t
+typedef signed __INT64 intmax_t;
+# define __INTMAX_MAX  INT64_MAX
+#endif
+
+
+/**
+ * The widest unsigned integer type available.
+ */
+#if defined(__NEED_uintmax_t) && !defined(__DEFINED_uintmax_t)
+# define __DEFINED_uintmax_t
+typedef unsigned __INT64 uintmax_t;
+# define __UINTMAX_MAX  UINT64_MAX
+#endif
+
+
+/**
+ * A integer type over which operations are atomic.
+ * It may be defined as volatile, slibc does not do
+ * this however because it is good practice to do
+ * so explcitily when using the `sig_atomic_t` type.
+ */
+#if defined(__NEED_sig_atomic_t) && !defined(__DEFINED_sig_atomic_t)
+# define __DEFINED_sig_atomic_t
+typedef int sig_atomic_t;
+# define __SIG_ATOMIC_BIT  __INT_BIT
 #endif
 
