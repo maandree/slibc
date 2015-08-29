@@ -41,6 +41,40 @@
 volatile int* __errno(void) __GCC_ONLY(__attribute__((__const__))); /* TODO not implemented */
 
 
+/**
+ * This is the name that was used to invoke the program
+ * running in the current process. This is the value
+ * of `argv[0]` from the `main` function (where `argv`
+ * is the second parameter). If `argc` is zero, this
+ * variable will have the value `NULL`. This is not
+ * necessarily a proper comman name. For example,
+ * login shells are usually prefixes with a dash,
+ * for example "-bash", despite that there is no such
+ * command. Often, but not always, this will not contain
+ * directory.
+ * 
+ * This string may be edited if `program_invocation_short_name`
+ * or `argv[0]` is edited.
+ * 
+ * This is a GNU and slibc extension.
+ */
+#if defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)
+extern char* program_invocation_name; /* TODO not implemented */
+#endif
+
+/**
+ * Variant of `program_invocation_name` that is
+ * guaranteed to not include the directory.
+ * 
+ * This string may be edited if `program_invocation_name`
+ * or `argv[0]` is edited.
+ * 
+ * This is a GNU extension.
+ */
+#if defined(_GNU_SOURCE)
+extern char* program_invocation_short_name; /* TODO not implemented */
+#endif
+
 
 #endif
 
