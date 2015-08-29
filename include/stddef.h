@@ -24,9 +24,10 @@
 /**
  * `NULL` is a zero-values constant, conventionally
  * a `void`-pointer (it is specified this way in
- * POSIX, it does not really matter and ISO C does
- * not specify it this way), use to indicate that
- * a pointer does not point to anything.
+ * POSIX, it does not really matter as long as it has
+ * the same width and ISO C does not specify it this
+ * way), use to indicate that a pointer does not point
+ * to anything.
  */
 #define NULL  ((void*)0)
 
