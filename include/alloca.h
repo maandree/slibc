@@ -17,6 +17,7 @@
  */
 #ifndef _ALLOCA_H
 #define _ALLOCA_H
+#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
 
 
@@ -47,5 +48,6 @@ void* alloca(size_t size);
 
 
 
+#endif
 #endif
 

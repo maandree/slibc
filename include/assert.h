@@ -58,6 +58,7 @@
 #define static_assert _Static_assert
 
 
+#ifndef _PORTABLE_SOURCE
 /**
  * Unless `NDEBUG` is defined, print an error message
  * and abort the process, if `errnum` is non-zero.
@@ -90,6 +91,7 @@
  */
 void __assert_fail(const char* expression, int errnum, const char* file, int line, const char* func)
   __noreturn __GCC_ONLY(__attribute__((nonnull(3, 4, 5))));
+#endif
 
 
 

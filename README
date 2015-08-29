@@ -5,3 +5,12 @@ slibc does not aim to support C++, or any other
 language than C. Furthermore, it does not try
 to support older versions of C than C99.
 
+
+Macro definitions:
+
+	_SLIBC_SOURCE             -- Enable slibc extensions.
+	_GNU_SOURCE               -- Enable glibc extensions (GNU extensions.)
+	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning, this is primarily
+	                               intended to be used when compiling slibc.
+	_PORTABLE_SOURCE          -- Unconditionally disable all extensions.
+

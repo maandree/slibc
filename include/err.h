@@ -17,6 +17,7 @@
  */
 #ifndef _ERR_H
 #define _ERR_H
+#fifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
@@ -115,5 +116,6 @@ void verrx(int status, const char* format, va_list args)
 
 
 
+#endif
 #endif
 

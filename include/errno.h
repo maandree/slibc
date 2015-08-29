@@ -41,6 +41,7 @@
 volatile int* __errno(void) __GCC_ONLY(__attribute__((__const__))); /* TODO not implemented */
 
 
+#ifndef _PORTABLE_SOURCE
 /**
  * This is the name that was used to invoke the program
  * running in the current process. This is the value
@@ -73,6 +74,7 @@ extern char* program_invocation_name; /* TODO not implemented */
  */
 #if defined(_GNU_SOURCE)
 extern char* program_invocation_short_name; /* TODO not implemented */
+#endif
 #endif
 
 
