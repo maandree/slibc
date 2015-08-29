@@ -25,6 +25,8 @@
  * Print a warning to stderr, followed by a description
  * of the value of `errno`.
  * 
+ * This is a non-standard BSD extension.
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
@@ -41,6 +43,8 @@ void warn(const char* format, ...)
  * Print a warning to stderr, followed by a description
  * of the value of `errno`.
  * 
+ * This is a non-standard BSD extension.
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
@@ -53,6 +57,8 @@ void vwarn(const char* format, va_list args)
 /**
  * Print a warning to stderr, but do not print a
  * description of the value of `errno`.
+ * 
+ * This is a non-standard BSD extension.
  * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
@@ -70,6 +76,8 @@ void warnx(const char* format, ...)
  * Print a warning to stderr, but do not print a
  * description of the value of `errno`.
  * 
+ * This is a non-standard BSD extension.
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
@@ -82,6 +90,8 @@ void vwarnx(const char* format, va_list args)
 /**
  * Print an error message to stderr, followed by a
  * description of the value of `errno`. Then exit the process.
+ * 
+ * This is a non-standard BSD extension.
  * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
@@ -100,6 +110,8 @@ void err(int status, const char* format, ...)
  * Print an error message to stderr, followed by a
  * description of the value of `errno`. Then exit the process.
  * 
+ * This is a non-standard BSD extension.
+ * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
@@ -113,6 +125,8 @@ void verr(int status, const char* format, va_list args)
 /**
  * Print an error message to stderr, but do not print a
  * description of the value of `errno`. Then exit the process.
+ * 
+ * This is a non-standard BSD extension.
  * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
@@ -130,6 +144,8 @@ void errx(int status, const char* format, ...)
 /**
  * Print an error message to stderr, but do not print a
  * description of the value of `errno`. Then exit the process.
+ * 
+ * This is a non-standard BSD extension.
  * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
