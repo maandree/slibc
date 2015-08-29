@@ -34,8 +34,7 @@
  * @param  line        The line in the source code whence the assertion was made
  * @param  func        The function in the source code whence the assertion was made
  */
-void
-__assert_fail(const char* expression, int errnum, const char* file, int line, const char* func)
+void __assert_fail(const char* expression, int errnum, const char* file, int line, const char* func)
 {
   int tty = isatty(STDERR_FILENO);
   

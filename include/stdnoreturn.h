@@ -20,12 +20,15 @@
 #include <slibc/version.h>
 
 
+#include <slibc/features.h>
+
+
 
 /**
  * Specifies that a function never returns, that is,
  * the process exits before the function returns.
  */
-#if __STDC_VERSION__ < 201112L && defined(__GNUC__)
+#if !defined(__C11__) && defined(__GNUC__)
 # define _Noreturn  __attribute__((noreturn))
 #endif
 #define noreturn  _Noreturn

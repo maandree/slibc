@@ -19,6 +19,31 @@
 #define _SLIBC_FEATURES_H
 
 
+/* These definitions are only to be used in slibc header-files. */
+
+
+/**
+ * Is C11, or newer, used?
+ */
+#if __STDC_VERSION__ >= 201112L
+# define __C11__
+#endif
+
+/**
+ * Is C99, or newer, used?
+ */
+#if __STDC_VERSION__ >= 199901L
+# define __C99__
+#endif
+
+/**
+ * Is C90, or newer, used?
+ */
+#if defined(__STDC_VERSION__) || defined(__STDC__)
+# define __C90__
+#endif
+
+
 
 /**
  * Macro used to exclude code unless GCC is used.
@@ -27,6 +52,19 @@
 # define __GCC_ONLY(...)   __VA_ARGS__
 #else
 # define __GCC_ONLY(...)   /* ignore */
+#endif
+
+
+/**
+ * Specifies that a function never returns, that is,
+ * the process exits before the function returns.
+ */
+#if !defined(__C11__) && defined(__GNUC__)
+# define __noreturn  __attribute__((noreturn))
+#elif defined(__C11__)
+# define __noreturn  _Noreturn
+#else
+# define __noreturn  /* ignore */
 #endif
 
 

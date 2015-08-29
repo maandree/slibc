@@ -75,7 +75,6 @@
 #else
 # define assert_perror(errnum)  \
   ((void)((errnum == 0) ? 0 : (__assert_fail(NULL, errnum, __FILE__, __LINE__, __func__), 0)))
-__USE_GNU
 #endif
 
 
@@ -89,8 +88,8 @@ __USE_GNU
  * @param  line        The line in the source code whence the assertion was made
  * @param  func        The function in the source code whence the assertion was made
  */
-void __GCC_ONLY(__attribute__((noreturn, nonnull(3, 4, 5))))
-__assert_fail(const char* expression, int errnum, const char* file, int line, const char* func);
+void __assert_fail(const char* expression, int errnum, const char* file, int line, const char* func)
+  __noreturn __GCC_ONLY(__attribute__((nonnull(3, 4, 5))));
 
 
 

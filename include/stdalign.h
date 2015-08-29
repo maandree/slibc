@@ -20,13 +20,16 @@
 #include <slibc/version.h>
 
 
+#include <slibc/features.h>
+
+
 
 /**
  * Specify the alignment of a variable.
  * 
  * @param  type  The type whose alignment shall be used.
  */
-#if __STDC_VERSION__ < 201112L && defined(__GNUC__)
+#if !defined(__C11__) && defined(__GNUC__)
 # define _Alignas(type)  __attribute__((__aligned__(type)))
 #endif
 #define alignas(type)  _Alignas(type)
@@ -38,7 +41,7 @@
  * @param   type  The type.
  * @return        The alignment of the type.
  */
-#if __STDC_VERSION__ < 201112L && defined(__GNUC__)
+#if !defined(__C11__) && defined(__GNUC__)
 # define _Alignof(type)  __alignof__(type)
 #endif
 #define alignof(type)  _Alignof(type)
