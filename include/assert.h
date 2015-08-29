@@ -20,6 +20,9 @@
 #include <slibc/version.h>
 
 
+#include <slibc/features.h>
+
+
 
 /* The `assert` macro shall be redefined according to the the
  * current state of `NDEBUF` each time <assert.h> is included. */
@@ -86,7 +89,7 @@ __USE_GNU
  * @param  line        The line in the source code whence the assertion was made
  * @param  func        The function in the source code whence the assertion was made
  */
-void __attribute__((noreturn, nonnull(3, 4, 5)))
+void __GCC_ONLY(__attribute__((noreturn, nonnull(3, 4, 5))))
 __assert_fail(const char* expression, int errnum, const char* file, int line, const char* func);
 
 
