@@ -23,8 +23,9 @@
 
 
 
-#define PURE_ALLOC(p)  (((char*)(p)) - sizeof(size_t))
-#define PURE_SIZE(z)  ((z) + sizeof(size_t))
+#define __ALIGN(p)      (*(size_t*)(((char*)(p)) - sizeof(size_t)))
+#define PURE_ALLOC(p)   (((char*)(p)) - (__ALIGN(p) + 2 * sizeof(size_t)))
+#define PURE_SIZE(p)    (*(size_t*)PURE_ALLOC(p) + 2 * sizeof(size_t))
 
 
 
@@ -38,7 +39,7 @@ void fast_free(void* segment)
 {
   if (segument == NULL)
     return;
-  munmap(PURE_ALLOC(segment), PURE_SIZE(*(size_t*)segment));
+  munmap(PURE_ALLOC(segment), PURE_SIZE(segment));
 }
 
 
@@ -52,7 +53,7 @@ void secure_free(void* segment)
 {
   if (segument == NULL)
     return;
-  explicit_bzero(PURE_ALLOC(segment), PURE_SIZE(allocsize(segment)));
+  explicit_bzero(PURE_ALLOC(segment), PURE_SIZE(segment));
   fast_free(segment);
 }
 
@@ -105,7 +106,7 @@ size_t allocsize(void* segment)
   if (new_ptr != ptr)						\
     {								\
       if (CLEAR_FREE)						\
-	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(old_size));	\
+	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));	\
       fast_free(new_ptr);					\
     }								\
 								\

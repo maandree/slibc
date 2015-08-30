@@ -19,6 +19,8 @@
 #include <slibc-alloc.h>
 #include <strings.h>
 #include <sys/mman.h>
+#include <unistd.h>
+#include <errno.h>
 
 
 
@@ -40,12 +42,19 @@ void* malloc(size_t size)
 {
   /* TODO implement implementation of malloc */
   char* ptr;
+  size_t full_size;
+  
   if (size == 0)
     return NULL;
-  ptr = mmap(NULL, sizeof(size_t) + size, (PROT_READ | PROT_WRITE),
+  if (__builtin_uaddl_overflow(2 * sizeof(size_t), size, &full_size))
+    return errno = ENOMEM, NULL;
+  
+  ptr = mmap(NULL, full_size, (PROT_READ | PROT_WRITE),
 	     (MAP_PRIVATE | MAP_ANONYMOUS), -1, 0);
-  *(size_t*)ptr = size;
-  return ptr + sizeof(size_t);
+  
+  ((size_t*)ptr)[0] = size;
+  ((size_t*)ptr)[1] = 0;
+  return ptr + 2 * sizeof(size_t);
 }
 
 
@@ -68,9 +77,16 @@ void* malloc(size_t size)
  */
 void* calloc(size_t elem_count, size_t elem_size)
 {
-  void* ptr = malloc(elem_count * elem_size);
+  void* ptr;
+  size_t size;
+  
+  if (__builtin_umull_overflow(elem_count, elem_size, &size))
+    return errno = ENOMEM, NULL;
+  
+  ptr = malloc(size);
   if (ptr != NULL)
-    explicit_bzero(ptr, elem_count * elem_size);
+    explicit_bzero(ptr, size);
+  
   return ptr;
 }
 
@@ -130,5 +146,164 @@ void free(void* ptr)
 void cfree(void* ptr, ...)
 {
   fast_free(ptr);
+}
+
+
+/**
+ * Variant of `malloc` that returns an address with a
+ * specified alignment.
+ * 
+ * It is unspecified how the function works. This implemention
+ * will allocate a bit of extra memory and shift the returned
+ * pointer so that it is aligned.
+ * 
+ * As a GNU-compliant slibc extension, memory allocated
+ * with this function can be freed with `free`.
+ * 
+ * @param   boundary  The alignment.
+ * @param   size      The number of bytes to allocated.
+ * @return            Pointer to the beginning of the new allocation.
+ *                    If `size` is zero, this function will either return
+ *                    `NULL` (that is what this implement does) or return
+ *                    a unique pointer that can later be freed with `free`.
+ *                    `NULL` is returned on error, and `errno` is set to
+ *                    indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ * @throws  EINVAL  If `boundary` is not a power of two.
+ */
+void* memalign(size_t boundary, size_t size)
+{
+  char* ptr;
+  size_t full_size;
+  size_t address;
+  size_t shift = 0;
+  
+  if (!boundary || (__builtin_ffsl(boundary) != boundary))
+    return errno = EINVAL, NULL;
+  if (__builtin_uaddl_overflow(boundary - 1, size, &full_size))
+    return errno = ENOMEM, NULL;
+  
+  ptr = malloc(full_size);
+  if (ptr == NULL)
+    return NULL;
+  
+  address = (size_t)ptr;
+  if (address % boundary != 0)
+    {
+      shift = boundary - (address % boundary);
+      ptr += shift;
+      *(size_t*)(ptr - sizeof(size_t)) = shift;
+    }
+  
+  return ptr;
+}
+
+
+/**
+ * `posix_memalign(p, b, n)` is equivalent to
+ * `(*p = memalign(b, n), *p ? 0 : errno)`, except
+ * `boundary` must also be a multiple of `sizeof(void*)`,
+ * and `errno` is unspecified.
+ * 
+ * As a GNU-compliant slibc extension, memory allocated
+ * with this function can be freed with `free`.
+ * 
+ * @param   ptrptr    Output parameter for the allocated memory.
+ * @param   boundary  The alignment.
+ * @param   size      The number of bytes to allocated.
+ * @return            Zero on success, a value for `errno` on error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ * @throws  EINVAL  If `boundary` is not a power-of-two multiple of `sizeof(void*)`.
+ */
+int posix_memalign(void** ptrptr, size_t boundary, size_t size)
+{
+  if (boundary < sizeof(void*))
+    return EINVAL;
+  *ptrptr = memalign(boundary, size);
+  return *ptrptr ? 0 : errno;
+}
+
+
+/**
+ * `valloc(n)` is equivalent to `memalign(sysconf(_SC_PAGESIZE), n)`.
+ * 
+ * As a GNU-compliant slibc extension, memory allocated
+ * with this function can be freed with `free`.
+ * 
+ * @param   size  The number of bytes to allocated.
+ * @return        Pointer to the beginning of the new allocation.
+ *                If `size` is zero, this function will either return
+ *                `NULL` (that is what this implement does) or return
+ *                a unique pointer that can later be freed with `free`.
+ *                `NULL` is returned on error, and `errno` is set to
+ *                indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* valloc(size_t size)
+{
+  return memalign((size_t)sysconf(_SC_PAGESIZE), size);
+}
+
+
+/**
+ * This function works like `valloc`, except the allocation size,
+ * including auxiliary space, is rounded up to the next multiple
+ * of the page size.
+ * 
+ * @param   size    The number of bytes to allocated.
+ * @return          Pointer to the beginning of the new allocation.
+ *                  If `size` is zero, this function will either return
+ *                  `NULL` (that is what this implement does) or return
+ *                  a unique pointer that can later be freed with `free`.
+ *                  `NULL` is returned on error, and `errno` is set to
+ *                  indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* pvalloc(size_t size)
+{
+  size_t boundary = (size_t)sysconf(_SC_PAGESIZE);
+  size_t full_size = 2 * sizeof(size_t) + boundary - 1 + size;
+  size_t rounding = 0;
+  
+  if (full_size % boundary != 0)
+      rounding = boundary - (full_size % boundary);
+  
+  if (__builtin_uaddl_overflow(size, rounding, &full_size))
+    return errno = ENOMEM, NULL;
+  
+  return memalign(boundary, full_size);
+}
+
+
+/**
+ * This function is identical to `memalign`,
+ * except it can be freed with `free`.
+ * 
+ * Variant of `malloc` that returns an address with a
+ * specified alignment.
+ * 
+ * It is unspecified how the function works. This implemention
+ * will allocate a bit of extra memory and shift the returned
+ * pointer so that it is aligned.
+ * 
+ * @param   boundary  The alignment.
+ * @param   size      The number of bytes to allocated.
+ * @return            Pointer to the beginning of the new allocation.
+ *                    If `size` is zero, this function will either return
+ *                    `NULL` (that is what this implement does) or return
+ *                    a unique pointer that can later be freed with `free`.
+ *                    `NULL` is returned on error, and `errno` is set to
+ *                    indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ * @throws  EINVAL  If `boundary` is not a power of two.
+ */
+void* aligned_alloc(size_t boundary, size_t size)
+{
+  return memalign(boundary, size);
 }
 
