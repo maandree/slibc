@@ -20,6 +20,9 @@
 #include <slibc/version.h>
 
 
+#include <slibc/features.h>
+
+
 
 #define __NEED_size_t
 #define __NEED_locale_t /* TODO not defined */
