@@ -222,8 +222,7 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((__const__))); /* TODO no
  *                       no description other than the location and `error_string` should be printed.
  * @param  ...           Formatting-arguments for `format`.
  */
-void slibc_perror(const char* progname, const char* filename, int linenum, const char* function,
-		  int* error_code, const char* error_string, const char* format, ...)
+void slibc_perror(const char*, const char*, int, const char*, int*, const char*, const char*, ...)
   __GCC_ONLY(__attribute__((nonnull(2, 4), format(printf, 7, 8))));
 
 

@@ -43,7 +43,7 @@
  * @param  format  Formatting-string for a detailed description of what happend.
  * @param  args    Formatting-arguments for `format`.
  */
-void error(int status, int errnum, const char* format, ...)
+void error(int, int, const char*, ...)
   __GCC_ONLY(__attribute__((format(printf, 3, 4))));
 
 /**
@@ -60,7 +60,7 @@ void error(int status, int errnum, const char* format, ...)
  * @param  args    Formatting-arguments for `format`.
  */
 #if defined(_SLIBC_SOURCE)
-void verror(int status, int errnum, const char* format, va_list args);
+void verror(int, int, const char*, va_list);
 #endif
 
 
@@ -80,8 +80,7 @@ void verror(int status, int errnum, const char* format, va_list args);
  * @param  format    Formatting-string for a detailed description of what happend.
  * @param  args      Formatting-arguments for `format`.
  */
-void error_at_line(int status, int errnum, const char* filename,
-		   unsigned int linenum, const char* format, ...)
+void error_at_line(int, int, const char*, unsigned int, const char*, ...)
   __GCC_ONLY(__attribute__((format(printf, 5, 6))));
 
 /**
@@ -101,8 +100,7 @@ void error_at_line(int status, int errnum, const char* filename,
  * @param  args      Formatting-arguments for `format`.
  */
 #if defined(_SLIBC_SOURCE)
-void verror_at_line(int status, int errnum, const char* filename,
-		    unsigned int linenum, const char* format, va_list args);
+void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
 #endif
 
 

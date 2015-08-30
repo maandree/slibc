@@ -39,7 +39,7 @@
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
-void warn(const char* format, ...)
+void warn(const char*, ...)
   __GCC_ONLY(__attribute__((format(printf, 1, 2))));
 
 /**
@@ -51,7 +51,7 @@ void warn(const char* format, ...)
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
-void vwarn(const char* format, va_list args);
+void vwarn(const char*, va_list);
 
 /**
  * Print a warning to stderr, but do not print a
@@ -62,7 +62,7 @@ void vwarn(const char* format, va_list args);
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
-void warnx(const char* format, ...)
+void warnx(const char*, ...)
   __GCC_ONLY(__attribute__((format(printf, 1, 2))));
 
 /**
@@ -74,7 +74,7 @@ void warnx(const char* format, ...)
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
-void vwarnx(const char* format, va_list args);
+void vwarnx(const char*, va_list);
 
 /**
  * Print an error message to stderr, followed by a
@@ -86,7 +86,7 @@ void vwarnx(const char* format, va_list args);
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
-void err(int status, const char* format, ...)
+void err(int, const char*, ...)
   __noreturn __GCC_ONLY(__attribute__((format(printf, 2, 3))));
 
 /**
@@ -99,7 +99,7 @@ void err(int status, const char* format, ...)
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
-void verr(int status, const char* format, va_list args) __noreturn;
+void verr(int, const char*, va_list) __noreturn;
 
 /**
  * Print an error message to stderr, but do not print a
@@ -111,7 +111,7 @@ void verr(int status, const char* format, va_list args) __noreturn;
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
-void errx(int status, const char* format, ...)
+void errx(int, const char*, ...)
   __noreturn __GCC_ONLY(__attribute__((format(printf, 2, 3))));
 
 /**
@@ -124,7 +124,7 @@ void errx(int status, const char* format, ...)
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
-void verrx(int status, const char* format, va_list args) __noreturn;
+void verrx(int, const char*, va_list) __noreturn;
 
 
 

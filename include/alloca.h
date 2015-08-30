@@ -41,7 +41,7 @@
  *                space. Do not free it, it will be freed
  *                automatically when the function returns.
  */
-void* alloca(size_t size);
+void* alloca(size_t);
 #if defined(__GNUC__)
 # define alloca(size)  __builtin_alloca(size)
 #endif

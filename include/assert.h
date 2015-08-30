@@ -89,7 +89,7 @@
  * @param  line        The line in the source code whence the assertion was made
  * @param  func        The function in the source code whence the assertion was made
  */
-void __assert_fail(const char* expression, int errnum, const char* file, int line, const char* func)
+void __assert_fail(const char*, int, const char*, int, const char*)
   __noreturn __GCC_ONLY(__attribute__((nonnull(3, 4, 5))));
 #endif
 
