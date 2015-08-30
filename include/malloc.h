@@ -241,6 +241,21 @@ void* aligned_alloc(size_t, size_t)
 #endif
 
 
+#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+/**
+ * This function returns the allocation size of
+ * a memory segment.
+ * 
+ * `p = malloc(n), malloc_usable_size(p)` will return `n`.
+ * 
+ * @param   segment  The memory segment.
+ * @return           The size of the memory segment, 0 if `segment` is `NULL`.
+ */
+size_t malloc_usable_size(void*)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+#endif
+
+
 
 #endif
 

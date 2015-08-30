@@ -307,3 +307,18 @@ void* aligned_alloc(size_t boundary, size_t size)
   return memalign(boundary, size);
 }
 
+
+/**
+ * This function returns the allocation size of
+ * a memory segment.
+ * 
+ * `p = malloc(n), malloc_usable_size(p)` will return `n`.
+ * 
+ * @param   segment  The memory segment.
+ * @return           The size of the memory segment, 0 if `segment` is `NULL`.
+ */
+size_t malloc_usable_size(void* segment)
+{
+  return allocsize(segment);  
+}
+
