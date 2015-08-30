@@ -43,7 +43,7 @@ void __assert_fail(const char* expression, int errnum, const char* file, int lin
 	    "%(\033[31m%)assertion error%(\033[00m%) "
 	    "at line %(\033[33m%)%i%(\033[00m%) "
 	    "of file %(\033[35m%)%s%(\033[00m%), "
-	    "function %(\033[34m%)%s%(\033[00m%): "
+	    "function %(\033[1;34m%)%s%(\033[00m%): "
 	    "%(\033[31m%)%(exression failed: %)%s%(\033[00m%)\n"),
 	  tty, program_invocation_name, tty,
 	  tty, tty,
