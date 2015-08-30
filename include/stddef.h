@@ -28,6 +28,18 @@
  * the same width and ISO C does not specify it this
  * way), use to indicate that a pointer does not point
  * to anything.
+ * 
+ * Note on considerations of `NULL` being harmful:
+ *   It is important to remember than `sizeof(NULL)`
+ *   does not equal `sizeof(int)` on all machines.
+ *   Therefore, in variadic arguments, it is important
+ *   not to substitute `x` for `x != NULL`. This
+ *   would cause horrible bugs. If you insist on not
+ *   using `NULL`, correct substitutions would be
+ *   `!!x` or `x != 0`.
+ * Note that `NULL` is genuinely harmful in C++,
+ * but excessive use of C++, and especially it
+ * features, is harmful too.
  */
 #ifndef NULL
 # define NULL  ((void*)0)
