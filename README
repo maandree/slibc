@@ -8,10 +8,21 @@ to support older versions of C than C99.
 
 Macro definitions:
 
-	_SLIBC_SOURCE             -- Enable slibc extensions.
+	_SLIBC_SOURCE             -- Enable slibc extensions. These extensions
+	                               are usually extensions introduced in other
+	                               C libraries, but are considered good extensions.
 	_GNU_SOURCE               -- Enable glibc extensions (GNU extensions.)
 	_BSD_SOURCE               -- Enable BSD extensions.
 	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning, this is primarily
 	                               intended to be used when compiling slibc.
 	_PORTABLE_SOURCE          -- Unconditionally disable all extensions.
+
+
+slibc provides some slib-specific extensions that
+do not require _SLIBC_SOURCE. (They are however
+disabled if _PORTABLE_SOURCE is defined.) These
+extensions are defined in header files whose
+name starts with `slibc-`. Headers starting with
+`slibc/` are not extensions, those are internals
+that may change at any time.
 
