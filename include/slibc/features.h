@@ -80,6 +80,16 @@
 #endif
 
 
+/**
+ * Macro used to exclude code unless `_SLIBC_SOURCE` is set.
+ */
+#if defined(_SLIBC_SOURCE)
+# define __SLIBC_ONLY(...)   __VA_ARGS__
+#else
+# define __SLIBC_ONLY(...)   /* ignore */
+#endif
+
+
 
 #endif
 
