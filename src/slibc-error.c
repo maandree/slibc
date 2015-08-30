@@ -15,6 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <slibc/internals.h>
 #include <slibc-error.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -56,12 +57,12 @@ void slibc_perror(const char* progname, const char* filename, int linenum, const
       if (error_string == NULL)
 	error_string = strerror(*error_code);
       fflush(stdout);
-      fprintf(stderr, "%(\033[0;1;31m%)%s%(\033[21m%): %s%(\033[0m%)\n",
+      fprintf(stderr, _("%(\033[0;1;31m%)%s%(\033[21m%): %s%(\033[0m%)\n"),
               tty, progname, tty, error_string, tty);
     }
   
-  fprintf(stderr, "  at \033[1;34m%s\033[0m (\033[35m%s\033[0m:\033[32m%i\033[0m)",
-          function, filename, linenum);
+  fprintf(stderr, _("  at %(\033[1;34m%)%s%(\033[0m%) (%(\033[35m%)%s%(\033[0m%):%(\033[32m%)%i%(\033[0m%))"),
+          tty, function, tty, tty, filename, tty, tty, linenum, tty);
   if (format != NULL)
     {
       fprintf(stderr, "\n    ");
