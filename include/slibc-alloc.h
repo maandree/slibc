@@ -58,6 +58,18 @@ void secure_free(void*);
  */
 size_t allocsize(void*); /* TODO not implemented */
 
+/**
+ * Variant of `realloc` that overrides newly allocated space
+ * with zeroes. Additionally, it will override any freed space
+ * with zeroes, including the old allocation if it creates a
+ * new allocation.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @return        The new allocation, see `realloc` for more details.
+ */
+void* crealloc(void*, size_t); /* TODO not implemented */
+
 
 /**
  * This macro calls `fast_free` and then sets the pointer to `NULL`,
