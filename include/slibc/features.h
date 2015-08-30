@@ -72,9 +72,9 @@
  * Macro used to exclude code unless `_SLIBC_SOURCE` is set.
  */
 #if defined(_SLIBC_SOURCE)
-# define __SLIBC_ONLY(...)   __VA_ARGS__
+# define __SLIBC_ONLY(...)  __VA_ARGS__
 #else
-# define __SLIBC_ONLY(...)   /* ignore */
+# define __SLIBC_ONLY(...)  /* ignore */
 #endif
 
 
@@ -94,10 +94,10 @@
  * Warn if a function, variable or type is used.
  */
 #if !defined(_SLIBC_SUPPRESS_WARNINGS)
-# define __warning(msg)  __GCC_ONLY(__attribute__((warning(msg))))
+# define __warning(msg)        __GCC_ONLY(__attribute__((warning(msg))))
 # define __slibc_warning(msg)  __SLIBC_ONLY(__warning(msg))
 #else
-# define __warning(msg)  /* ignore */
+# define __warning(msg)        /* ignore */
 # define __slibc_warning(msg)  /* ignore */
 #endif
 
