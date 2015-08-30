@@ -54,9 +54,12 @@ void secure_free(void*);
  * @throws  EINVAL  If `segment` is `NULL`.
  * @throws  EFAULT  If `segment` is not a pointer to an allocation
  *                  on the heap, or was not allocated with a function
- *                  implemented in slibc.
+ *                  implemented in slibc. It is however not guaranteed
+ *                  that this will happen, undefined behaviour may be
+ *                  invoked instead.
  */
-size_t allocsize(void*); /* TODO not implemented */
+size_t allocsize(void*)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
 
 /**
  * Variant of `realloc` that overrides newly allocated space
@@ -67,8 +70,53 @@ size_t allocsize(void*); /* TODO not implemented */
  * @param   ptr   The old allocation, see `realloc` for more details.
  * @param   size  The new allocation size, see `realloc` for more details.
  * @return        The new allocation, see `realloc` for more details.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
  */
-void* crealloc(void*, size_t); /* TODO not implemented */
+void* crealloc(void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+/**
+ * This function behaves exactly like `realloc`, except it is
+ * guaranteed to never initialise or errors data.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @return        The new allocation, see `realloc` for more details.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* fast_realloc(void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+/**
+ * This function behaves exactly like `crealloc`, except it
+ * does not initialise newly allocated size.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @return        The new allocation, see `realloc` for more details.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* secure_realloc(void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+/**
+ * This function behaves exactly like `fast_realloc`, except:
+ * - Its haviour is undefined if `ptr` is `NULL`.
+ * - Its haviour is undefined `size` equals the old allocation size.
+ * - Its haviour is undefined if `size` is zero.
+ * - It will never free `ptr`.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @return        The new allocation, see `realloc` for more details.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* naive_realloc(void*, size_t) /* sic! we limit ourself to ASCII */
+  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
 
 
 /**

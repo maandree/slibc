@@ -29,7 +29,9 @@
  * way), use to indicate that a pointer does not point
  * to anything.
  */
-#define NULL  ((void*)0)
+#ifndef NULL
+# define NULL  ((void*)0)
+#define
 
 
 /**
