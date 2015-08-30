@@ -10,6 +10,7 @@ Macro definitions:
 
 	_SLIBC_SOURCE             -- Enable slibc extensions.
 	_GNU_SOURCE               -- Enable glibc extensions (GNU extensions.)
+	_BSD_SOURCE               -- Enable BSD extensions.
 	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning, this is primarily
 	                               intended to be used when compiling slibc.
 	_PORTABLE_SOURCE          -- Unconditionally disable all extensions.

@@ -68,6 +68,18 @@
 #endif
 
 
+/**
+ * Mark a function, variable or type as deprecated,
+ * with a message that tells the user why the the
+ * function is deprecated, or functions to use instead.
+ */
+#if !defined(_SLIBC_SUPPRESS_WARNINGS)
+# define __deprecated(msg)  __GCC_ONLY(__attribute__((deprecated(msg))))
+#else
+# define __deprecated(msg)  /* ignore */
+#endif
+
+
 
 #endif
 
