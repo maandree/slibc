@@ -255,6 +255,8 @@ size_t malloc_usable_size(void*)
   __GCC_ONLY(__attribute__((warn_unused_result)));
 #endif
 
+/* TODO add mallopt, M_TRIME_THRESHOLD, M_TOP_PAD, M_MMAP_THRESHOLD, and M_MMAP_MAX */
+/* TODO add struct mallinfo, and mallinfo */
 
 
 #endif
