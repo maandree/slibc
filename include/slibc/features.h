@@ -25,7 +25,7 @@
 /**
  * Is C11, or newer, used?
  */
-#if __STDC_VERSION__ >= 201112L
+#if __STDC_VERSION__ >= 201112L || defined(_ISOC11_SOURCE)
 # define __C11__
 #endif
 
