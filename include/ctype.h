@@ -265,5 +265,9 @@ int _toupper(int)
 
 
 
+/* TODO _l variants */
+
+
+
 #endif
 
