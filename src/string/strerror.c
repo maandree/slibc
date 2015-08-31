@@ -70,12 +70,13 @@ char* strerror_l(int errnum, locale_t locale)
 
 
 /**
- * Reenterant variant of `stderror`.
+ * Reenterant variant of `strerror`.
  * 
  * This is an XSI-compliant extension. However the name
  * is not part of the XSI specification, `strerror_r`
  * should be used. It is defined to this function if
  * `(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && !_GNU_SOURCE`.
+ * However it is not defined if _SLIBC_SOURCE is defined.
  * 
  * @param   errnum  The error code.
  * @param   buf     Buffer where the description shall be stored.
@@ -104,12 +105,13 @@ int __xsi_strerror_r(int errnum, char* buf, size_t buflen)
 
 
 /**
- * Reenterant variant of `stderror`.
+ * Reenterant variant of `strerror`.
  * 
  * This is a GNU-specific extension. However the name
  * is not part of the GNU specification, `strerror_r` should
  * be used. It is defined to this function unless
  * `(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && !_GNU_SOURCE`.
+ * However it is not defined if _SLIBC_SOURCE is defined.
  * 
  * @param   errnum  The error code.
  * @param   buf     Buffer where the description shall be stored.
