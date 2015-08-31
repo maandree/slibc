@@ -116,6 +116,7 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
 #endif
 
 
+
 /**
  * Returns the number of bytes in a NUL-terminated
  * string. This excludes the NUL byte.
@@ -702,6 +703,49 @@ void* memdup(const void*, size_t)
 #  endif
 # endif
 #endif
+
+
+
+/**
+ * Compare two memory segments alphabetically in a case sensitive manner.
+ * 
+ * @param   a     A negetive value is returned if this is the lesser.
+ * @param   b     A positive value is returned if this is the lesser.
+ * @param   size  The size of the segments.
+ * @return        Zero is returned if `a` and `b` are equal, otherwise,
+ *                see the specifications for `a` and `b`.
+ */
+int memcmp(const void*, const void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+/**
+ * Compare two strings alphabetically in a case sensitive manner.
+ * 
+ * @param   a  A negetive value is returned if this is the lesser.
+ * @param   b  A positive value is returned if this is the lesser.
+ * @return     Zero is returned if `a` and `b` are equal, otherwise,
+ *             see the specifications for `a` and `b`.
+ */
+int strcmp(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Compare two strings alphabetically in a case sensitive manner.
+ * 
+ * @param   a       A negetive value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   length  The maximum number of characters to compare.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
+ */
+int strncmp(const char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+int strverscmp(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull))); /* TODO document and implement strverscmp */
+#end if
 
 
 

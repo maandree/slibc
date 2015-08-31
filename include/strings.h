@@ -23,7 +23,6 @@
 
 
 #define __NEED_size_t
-
 #include <bits/types.h>
 
 
@@ -59,6 +58,41 @@ void explicit_bzero(void*, size_t);
  */
 void bcopy(const void*, void*, size_t)
   __deprecated("Use 'memmove', or similar function, instead, but be aware of reordered paramters.");
+
+/**
+ * This function is identical to `memcmp`.
+ */
+int bcmp(const void*, const void*, size_t)
+  __deprecated("Use 'memcmp' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+
+/**
+ * Compare two strings alphabetically in a case insensitive manner.
+ * Be aware, only ASCII characters are case insensitive, non-ASCII
+ * characters are case sensitive.
+ * 
+ * @param   a  A negetive value is returned if this is the lesser.
+ * @param   b  A positive value is returned if this is the lesser.
+ * @return     Zero is returned if `a` and `b` are equal, otherwise,
+ *             see the specifications for `a` and `b`.
+ */
+int strcasecmp(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Compare two strings alphabetically in a case insensitive manner.
+ * Be aware, only ASCII characters are case insensitive, non-ASCII
+ * characters are case sensitive.
+ * 
+ * @param   a       A negetive value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   length  The maximum number of characters to compare.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
+ */
+int strncasecmp(const char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
 
 
 

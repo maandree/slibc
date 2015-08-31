@@ -631,6 +631,78 @@ wchar_t* wmemdup(const wchar_t*, size_t)
 
 
 
+/**
+ * Compare two memory segments alphabetically in a case sensitive manner.
+ * 
+ * @param   a     A negetive value is returned if this is the lesser.
+ * @param   b     A positive value is returned if this is the lesser.
+ * @param   size  The size of the segments.
+ * @return        Zero is returned if `a` and `b` are equal, otherwise,
+ *                see the specifications for `a` and `b`.
+ */
+int wmemcmp(const wchar_t*, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+/**
+ * Compare two strings alphabetically in a case sensitive manner.
+ * 
+ * @param   a  A negetive value is returned if this is the lesser.
+ * @param   b  A positive value is returned if this is the lesser.
+ * @return     Zero is returned if `a` and `b` are equal, otherwise,
+ *             see the specifications for `a` and `b`.
+ */
+int wcscmp(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+/**
+ * Compare two strings alphabetically in a case insensitive manner.
+ * Be aware, only ASCII characters are case insensitive, non-ASCII
+ * characters are case sensitive.
+ * 
+ * This is a GNU-compliant slibc extension.
+ * 
+ * @param   a  A negetive value is returned if this is the lesser.
+ * @param   b  A positive value is returned if this is the lesser.
+ * @return     Zero is returned if `a` and `b` are equal, otherwise,
+ *             see the specifications for `a` and `b`.
+ */
+int wcscasecmp(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Compare two strings alphabetically in a case sensitive manner.
+ * 
+ * This is a GNU-compliant slibc extension.
+ * 
+ * @param   a       A negetive value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   length  The maximum number of characters to compare.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
+ */
+int wcsncmp(const wchar_t*, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Compare two strings alphabetically in a case insensitive manner.
+ * Be aware, only ASCII characters are case insensitive, non-ASCII
+ * characters are case sensitive.
+ * 
+ * This is a GNU-compliant slibc extension.
+ * 
+ * @param   a       A negetive value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   length  The maximum number of characters to compare.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
+ */
+int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+#endif
+
+
+
 #endif
 #endif
 
