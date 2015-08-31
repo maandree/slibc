@@ -23,7 +23,6 @@
 
 
 #define __NEED_size_t
-#define __NEED_wchar_t
 #define __NEED_locale_t /* TODO not defined */
 
 #include <bits/types.h>
@@ -656,7 +655,7 @@ void* memdup(const void*, size_t)
     const char* __s = (string);				\
     size_t __n = strlen(__s) + 1;			\
     char* __r = __builtin_alloca(__n * sizeof(char));	\
-    memcpy(__r, __s, __n);				\
+    memcpy(__r, __s, __n * sizeof(char));		\
   })
 #  endif
 
@@ -678,7 +677,7 @@ void* memdup(const void*, size_t)
     const char* __s = (string);				\
     size_t __n = strnlen(__s, (maxlen)) + 1;		\
     char* __r = __builtin_alloca(__n * sizeof(char));	\
-    memcpy(__r, __s, __n);				\
+    memcpy(__r, __s, __n * sizeof(char));		\
   })
 #  endif
 
@@ -694,11 +693,11 @@ void* memdup(const void*, size_t)
  * @return  :size_t              The new segment. There is no way to
  *                               detect whether the allocation failed.
  */
-#   define memdupa(segment, size)				\
-  ({								\
-    size_t __n = (size);					\
-    wchar_t* __r = __builtin_alloca(__n * sizeof(wchar_t));	\
-    memcpy(__r, (segment), __n);				\
+#   define memdupa(segment, size)	\
+  ({					\
+    size_t __n = (size);		\
+    void* __r = __builtin_alloca(__n);	\
+    memcpy(__r, (segment), __n);	\
   })
 #  endif
 # endif

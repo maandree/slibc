@@ -33,7 +33,7 @@ char* strdup(const char* string)
 {
   size_t n = strlen(string) + 1;
   char* r = malloc(n * sizeof(char));
-  return r == NULL ? NULL : memcpy(r, string, n);
+  return r == NULL ? NULL : memcpy(r, string, n * sizeof(char));
 }
 
 
@@ -55,7 +55,7 @@ char* strndup(const char* string, size_t maxlen)
 {
   size_t n = strnlen(string, maxlen) + 1;
   char* r = malloc(n * sizeof(char));
-  return r == NULL ? NULL : memcpy(r, string, n);
+  return r == NULL ? NULL : memcpy(r, string, n * sizeof(char));
 }
 
 
@@ -73,7 +73,7 @@ char* strndup(const char* string, size_t maxlen)
  */
 void* memdup(const void* segment, size_t size)
 {
-  wchar_t* r = malloc(size * sizeof(wchar_t));
+  void* r = malloc(size);
   return r == NULL ? NULL : memcpy(r, segment, size);
 }
 
