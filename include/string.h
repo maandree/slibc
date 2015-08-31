@@ -129,9 +129,9 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
 size_t strlen(const char*)
   __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
 
-#if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
-    defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
-    defined(_BSD_SOURCE)
+#if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
+     defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
+     defined(_BSD_SOURCE)) && !defined(_PORTABLE_SOURCE)
 /**
  * Variant of `strlen` that only inspects the
  * beginning of s string.
@@ -143,6 +143,564 @@ size_t strlen(const char*)
  */
 size_t strnlen(const char*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result)));
+#endif
+
+
+
+/**
+ * Override a memory segment with a repeated character.
+ * 
+ * @param   segment  The beginning of the memory segment.
+ * @param   c        The character (8 bits wide.)
+ * @param   size     The size of the memory segment.
+ * @return           `segment` is returned.
+ */
+void* memset(void*, int, size_t);
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   size     The number of bytes to copy.
+ * @return           `whither` is returned.
+ */
+void* memcpy(void* restrict, const void* restrict, size_t);
+
+#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+/**
+ * Copy a memory segment to another, non-overlapping, segment.
+ * 
+ * This is a GNU extension.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   size     The number of bytes to copy.
+ * @return           `whither + size` is returned.
+ */
+void* mempcpy(void* restrict, const void* restrict, size_t);
+#endif
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   size     The number of bytes to copy.
+ * @return           `whither` is returned.
+ */
+void* memmove(void*, const void*, size_t);
+
+#if defined(_SLIBC_SOURCE) && defined(_GNU_SOURCE)
+/**
+ * Copy a memory segment to another, possibly overlapping, segment.
+ * 
+ * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   size     The number of bytes to copy.
+ * @return           `whither + size` is returned.
+ */
+void* mempmove(void*, const void*, size_t);
+#endif
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * but stop if a specific byte is encountered.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   c        The byte to stop at if encountered.
+ * @param   size     The maximum number of bytes to copy.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the position of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written character.
+ */
+void* memccpy(void* restrict, const void* restrict, int, size_t);
+
+#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * but stop if a specific byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   c        The byte to stop at if encountered.
+ * @param   size     The maximum number of bytes to copy.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the position of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written character.
+ */
+void* memcmove(void*, const void*, int, size_t);
+#endif
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @return           `whither` is returned.
+ */
+char* strcpy(char* restrict, const char* restrict)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @return           `whither + strlen(whence)` is returned.
+ */
+char* stpcpy(char* restrict, const char* restrict)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte or a specified byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   c        The stop byte.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the position of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strccpy(char* restrict, const char* restrict, int)
+  __GCC_ONLY(__attribute__((nonnull)));
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte or a specified substring is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   str      The substring, ignored if `NULL`.
+ * @return           `NULL` if `str` was not encountered, otherwise
+ *                   the position of `str` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
+  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+#endif
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `whither` is returned.
+ */
+char* strncpy(char* restrict, const char* restrict, size_t)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * This is a GNU extension.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `whither` plus the number of written bytes,
+ *                   excluding NUL bytes, is returned.
+ */
+char* stpncpy(char* restrict, const char* restrict, size_t)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+# if defined(_SLIBC_SOURCE)
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte or a specified byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   c        The stop byte.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the position of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strcncpy(char* restrict, const char* restrict, int, size_t)
+  __GCC_ONLY(__attribute__((nonnull)));
+
+/**
+ * Copy a memory segment to another, non-overlapping, segment,
+ * stop when a NUL byte or a specified substring is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   str      The substring, ignored if `NULL`.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `NULL` if `str` was not encountered, otherwise
+ *                   the position of `str` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strstrncpy(char* restrict, const char* restrict, const char* restrict, size_t)
+  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+# endif
+#endif
+
+#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @return           `whither` is returned.
+ */
+char* strmove(char*, const char*)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @return           `whither + strlen(whence)` is returned.
+ */
+char* stpmove(char*, const char*)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte or a specified byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   c        The stop byte.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the position of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strcmove(char*, const char*, int)
+  __GCC_ONLY(__attribute__((nonnull)));
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte or a specified substring is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   str      The substring, ignored if `NULL`.
+ * @return           `NULL` if `str` was not encountered, otherwise
+ *                   the position of `str` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strstrmove(char*, const char*, const char* restrict)
+  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `whither` is returned.
+ */
+char* strnmove(char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+# if defined(_GNU_SOURCE)
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `whither` plus the number of written bytes,
+ *                   excluding NUL bytes, is returned.
+ */
+char* stpnmove(char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte or a specified byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   c        The stop byte.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the position of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strcnmove(char*, const char*, int, size_t)
+  __GCC_ONLY(__attribute__((nonnull)));
+
+/**
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte or a specified substring is encountered.
+ * 
+ * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
+ * 
+ * @param   whither  The destination memory segment.
+ * @param   whence   The source memory segment.
+ * @param   str      The substring, ignored if `NULL`.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `NULL` if `str` was not encountered, otherwise
+ *                   the position of `str` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written non-NUL
+ *                   character.
+ */
+char* strstrnmove(char*, const char*, const char* restrict, size_t)
+  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+# endif
+#endif
+
+/**
+ * Concatenate a string to the end of another string.
+ * The resulting strings must not overlap with the appended string.
+ * 
+ * The use of this function is often a bad idea.
+ * 
+ * @param   whither  The string to extend.
+ * @param   whence   The string to append.
+ * @return           `whither` is returned.
+ */
+char* strcat(char* restrict, const char* restrict)
+  __GCC_ONLY(__attribute__((nonnull)));
+
+/* stpcat does not exsits because use of it would be very inefficient. */
+
+/**
+ * Concatenate a string to the end of another string.
+ * The resulting strings must not overlap with the appended string.
+ * 
+ * The use of this function is often a really bad idea.
+ * 
+ * @param   whither  The string to extend.
+ * @param   whence   The string to append.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `whither` is returned.
+ */
+char* strncat(char* restrict, const char* restrict, size_t)
+  __GCC_ONLY(__attribute__((nonnull)));
+
+/* stpncat does not exsits because use of it would be very inefficient. */
+
+
+/**
+ * Duplicate a string.
+ * 
+ * @param   string  The string to duplicate.
+ * @return          The new string. `NULL` is returned on error
+ *                  and `errno` is set to indicate the error.
+ * 
+ * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ */
+char* strdup(const char*)
+  __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+
+#if !defined(_PORTABLE_SOURCE)
+# if defined(_GNU_SOURCE)
+/**
+ * Duplicate a string.
+ * 
+ * This is a GNU extension.
+ * 
+ * @param   string  The string to duplicate.
+ * @param   maxlen  Truncate the string to this length, if it is longer.
+ *                  A NUL byte is guaranteed to always be written
+ *                  upon successful completion.
+ * @return          The new string. `NULL` is returned on error
+ *                  and `errno` is set to indicate the error.
+ * 
+ * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ */
+char* strndup(const char*, size_t)
+  __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+# endif
+
+# if defined(_SLIBC_SOURCE)
+/**
+ * Duplicate a memory segment.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   segment  The memory segment to duplicate.
+ * @param   size     The size of the memory segment.
+ * @return           The new segment. `NULL` is returned on error
+ *                   and `errno` is set to indicate the error.
+ * 
+ * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ */
+void* memdup(const void*, size_t)
+  __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+# endif
+
+# if defined (__GNUC__)
+#  if defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)
+/**
+ * Duplicate a string, using dymanic stack allocation (`alloca`).
+ * 
+ * This is a GNU-compliant slibc extension.
+ * This macro is only available when using GCC.
+ * 
+ * @param   string:const char*  The string to duplicate.
+ * @return  :size_t             The new string. There is no way to
+ *                              detect whether the allocation failed.
+ */
+#   define strdupa(string)				\
+  ({							\
+    size_t n = strlen(string) + 1;			\
+    char* r = __builtin_alloca(n * sizeof(char));	\
+    memcpy(r, string, n);				\
+  })
+#  endif
+
+#  if defined(_GNU_SOURCE)
+/**
+ * Duplicate a string, using dymanic stack allocation (`alloca`).
+ * 
+ * This is a GNU extension.
+ * This macro is only available when using GCC.
+ * 
+ * @param   string:const char*  The string to duplicate.
+ * @param   maxlen:size_t       Truncate the string to this length, if it is longer.
+ *                              A NUL byte is guaranteed to always be written.
+ * @return  :size_t             The new string. There is no way to
+ *                              detect whether the allocation failed.
+ */
+#   define strndupa(string, maxlen)			\
+  ({							\
+    size_t n = strnlen(string, maxlen) + 1;		\
+    char* r = __builtin_alloca(n * sizeof(char));	\
+    memcpy(r, string, n);				\
+  })
+#  endif
+
+#  if defined(_SLIBC_SOURCE)
+/**
+ * Duplicate a memory segment, using dymanic stack allocation (`alloca`).
+ * 
+ * This is a slibc extension.
+ * This macro is only available when using GCC.
+ * 
+ * @param   segment:const void*  The memory segment to duplicate.
+ * @param   size:size_t          The size of the memory segment.
+ * @return  :size_t              The new segment. There is no way to
+ *                               detect whether the allocation failed.
+ */
+#   define memdupa(segment, size)				\
+  ({								\
+    wchar_t* r = __builtin_alloca(size * sizeof(wchar_t));	\
+    memcpy(r, segment, size);					\
+  })
+#  endif
+# endif
 #endif
 
 
