@@ -55,7 +55,7 @@ char* strcat(char* restrict whither, const char* restrict whence)
  */
 char* strncat(char* restrict whither, const char* restrict whence, size_t maxlen)
 {
-  strncpy(whither + strlen(whither), whence, laxmen);
+  strncpy(whither + strlen(whither), whence, maxlen);
   return whither;
 }
 
