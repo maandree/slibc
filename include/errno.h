@@ -38,7 +38,7 @@
  * assured that the value is thread-dependent
  * and supported on all revisions of C.
  */
-volatile int* __errno(void) __GCC_ONLY(__attribute__((__const__))); /* TODO not implemented */
+volatile int* __errno(void) __GCC_ONLY(__attribute__((const))); /* TODO not implemented */
 
 
 #ifndef _PORTABLE_SOURCE

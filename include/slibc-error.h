@@ -200,7 +200,7 @@
  * Helper function to keep track of the line of origin, in a
  * thread-safe manner, without requiring new revisions of C.
  */
-int* __slibc_error_line(void) __GCC_ONLY(__attribute__((__const__))); /* TODO not implemented */
+int* __slibc_error_line(void) __GCC_ONLY(__attribute__((const))); /* TODO not implemented */
 
 /**
  * Print a description of an error, and where the error occurred.
