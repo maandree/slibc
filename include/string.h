@@ -25,6 +25,7 @@
 
 
 #define __NEED_size_t
+#define __NEED_wchar_t
 #define __NEED_locale_t /* TODO not defined */
 
 #include <bits/types.h>
@@ -50,7 +51,7 @@
  * @return          A description of the error.
  */
 char* strerror(int)
-  __GCC_ONLY(__attribute__((returns_nonnull)));
+  __GCC_ONLY(__attribute__((returns_nonnull, warn_unused_result)));
 
 /**
  * Return a textual representation of an error code.
@@ -68,7 +69,8 @@ char* strerror(int)
  *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
  * @return          A description of the error.
  */
-char* strerror_l(int, locale_t);
+char* strerror_l(int, locale_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
 
 
 #if !defined(_PORTABLE_SOURCE) && !defined(_SLIBC_SOURCE)
@@ -114,6 +116,33 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
 # else
 #  define strerror_r  __gnu_strerror_r
 # endif
+#endif
+
+
+/**
+ * Returns the number of bytes in a NUL-terminated
+ * string. This excludes the NUL byte.
+ * 
+ * @param   str  The string.
+ * @return       The number of bytes before the first NUL byte.
+ */
+size_t strlen(const char*)
+  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+
+#if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
+    defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
+    defined(_BSD_SOURCE)
+/**
+ * Variant of `strlen` that only inspects the
+ * beginning of s string.
+ * 
+ * @param   str     The string.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          The number of bytes before, the first NUL byte.
+ *                  `maxlen` if no NUL byte was found.
+ */
+size_t strnlen(const char*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
 #endif
 
 
