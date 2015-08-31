@@ -75,7 +75,7 @@ char* strerror_l(int, locale_t);
 
 #if !defined(_PORTABLE_SOURCE) && !defined(_SLIBC_SOURCE)
 /**
- * Reenterant variant of `stderror`.
+ * Reenterant variant of `strerror`.
  * 
  * This is an XSI-compliant extension. However the name
  * is not part of the XSI specification, `strerror_r`
@@ -93,7 +93,7 @@ char* strerror_l(int, locale_t);
 int __xsi_strerror_r(int, char*, size_t); /* XSI-compliant strerror_r */
 
 /**
- * Reenterant variant of `stderror`.
+ * Reenterant variant of `strerror`.
  * 
  * This is a GNU-specific extension. However the name
  * is not part of the GNU specification, `strerror_r` should
