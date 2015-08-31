@@ -73,7 +73,7 @@ char* strerror(int)
 char* strerror_l(int, locale_t);
 
 
-#ifndef _PORTABLE_SOURCE
+#if !defined(_PORTABLE_SOURCE) && !defined(_SLIBC_SOURCE)
 /**
  * Reenterant variant of `stderror`.
  * 
@@ -81,6 +81,7 @@ char* strerror_l(int, locale_t);
  * is not part of the XSI specification, `strerror_r`
  * should be used. It is defined to this function if
  * `(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && !_GNU_SOURCE`.
+ * However it is not defined if _SLIBC_SOURCE is defined.
  * 
  * @param   errnum  The error code.
  * @param   buf     Buffer where the description shall be stored.
@@ -98,6 +99,7 @@ int __xsi_strerror_r(int, char*, size_t); /* XSI-compliant strerror_r */
  * is not part of the GNU specification, `strerror_r` should
  * be used. It is defined to this function unless
  * `(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && !_GNU_SOURCE`.
+ * However it is not defined if _SLIBC_SOURCE is defined.
  * 
  * @param   errnum  The error code.
  * @param   buf     Buffer where the description shall be stored.
