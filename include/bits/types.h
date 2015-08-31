@@ -63,6 +63,11 @@ typedef unsigned long int uptrdiff_t;
  * 
  * 32 bits should be sufficient (long is at least 32
  * bits), but why limit further than POSIX does.
+ * 
+ * `wchar_t` is not safe for data serialisation/marshalling;
+ * it is implementation specific and may depend on the
+ * libc implementation, the version of the libc implementation,
+ * and the microarchitecture.
  */
 #if defined(__NEED_wchar_t) && !defined(__DEFINED_wchar_t)
 # define __DEFINED_wchar_t
@@ -73,6 +78,11 @@ typedef long int wchar_t;
 
 /**
  * Variant of `wchar_t` that can hold the value of `WEOF`.
+ * 
+ * `wint_t` is not safe for data serialisation/marshalling;
+ * it is implementation specific and may depend on the
+ * libc implementation, the version of the libc implementation,
+ * and the microarchitecture.
  */
 #if defined(__NEED_wint_t) && !defined(__DEFINED_wint_t)
 # define __DEFINED_wint_t
