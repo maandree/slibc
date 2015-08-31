@@ -95,6 +95,25 @@ int strncasecmp(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
 
 
+/**
+ * This function is identical to `strchr`.
+ * 
+ * This is a deprecated BSD extension.
+ */
+char* index(const char*, int)
+  __deprecated("Use 'strchr' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * This function is identical to `strrchr`.
+ * 
+ * This is a deprecated BSD extension.
+ */
+char* rindex(const char*, int)
+  __deprecated("Use 'strrchr' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+
 
 #endif
 
