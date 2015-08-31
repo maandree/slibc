@@ -23,6 +23,14 @@
 
 
 /**
+ * Macro that is defined if portability shall be ensured.
+ */
+#if defined(_PORTABLE_SOURCE) || defined(_LIBRARY_HEADER)
+# define __PORTABLE
+#endif
+
+
+/**
  * Is C11, or newer, used?
  */
 #if __STDC_VERSION__ >= 201112L || defined(_ISOC11_SOURCE)

@@ -17,11 +17,9 @@
  */
 #ifndef _WCHAR_H
 #define _WCHAR_H
-#ifndef _PORTABLE_SOURCE /* `wchar_t` is not portable. */
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
+#ifndef __PORTABLE /* `wchar_t` is not portable. */
 
 
 
@@ -43,7 +41,7 @@ size_t wcslen(const wchar_t*)
 
 #if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
      defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
-     defined(_BSD_SOURCE)) && !defined(_PORTABLE_SOURCE)
+     defined(_BSD_SOURCE)) && !defined(__PORTABLE)
 /**
  * `wchar_t` version of `strnlen`.
  * 
@@ -79,7 +77,7 @@ wchar_t* wmemset(wchar_t*, wchar_t, size_t);
  */
 wchar_t* wmemcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
 
-#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment.
  * 
@@ -120,7 +118,7 @@ wchar_t* wmempmove(wchar_t*, const wchar_t*, size_t);
 # endif
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * but stop if a specific character is encountered.
@@ -169,7 +167,7 @@ wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
 wchar_t* wcscpy(wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if (defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)) && !defined(_PORTABLE_SOURCE)
+#if (defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -184,7 +182,7 @@ wchar_t* wcpcpy(wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character or a specified wide character
@@ -242,7 +240,7 @@ wchar_t* wcswcscpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* re
 wchar_t* wcsncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -319,7 +317,7 @@ wchar_t* wcswcsncpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* r
 # endif
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -516,7 +514,7 @@ wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size
 /* wcpncat does not exsits because use of it would be very inefficient. */
 
 
-#if !defined(_PORTABLE_SOURCE)
+#if !defined(__PORTABLE)
 /**
  * Duplicate a string.
  * 

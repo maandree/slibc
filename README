@@ -13,9 +13,18 @@ Macro definitions:
 	                               C libraries, but are considered good extensions.
 	_GNU_SOURCE               -- Enable glibc extensions (GNU extensions.)
 	_BSD_SOURCE               -- Enable BSD extensions.
-	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning, this is primarily
-	                               intended to be used when compiling slibc.
+	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning and other warnings, this is
+	                               primarily intended to be used when compiling slibc.
 	_PORTABLE_SOURCE          -- Unconditionally disable all extensions.
+	_LIBRARY_HEADER		  -- Alternative to _PORTABLE_SOURCE that should
+	                               be used in header files for libraryes. This
+	                               allows you to be sure that your library is
+	                               portable between libc:s, and that sources
+	                               using your library does not been to be compiled
+	                               with the same libc. It is important to use
+	                               this instead of _PORTABLE_SOURCE in library
+	                               header files, otherwise the user of the library
+	                               cannot fully utilise _PORTABLE_SOURCE.
 
 
 slibc provides some slib-specific extensions that

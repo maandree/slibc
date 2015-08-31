@@ -18,8 +18,6 @@
 #ifndef _STDALIGN_H
 #define _STDALIGN_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
 
 

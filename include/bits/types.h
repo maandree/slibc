@@ -54,7 +54,7 @@ typedef unsigned long int uptrdiff_t;
 #endif
 
 
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 /**
  * Integer type which can represent any character.
  * May not be greater than the with of type long.

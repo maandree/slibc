@@ -18,6 +18,7 @@
 #ifndef _ISO646_H
 #define _ISO646_H
 #include <slibc/version.h>
+#include <slibc/features.h>
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
 # warning "Please consider not using <iso646.h>, is really not good for readability."

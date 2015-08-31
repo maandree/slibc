@@ -17,8 +17,9 @@
  */
 #ifndef _SLIBC_ALLOC_H
 #define _SLIBC_ALLOC_H
-#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
+#include <slibc/features.h>
+#ifndef __PORTABLE
 
 
 

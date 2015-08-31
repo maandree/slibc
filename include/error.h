@@ -17,8 +17,9 @@
  */
 #ifndef _ERROR_H
 #define _ERROR_H
-#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
+#include <slibc/features.h>
+#ifndef __PORTABLE
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
 # warning "Please consider not using <error.h>."
@@ -26,7 +27,6 @@
 
 
 #include <slibc/features.h>
-#include <stdarg.h>
 
 
 

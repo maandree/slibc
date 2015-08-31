@@ -18,6 +18,7 @@
 #ifndef _STDINT_H
 #define _STDINT_H
 #include <slibc/version.h>
+#include <slibc/features.h>
 
 
 
@@ -376,7 +377,7 @@
 #define SSIZE_MIN  INTPTR_MIN
 
 
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 /**
  * Maximum value of `wchar_t`.
  */

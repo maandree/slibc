@@ -17,11 +17,9 @@
  */
 #ifndef _OBSTACK_H
 #define _OBSTACK_H
-#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
+#ifndef __PORTABLE
 
 
 

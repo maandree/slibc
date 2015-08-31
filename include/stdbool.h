@@ -18,6 +18,7 @@
 #ifndef _STDBOOL_H
 #define _STDBOOL_H
 #include <slibc/version.h>
+#include <slibc/features.h>
 
 
 

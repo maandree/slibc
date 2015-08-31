@@ -17,11 +17,11 @@
  */
 #ifndef _SLIBC_ERROR_H
 #define _SLIBC_ERROR_H
-#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
+#ifndef __PORTABLE
+
+
 #include <stdarg.h>
 #include <errno.h>
 

@@ -17,15 +17,15 @@
  */
 #ifndef _ERR_H
 #define _ERR_H
-#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
+#include <slibc/features.h>
+#ifndef __PORTABLE
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
 # warning "Please consider not using <err.h>."
 #endif
 
 
-#include <slibc/features.h>
 #include <stdarg.h>
 
 

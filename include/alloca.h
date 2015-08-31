@@ -17,8 +17,9 @@
  */
 #ifndef _ALLOCA_H
 #define _ALLOCA_H
-#ifndef _PORTABLE_SOURCE
 #include <slibc/version.h>
+#include <slibc/features.h>
+#ifndef __PORTABLE
 
 
 

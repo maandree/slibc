@@ -18,8 +18,6 @@
 #ifndef _MALLOC_H
 #define _MALLOC_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
 
 
@@ -112,13 +110,13 @@ void free(void*)
  *              beginning of a memory allocation on the heap.
  *              However, if it is `NULL`, nothing will happen.
  */
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 void cfree(void*, ...)
   __deprecated("'cfree' is deprecated and not portable, use 'free' instead.");
 #endif
 
 
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 /**
  * Variant of `malloc` that returns an address with a
  * specified alignment.
@@ -169,7 +167,7 @@ void* memalign(size_t, size_t)
 int posix_memalign(void**, size_t, size_t)
   __GCC_ONLY(__attribute__((nonnull)));
 
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 /**
  * `valloc(n)` is equivalent to `memalign(sysconf(_SC_PAGESIZE), n)`.
  * 
@@ -241,7 +239,7 @@ void* aligned_alloc(size_t, size_t)
 #endif
 
 
-#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * This function returns the allocation size of
  * a memory segment.

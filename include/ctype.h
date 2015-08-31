@@ -18,14 +18,12 @@
 #ifndef _CTYPE_H
 #define _CTYPE_H
 #include <slibc/version.h>
+#include <slibc/features.h>
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
 # warning "Functions in <ctype.h>, 'isascii' and 'toascii', only support ASCII."
 # warning "Functions in <ctype.h>, do not support wider characets than 8 bits."
 #endif
-
-
-#include <slibc/features.h>
 
 
 

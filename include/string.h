@@ -18,8 +18,6 @@
 #ifndef _STRING_H
 #define _STRING_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
 
 
@@ -73,7 +71,7 @@ char* strerror_l(int, locale_t)
   __GCC_ONLY(__attribute__((warn_unused_result)));
 
 
-#if !defined(_PORTABLE_SOURCE) && !defined(_SLIBC_SOURCE)
+#if !defined(__PORTABLE) && !defined(_SLIBC_SOURCE)
 /**
  * Reenterant variant of `strerror`.
  * 
@@ -131,7 +129,7 @@ size_t strlen(const char*)
 
 #if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
      defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
-     defined(_BSD_SOURCE)) && !defined(_PORTABLE_SOURCE)
+     defined(_BSD_SOURCE)) && !defined(__PORTABLE)
 /**
  * Variant of `strlen` that only inspects the
  * beginning of s string.
@@ -167,7 +165,7 @@ void* memset(void*, int, size_t);
  */
 void* memcpy(void* restrict, const void* restrict, size_t);
 
-#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment.
  * 
@@ -222,7 +220,7 @@ void* mempmove(void*, const void*, size_t);
  */
 void* memccpy(void* restrict, const void* restrict, int, size_t);
 
-#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * but stop if a specific byte is encountered.
@@ -264,7 +262,7 @@ char* strcpy(char* restrict, const char* restrict)
 char* stpcpy(char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL byte or a specified byte is encountered.
@@ -321,7 +319,7 @@ char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
 char* strncpy(char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if defined(_GNU_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL byte is encountered.
@@ -397,7 +395,7 @@ char* strstrncpy(char* restrict, const char* restrict, const char* restrict, siz
 # endif
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(_PORTABLE_SOURCE)
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL byte is encountered.
@@ -604,7 +602,7 @@ char* strncat(char* restrict, const char* restrict, size_t)
 char* strdup(const char*)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
 
-#if !defined(_PORTABLE_SOURCE)
+#if !defined(__PORTABLE)
 # if defined(_GNU_SOURCE)
 /**
  * Duplicate a string.

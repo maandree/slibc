@@ -18,8 +18,6 @@
 #ifndef _UNISTD_H
 #define _UNISTD_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
 
 

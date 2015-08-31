@@ -18,9 +18,9 @@
 #ifndef _ERRNO_H
 #define _ERRNO_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
+
+
 
 /* TODO include error definitions */
 
@@ -41,7 +41,7 @@
 volatile int* __errno(void) __GCC_ONLY(__attribute__((const))); /* TODO not implemented */
 
 
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 /**
  * This is the name that was used to invoke the program
  * running in the current process. This is the value

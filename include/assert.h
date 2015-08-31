@@ -18,8 +18,6 @@
 #ifndef _ASSERT_H
 #define _ASSERT_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
 
 
@@ -58,7 +56,7 @@
 #define static_assert _Static_assert
 
 
-#ifndef _PORTABLE_SOURCE
+#ifndef __PORTABLE
 /**
  * Unless `NDEBUG` is defined, print an error message
  * and abort the process, if `errnum` is non-zero.

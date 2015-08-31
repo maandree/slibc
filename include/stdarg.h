@@ -18,6 +18,7 @@
 #ifndef _STDARG_H
 #define _STDARG_H
 #include <slibc/version.h>
+#include <slibc/features.h>
 
 
 #include <bits/stdarg.h>

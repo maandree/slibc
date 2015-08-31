@@ -18,8 +18,6 @@
 #ifndef _STRINGS_H
 #define _STRINGS_H
 #include <slibc/version.h>
-
-
 #include <slibc/features.h>
 
 
@@ -39,7 +37,7 @@
 void bzero(void*, size_t)
   __deprecated("Use 'memset', 'explicit_bzero' or 'secure_free' instead.");
 
-#if !defined(_PORTABLE_SOURCE) && (defined(_SLIBC_SOURCE) || defined(_BSD_SOURCE))
+#if !defined(__PORTABLE) && (defined(_SLIBC_SOURCE) || defined(_BSD_SOURCE))
 /**
  * Override a memory segment with zeroes.
  * 
