@@ -55,8 +55,6 @@ char* strerror(int errnum)
  * 
  * The returned value must not be modified or freed.
  * 
- * As a slibc-specific modification, this function is MT-Safe.
- * 
  * @param   errnum  The error code.
  * @param   locale  The locale, must be a valid locale and not
  *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
