@@ -376,26 +376,28 @@
 #define SSIZE_MIN  INTPTR_MIN
 
 
+#ifndef _PORTABLE_SOURCE
 /**
  * Maximum value of `wchar_t`.
  */
-#define WCHAR_MAX  __WCHAR_MAX
+# define WCHAR_MAX  __WCHAR_MAX
 
 /**
  * Minimum value of `wchar_t`.
  */
-#define WCHAR_MIN  (__MAX_TO_MIN(WCHAR_MAX))
+# define WCHAR_MIN  (__MAX_TO_MIN(WCHAR_MAX))
 
 
 /**
  * Maximum value of `wint_t`.
  */
-#define WINT_MAX  WCHAR_MAX
+# define WINT_MAX  WCHAR_MAX
 
 /**
  * Minimum value of `wint_t`.
  */
-#define WINT_MIN  WCHAR_MIN
+# define WINT_MIN  WCHAR_MIN
+#endif
 
 
 /**

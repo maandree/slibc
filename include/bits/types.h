@@ -19,6 +19,7 @@
  * headers to be able to define types by including this
  * header without the need of keeping in mind which
  * order headers are included. */
+#include <slibc/features.h>
 
 
 #include <bits/intconf.h>
@@ -53,6 +54,7 @@ typedef unsigned long int uptrdiff_t;
 #endif
 
 
+#ifndef _PORTABLE_SOURCE
 /**
  * Integer type which can represent any character.
  * May not be greater than the with of type long.
@@ -69,11 +71,12 @@ typedef unsigned long int uptrdiff_t;
  * libc implementation, the version of the libc implementation,
  * and the microarchitecture.
  */
-#if defined(__NEED_wchar_t) && !defined(__DEFINED_wchar_t)
-# define __DEFINED_wchar_t
-typedef long int wchar_t;
-# define  __WCHAR_MAX  INTPTR_MAX
-#endif
+# if defined(__NEED_wchar_t) && !defined(__DEFINED_wchar_t)
+#  define __DEFINED_wchar_t
+typedef long int wchar_t
+  __warning("'wchar_t' is not guaranteed to be defined as expected, use 'int32_t'.");
+#  define  __WCHAR_MAX  INTPTR_MAX
+# endif
 
 
 /**
@@ -84,9 +87,11 @@ typedef long int wchar_t;
  * libc implementation, the version of the libc implementation,
  * and the microarchitecture.
  */
-#if defined(__NEED_wint_t) && !defined(__DEFINED_wint_t)
-# define __DEFINED_wint_t
-typedef wchar_t wint_t;
+# if defined(__NEED_wint_t) && !defined(__DEFINED_wint_t)
+#  define __DEFINED_wint_t
+typedef wchar_t wint_t
+  __warning("'wint_t' is not guaranteed to be defined as expected, use 'int32_t'.");
+# endif
 #endif
 
 
