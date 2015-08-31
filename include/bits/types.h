@@ -72,7 +72,7 @@ typedef long int wchar_t;
 
 
 /**
- * Variant of `wchar_t` cna can hold the value of `WEOF`.
+ * Variant of `wchar_t` that can hold the value of `WEOF`.
  */
 #if defined(__NEED_wint_t) && !defined(__DEFINED_wint_t)
 # define __DEFINED_wint_t
