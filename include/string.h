@@ -655,9 +655,10 @@ void* memdup(const void*, size_t)
  */
 #   define strdupa(string)				\
   ({							\
-    size_t n = strlen(string) + 1;			\
-    char* r = __builtin_alloca(n * sizeof(char));	\
-    memcpy(r, string, n);				\
+    const char* __s = (string);				\
+    size_t __n = strlen(__s) + 1;			\
+    char* __r = __builtin_alloca(__n * sizeof(char));	\
+    memcpy(__r, __s, __n);				\
   })
 #  endif
 
@@ -676,9 +677,10 @@ void* memdup(const void*, size_t)
  */
 #   define strndupa(string, maxlen)			\
   ({							\
-    size_t n = strnlen(string, maxlen) + 1;		\
-    char* r = __builtin_alloca(n * sizeof(char));	\
-    memcpy(r, string, n);				\
+    const char* __s = (string);				\
+    size_t __n = strnlen(__s, (maxlen)) + 1;		\
+    char* __r = __builtin_alloca(__n * sizeof(char));	\
+    memcpy(__r, __s, __n);				\
   })
 #  endif
 
@@ -696,8 +698,9 @@ void* memdup(const void*, size_t)
  */
 #   define memdupa(segment, size)				\
   ({								\
-    wchar_t* r = __builtin_alloca(size * sizeof(wchar_t));	\
-    memcpy(r, segment, size);					\
+    size_t __n = (size);					\
+    wchar_t* __r = __builtin_alloca(__n * sizeof(wchar_t));	\
+    memcpy(__r, (segment), __n);				\
   })
 #  endif
 # endif

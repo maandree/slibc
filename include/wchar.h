@@ -580,11 +580,12 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @return  :size_t                The new string. There is no way to
  *                                 detect whether the allocation failed.
  */
-#    define wcsdupa(string)				\
-  ({							\
-    size_t n = wcslen(string) + 1;			\
-    wchar_t* r = __builtin_alloca(n * sizeof(char));	\
-    wmemcpy(r, string, n);				\
+#    define wcsdupa(string)					\
+  ({								\
+    const char* __s = (string);					\
+    size_t __n = wcslen(__s) + 1;				\
+    wchar_t* __r = __builtin_alloca(__n * sizeof(char));	\
+    wmemcpy(__r, __s, __n);					\
   })
 
 /**
@@ -600,11 +601,12 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @return  :size_t                The new string. There is no way to
  *                                 detect whether the allocation failed.
  */
-#    define wstrndupa(string, maxlen)			\
-  ({							\
-    size_t n = wcsnlen(string, maxlen) + 1;		\
-    wchar_t* r = __builtin_alloca(n * sizeof(wchar_t));	\
-    wmemcpy(r, string, n);				\
+#    define wstrndupa(string, maxlen)				\
+  ({								\
+    const char* __s = (string);					\
+    size_t __n = wcsnlen(__s, (maxlen)) + 1;			\
+    wchar_t* __r = __builtin_alloca(__n * sizeof(wchar_t));	\
+    wmemcpy(__r, __s, __n);					\
   })
 #   endif
 
@@ -621,8 +623,9 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  */
 #   define wmemdupa(segment, size)				\
   ({								\
-    wchar_t* r = __builtin_alloca(size * sizeof(wchar_t));	\
-    wmemcpy(r, segmetn, size);					\
+    size_t __n = (size);					\
+    wchar_t* __r = __builtin_alloca(__n * sizeof(wchar_t));	\
+    wmemcpy(__r, (segmetn), __n);				\
   })
 #  endif
 # endif
