@@ -18,6 +18,9 @@
 #include <string.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
  * Returns the number of bytes in a NUL-terminated

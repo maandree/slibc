@@ -32,7 +32,7 @@ void* memset(void* segment, int c, size_t size)
   /* TODO improve implementation of memset */
   char* s = segment;
   while (size--)
-    *s++ = c;
+    *s++ = (char)c;
   return segment;
 }
 

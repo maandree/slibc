@@ -18,6 +18,7 @@
 #include <err.h>
 #include <error.h>
 #include <errno.h>
+#include <stdlib.h>
 
 
 
@@ -119,6 +120,7 @@ void err(int status, const char* format, ...)
 void verr(int status, const char* format, va_list args)
 {
   verror(status, errno, format, args);
+  exit(status);
 }
 
 
@@ -154,5 +156,6 @@ void errx(int status, const char* format, ...)
 void verrx(int status, const char* format, va_list args)
 {
   verror(status, 0, format, args);
+  exit(status);
 }
 
