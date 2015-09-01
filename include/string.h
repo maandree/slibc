@@ -1100,7 +1100,19 @@ char* __gnu_basename(const char*)
  * @param   anagram  An anagram of the output, will be modified.
  * @retrun           The string, which will `== anagram`.
  */
-char* strfry(char* anagram);
+char* strfry(char*);
+
+/**
+ * Performs an inplace bitwise XOR:ing of
+ * a memory segment. The pattern is 00101010.
+ * 
+ * This is a GNU extension.
+ * 
+ * @param   segment  The memory segment.
+ * @param   size     The size of the memory segment.
+ * @return           `segment` is returned
+ */
+char* memfrob(char*, size_t);
 #endif
 
 
