@@ -1091,6 +1091,19 @@ char* __gnu_basename(const char*)
 #endif
 
 
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+/**
+ * Shuffles all bytes in a string.
+ * 
+ * This is a GNU joke extension.
+ * 
+ * @param   anagram  An anagram of the output, will be modified.
+ * @retrun           The string, which will `== anagram`.
+ */
+char* strfry(char* anagram);
+#endif
+
+
 
 #endif
 
