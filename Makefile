@@ -25,7 +25,7 @@ CCFLAGS_SLIBC_DEFS = -D_SLIBC_SOURCE=1 -D_GNU_SOURCE=1 -D_BSD_SOURCE=1 -D_SLIBC_
                      -D_POSIX_C_SOURCE=999999L -D_XOPEN_SOURCE=9999
 
 # Flag that specifies which C dialect the library is written.
-CCFLAGS_CSTD = -std=c11
+CCFLAGS_CSTD = -std=gnu99
 
 # Flags that specify where the system header files (that would in this case
 # be this library's header files) are located.
