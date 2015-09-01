@@ -94,7 +94,7 @@ wchar_t* wcsccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wcha
  */
 wchar_t* wcswcscpy(wchar_t* restrict whither, const wchar_t* restrict whence, const wchar_t* restrict str)
 {
-  const wchar_t* stop = str == NULL ? NULL : wcswcs(whence, str);
+  const wchar_t* stop = str == NULL ? NULL : wcsstr(whence, str);
   size_t n = stop == NULL ? wcslen(whence) : (size_t)(stop - whence);
   wchar_t* r = stop == NULL ? NULL ? whither + n;
   wmemcpy(whither, whence, n);
@@ -213,7 +213,7 @@ wchar_t* wcscncpy(wchar_t* restrict whither, const wchar_t* restrict whence, wch
 wchar_t* wcswcsncpy(wchar_t* restrict whither, const wchar_t* restrict whence,
 		    const wchar_t* restrict str, size_t maxlen)
 {
-  const char* stop = wcsnwcs(whence, str, maxlen);
+  const char* stop = wcsnstr(whence, str, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
   char* r = stop == NULL ? NULL : (whither + n);
   wmemcpy(whither, whence, n);

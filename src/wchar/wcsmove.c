@@ -96,7 +96,7 @@ wchar_t* wcscmove(wchar_t* whither, const wchar_t* whence, wchat_t c)
  */
 wchar_t* wcswcsmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str)
 {
-  const wchar_t* stop = str == NULL ? NULL : wcswcs(whence, str);
+  const wchar_t* stop = str == NULL ? NULL : wcsstr(whence, str);
   size_t n = stop == NULL ? wcslen(whence) : (size_t)(stop - whence);
   wchar_t* r = stop == NULL ? NULL ? whither + n;
   wmemmove(whither, whence, n);
@@ -215,7 +215,7 @@ wchar_t* wcscnmove(wchar_t* whither, const wchar_t* whence, wchat_t c, size_t ma
  */
 wchar_t* wcswcsnmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str, size_t maxlen)
 {
-  const char* stop = wcsnwcs(whence, str, maxlen);
+  const char* stop = wcsnstr(whence, str, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
   char* r = stop == NULL ? NULL : (whither + n);
   wmemmove(whither, whence, n);
