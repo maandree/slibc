@@ -978,6 +978,51 @@ wchar_t* wcpbrk(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
 
 
+/**
+ * Tokenise a string.
+ * 
+ * @param   string      The string to tokenise on the first,
+ *                      `NULL` on subsequent calls.
+ *                      All characters found in `delimiters` will
+ *                      be overriden with NUL characters.
+ * @param   delimiters  Delimiting characters.
+ * @param   state       Pointer to a `char*` that the function
+ *                      can use to keep track of its state.
+ *                      It is reasonable to make it point to `NULL`
+ *                      on the first call.
+ * @return              The next non-empty string that does not
+ *                      contain a byte from `delimiters`. The
+ *                      returned string will be as long as possible.
+ *                      `NULL` is returned the search as reached
+ *                      the end of the string, and there therefore
+ *                      are no more tokens.
+ */
+wchar_t* wcstok(wchar_t* restrict, const wchar_t* restrict, wchar_t** restrict)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2, 3))));
+
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * Tokenise a string.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string      Pointer to the string to tokenise on the first call,
+ *                      will be updated to keep track of the state.
+ *                      All characters found in `delimiters` will
+ *                      be overriden with NUL characters.
+ * @param   delimiters  Delimiting characters.
+ * @return              The next, possibly empty, string that does
+ *                      not contain a byte from `delimiters`. The
+ *                      returned string will be as long as possible.
+ *                      `NULL` is returned the search as reached
+ *                      the end of the string, and there therefore
+ *                      are no more tokens.
+ */
+wchar_t* wcssep(wchar_t** restrict, const wchar_t* restrict)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+#endif
+
+
 
 #endif
 #endif
