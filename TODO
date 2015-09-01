@@ -1,7 +1,6 @@
 functions to lock and unlock pages  (3.4.3 p76)
 character class determination for wide characters  (4.3 p82)
 collation functions  (5.6 p109)
-finding tokens in a string  (5.8 p119)
 strfry  (5.9  p124)
 trivial encryption  (5.10 p124)
 encdoe binary data  (5.11 p125)
@@ -18,4 +17,7 @@ the basic program–system interface  (14 p379)
 input/output overview  (15 p429)
 debugging support  (16 p435)
 input/output on streams  (17 p439)
+
+add strstarts, strends, wcsstarts, wcsends as
+  faster specialised alternatives to strstr.
 

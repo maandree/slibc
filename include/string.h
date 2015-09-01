@@ -1072,6 +1072,25 @@ char* strsep(char** restrict, const char* restrict)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
 
 
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE) && !defined(basename)
+/**
+ * Get the basename of a filename.
+ * 
+ * This is a GNU extension, include <libgen.h>
+ * to override it with the XPG-compliant implementation.
+ * 
+ * @param   filename  The filename.
+ * @return            The basename, it is either a substring
+ *                    of `filename` or, if `filename` is `NULL`
+ *                    or is empty, a statically allocationed string,
+ *                    so it must not freed or edited.
+ */
+char* __gnu_basename(const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+# define basename  __gnu_basename
+#endif
+
+
 
 #endif
 
