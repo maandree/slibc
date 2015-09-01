@@ -938,6 +938,46 @@ wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
 /* TODO Add case right-to-left substring searching functions. */
 
 
+/**
+ * Returns length of the initial substring
+ * that consists entirely of a set of specified
+ * wide characters.
+ * 
+ * @param   string   The string.
+ * @param   skipset  Characters allowed in the substring.
+ * @return           The length of the substring.
+ */
+size_t wcsspn(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Returns length of the initial substring
+ * that consists entirely of the complement
+ * of a set of specified wide characters.
+ * 
+ * @param   string   The string.
+ * @param   stopset  Characters disallowed in the substring.
+ * @return           The length of the substring.
+ */
+size_t wcscspn(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * This function works like `strcspn`,
+ * except it returns the pointer to the
+ * location of the first found non-matching
+ * wide character.
+ * 
+ * @param   string   The string.
+ * @param   stopset  Bytes disallowed in the substring.
+ * @return           A pointer to the first occurrence in
+ *                   `string` of a character found in `stopset`.
+ *                   `NULL` is returned if none is found.
+ */
+wchar_t* wcpbrk(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+
 
 #endif
 #endif

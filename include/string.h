@@ -973,6 +973,46 @@ void* memmem(const void*, size_t, const void*, size_t)
 /* TODO Add case right-to-left substring searching functions. */
 
 
+/**
+ * Returns length of the initial substring
+ * that consists entirely of a set of specified
+ * bytes.
+ * 
+ * @param   string   The string.
+ * @param   skipset  Bytes allowed in the substring.
+ * @return           The length of the substring.
+ */
+size_t strspn(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Returns length of the initial substring
+ * that consists entirely of the complement
+ * of a set of specified bytes.
+ * 
+ * @param   string   The string.
+ * @param   stopset  Bytes disallowed in the substring.
+ * @return           The length of the substring.
+ */
+size_t strcspn(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * This function works like `strcspn`,
+ * except it returns the pointer to the
+ * location of the first found non-matching
+ * byte.
+ * 
+ * @param   string   The string.
+ * @param   stopset  Bytes disallowed in the substring.
+ * @return           A pointer to the first occurrence in
+ *                   `string` of a byte found in `stopset`.
+ *                   `NULL` is returned if none is found.
+ */
+char* stpbrk(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+
 
 #endif
 
