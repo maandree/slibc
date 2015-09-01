@@ -20,6 +20,9 @@
 #include <stddef.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
  * Get the basename of a filename.
@@ -63,9 +66,9 @@ char* __xpg_basename(char* filename)
 {
   char* r = __gnu_basename(filename);
   char* p;
-  if (strcmp("."))
+  if (strcmp(r, "."))
     for (p = r + 1; *p; p++)
-      if (p == '/')
+      if (*p == '/')
 	*p = 0;
   return r;
 }

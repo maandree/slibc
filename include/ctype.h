@@ -52,7 +52,7 @@ int (isalnum)(int)  /* [0x30, 0x39], [0x41, 0x5A], [0x61, 0x7A] */
  */
 int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((const)));
-#define isalpha(c)  (islower(tolower(a)))
+#define isalpha(c)  (islower(tolower(c)))
 
 
 #ifdef _GNU_SOURCE
@@ -86,7 +86,7 @@ int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
   __GCC_ONLY(__attribute__((const)));
 #if defined(__GNUC__)
 # define iscntrl(c)  \
-  ({ int __c = (c); (((unsigned)__c < ' ') || (c__ == 0x7F)); })
+  ({ int __c = (c); (((unsigned)__c < ' ') || (__c == 0x7F)); })
 #endif
 
 
@@ -98,7 +98,7 @@ int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
  */
 int (isdigit)(int)  /* [0x30, 0x39] */
   __GCC_ONLY(__attribute__((const)));
-#define isdigit(c)  ((unsigned)((c) - '0') < 10)
+#define isdigit(c)  (int)((unsigned)((c) - '0') < 10)
 
 
 /**
@@ -110,7 +110,7 @@ int (isdigit)(int)  /* [0x30, 0x39] */
  */
 int (isgraph)(int)  /* [0x21, 0x7E] */
   __GCC_ONLY(__attribute__((const)));
-#define isgraph(c)  ((unsigned)(c - 0x21) < 0x5E)
+#define isgraph(c)  (int)((unsigned)(c - 0x21) < 0x5E)
 
 
 /**
@@ -122,7 +122,7 @@ int (isgraph)(int)  /* [0x21, 0x7E] */
  */
 int (islower)(int)  /* [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((const)));
-#define islower(c)  ((unsigned)((c) - 'a') < 26)
+#define islower(c)  (int)((unsigned)((c) - 'a') < 26)
 
 
 /**
@@ -135,7 +135,7 @@ int (islower)(int)  /* [0x61, 0x7A] */
  */
 int (isprint)(int)  /* [0x20, 0x7E] */
   __GCC_ONLY(__attribute__((const)));
-#define isprint(c)  ((unsigned)(c - 0x20) < 0x5F)
+#define isprint(c)  (int)((unsigned)(c - 0x20) < 0x5F)
 
 
 /**
@@ -178,7 +178,7 @@ int (isspace)(int)  /* 0x20, [0x09, 0x0D] */
  */
 int (isupper)(int)  /* [0x41, 0x5A] */
   __GCC_ONLY(__attribute__((const)));
-#define isupper(c)  ((unsigned)((c) - 'A') < 26)
+#define isupper(c)  (int)((unsigned)((c) - 'A') < 26)
 
 
 /**
@@ -215,7 +215,7 @@ int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
  */
 int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((const)));
-#define tolower(c)  ((unsigned)(c) | 0x20)
+#define tolower(c)  (int)((unsigned)(c) | 0x20)
 
 /**
  * Convert a lowercase ASCII character to
@@ -233,7 +233,7 @@ int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
  */
 int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
   __GCC_ONLY(__attribute__((const)));
-#define toupper(c)  ((unsigned)(c) & ~0x20)
+#define toupper(c)  (int)((unsigned)(c) & (unsigned)~0x20)
 
 
 
@@ -245,7 +245,7 @@ int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
  */
 int (isascii)(int)  /* [0x00, 0x7E] */
   __GCC_ONLY(__attribute__((const)));
-#define isascii(c)  ((unsigned)(c) < 0x7F)
+#define isascii(c)  (int)((unsigned)(c) < 0x7F)
 
 /**
  * Remove the 8:th bit from a character.
@@ -260,7 +260,7 @@ int (toascii)(int)
   __warning("Using 'toascii' is, generally, unwise.")
   __GCC_ONLY(__attribute__((const)));
 #if defined(_SLIBC_SUPPRESS_WARNINGS)
-# define toascii(c)  ((unsigned)(c) & 0x7F)
+# define toascii(c)  (int)((unsigned)(c) & 0x7F)
 #endif
 
 /**

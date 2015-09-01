@@ -25,7 +25,7 @@ CCFLAGS_SLIBC_DEFS = -D_SLIBC_SOURCE=1 -D_GNU_SOURCE=1 -D_BSD_SOURCE=1 -D_SLIBC_
                      -D_POSIX_C_SOURCE=999999L -D_XOPEN_SOURCE=9999
 
 # Flag that specifies which C dialect the library is written.
-CCFLAGS_CSTD = -std=gnu11
+CCFLAGS_CSTD = -std=c11
 
 # Flags that specify where the system header files (that would in this case
 # be this library's header files) are located.
@@ -61,6 +61,12 @@ MMFLAGS = $(CCFLAGS_COMMON) -MG
 # Object files to build.
 OBJECTS = $(shell find src | grep '\.c$$' | sed -e 's:^src/:obj/:' -e 's:\.c$$:\.o:')
 
+# All header files.
+HEADERS = $(shell find . | grep '\.h$$' | sed -e 's:^\./::')
+
+# All code files.
+SOURCES = $(shell find src | grep '\.c$$')
+
 
 
 # You may add config.mk to the topmost directory
@@ -93,7 +99,7 @@ obj/%.o:
 
 
 # Generate list of file dependencies for object files.
-obj/deps.mk: Makefile
+obj/deps.mk: Makefile $(HEADERS) $(SOURCES)
 	@mkdir -p obj
 	find src | grep '\.c$$' | xargs $(CC) -MM $(MMFLAGS) > $@
 	sed -i 's#^[^ :]*\.o: src\([^ ]*\)/[^ /]*\.c#obj\1/&#' $@
