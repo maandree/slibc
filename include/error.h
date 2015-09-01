@@ -26,7 +26,7 @@
 #endif
 
 
-#include <slibc/features.h>
+#include <stdarg.h>
 
 
 
@@ -140,7 +140,7 @@ extern volatile int error_one_per_line;
  * 
  * This is a GNU extension.
  */
-extern volatile void (*error_print_progname)(void);
+extern void (*volatile error_print_progname)(void);
 
 
 

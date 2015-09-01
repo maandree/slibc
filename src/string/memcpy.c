@@ -18,6 +18,9 @@
 #include <string.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
  * Copy a memory segment to another, non-overlapping, segment.
@@ -30,10 +33,11 @@
 void* memcpy(void* restrict whither, const void* restrict whence, size_t size)
 {
   /* TODO improve implementation of memcpy */
-  void* r = whither;
+  char* d = whither;
+  char* s = whence;
   while (size--)
-    *whither++ = *whence++;
-  return r;
+    *d++ = *s++;
+  return whither;
 }
 
 

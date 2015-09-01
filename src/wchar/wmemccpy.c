@@ -38,10 +38,10 @@
 wchar_t* wmemccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchar_t c, size_t size)
 {
   wchar_t* stop = wmemchr(whence, c, size);
-  wchar_t* r = NULL
+  wchar_t* r = NULL;
   if (stop != NULL)
     size = (size_t)(stop - whence), r = whither + size;
-  memcpy(whither, whence, size);
+  wmemcpy(whither, whence, size);
   return r;
 }
 
@@ -65,10 +65,10 @@ wchar_t* wmemccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wch
 wchar_t* wmemcmove(wchar_t* whither, const wchar_t* whence, wchar_t c, size_t size)
 {
   wchar_t* stop = wmemchr(whence, c, size);
-  wchar_t* r = NULL
+  wchar_t* r = NULL;
   if (stop != NULL)
     size = (size_t)(stop - whence), r = whither + size;
-  memmove(whither, whence, size);
+  wmemmove(whither, whence, size);
   return r;
 }
 

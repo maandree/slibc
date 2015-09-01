@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
-#include <stddef.h>
 
 
 
@@ -97,7 +96,7 @@ char* strstrmove(char* whither, const char* whence, const char* restrict str)
 {
   const char* stop = str == NULL ? NULL : strstr(whence, str);
   size_t n = stop == NULL ? strlen(whence) : (size_t)(stop - whence);
-  char* r = stop == NULL ? NULL ? whither + n;
+  char* r = stop == NULL ? NULL : (whither + n);
   memmove(whither, whence, n);
   whither[n] = 0;
   return r;

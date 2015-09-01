@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <stddef.h>
 
 
 
@@ -69,7 +68,7 @@ wchar_t* wcpmove(wchar_t* whither, const wchar_t* whence)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcscmove(wchar_t* whither, const wchar_t* whence, wchat_t c)
+wchar_t* wcscmove(wchar_t* whither, const wchar_t* whence, wchar_t c)
 {
   wchar_t* r = wmemcmove(whither, whence, c, wcslen(whence) + 1);
   if (r)
@@ -98,7 +97,7 @@ wchar_t* wcswcsmove(wchar_t* whither, const wchar_t* whence, const wchar_t* rest
 {
   const wchar_t* stop = str == NULL ? NULL : wcsstr(whence, str);
   size_t n = stop == NULL ? wcslen(whence) : (size_t)(stop - whence);
-  wchar_t* r = stop == NULL ? NULL ? whither + n;
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemmove(whither, whence, n);
   whither[n] = 0;
   return r;
@@ -179,11 +178,11 @@ wchar_t* wcpnmove(wchar_t* whither, const wchar_t* whence, size_t maxlen)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcscnmove(wchar_t* whither, const wchar_t* whence, wchat_t c, size_t maxlen)
+wchar_t* wcscnmove(wchar_t* whither, const wchar_t* whence, wchar_t c, size_t maxlen)
 {
-  const char* stop = wmemchr(whence, c, maxlen);
+  const wchar_t* stop = wmemchr(whence, c, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
-  char* r = stop == NULL ? NULL : (whither + n);
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemmove(whither, whence, n);
   wmemset(whither, 0, maxlen - n);
   return r;
@@ -215,9 +214,9 @@ wchar_t* wcscnmove(wchar_t* whither, const wchar_t* whence, wchat_t c, size_t ma
  */
 wchar_t* wcswcsnmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str, size_t maxlen)
 {
-  const char* stop = wcsnstr(whence, str, maxlen);
+  const wchar_t* stop = wcsnstr(whence, str, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
-  char* r = stop == NULL ? NULL : (whither + n);
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemmove(whither, whence, n);
   wmemset(whither, 0, maxlen - n);
   return r;

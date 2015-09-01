@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <stddef.h>
 
 
 
@@ -80,7 +79,7 @@ wchar_t* wcssep(wchar_t** restrict string, const wchar_t* restrict delimiters)
   if (r == NULL)
     return NULL;
   
-  next = wcpbrk(string, delimiters);
+  next = wcpbrk(r, delimiters);
   if (next != NULL)
     *next++ = 0;
   *string = next;

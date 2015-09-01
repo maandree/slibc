@@ -34,13 +34,16 @@
 char* strfry(char* anagram)
 {
   size_t i, j;
+  int r;
   char t;
   if (anagram == NULL)
     return NULL;
   for (i = strlen(anagram); --i;)
     {
-      j = (int)((double)rand() / (RAND_MAX + 1));
+      r = rand();
+      j = (int)((double)r / (RAND_MAX + 1));
       t = anagram[i], anagram[i] = anagram[j], anagram[j] = t;
     }
+  return anagram;
 }
 

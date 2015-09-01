@@ -39,7 +39,7 @@
  */
 #ifndef NULL
 # define NULL  ((void*)0)
-#define
+#endif
 
 
 

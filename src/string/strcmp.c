@@ -17,7 +17,6 @@
  */
 #include <string.h>
 #include <strings.h>
-#include <stddef.h>
 #include <inttypes.h>
 #include <ctype.h>
 

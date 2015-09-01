@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
-#include <stddef.h>
+
+
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 
 
 
@@ -31,9 +33,10 @@
  */
 void* memchr(const void* segment, int c, size_t size)
 {
+  char* s = segment;
   while (size--)
-    if (*segment++ == c)
-      return segment - 1;
+    if (*s++ == c)
+      return s - 1;
   return NULL;
 }
 
@@ -50,9 +53,10 @@ void* memchr(const void* segment, int c, size_t size)
  */
 void* rawmemchr(const void* segment, int c)
 {
+  char* s = segment;
   for (;;)
-    if (*segment++ == c)
-      return segment - 1;
+    if (*s++ == c)
+      return s - 1;
 }
 
 
@@ -71,9 +75,10 @@ void* rawmemchr(const void* segment, int c)
  */
 void* memrchr(const void* segment, int c, size_t size)
 {
+  char* s = segment;
   while (size--)
-    if (segment[size] == c)
-      return segment + size;
+    if (s[size] == c)
+      return s + size;
   return NULL;
 }
 

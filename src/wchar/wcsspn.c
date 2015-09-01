@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <stddef.h>
+
+
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 
 
 
@@ -54,7 +56,7 @@ size_t wcscspn(const wchar_t* string, const wchar_t* stopset)
   size_t end = wcslen(string);
   wchar_t* p;
   wchar_t c;
-  while ((c = *skipset++))
+  while ((c = *stopset++))
     if (p = wcsnchr(string, c, end), p != NULL)
       end = (size_t)(p - string);
   return end;

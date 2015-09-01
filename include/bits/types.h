@@ -32,7 +32,7 @@
 #ifndef __MAX_OF
 # define  __MAX_OF(type)  \
   (((type)1) << sizeof(type))
-#define
+#endif
 
 
 /**

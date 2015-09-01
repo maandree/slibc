@@ -35,10 +35,10 @@
  */
 void* memccpy(void* restrict whither, const void* restrict whence, int c, size_t size)
 {
-  char_t* stop = memchr(whence, c, size);
-  void* r = NULL
+  char* stop = memchr(whence, c, size);
+  void* r = NULL;
   if (stop != NULL)
-    size = (size_t)(stop - whence), r = whither + size;
+    size = (size_t)(stop - (const char*)whence), r = whither + size;
   memcpy(whither, whence, size);
   return r;
 }
@@ -62,10 +62,10 @@ void* memccpy(void* restrict whither, const void* restrict whence, int c, size_t
  */
 void* memcmove(void* whither, const void* whence, int c, size_t size)
 {
-  char_t* stop = memchr(whence, c, size);
-  void* r = NULL
+  char* stop = memchr(whence, c, size);
+  void* r = NULL;
   if (stop != NULL)
-    size = (size_t)(stop - whence), r = whither + size;
+    size = (size_t)(stop - (const char*)whence), r = whither + size;
   memmove(whither, whence, size);
   return r;
 }

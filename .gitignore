@@ -18,4 +18,5 @@ obj/
 *.pdf
 *.dvi
 *.ps
+/config.mk
 

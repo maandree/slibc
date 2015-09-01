@@ -23,7 +23,7 @@
 /**
  * `memset`, except calls to it cannot be removed by the compiler.
  */
-void* (volatile *__slibc_explicit_memset)(void*, int, size_t) = memset;
+void* (*volatile __slibc_explicit_memset)(void*, int, size_t) = memset;
 
 
 

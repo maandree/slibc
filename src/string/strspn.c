@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
-#include <stddef.h>
+
+
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 
 
 
@@ -59,7 +61,7 @@ size_t strcspn(const char* string, const char* stopset)
   char c;
   const char* s = string;
   memset(set, 0, 256);
-  while ((c = *skipset++))
+  while ((c = *stopset++))
     set[(size_t)c] = 1;
   while ((c = *s++))
     if (!set[(size_t)c])
@@ -86,7 +88,7 @@ char* stpbrk(const char* string, const char* stopset)
   char c;
   const char* s = string;
   memset(set, 0, 256);
-  while ((c = *skipset++))
+  while ((c = *stopset++))
     set[(size_t)c] = 1;
   while ((c = *s++))
     if (!set[(size_t)c])

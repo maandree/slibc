@@ -87,7 +87,7 @@ void vwarnx(const char*, va_list);
  * @param  ...     Formatting-arguments.
  */
 void err(int, const char*, ...)
-  __noreturn __GCC_ONLY(__attribute__((format(printf, 2, 3))));
+  __GCC_ONLY(__attribute__((format(printf, 2, 3)))) __noreturn;
 
 /**
  * Print an error message to stderr, followed by a

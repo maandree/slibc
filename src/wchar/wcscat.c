@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <stddef.h>
 
 
 
@@ -55,7 +54,7 @@ wchar_t* wcscat(wchar_t* restrict whither, const wchar_t* restrict whence)
  */
 wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size_t maxlen)
 {
-  wcsncpy(whither + wcslen(whither), whence, laxmen);
+  wcsncpy(whither + wcslen(whither), whence, maxlen);
   return whither;
 }
 

@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <stddef.h>
 
 
 
@@ -67,9 +66,9 @@ wchar_t* wcpcpy(wchar_t* restrict whither, const wchar_t* restrict whence)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcsccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchat_t c)
+wchar_t* wcsccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchar_t c)
 {
-  wchar_t* r = wmemccopy(whither, whence, c, wcslen(whence) + 1);
+  wchar_t* r = wmemccpy(whither, whence, c, wcslen(whence) + 1);
   if (r)
     *r = 0;
   return r;
@@ -96,7 +95,7 @@ wchar_t* wcswcscpy(wchar_t* restrict whither, const wchar_t* restrict whence, co
 {
   const wchar_t* stop = str == NULL ? NULL : wcsstr(whence, str);
   size_t n = stop == NULL ? wcslen(whence) : (size_t)(stop - whence);
-  wchar_t* r = stop == NULL ? NULL ? whither + n;
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemcpy(whither, whence, n);
   whither[n] = 0;
   return r;
@@ -176,11 +175,11 @@ wchar_t* wcpncpy(wchar_t* restrict whither, const wchar_t* restrict whence, size
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcscncpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchat_t c, size_t maxlen)
+wchar_t* wcscncpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchar_t c, size_t maxlen)
 {
-  const char* stop = wmemchr(whence, c, maxlen);
+  const wchar_t* stop = wmemchr(whence, c, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
-  char* r = stop == NULL ? NULL : (whither + n);
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemcpy(whither, whence, n);
   wmemset(whither, 0, maxlen - n);
   return r;
@@ -213,9 +212,9 @@ wchar_t* wcscncpy(wchar_t* restrict whither, const wchar_t* restrict whence, wch
 wchar_t* wcswcsncpy(wchar_t* restrict whither, const wchar_t* restrict whence,
 		    const wchar_t* restrict str, size_t maxlen)
 {
-  const char* stop = wcsnstr(whence, str, maxlen);
+  const wchar_t* stop = wcsnstr(whence, str, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
-  char* r = stop == NULL ? NULL : (whither + n);
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemcpy(whither, whence, n);
   wmemset(whither, 0, maxlen - n);
   return r;

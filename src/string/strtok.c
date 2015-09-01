@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
-#include <stddef.h>
 
 
 
@@ -102,7 +101,7 @@ char* strsep(char** restrict string, const char* restrict delimiters)
   if (r == NULL)
     return NULL;
   
-  next = stpbrk(string, delimiters);
+  next = stpbrk(r, delimiters);
   if (next != NULL)
     *next++ = 0;
   *string = next;

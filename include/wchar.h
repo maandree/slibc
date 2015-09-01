@@ -23,6 +23,14 @@
 
 
 
+/**
+ * `NULL`'s canonical header is <stddef.h>
+ */
+#ifndef NULL
+# define NULL  ((void*)0)
+#endif
+
+
 #define __NEED_size_t
 #define __NEED_wchar_t
 
@@ -37,7 +45,7 @@
  *               first NUL character.
  */
 size_t wcslen(const wchar_t*)
-  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((nonnull, warn_unused_result, pure)));
 
 #if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
      defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
@@ -52,7 +60,7 @@ size_t wcslen(const wchar_t*)
  *                  NUL character was found.
  */
 size_t wcsnlen(const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 
@@ -200,7 +208,7 @@ wchar_t* wcpcpy(wchar_t* restrict, const wchar_t* restrict)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcsccpy(wchar_t* restrict, const wchar_t* restrict, wchat_t)
+wchar_t* wcsccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t)
   __GCC_ONLY(__attribute__((nonnull)));
 
 /**
@@ -286,7 +294,7 @@ wchar_t* wcpncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcscncpy(wchar_t* restrict, const wchar_t* restrict, wchat_t, size_t)
+wchar_t* wcscncpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t)
   __GCC_ONLY(__attribute__((nonnull)));
 
 /**
@@ -361,7 +369,7 @@ wchar_t* wcpmove(wchar_t*, const wchar_t*)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcscmove(wchar_t*, const wchar_t*, wchat_t)
+wchar_t* wcscmove(wchar_t*, const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((nonnull)));
 
 /**
@@ -446,7 +454,7 @@ wchar_t* wcpnmove(wchar_t*, const wchar_t*, size_t)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcscnmove(wchar_t*, const wchar_t*, wchat_t, size_t)
+wchar_t* wcscnmove(wchar_t*, const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((nonnull)));
 
 /**
@@ -641,7 +649,7 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  *                see the specifications for `a` and `b`.
  */
 int wmemcmp(const wchar_t*, const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
 /**
  * Compare two strings alphabetically in a case sensitive manner.
@@ -652,7 +660,7 @@ int wmemcmp(const wchar_t*, const wchar_t*, size_t)
  *             see the specifications for `a` and `b`.
  */
 int wcscmp(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
 /**
@@ -668,7 +676,7 @@ int wcscmp(const wchar_t*, const wchar_t*)
  *             see the specifications for `a` and `b`.
  */
 int wcscasecmp(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Compare two strings alphabetically in a case sensitive manner.
@@ -682,7 +690,7 @@ int wcscasecmp(const wchar_t*, const wchar_t*)
  *                  see the specifications for `a` and `b`.
  */
 int wcsncmp(const wchar_t*, const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Compare two strings alphabetically in a case insensitive manner.
@@ -698,7 +706,7 @@ int wcsncmp(const wchar_t*, const wchar_t*, size_t)
  *                  see the specifications for `a` and `b`.
  */
 int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 #endif
 
 
@@ -713,7 +721,7 @@ int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
  *                   `NULL` if none were found.
  */
 wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
 #if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
@@ -728,7 +736,7 @@ wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
  * @return           Pointer to the first occurrence of `c`.
  */
 wchar_t* rawwmemchr(const wchar_t*, wchar_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
 
 /**
  * Find the last occurrence of a wide character in
@@ -747,7 +755,7 @@ wchar_t* rawwmemchr(const wchar_t*, wchar_t)
  *                   `NULL` if none were found.
  */
 wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 /**
@@ -761,7 +769,7 @@ wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
  *                  `NULL` if none were found.
  */
 wchar_t* wcschr(const wchar_t*, wchar_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
 /**
@@ -780,7 +788,7 @@ wchar_t* wcschr(const wchar_t*, wchar_t)
  *                  if none were found.
  */
 wchar_t* wcschrnul(const wchar_t*, wchar_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
 #endif
 
 /**
@@ -798,7 +806,7 @@ wchar_t* wcschrnul(const wchar_t*, wchar_t)
  *                  `NULL` if none were found.
  */
 wchar_t* wcsrchr(const wchar_t*, wchar_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 /* TODO Add case insensitive character searching functions. */
@@ -808,7 +816,7 @@ wchar_t* wcsrchr(const wchar_t*, wchar_t)
  * This function is identical to `wcsstr`.
  */
 wchar_t* wcswcs(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)))
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)))
   __deprecated("Use 'wcsstr' instead.");
 
 /**
@@ -821,7 +829,7 @@ wchar_t* wcswcs(const wchar_t*, const wchar_t*)
  *                    substring, `NULL` if not found.
  */
 wchar_t* wcsstr(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 #if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
@@ -836,7 +844,7 @@ wchar_t* wcsstr(const wchar_t*, const wchar_t*)
  *                    substring, `NULL` if not found.
  */
 wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -852,7 +860,7 @@ wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
  *                    substring, `NULL` if not found.
  */
 wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -867,7 +875,7 @@ wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
  *                    substring, `NULL` if not found.
  */
 wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -881,7 +889,7 @@ wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
  * @return            Pointer to the first occurrence of the substring.
  */
 wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -895,7 +903,7 @@ wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
  * @return            Pointer to the first occurrence of the substring.
  */
 wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring
@@ -911,7 +919,8 @@ wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t);
+wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
@@ -931,7 +940,7 @@ wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t);
  *                           the substring, `NULL` if not found.
  */
 wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 
@@ -948,7 +957,7 @@ wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
  * @return           The length of the substring.
  */
 size_t wcsspn(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Returns length of the initial substring
@@ -960,7 +969,7 @@ size_t wcsspn(const wchar_t*, const wchar_t*)
  * @return           The length of the substring.
  */
 size_t wcscspn(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * This function works like `strcspn`,
@@ -975,7 +984,7 @@ size_t wcscspn(const wchar_t*, const wchar_t*)
  *                   `NULL` is returned if none is found.
  */
 wchar_t* wcpbrk(const wchar_t*, const wchar_t*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 /**

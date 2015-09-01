@@ -56,7 +56,7 @@
 #define static_assert _Static_assert
 
 
-#ifndef __PORTABLE
+#if (defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)) && !defined(__PORTABLE)
 /**
  * Unless `NDEBUG` is defined, print an error message
  * and abort the process, if `errnum` is non-zero.
@@ -65,15 +65,15 @@
  * 
  * `assert_perror` is a GNU extension.
  */
-#if defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)
-#ifdef assert_perror
-# undef assert_perror
-#endif
-#ifdef NDEBUG
-# define assert_perror(errnum)  ((void)0)
-#else
-# define assert_perror(errnum)  \
+# ifdef assert_perror
+#  undef assert_perror
+# endif
+# ifdef NDEBUG
+#  define assert_perror(errnum)  ((void)0)
+# else
+#  define assert_perror(errnum)  \
   ((void)((errnum == 0) ? 0 : (__assert_fail(NULL, errnum, __FILE__, __LINE__, __func__), 0)))
+# endif
 #endif
 
 
@@ -89,7 +89,6 @@
  */
 void __assert_fail(const char*, int, const char*, int, const char*)
   __noreturn __GCC_ONLY(__attribute__((nonnull(3, 4, 5))));
-#endif
 
 
 

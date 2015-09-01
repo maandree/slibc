@@ -22,6 +22,14 @@
 
 
 
+/**
+ * `NULL`'s canonical header is <stddef.h>
+ */
+#ifndef NULL
+# define NULL  ((void*)0)
+#endif
+
+
 #define __NEED_size_t
 #define __NEED_locale_t /* TODO not defined */
 
@@ -66,11 +74,13 @@ char* strerror(int)
  *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
  * @return          A description of the error.
  */
+/* TODO strerror_l
 char* strerror_l(int, locale_t)
   __GCC_ONLY(__attribute__((warn_unused_result)));
+*/
 
 
-#if !defined(__PORTABLE) && !defined(_SLIBC_SOURCE)
+#if !defined(__PORTABLE)
 /**
  * Reenterant variant of `strerror`.
  * 
@@ -125,7 +135,7 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
  * @return       The number of bytes before the first NUL byte.
  */
 size_t strlen(const char*)
-  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((nonnull, warn_unused_result, pure)));
 
 #if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
      defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
@@ -140,7 +150,7 @@ size_t strlen(const char*)
  *                  `maxlen` if no NUL byte was found.
  */
 size_t strnlen(const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 
@@ -716,7 +726,7 @@ void* memdup(const void*, size_t)
  *                see the specifications for `a` and `b`.
  */
 int memcmp(const void*, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
 /**
  * Compare two strings alphabetically in a case sensitive manner.
@@ -727,7 +737,7 @@ int memcmp(const void*, const void*, size_t)
  *             see the specifications for `a` and `b`.
  */
 int strcmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Compare two strings alphabetically in a case sensitive manner.
@@ -739,12 +749,12 @@ int strcmp(const char*, const char*)
  *                  see the specifications for `a` and `b`.
  */
 int strncmp(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 #if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 int strverscmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 /* TODO document and implement strverscmp */
 #endif
 
@@ -759,7 +769,7 @@ int strverscmp(const char*, const char*)
  *                   `NULL` if none were found.
  */
 void* memchr(const void*, int, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
 /**
@@ -773,7 +783,7 @@ void* memchr(const void*, int, size_t)
  * @return           Pointer to the first occurrence of `c`.
  */
 void* rawmemchr(const void*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
 #endif
 
 /**
@@ -790,7 +800,7 @@ void* rawmemchr(const void*, int)
  *                   `NULL` if none were found.
  */
 void* memrchr(const void*, int, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
 /**
  * Find the first occurrence of a byte in a string.
@@ -806,7 +816,7 @@ void* memrchr(const void*, int, size_t)
  *                  `NULL` if none were found.
  */
 char* strchr(const char*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
 /**
@@ -824,7 +834,7 @@ char* strchr(const char*, int)
  *                  if none were found.
  */
 char* strchrnul(const char*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
 #endif
 
 /**
@@ -842,7 +852,7 @@ char* strchrnul(const char*, int)
  *                  `NULL` if none were found.
  */
 char* strrchr(const char*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 /* TODO Add case insensitive character searching functions. */
@@ -858,7 +868,7 @@ char* strrchr(const char*, int)
  *                    substring, `NULL` if not found.
  */
 char* strstr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -870,7 +880,7 @@ char* strstr(const char*, const char*)
  *                    substring, `NULL` if not found.
  */
 char* strcasestr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 #if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
 /**
@@ -887,7 +897,7 @@ char* strcasestr(const char*, const char*)
  *                    substring, `NULL` if not found.
  */
 char* strnstr(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -902,7 +912,7 @@ char* strnstr(const char*, const char*, size_t)
  *                    substring, `NULL` if not found.
  */
 char* strncasestr(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -916,7 +926,7 @@ char* strncasestr(const char*, const char*, size_t)
  * @return            Pointer to the first occurrence of the substring.
  */
 char* rawstrstr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring.
@@ -930,7 +940,7 @@ char* rawstrstr(const char*, const char*)
  * @return            Pointer to the first occurrence of the substring.
  */
 char* rawstrcasestr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
 
 /**
  * Finds the first occurrence of a substring
@@ -947,7 +957,7 @@ char* rawstrcasestr(const char*, const char*)
  *                           the substring, `NULL` if not found.
  */
 void* memcasemem(const void*, size_t, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
@@ -966,7 +976,7 @@ void* memcasemem(const void*, size_t, const void*, size_t)
  *                           the substring, `NULL` if not found.
  */
 void* memmem(const void*, size_t, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 #endif
 
 
@@ -983,7 +993,7 @@ void* memmem(const void*, size_t, const void*, size_t)
  * @return           The length of the substring.
  */
 size_t strspn(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Returns length of the initial substring
@@ -995,7 +1005,7 @@ size_t strspn(const char*, const char*)
  * @return           The length of the substring.
  */
 size_t strcspn(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * This function works like `strcspn`,
@@ -1010,7 +1020,7 @@ size_t strcspn(const char*, const char*)
  *                   `NULL` is returned if none is found.
  */
 char* stpbrk(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 /**
@@ -1086,7 +1096,7 @@ char* strsep(char** restrict, const char* restrict)
  *                    so it must not freed or edited.
  */
 char* __gnu_basename(const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 # define basename  __gnu_basename
 #endif
 

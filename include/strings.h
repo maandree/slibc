@@ -64,7 +64,7 @@ void bcopy(const void*, void*, size_t)
  */
 int bcmp(const void*, const void*, size_t)
   __deprecated("Use 'memcmp' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
 
 /**
@@ -78,7 +78,7 @@ int bcmp(const void*, const void*, size_t)
  *             see the specifications for `a` and `b`.
  */
 int strcasecmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * Compare two strings alphabetically in a case insensitive manner.
@@ -92,7 +92,7 @@ int strcasecmp(const char*, const char*)
  *                  see the specifications for `a` and `b`.
  */
 int strncasecmp(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 /**
@@ -102,7 +102,7 @@ int strncasecmp(const char*, const char*, size_t)
  */
 char* index(const char*, int)
   __deprecated("Use 'strchr' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 /**
  * This function is identical to `strrchr`.
@@ -111,7 +111,7 @@ char* index(const char*, int)
  */
 char* rindex(const char*, int)
   __deprecated("Use 'strrchr' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
 
