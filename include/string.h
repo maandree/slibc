@@ -848,6 +848,131 @@ char* strrchr(const char*, int)
 /* TODO Add case insensitive character searching functions. */
 
 
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+char* strstr(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+char* strcasestr(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * 
+ * This is a slibc extension added for because it was useful
+ * in implementing slibc itself.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @param   maxlen    The maximum number of character to search.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+char* strnstr(const char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @param   maxlen    The maximum number of character to search.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+char* strncasestr(const char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * It must already be known that such a substring exists.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the substring.
+ */
+char* rawstrstr(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
+ * It must already be known that such a substring exists.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the substring.
+ */
+char* rawstrcasestr(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+
+/**
+ * Finds the first occurrence of a substring
+ * This search is case insensitive.
+ * 
+ * This is a slibc extension added because it was useful
+ * in implementing slibc itself.
+ * 
+ * @param   haystack         The string to search.
+ * @param   haystack_length  The number of character to search.
+ * @param   needle           The sought after substring.
+ * @param   needle_length    The length of `needle`.
+ * @return                   Pointer to the first occurrence of
+ *                           the substring, `NULL` if not found.
+ */
+void* memcasemem(const void*, size_t, const void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+#endif
+
+#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+/**
+ * Finds the first occurrence of a substring
+ * This search is case sensitive.
+ * 
+ * This is a GNU-compliant slibc extension. It was useful
+ * in implementing slibc itself.
+ * 
+ * @param   haystack         The string to search.
+ * @param   haystack_length  The number of character to search.
+ * @param   needle           The sought after substring.
+ * @param   needle_length    The length of `needle`.
+ * @return                   Pointer to the first occurrence of
+ *                           the substring, `NULL` if not found.
+ */
+void* memmem(const void*, size_t, const void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+#endif
+
+
+/* TODO Add case right-to-left substring searching functions. */
+
+
 
 #endif
 

@@ -93,10 +93,11 @@ void* memrchr(const void* segment, int c, size_t size)
  */
 char* strchr(const char* string, int c)
 {
-  while (; *string; string++)
+  for (;;)
     if (*string == c)
       return string;
-  return NULL;
+    else if (!*string++)
+      return NULL;
 }
 /* TODO Ensure that `s = strchr(s, 0)` is faster than `s = s + strlen(s)`. */
 
@@ -117,10 +118,11 @@ char* strchr(const char* string, int c)
  */
 char* strchrnul(const char* string, int c)
 {
-  while (; *string; string++)
+  for (;; string++)
     if (*string == c)
       return string;
-  return string;
+    else if (!*string)
+      return string;
 }
 
 
@@ -141,9 +143,10 @@ char* strchrnul(const char* string, int c)
 char* strrchr(const char* string, int c)
 {
   char* r = NULL;
-  while (; *string; string++)
+  for (;;)
     if (*string == c)
       r = string;
-  return r;
+    else if (!*string++)
+      return r;
 }
 

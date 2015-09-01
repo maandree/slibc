@@ -95,10 +95,11 @@ wchar_t* wmemrchr(const wchar_t* segment, wchar_t c, size_t size)
  */
 wchar_t* wcschr(const wchar_t* string, wchar_t c)
 {
-  while (; *string; string++)
+  for (;;)
     if (*string == c)
       return string;
-  return NULL;
+    else if (!*string++)
+      return NULL;
 }
 
 
@@ -119,10 +120,11 @@ wchar_t* wcschr(const wchar_t* string, wchar_t c)
  */
 wchar_t* wcschrnul(const wchar_t* string, wchar_t c)
 {
-  while (; *string; string++)
+  for (;; string++)
     if (*string == c)
       return string;
-  return string;
+    else if (!*string)
+      return string;
 }
 
 
@@ -143,9 +145,10 @@ wchar_t* wcschrnul(const wchar_t* string, wchar_t c)
 wchar_t* wcsrchr(const wchar_t* string, wchar_t c)
 {
   wchar_t* r = NULL;
-  while (; *string; string++)
+  for (;;)
     if (*string == c)
       r = string;
-  return r;
+    else if (!*string++)
+      return r;
 }
 

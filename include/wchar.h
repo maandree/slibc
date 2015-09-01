@@ -804,6 +804,140 @@ wchar_t* wcsrchr(const wchar_t*, wchar_t)
 /* TODO Add case insensitive character searching functions. */
 
 
+/**
+ * This function is identical to `wcsstr`.
+ */
+wchar_t* wcswcs(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)))
+  __deprecated("Use 'wcsstr' instead.");
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+wchar_t* wcsstr(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * 
+ * This is a slibc extension added for because it was useful
+ * in implementing slibc itself.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @param   maxlen    The maximum number of character to search.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @param   maxlen    The maximum number of character to search.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
+ */
+wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * It must already be known that such a substring exists.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the substring.
+ */
+wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+
+/**
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
+ * It must already be known that such a substring exists.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the substring.
+ */
+wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull)));
+
+/**
+ * Finds the first occurrence of a substring
+ * This search is case insensitive.
+ * 
+ * This is a slibc extension added because it was useful
+ * in implementing slibc itself.
+ * 
+ * @param   haystack         The string to search.
+ * @param   haystack_length  The number of character to search.
+ * @param   needle           The sought after substring.
+ * @param   needle_length    The length of `needle`.
+ * @return                   Pointer to the first occurrence of
+ *                           the substring, `NULL` if not found.
+ */
+wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t);
+#endif
+
+#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+/**
+ * Finds the first occurrence of a substring
+ * This search is case sensitive.
+ * 
+ * This is a slibc extension added for completeness,
+ * and because it was it was useful in implementing
+ * slibc itself.
+ * 
+ * @param   haystack         The string to search.
+ * @param   haystack_length  The number of character to search.
+ * @param   needle           The sought after substring.
+ * @param   needle_length    The length of `needle`.
+ * @return                   Pointer to the first occurrence of
+ *                           the substring, `NULL` if not found.
+ */
+wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+#endif
+
+
+/* TODO Add case right-to-left substring searching functions. */
+
+
 
 #endif
 #endif
