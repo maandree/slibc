@@ -744,8 +744,108 @@ int strncmp(const char*, const char*, size_t)
 
 #if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 int strverscmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull))); /* TODO document and implement strverscmp */
-#end if
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+/* TODO document and implement strverscmp */
+#endif
+
+
+/**
+ * Find the first occurrence of a byte in a memory segment.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @param   size     The size of the memory segment.
+ * @return           Pointer to the first occurrence of `c`,
+ *                   `NULL` if none were found.
+ */
+void* memchr(const void*, int, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+/**
+ * Find the first occurrence of a byte in a memory segment.
+ * The memory segment must be known to contain the sought after byte.
+ * 
+ * This is a GNU-compliant slibc extension.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @return           Pointer to the first occurrence of `c`.
+ */
+void* rawmemchr(const void*, int)
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+#endif
+
+/**
+ * Find the last occurrence of a byte in a memory segment.
+ * 
+ * For improved performace, use this function instead
+ * of `strrchr` if you already know the length of the
+ * string.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @param   size     The size of the memory segment.
+ * @return           Pointer to the last occurrence of `c`,
+ *                   `NULL` if none were found.
+ */
+void* memrchr(const void*, int, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+/**
+ * Find the first occurrence of a byte in a string.
+ * 
+ * `s = strchr(s, 0)` is a faster alternative to
+ * `s = s + strlen(s)`.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  `NULL` if none were found.
+ */
+char* strchr(const char*, int)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+/**
+ * Find the first occurrence of a byte in a string, or
+ * if there is no such byte, the end of the string.
+ * 
+ * This is a GNU-compliant slibc extension.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  Pointer to the terminating NUL character
+ *                  if none were found.
+ */
+char* strchrnul(const char*, int)
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+#endif
+
+/**
+ * Find the last occurrence of a byte in a string.
+ * 
+ * For improved performace, use `memrchr` instead of
+ * this function if you already know the length of the
+ * string.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the last occurrence of `c`,
+ *                  `NULL` if none were found.
+ */
+char* strrchr(const char*, int)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+
+/* TODO Add case insensitive character searching functions. */
 
 
 

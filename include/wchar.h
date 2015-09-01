@@ -702,6 +702,108 @@ int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
 #endif
 
 
+/**
+ * Find the first occurrence of a wide character
+ * in a memory segment.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @param   size     The size of the memory segment.
+ * @return           Pointer to the first occurrence of `c`,
+ *                   `NULL` if none were found.
+ */
+wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * Find the first occurrence of a wide character in a
+ * memory segment. The memory segment must be known to
+ * contain the sought after character.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @return           Pointer to the first occurrence of `c`.
+ */
+wchar_t* rawwmemchr(const wchar_t*, wchar_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+
+/**
+ * Find the last occurrence of a wide character in
+ * a memory segment.
+ * 
+ * For improved performace, use this function instead
+ * of `wcssrchr` if you already know the length of the
+ * string.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @param   size     The size of the memory segment.
+ * @return           Pointer to the last occurrence of `c`,
+ *                   `NULL` if none were found.
+ */
+wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result)));
+#endif
+
+/**
+ * Find the first occurrence of a wide character in a string.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  `NULL` if none were found.
+ */
+wchar_t* wcschr(const wchar_t*, wchar_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+/**
+ * Find the first occurrence of a wide character in a
+ * string, or if there is no such character, the end of
+ * the string.
+ * 
+ * This is a GNU-compliant slibc extension.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  Pointer to the terminating NUL character
+ *                  if none were found.
+ */
+wchar_t* wcschrnul(const wchar_t*, wchar_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull)));
+#endif
+
+/**
+ * Find the last occurrence of a wide character in a string.
+ * 
+ * For improved performace, use `wmemrchr` instead of
+ * this function if you already know the length of the
+ * string.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the last occurrence of `c`,
+ *                  `NULL` if none were found.
+ */
+wchar_t* wcsrchr(const wchar_t*, wchar_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+
+
+/* TODO Add case insensitive character searching functions. */
+
+
 
 #endif
 #endif
