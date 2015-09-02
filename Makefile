@@ -55,17 +55,22 @@ CCFLAGS_STATIC = $(CCFLAGS_COMMON)
 CCFLAGS_SHARED = $(CCFLAGS_COMMON) -fPIC -DSHARED
 
 # Flags required when genering header file dependency list.
-MMFLAGS = $(CCFLAGS_COMMON) -MG
+MMFLAGS = $(CCFLAGS_COMMON) -Igen -MG
 
+
+SHE = '\#'
 
 # Object files to build.
-OBJECTS = $(shell find src | grep '\.c$$' | sed -e 's:^src/:obj/:' -e 's:\.c$$:\.o:')
+OBJECTS = $(shell find src | grep '\.c$$' | grep -v $(SHE) | sed -e 's:^src/:obj/:' -e 's:\.c$$:\.o:')
 
 # All header files.
-HEADERS = $(shell find . | grep '\.h$$' | sed -e 's:^\./::')
+HEADERS = $(shell find . | grep '\.h$$' | grep -v $(SHE) | sed -e 's:^\./::')
 
 # All code files.
-SOURCES = $(shell find src | grep '\.c$$')
+SOURCES = $(shell find src | grep '\.c$$' | grep -v $(SHE))
+
+# Generated headers files.
+GENERATED = include/bits/intconf.h
 
 
 
@@ -89,19 +94,31 @@ all: $(OBJECTS)
 
 
 # Build object file.
-obj/%.o:
+obj/%.o: $(GENERATED)
 	@mkdir -p $$(dirname $@)
 	$(CC) -c -o $@ src/$*.c $(CCFLAGS_SHARED)
 
+# Preprocess header files.
+include/%.h: gen/%.h bin/gen/%
+	@mkdir -p $$(dirname $@)
+	gpp -s // < $< > $@
 
+bin/gen/%: obj/gen/%.o
+	@mkdir -p $$(dirname $@)
+	$(CC) $(CCFLAGS_WARNINGS) -std=c99 -o $@ $^
+
+obj/gen/%.o: gen/%.c
+	@mkdir -p $$(dirname $@)
+	$(CC) -c -o $@ $<
 
 
 
 # Generate list of file dependencies for object files.
-obj/deps.mk: Makefile $(HEADERS) $(SOURCES)
+obj/deps.mk: Makefile $(HEADERS) $(SOURCES) $(GENERATED)
 	@mkdir -p obj
-	@find src | grep '\.c$$' | xargs $(CC) -MM $(MMFLAGS) > $@
-	@sed -i 's#^[^ :]*\.o: src\([^ ]*\)/[^ /]*\.c#obj\1/&#' $@
+	find src | grep '\.c$$' | xargs $(CC) -MM $(MMFLAGS) > $@
+	sed -i 's#^[^ :]*\.o: src\([^ ]*\)/[^ /]*\.c#obj\1/&#' $@
+	sed -i 's# gen/\([^ ]*\.h\)# \1#g' $@
 
 
 
@@ -109,6 +126,7 @@ obj/deps.mk: Makefile $(HEADERS) $(SOURCES)
 .PHONY: clean
 clean:
 	-rm -rf obj bin
+	-rm -f include/bits/intconf.h
 
 # Remove all files that are not part of the source.
 .PHONY: distclean
