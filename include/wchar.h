@@ -39,6 +39,14 @@
 
 
 /**
+ * End of a wide-character stream
+ */
+#ifndef WEOF
+# define WEOF  -1L
+#endif
+
+
+/**
  * `wchar_t` version of `strlen`.
  * 
  * @param   str  The string.
