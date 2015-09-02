@@ -145,6 +145,34 @@ char* rindex(const char*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
+/**
+ * Find the first set bit in an integer.
+ * 
+ * @param   i  The integer
+ * @return     The value of the least significant set bit, zero if none.
+ */
+int ffs(int)
+  __GCC_ONLY(__attribute__((warn_unused_result, const)));
+
+/**
+ * Find the first set bit in an integer.
+ * 
+ * @param   i  The integer
+ * @return     The value of the least significant set bit, zero if none.
+ */
+int ffsl(long)
+  __GCC_ONLY(__attribute__((warn_unused_result, const)));
+
+/**
+ * Find the first set bit in an integer.
+ * 
+ * @param   i  The integer
+ * @return     The value of the least significant set bit, zero if none.
+ */
+int ffsll(long long)
+  __GCC_ONLY(__attribute__((warn_unused_result, const)));
+
+
 
 #endif
 
