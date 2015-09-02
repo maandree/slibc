@@ -23,6 +23,7 @@
 
 
 #define __NEED_size_t
+#define __NEED_locale_t
 #include <bits/types.h>
 
 
@@ -72,7 +73,7 @@ int bcmp(const void*, const void*, size_t)
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
  * 
- * @param   a  A negetive value is returned if this is the lesser.
+ * @param   a  A negative value is returned if this is the lesser.
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
@@ -85,13 +86,43 @@ int strcasecmp(const char*, const char*)
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
  * 
- * @param   a       A negetive value is returned if this is the lesser.
+ * @param   a       A negative value is returned if this is the lesser.
  * @param   b       A positive value is returned if this is the lesser.
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
  */
 int strncasecmp(const char*, const char*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+
+/**
+ * Compare two strings alphabetically in a case insensitive manner.
+ * Be aware, only ASCII characters are case insensitive, non-ASCII
+ * characters are case sensitive.
+ * 
+ * @param   a       A negative value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   locale  The locale.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
+ */
+int strcasecmp_l(const char*, const char*, locale_t) /* TODO */
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
+ * Compare two strings alphabetically in a case insensitive manner.
+ * Be aware, only ASCII characters are case insensitive, non-ASCII
+ * characters are case sensitive.
+ * 
+ * @param   a       A negative value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   length  The maximum number of characters to compare.
+ * @param   locale  The locale.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
+ */
+int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
