@@ -15,44 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _STDLIB_H
-#define _STDLIB_H
-#include <slibc/version.h>
-#include <slibc/features.h>
+#include <stdlib.h>
 
 
-#include <malloc.h>
-
-
-
-#define __NEED_size_t
-#define __NEED_wchar_t
-#define __NEED_div_t
-#define __NEED_ldiv_t
-#define __NEED_lldiv_t
-
-#include <bits/types.h>
-
-
-/**
- * `NULL`'s canonical header is <stddef.h>.
- */
-#ifndef NULL
-# define NULL  ((void*)0)
-#endif
-
-
-/**
- * The value a process shall exit with upon
- * success completion.
- */
-#define EXIT_SUCCESS  0
-
-/**
- * A standard value a process can exit with
- * if it terminates because of failure.
- */
-#define EXIT_FAILURE  1
+# pragma GCC diagnostic ignored "-Waggregate-return"
 
 
 
@@ -65,7 +31,11 @@
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-div_t div(int, int);
+div_t div(int numerator, int denominator)
+{
+  return (div_t){ numerator / denominator, numerator % denominator };
+}
+
 
 /**
  * Perform an integer division and return
@@ -76,7 +46,11 @@ div_t div(int, int);
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-ldiv_t ldiv(long, long);
+ldiv_t ldiv(long numerator, long denominator)
+{
+  return (ldiv_t){ numerator / denominator, numerator % denominator };
+}
+
 
 /**
  * Perform an integer division and return
@@ -87,9 +61,8 @@ ldiv_t ldiv(long, long);
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-lldiv_t lldiv(long long, long long);
-
-
-
-#endif
+lldiv_t lldiv(long long numerator, long long denominator)
+{
+  return (lldiv_t){ numerator / denominator, numerator % denominator };
+}
 

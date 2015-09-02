@@ -25,6 +25,13 @@
 #include <bits/intconf.h>
 
 
+/* Ensure that dependencies for type are defined. */
+#if defined(__NEED_imaxdiv_t) && !defined(__NEED_intmax_t)
+# define __NEED_intmax_t
+#endif
+
+
+
 /**
  * Returns the maximum value of an unsigned integer type,
  * in that type.
@@ -265,5 +272,93 @@ typedef int sig_atomic_t;
 #endif
 #ifndef __SIG_ATOMIC_BIT
 # define __SIG_ATOMIC_BIT  __INT_BIT
+#endif
+
+
+/**
+ * A structure than holds both the quotient and
+ * the remainer in an integer division, of
+ * `int` type.
+ */
+#if defined(__NEED_div_t) && !defined(__DEFINED_div_t)
+# define __DEFINED_div_t
+typedef struct {
+  /**
+   * Quotient.
+   */
+  int quot;
+  
+  /**
+   * Remainder.
+   */
+  int rem;
+  
+} div_t;
+#endif
+
+
+/**
+ * A structure than holds both the quotient and
+ * the remainer in an integer division, of
+ * `long int` type.
+ */
+#if defined(__NEED_ldiv_t) && !defined(__DEFINED_ldiv_t)
+# define __DEFINED_ldiv_t
+typedef struct {
+  /**
+   * Quotient.
+   */
+  long int quot;
+  
+  /**
+   * Remainder.
+   */
+  long int rem;
+  
+} ldiv_t;
+#endif
+
+
+/**
+ * A structure than holds both the quotient and
+ * the remainer in an integer division, of
+ * `long long int` type.
+ */
+#if defined(__NEED_lldiv_t) && !defined(__DEFINED_lldiv_t)
+# define __DEFINED_lldiv_t
+typedef struct {
+  /**
+   * Quotient.
+   */
+  long long int quot;
+  
+  /**
+   * Remainder.
+   */
+  long long int rem;
+  
+} lldiv_t;
+#endif
+
+
+/**
+ * A structure than holds both the quotient and
+ * the remainer in an integer division, of
+ * `intmax_t` type.
+ */
+#if defined(__NEED_imaxdiv_t) && !defined(__DEFINED_imaxdiv_t)
+# define __DEFINED_imaxdiv_t
+typedef struct {
+  /**
+   * Quotient.
+   */
+  intmax_t quot;
+  
+  /**
+   * Remainder.
+   */
+  intmax_t rem;
+  
+} imaxdiv_t;
 #endif
 
