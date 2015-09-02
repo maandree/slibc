@@ -727,6 +727,23 @@ void* memdup(const void*, size_t)
 int memcmp(const void*, const void*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * Compare two memory segments alphabetically in a case insensitive manner.
+ * 
+ * This is a slibc extension added because it was useful
+ * in implementing slibc itself.
+ * 
+ * @param   a     A negative value is returned if this is the lesser.
+ * @param   b     A positive value is returned if this is the lesser.
+ * @param   size  The size of the segments.
+ * @return        Zero is returned if `a` and `b` are equal, otherwise,
+ *                see the specifications for `a` and `b`.
+ */
+int memcasecmp(const void*, const void*, size_t)
+  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+#endif
+
 /**
  * Compare two strings alphabetically in a case sensitive manner.
  * 
