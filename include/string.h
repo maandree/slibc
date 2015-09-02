@@ -719,7 +719,7 @@ void* memdup(const void*, size_t)
 /**
  * Compare two memory segments alphabetically in a case sensitive manner.
  * 
- * @param   a     A negetive value is returned if this is the lesser.
+ * @param   a     A negative value is returned if this is the lesser.
  * @param   b     A positive value is returned if this is the lesser.
  * @param   size  The size of the segments.
  * @return        Zero is returned if `a` and `b` are equal, otherwise,
@@ -731,7 +731,7 @@ int memcmp(const void*, const void*, size_t)
 /**
  * Compare two strings alphabetically in a case sensitive manner.
  * 
- * @param   a  A negetive value is returned if this is the lesser.
+ * @param   a  A negative value is returned if this is the lesser.
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
@@ -742,7 +742,7 @@ int strcmp(const char*, const char*)
 /**
  * Compare two strings alphabetically in a case sensitive manner.
  * 
- * @param   a       A negetive value is returned if this is the lesser.
+ * @param   a       A negative value is returned if this is the lesser.
  * @param   b       A positive value is returned if this is the lesser.
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
