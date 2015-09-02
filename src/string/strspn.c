@@ -82,7 +82,7 @@ size_t strcspn(const char* string, const char* stopset)
  *                   `string` of a byte found in `stopset`.
  *                   `NULL` is returned if none is found.
  */
-char* stpbrk(const char* string, const char* stopset)
+char* strpbrk(const char* string, const char* stopset)
 {
   char set[256];
   char c;

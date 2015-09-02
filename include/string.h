@@ -1016,7 +1016,7 @@ size_t strcspn(const char*, const char*)
  *                   `string` of a byte found in `stopset`.
  *                   `NULL` is returned if none is found.
  */
-char* stpbrk(const char*, const char*)
+char* strpbrk(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
