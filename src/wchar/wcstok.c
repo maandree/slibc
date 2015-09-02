@@ -79,7 +79,7 @@ wchar_t* wcssep(wchar_t** restrict string, const wchar_t* restrict delimiters)
   if (r == NULL)
     return NULL;
   
-  next = wcpbrk(r, delimiters);
+  next = wcrpbrk(r, delimiters);
   if (next != NULL)
     *next++ = 0;
   *string = next;

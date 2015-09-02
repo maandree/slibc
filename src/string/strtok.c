@@ -101,7 +101,7 @@ char* strsep(char** restrict string, const char* restrict delimiters)
   if (r == NULL)
     return NULL;
   
-  next = stpbrk(r, delimiters);
+  next = strpbrk(r, delimiters);
   if (next != NULL)
     *next++ = 0;
   *string = next;
