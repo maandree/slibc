@@ -86,7 +86,6 @@ include obj/deps.mk
 # Build everything.
 .PHONY: all
 all: $(OBJECTS)
-	@echo $^
 
 
 # Build object file.
