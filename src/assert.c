@@ -52,6 +52,7 @@ void __assert_fail(const char* expression, int errnum, const char* file, int lin
 	  tty, func, tty,
 	  tty, expression != NULL, (expression ? expression : stderror(errnum)), tty);
   
+  fflush(NULL); /* Flush all streams. */
   abort();
 }
 
