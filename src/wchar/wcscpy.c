@@ -91,7 +91,7 @@ wchar_t* wcsccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wcha
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcscpy(wchar_t* restrict whither, const wchar_t* restrict whence, const wchar_t* restrict str)
+wchar_t* wcsstrcpy(wchar_t* restrict whither, const wchar_t* restrict whence, const wchar_t* restrict str)
 {
   const wchar_t* stop = str == NULL ? NULL : wcsstr(whence, str);
   size_t n = stop == NULL ? wcslen(whence) : (size_t)(stop - whence);
@@ -209,7 +209,7 @@ wchar_t* wcscncpy(wchar_t* restrict whither, const wchar_t* restrict whence, wch
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcsncpy(wchar_t* restrict whither, const wchar_t* restrict whence,
+wchar_t* wcsstrncpy(wchar_t* restrict whither, const wchar_t* restrict whence,
 		    const wchar_t* restrict str, size_t maxlen)
 {
   const wchar_t* stop = wcsnstr(whence, str, maxlen);

@@ -33,6 +33,7 @@
 
 #define __NEED_size_t
 #define __NEED_wchar_t
+#define __NEED_wint_t
 
 #include <bits/types.h>
 
@@ -47,9 +48,6 @@
 size_t wcslen(const wchar_t*)
   __GCC_ONLY(__attribute__((nonnull, warn_unused_result, pure)));
 
-#if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
-     defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
-     defined(_BSD_SOURCE)) && !defined(__PORTABLE)
 /**
  * `wchar_t` version of `strnlen`.
  * 
@@ -61,7 +59,6 @@ size_t wcslen(const wchar_t*)
  */
 size_t wcsnlen(const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
-#endif
 
 
 
@@ -227,7 +224,7 @@ wchar_t* wcsccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcscpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* restrict)
+wchar_t* wcsstrcpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((nonnull(1, 2))));
 #endif
 
@@ -320,7 +317,7 @@ wchar_t* wcscncpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcsncpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* restrict, size_t)
+wchar_t* wcsstrncpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((nonnull(1, 2))));
 # endif
 #endif
@@ -388,7 +385,7 @@ wchar_t* wcscmove(wchar_t*, const wchar_t*, wchar_t)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcsmove(wchar_t*, const wchar_t*, const wchar_t* restrict)
+wchar_t* wcsstrmove(wchar_t*, const wchar_t*, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((nonnull(1, 2))));
 
 /**
@@ -480,7 +477,7 @@ wchar_t* wcscnmove(wchar_t*, const wchar_t*, wchar_t, size_t)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcsnmove(wchar_t*, const wchar_t*, const wchar_t* restrict, size_t)
+wchar_t* wcsstrnmove(wchar_t*, const wchar_t*, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((nonnull(1, 2))));
 # endif
 #endif
@@ -523,6 +520,7 @@ wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size
 
 
 #if !defined(__PORTABLE)
+# if defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)
 /**
  * Duplicate a string.
  * 
@@ -536,6 +534,7 @@ wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size
  */
 wchar_t* wcsdup(const wchar_t*)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+# endif
 
 # if defined(_SLIBC_SOURCE)
 #  if defined(_GNU_SOURCE)
@@ -980,7 +979,7 @@ size_t wcscspn(const wchar_t*, const wchar_t*)
  *                   `string` of a character found in `stopset`.
  *                   `NULL` is returned if none is found.
  */
-wchar_t* wcpbrk(const wchar_t*, const wchar_t*)
+wchar_t* wcspbrk(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 

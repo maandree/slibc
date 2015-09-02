@@ -93,7 +93,7 @@ wchar_t* wcscmove(wchar_t* whither, const wchar_t* whence, wchar_t c)
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcsmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str)
+wchar_t* wcsstrmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str)
 {
   const wchar_t* stop = str == NULL ? NULL : wcsstr(whence, str);
   size_t n = stop == NULL ? wcslen(whence) : (size_t)(stop - whence);
