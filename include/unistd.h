@@ -29,7 +29,36 @@
 #define __NEED_off_t /* TODO not implement */
 #define __NEED_pid_t /* TODO not implement */
 #define __NEED_ptrdiff_t
+#define __NEED_intptr_t
+#define __NEED_useconds_t /* TODO not implement */
 #include <bits/types.h>
+
+
+/**
+ * `NULL`'s canonical header is <stddef.h>.
+ */
+#ifndef NULL
+# define NULL  ((void*)0)
+#endif
+
+
+/**
+ * The file descriptor for stdin.
+ * The file with input.
+ */
+#define STDIN_FILENO  0
+
+/**
+ * The file descriptor for stdout.
+ * The file for output.
+ */
+#define STDOUT_FILENO  1
+
+/**
+ * The file descriptor for stderr.
+ * The file for error messages and warnings.
+ */
+#define STDERR_FILENO  2
 
 
 /**
