@@ -362,3 +362,15 @@ typedef struct {
 } imaxdiv_t;
 #endif
 
+
+/**
+ * Locale datatype.
+ */
+#if defined(__NEED_locale_t) && !defined(__DEFINED_locale_t)
+# define __DEFINED_locale_t
+typedef struct __locale locale_t; /* TODO not implemented */
+#endif
+#ifndef __INTMAX_MAX
+# define __INTMAX_MAX  INT64_MAX
+#endif
+

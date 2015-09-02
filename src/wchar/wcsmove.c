@@ -212,7 +212,7 @@ wchar_t* wcscnmove(wchar_t* whither, const wchar_t* whence, wchar_t c, size_t ma
  *                   one character passed the last written non-NUL
  *                   character.
  */
-wchar_t* wcswcsnmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str, size_t maxlen)
+wchar_t* wcsstrnmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str, size_t maxlen)
 {
   const wchar_t* stop = wcsnstr(whence, str, maxlen);
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);

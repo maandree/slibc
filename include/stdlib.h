@@ -65,7 +65,8 @@
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-div_t div(int, int);
+div_t div(int, int)
+  __GCC_ONLY(__attribute__((const)));
 
 /**
  * Perform an integer division and return
@@ -76,7 +77,8 @@ div_t div(int, int);
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-ldiv_t ldiv(long, long);
+ldiv_t ldiv(long, long)
+  __GCC_ONLY(__attribute__((const)));
 
 /**
  * Perform an integer division and return
@@ -87,7 +89,16 @@ ldiv_t ldiv(long, long);
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-lldiv_t lldiv(long long, long long);
+lldiv_t lldiv(long long, long long)
+  __GCC_ONLY(__attribute__((const)));
+
+
+
+/* TODO implement rand-functions */
+#define RAND_MAX  1
+int rand(void);
+int rand_r(unsigned int* seed);
+void srand(unsigned int seed);
 
 
 

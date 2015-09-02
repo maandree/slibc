@@ -31,8 +31,7 @@
 
 
 #define __NEED_size_t
-#define __NEED_locale_t /* TODO not defined */
-
+#define __NEED_locale_t
 #include <bits/types.h>
 
 

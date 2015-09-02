@@ -37,7 +37,8 @@
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-imaxdiv_t imaxdiv(intmax_t, intmax_t);
+imaxdiv_t imaxdiv(intmax_t, intmax_t)
+  __GCC_ONLY(__attribute__((const)));
 
 
 
