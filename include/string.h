@@ -199,7 +199,7 @@ void* mempcpy(void* restrict, const void* restrict, size_t);
  */
 void* memmove(void*, const void*, size_t);
 
-#if defined(_SLIBC_SOURCE) && defined(_GNU_SOURCE)
+#if defined(_SLIBC_SOURCE) && defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment.
  * 
@@ -853,9 +853,6 @@ char* strchrnul(const char*, int)
  */
 char* strrchr(const char*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-
-
-/* TODO Add case insensitive character searching functions. */
 
 
 /**

@@ -809,9 +809,6 @@ wchar_t* wcsrchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
-/* TODO Add case insensitive character searching functions. */
-
-
 /**
  * This function is identical to `wcsstr`.
  */
