@@ -102,5 +102,16 @@ void srand(unsigned int seed);
 
 
 
+/* TODO implement exit-functions */
+void abort(void) __noreturn;
+void _Exit(int) __noreturn;
+int atexit(void (*)(void));
+int on_exit(void (*)(int, void*), void*);
+void exit(int) __noreturn;
+int at_quick_exit (void (*) (void));
+void quick_exit(int) __noreturn;
+
+
+
 #endif
 

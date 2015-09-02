@@ -20,6 +20,9 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stddef.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
 
 
@@ -85,7 +88,7 @@ void error_at_line(int status, int errnum, const char* filename,
 {
   va_list args;
   va_start(args, format);
-  verror_at_line(status, errnu, filename, linenum, format, args);
+  verror_at_line(status, errnum, filename, linenum, format, args);
   va_end(args);
 }
 
@@ -130,7 +133,7 @@ void verror_at_line(int status, int errnum, const char* filename,
     }
   
   fprintf(stderr, "%(: %(\033[35m%)%s%(\033[0m%): %(\033[32m%)%u%(\033[0m%)%)%(: %s%)%(: %)",
-	  filename != NULL, tty, filename, tty, tty, filenum, tty,
+	  filename != NULL, tty, filename, tty, tty, linenum, tty,
 	  errnum != 0, strerror(errnum) /* TODO strerror is not MT-Safe */, format != NULL);
   
   if (filename != NULL)
@@ -185,5 +188,5 @@ volatile int error_one_per_line = 1;
  * 
  * This is a GNU extension.
  */
-volatile void (*error_print_progname)(void) = NULL;
+void (*volatile error_print_progname)(void) = NULL;
 

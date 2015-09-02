@@ -26,7 +26,8 @@
 #endif
 
 
-#include <stdarg.h>
+#define __NEED_va_list
+#include <bits/types.h>
 
 
 

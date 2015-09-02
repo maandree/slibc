@@ -73,10 +73,8 @@ char* strerror(int)
  *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
  * @return          A description of the error.
  */
-/* TODO strerror_l
 char* strerror_l(int, locale_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
-*/
+  __GCC_ONLY(__attribute__((warn_unused_result))); /* TODO attributes */
 
 
 #if !defined(__PORTABLE)

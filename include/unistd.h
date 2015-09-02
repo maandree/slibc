@@ -134,5 +134,14 @@ void* sbrk(ptrdiff_t) /* TODO implement sbrk */
 
 
 
+/* TODO implement exit-functions */
+void _exit(int) __noreturn;
+
+
+/* TODO implement I/O */
+int isatty(int);
+
+
+
 #endif
 

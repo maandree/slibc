@@ -23,6 +23,7 @@
 
 
 /* TODO include error definitions */
+#define ERANGE 34
 
 
 

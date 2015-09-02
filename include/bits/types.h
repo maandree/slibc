@@ -368,9 +368,17 @@ typedef struct {
  */
 #if defined(__NEED_locale_t) && !defined(__DEFINED_locale_t)
 # define __DEFINED_locale_t
-typedef struct __locale locale_t; /* TODO not implemented */
+typedef int locale_t; /* TODO not implemented */
 #endif
 #ifndef __INTMAX_MAX
 # define __INTMAX_MAX  INT64_MAX
 #endif
+
+
+/**
+ * State of variadic argument-reading.
+ */
+#define __ONLY_va_list
+# include <stdarg.h>
+#undef __ONLY_va_list
 

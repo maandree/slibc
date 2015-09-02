@@ -40,7 +40,7 @@
  */
 char* strerror(int errnum)
 {
-  return strerror_l(errnum, CURRENT_LOCALE /* TODO not defined */);
+  return strerror_l(errnum, 0 /* TODO CURRENT_LOCALE, not defined */);
 }
 
 
@@ -63,7 +63,8 @@ char* strerror(int errnum)
 char* strerror_l(int errnum, locale_t locale)
 {
   /* TODO implement strerror_l */
-  return (void) errnum, (void) locale, NULL:
+  return strerror(errnum);
+  (void) locale;
 }
 
 

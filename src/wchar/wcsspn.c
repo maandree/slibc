@@ -53,12 +53,16 @@ size_t wcsspn(const wchar_t* string, const wchar_t* skipset)
  */
 size_t wcscspn(const wchar_t* string, const wchar_t* stopset)
 {
-  size_t end = wcslen(string);
-  wchar_t* p;
+  size_t i, end = wcslen(string);
+  wchar_t* s;
   wchar_t c;
   while ((c = *stopset++))
-    if (p = wcsnchr(string, c, end), p != NULL)
-      end = (size_t)(p - string);
+    for (i = 0, s = string; *s && (i < end); i++, s++)
+      if (*s == c)
+	{
+	  end = (size_t)(s - string);
+	  break;
+	}
   return end;
 }
 

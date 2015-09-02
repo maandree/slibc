@@ -16,7 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #ifndef _STDARG_H
-#define _STDARG_H
+# ifndef __ONLY_va_list
+#  define _STDARG_H
+# endif
 #include <slibc/version.h>
 #include <slibc/features.h>
 
@@ -36,6 +38,12 @@
 # define __DEFINED_va_list
 typedef __builtin_va_list va_list;
 #endif
+
+
+
+#ifndef __ONLY_va_list
+
+
 
 /**
  * Prologue to using a variadic arguments.
@@ -81,6 +89,8 @@ typedef __builtin_va_list va_list;
 #endif
 
 
+
+#endif
 
 #endif
 

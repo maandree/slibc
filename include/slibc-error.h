@@ -22,7 +22,9 @@
 #ifndef __PORTABLE
 
 
-#include <stdarg.h>
+#define __NEED_va_list
+#include <bits/types.h>
+
 #include <errno.h>
 
 
