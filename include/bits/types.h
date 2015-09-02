@@ -75,6 +75,8 @@ typedef unsigned long int uptrdiff_t;
 #  define __DEFINED_wchar_t
 typedef long int wchar_t
   __warning("'wchar_t' is not guaranteed to be defined as expected, use 'int32_t'.");
+# endif
+# ifndef __WCHAR_MAX
 #  define  __WCHAR_MAX  INTPTR_MAX
 # endif
 
@@ -233,6 +235,8 @@ typedef unsigned __INT_FAST64 uint_fast64_t;
 #if defined(__NEED_intmax_t) && !defined(__DEFINED_intmax_t)
 # define __DEFINED_intmax_t
 typedef signed __INT64 intmax_t;
+#endif
+#ifndef __INTMAX_MAX
 # define __INTMAX_MAX  INT64_MAX
 #endif
 
@@ -243,6 +247,8 @@ typedef signed __INT64 intmax_t;
 #if defined(__NEED_uintmax_t) && !defined(__DEFINED_uintmax_t)
 # define __DEFINED_uintmax_t
 typedef unsigned __INT64 uintmax_t;
+#endif
+#ifndef __UINTMAX_MAX
 # define __UINTMAX_MAX  UINT64_MAX
 #endif
 
@@ -256,6 +262,8 @@ typedef unsigned __INT64 uintmax_t;
 #if defined(__NEED_sig_atomic_t) && !defined(__DEFINED_sig_atomic_t)
 # define __DEFINED_sig_atomic_t
 typedef int sig_atomic_t;
+#endif
+#ifndef __SIG_ATOMIC_BIT
 # define __SIG_ATOMIC_BIT  __INT_BIT
 #endif
 

@@ -60,49 +60,49 @@
  * Macro that ensure that an unsigned numeral literal
  * of at most 16 encoding bits does not overflow.
  */
-#define  UINT16_C(value)  value # U
+#define  UINT16_C(value)  value ## U
 
 
 /**
  * Macro that ensure that a signed numeral literal
  * of at most 32 encoding bits does not overflow.
  */
-#if __INT_BITS == 16
-# define  INT32_C(value)   value # L
+#if __INT_BIT == 16
+# define  INT32_C(value)   value ## L
 #else
 # define  INT32_C(value)   value
-#end
+#endif
 
 /**
  * Macro that ensure that an unsigned numeral literal
  * of at most 32 encoding bits does not overflow.
  */
-#if __INT_BITS == 16
-# define  UINT32_C(value)  value # UL
+#if __INT_BIT == 16
+# define  UINT32_C(value)  value ## UL
 #else
-# define  UINT32_C(value)  value # U
-#end
+# define  UINT32_C(value)  value ## U
+#endif
 
 
 /**
  * Macro that ensure that a signed numeral literal
  * of at most 64 encoding bits does not overflow.
  */
-#if __LONG_BITS == 32
-# define  INT64_C(value)   value # LL
+#if __LONG_BIT == 32
+# define  INT64_C(value)   value ## LL
 #else
-# define  INT64_C(value)   value # L
-#end
+# define  INT64_C(value)   value ## L
+#endif
 
 /**
  * Macro that ensure that an unsigned numeral literal
  * of at most 64 encoding bits does not overflow.
  */
-#if __LONG_BITS == 32
-# define  UINT64_C(value)  value # ULL
+#if __LONG_BIT == 32
+# define  UINT64_C(value)  value ## ULL
 #else
-# define  UINT64_C(value)  value # UL
-#end
+# define  UINT64_C(value)  value ## UL
+#endif
 
 
 /**
@@ -110,10 +110,10 @@
  * does not overflow, unless there is no scalar integer
  * type that can hold it.
  */
-#if __LONG_BITS == __LONG_LONG_BITS
-# define  INTMAX_C(value)   value # L
+#if __LONG_BIT == __LONG_LONG_BIT
+# define  INTMAX_C(value)   value ## L
 #else
-# define  INTMAX_C(value)   value # LL
+# define  INTMAX_C(value)   value ## LL
 #endif
 
 /**
@@ -121,10 +121,10 @@
  * does not overflow, unless there is no scalar integer
  * type that can hold it.
  */
-#if __LONG_BITS == __LONG_LONG_BITS
-# define  UINTMAX_C(value)   value # UL
+#if __LONG_BIT == __LONG_LONG_BIT
+# define  UINTMAX_C(value)   value ## UL
 #else
-# define  UINTMAX_C(value)   value # ULL
+# define  UINTMAX_C(value)   value ## ULL
 #endif
 
 

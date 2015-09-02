@@ -16,9 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <inttypes.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <alloca.h>
+#include <wctype.h>
 
 #define WIDE
+
+
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 
 
 
@@ -155,7 +161,7 @@ wchar_t* wmemmem(const wchar_t* haystack, size_t haystack_length,
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !wmemcmp(haystack, haystack_length, haystack_length) ? haystack : NULL;
+    return !wmemcmp(haystack, needle, haystack_length) ? haystack : NULL;
 #include "../string/substring.h"
 }
 
@@ -180,7 +186,7 @@ wchar_t* wmemcasemem(const wchar_t* haystack, size_t haystack_length,
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !wmemcasecmp(haystack, haystack_length, haystack_length) ? haystack : NULL;
+    return !wmemcasecmp(haystack, needle, haystack_length) ? haystack : NULL;
 #define CASE
 #include "../string/substring.h"
 #undef CASE

@@ -47,7 +47,7 @@
   ssize_t hay, ned, skp;
   
   ned = 0, skp = next_map[0] = -1;
-  while (ned < needle_length)
+  while (ned < (ssize_t)needle_length)
     {
       while ((skp > -1) && !CHREQ(needle[ned], needle[skp]))
 	skp = next_map[skp];
@@ -56,15 +56,18 @@
     }
   
   hay = ned = 0;
-  while (hay < haystack_length)
+  while (hay < (ssize_t)haystack_length)
     {
       while ((ned > -1) && !CHREQ(haystack[hay], needle[ned]))
 	ned = next_map[ned];
       hay++, ned++;
-      if (ned >= needle_length)
+      if (ned >= (ssize_t)needle_length)
 	return needle + (hay - ned);
     }
   
   return NULL;
 }
+
+
+#undef CHREQ
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
-#include <inttypes.h>
+#include <stdint.h>
 #include <wctype.h>
 
 
@@ -111,7 +111,7 @@ int wcsncmp(const wchar_t* a, const wchar_t* b, size_t length)
 int wcsncasecmp(const wchar_t* a, const wchar_t* b, size_t length)
 {
   wchar_t c1, c2;
-  for (; size--; a++, b++)
+  for (; length--; a++, b++)
     if (*a != *b)
       {
 	c1 = iswalpha(*a) ? towlower(*a) : *a;
@@ -119,6 +119,9 @@ int wcsncasecmp(const wchar_t* a, const wchar_t* b, size_t length)
 	if (c1 < c2)  return -1;
 	if (c1 > c2)  return +1;
       }
+    else if (!*a && !*b)  return 0;
+    else if (!*a)         return -1;
+    else if (!*b)         return +1;
   return 0;
 }
 

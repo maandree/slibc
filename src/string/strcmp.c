@@ -17,7 +17,7 @@
  */
 #include <string.h>
 #include <strings.h>
-#include <inttypes.h>
+#include <stdint.h>
 #include <ctype.h>
 
 
@@ -108,7 +108,7 @@ int strncmp(const char* a, const char* b, size_t length)
 int strncasecmp(const char* a, const char* b, size_t length)
 {
   int c1, c2;
-  for (; size--; a++, b++)
+  for (; length--; a++, b++)
     if (*a != *b)
       {
 	c1 = isalpha(*a) ? tolower(*a) : (int)*a;
@@ -116,6 +116,9 @@ int strncasecmp(const char* a, const char* b, size_t length)
 	if ((c1 -= c2))
 	  return c1;
       }
+    else if (!*a && !*b)  return 0;
+    else if (!*a)         return -1;
+    else if (!*b)         return +1;
   return 0;
 }
 

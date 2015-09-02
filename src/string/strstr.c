@@ -16,7 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
-#include <inttypes.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <alloca.h>
+#include <ctype.h>
+
+
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
 
 
 
@@ -143,7 +149,7 @@ void* memmem(const void* __haystack, size_t haystack_length,
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !memcmp(haystack, haystack_length, haystack_length) ? haystack : NULL;
+    return !memcmp(haystack, needle, haystack_length) ? haystack : NULL;
 #include "substring.h"
 }
 
@@ -170,7 +176,7 @@ void* memcasemem(const void* __haystack, size_t haystack_length,
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !memcasecmp(haystack, haystack_length, haystack_length) ? haystack : NULL;
+    return !memcasecmp(haystack, needle, haystack_length) ? haystack : NULL;
 #define CASE
 #include "substring.h"
 #undef CASE
