@@ -35,11 +35,24 @@
 
 
 /**
- * `NULL`'s canonical header is <stddef.h>
+ * `NULL`'s canonical header is <stddef.h>.
  */
 #ifndef NULL
 # define NULL  ((void*)0)
 #endif
+
+
+/**
+ * The value a process shall exit with upon
+ * success completion.
+ */
+#define EXIT_SUCCESS  0
+
+/**
+ * A standard value a process can exit with
+ * if it terminates because of failure.
+ */
+#define EXIT_FAILURE  1
 
 
 
