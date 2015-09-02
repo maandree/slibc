@@ -100,8 +100,8 @@ obj/%.o:
 # Generate list of file dependencies for object files.
 obj/deps.mk: Makefile $(HEADERS) $(SOURCES)
 	@mkdir -p obj
-	find src | grep '\.c$$' | xargs $(CC) -MM $(MMFLAGS) > $@
-	sed -i 's#^[^ :]*\.o: src\([^ ]*\)/[^ /]*\.c#obj\1/&#' $@
+	@find src | grep '\.c$$' | xargs $(CC) -MM $(MMFLAGS) > $@
+	@sed -i 's#^[^ :]*\.o: src\([^ ]*\)/[^ /]*\.c#obj\1/&#' $@
 
 
 
