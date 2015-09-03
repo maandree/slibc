@@ -104,7 +104,6 @@ char* strchr(const char* string, int c)
     else if (!*string++)
       return NULL;
 }
-/* TODO Ensure that `s = strchr(s, 0)` is faster than `s = s + strlen(s)`. */
 
 
 /**

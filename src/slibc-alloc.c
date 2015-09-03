@@ -181,7 +181,7 @@ void* secure_realloc(void* ptr, size_t size)
  */
 void* naive_realloc(void* ptr, size_t size)
 {
-  /* TODO improve implementation of naive_realloc */
+  /* TODO implementation of naive_realloc with reallocation */
   return malloc(size);
   (void) ptr;
 }
