@@ -24,13 +24,13 @@
 
 #define __NEED_size_t
 #define __NEED_ssize_t
-#define __NEED_uid_t /* TODO not implement */
-#define __NEED_gid_t /* TODO not implement */
-#define __NEED_off_t /* TODO not implement */
-#define __NEED_pid_t /* TODO not implement */
+#define __NEED_uid_t
+#define __NEED_gid_t
+#define __NEED_off_t
+#define __NEED_pid_t
 #define __NEED_ptrdiff_t
 #define __NEED_intptr_t
-#define __NEED_useconds_t /* TODO not implement */
+#define __NEED_useconds_t
 #include <bits/types.h>
 
 
