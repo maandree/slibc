@@ -35,7 +35,7 @@ CCFLAGS_INCLUDES = -Iinclude
 CCFLAGS_OPTIIMISE = -Og -g
 
 # Warning flags.
-CCFLAGS_WARNINGS = -Wall -Wextra -Wdouble-promotion -Wformat=2 -Winit-self -Wmissing-include-dirs \
+CCFLAGS_WARNINGS = -Wall -Wextra -Wdouble-promotion -Wno-format -Winit-self -Wmissing-include-dirs \
                    -Wtrampolines -Wfloat-equal -Wshadow -Wmissing-prototypes -Wmissing-declarations \
                    -Wredundant-decls -Wnested-externs -Winline -Wno-variadic-macros -Wsign-conversion \
                    -Wswitch-default -Wconversion -Wsync-nand -Wunsafe-loop-optimizations -Wcast-align \
@@ -45,6 +45,7 @@ CCFLAGS_WARNINGS = -Wall -Wextra -Wdouble-promotion -Wformat=2 -Winit-self -Wmis
                    -Wunsuffixed-float-constants -Wsuggest-attribute=const -Wsuggest-attribute=noreturn \
                    -Wsuggest-attribute=pure -Wsuggest-attribute=format -Wnormalized=nfkc
 # -pedantic is excluded.
+# -Wno-format is temporarily substituted for -Wformat=1
 
 
 # All flags used required when compiling the library.

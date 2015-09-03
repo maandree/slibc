@@ -110,6 +110,12 @@
 #endif
 
 
+/**
+ * Format for the `format` GCC function attribute.
+ */
+#define slibc_printf  printf /* TODO write GCC extension */
+
+
 
 #endif
 

@@ -15,33 +15,280 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _STDIO_H
-#define _STDIO_H
-#include <slibc/version.h>
-#include <slibc/features.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <errno.h>
+#include <slibc-print.h>
+#include <inttypes.h>
+#include <unistd.h>
+#include <slibc-alloc.h>
+#include <string.h>
+#include <wchar.h>
+#include <stdio.h>
+
+
+#define INT_MAX  0x7FFFFFFF  /* TODO temporary */
+
+#define V(C)			\
+  int r;			\
+  va_list args;			\
+  va_start(args, format);	\
+  r = v##C;			\
+  va_end(args);			\
+  return r
+
+#define P_CHAR(UNDERLAYING, MAXIMUM, LIMITED, TERMINATE, DATA)				\
+  size_t length;									\
+  int r = vgeneric_printf((generic_printf_write_func_t)UNDERLAYING, NULL,		\
+                          MAXIMUM, LIMITED, &length, TERMINATE, DATA, format, args);	\
+  return r < 0 ? -1 : length < INT_MAX ? (int)length : INT_MAX
+
+#define P_WCHAR(UNDERLAYING, MAXIMUM, LIMITED, TERMINATE, DATA)				\
+  size_t length;									\
+  int r = vgeneric_wprintf((generic_wprintf_write_func_t)UNDERLAYING, NULL,		\
+                           MAXIMUM, LIMITED, &length, TERMINATE, DATA, format, args);	\
+  return r < 0 ? -1 : length < INT_MAX ? (int)length : INT_MAX
+
+#define FLOCK(F)    /* TODO lock stream */
+#define FUNLOCK(F)  /* TODO unlock stream */
 
 
 
-#define __NEED_fpos_t /* TODO not implemented */
-#define __NEED_off_t
-#define __NEED_size_t
-#define __NEED_ssize_t
-#define __NEED_wchar_t
-#define __NEED_va_list
-#if __STDC_VERSION__ >= 201112L
-# define __NEED_max_align_t
-#endif
-#define FILE void /* TODO temporary */
+/**
+ * Buffer information.
+ */
+struct buffer
+{
+  /**
+   * The buffer.
+   */
+  union
+  {
+    /**
+     * Byte-oriented buffer.
+     */
+    char* str;
+    
+    /**
+     * Wide character-oriented buffer.
+     */
+    wchar_t* wcs;
+    
+  } buf;
+  
+  /**
+   * The size of the buffer, in number of elements.
+   */
+  size_t size;
+  
+  /**
+   * The write offset.
+   */
+  size_t off;
+  
+  /**
+   * Whether `secure_realloc` shall be used.
+   */
+  int secure;
+  
+  /**
+   * Whether `.buf` shall be freed on error.
+   */
+  int free_on_error;
+};
 
-#include <bits/types.h>
+
+/**
+ * Write a string segment to a buffer.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   buffer  Pointer to the output buffer, will be
+ *                  updated to point to the end of the write.
+ * @return          Zero on success, -1 on error.
+ *                  This function is always successful.
+ */
+static int write_string(const char* text, size_t length, char* restrict* buffer)
+{
+  memcpy(*buffer, text, length);
+  (*buffer) += length;
+  return 0;
+}
 
 
+/**
+ * Write a string segment to a buffer.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   buffer  Pointer to the output buffer, will be
+ *                  updated to point to the end of the write.
+ * @return          Zero on success, -1 on error.
+ *                  This function is always successful.
+ */
+static int wwrite_string(const wchar_t* text, size_t length, wchar_t* restrict* buffer)
+{
+  wmemcpy(*buffer, text, length);
+  (*buffer) += length;
+  return 0;
+}
 
-/* TODO implement I/O */
-int fflush(FILE*);
-#define stdin ((void*)1) /* TODO temporary */
-#define stdout ((void*)2) /* TODO temporary */
-#define stderr ((void*)3) /* TODO temporary */
+
+/**
+ * Write a string segment to a file.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   fdp     Pointer to the file descriptor of the file.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  Any error specified for `write`.
+ */
+static int write_fd(const char* text, size_t length, int* fdp)
+{
+  /* TODO write_fd  */
+  /*
+  ssize_t wrote;
+  size_t ptr = 0;
+  while (ptr < length)
+    {
+      wrote = write(*fdp, text + ptr, length - ptr);
+      if (wrote < 0)
+	return -1;
+      ptr += (size_t)wrote;
+    }
+  return 0;
+  */
+  return 0;
+  (void) text, (void) length, (void) fdp;
+}
+
+
+/**
+ * Write a string segment to a file.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   fdp     Pointer to the file descriptor of the file.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  Any error specified for `write`.
+ */
+static int wwrite_fd(const wchar_t* text, size_t length, int* fdp)
+{
+  /* TODO wwrite_fd  */
+  return 0;
+  (void) text, (void) length, (void) fdp;
+}
+
+
+/**
+ * Write a string segment to a stream.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   stream  The output stream.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  Any error specified for `fwrite_unlocked`.
+ */
+static int write_stream(const char* text, size_t length, FILE* stream)
+{
+  /* TODO write_stream */
+  /*
+  size_t wrote = fwrite_unlocked(text, 1, length, stream);
+  return wrote == length ? 0 : -1;
+  */
+  return 0;
+  (void) text, (void) length, (void) stream;
+}
+
+
+/**
+ * Write a string segment to a stream.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   stream  The output stream.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  ENOMEM  The process cannot allocation the
+ *                  sufficient amount of memory.
+ * 
+ * @throws  Any error specified for `fwrite_unlocked`.
+ */
+static int write_wstream(const wchar_t* text, size_t length, FILE* stream)
+{
+  /* TODO write_wstream */
+  return 0;
+  (void) text, (void) length, (void) stream;
+}
+
+
+/**
+ * Write a string segment to a buffer and reallocate it necessary.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   buffer  Information about the buffer.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  ENOMEM  The process cannot allocation the
+ *                  sufficient amount of memory.
+ */
+static int write_buffer(const char* text, size_t length, struct buffer* buffer)
+{
+  char* new;
+  if (buffer->off + length > buffer->size)
+    {
+      new = (buffer->secure ? secure_realloc : fast_realloc)
+	(buffer->buf.str, buffer->size * sizeof(char));
+      if (new == NULL)
+	{
+	  if (buffer->free_on_error)
+	    (buffer->secure ? secure_free : fast_free)(buffer->buf.str),
+	      buffer->buf.str = NULL;
+	  return -1;
+	}
+      buffer->size = buffer->off + length;
+      buffer->buf.str = new;
+    }
+  memcpy(buffer->buf.str, text, length);
+  buffer->off += length;
+  return 0;
+}
+
+
+/**
+ * Write a string segment to a buffer and reallocate it necessary.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   buffer  Information about the buffer.
+ * @return          Zero on success, -1 on error.
+ */
+static int wwrite_buffer(const wchar_t* text, size_t length, struct buffer* buffer)
+{
+  wchar_t* new;
+  if (buffer->off + length > buffer->size)
+    {
+      new = (buffer->secure ? secure_realloc : fast_realloc)
+	(buffer->buf.wcs, buffer->size * sizeof(wchar_t));
+      if (new == NULL)
+	{
+	  if (buffer->free_on_error)
+	    (buffer->secure ? secure_free : fast_free)(buffer->buf.wcs),
+	      buffer->buf.wcs = NULL;
+	  return -1;
+	}
+      buffer->size = buffer->off + length;
+      buffer->buf.wcs = new;
+    }
+  wmemcpy(buffer->buf.wcs, text, length);
+  buffer->off += length;
+  return 0;
+}
+
 
 
 /**
@@ -62,8 +309,11 @@ int fflush(FILE*);
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int printf(const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1), format(slibc_printf, 1, 2))));
+int printf(const char* restrict format, ...)
+{
+  V(printf(format, args));
+}
+
 
 /**
  * Print a formatted string to a stream.
@@ -85,10 +335,12 @@ int printf(const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int fprintf(FILE* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
+int fprintf(FILE* restrict stream, const char* restrict format, ...)
+{
+  V(fprintf(stream, format, args));
+}
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `fprintf`,
  * except it does not lock the stream.
@@ -110,9 +362,11 @@ int fprintf(FILE* restrict, const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
  */
-int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
-#endif
+int fprintf_unlocked(FILE* restrict stream, const char* restrict format, ...)
+{
+  V(fprintf_unlocked(stream, format, args));
+}
+
 
 /**
  * This function is identical to `fprintf`,
@@ -135,8 +389,11 @@ int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
  */
-int dprintf(int, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(2), format(slibc_printf, 2, 3))));
+int dprintf(int fd, const char* restrict format, ...)
+{
+  V(dprintf(fd, format, args));
+}
+
 
 /**
  * This function is identical to `fprintf`,
@@ -161,8 +418,11 @@ int dprintf(int, const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int sprintf(char* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
+int sprintf(char* restrict buffer, const char* restrict format, ...)
+{
+  V(sprintf(buffer, format, args));
+}
+
 
 /**
  * This function is identical to `sprintf`,
@@ -185,10 +445,12 @@ int sprintf(char* restrict, const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int snprintf(char* restrict, size_t, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(3), format(slibc_printf, 3, 4))));
+int snprintf(char* restrict buffer, size_t size, const char* restrict format, ...)
+{
+  V(snprintf(buffer, size, format, args));
+}
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `sprintf`,
  * except it allocates a sufficiently large
@@ -213,11 +475,12 @@ int snprintf(char* restrict, size_t, const char* restrict, ...)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int asprintf(char** restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3), warn_unused_result)));
-#endif
+int asprintf(char** restrict buffer, const char* restrict format, ...)
+{
+  V(asprintf(buffer, format, args));
+}
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `asprintf`,
  * except it can reuse allocated buffers.
@@ -259,9 +522,11 @@ int asprintf(char** restrict, const char* restrict, ...)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int bprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2, 5), format(slibc_printf, 5, 6), warn_unused_result)));
-#endif
+int bprintf(char** restrict buffer, size_t* restrict size, size_t offset,
+	    int secure, const char* restrict format, ...)
+{
+  V(bprintf(buffer, size, offset, secure, format, args));
+}
 
 
 /**
@@ -282,8 +547,11 @@ int bprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int vprintf(const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1))));
+int vprintf(const char* restrict format, va_list args)
+{
+  return vfprintf(stdout, format, args);
+}
+
 
 /**
  * This function is identical to `fprintf`,
@@ -304,10 +572,17 @@ int vprintf(const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int vfprintf(FILE* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+int vfprintf(FILE* restrict stream, const char* restrict format, va_list args)
+{
+  int r, saved_errno;
+  FLOCK(stream);
+  r = vfprintf_unlocked(stream, format, args);
+  saved_errno = errno;
+  FUNLOCK(stream);
+  return errno = saved_errno, r;
+}
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `fprintf_unlocked`,
  * except it uses `va_list` instead of variadic argument.
@@ -329,9 +604,11 @@ int vfprintf(FILE* restrict, const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
  */
-int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
-#endif
+int vfprintf_unlocked(FILE* restrict stream, const char* restrict format, va_list args)
+{
+  P_CHAR(write_stream, 0, 0, 0, stream);
+}
+
 
 /**
  * This function is identical to `vdprintf`,
@@ -352,8 +629,11 @@ int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `write`.
  */
-int vdprintf(int, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+int vdprintf(int fd, const char* restrict format, va_list args)
+{
+  P_CHAR(write_fd, 0, 0, 0, &fd);
+}
+
 
 /**
  * This function is identical to `sprintf`,
@@ -373,8 +653,12 @@ int vdprintf(int, const char* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int vsprintf(char* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+int vsprintf(char* restrict buffer, const char* restrict format, va_list args)
+{
+  char* buf = buffer;
+  P_CHAR(write_string, 0, 0, 1, &buf);
+}
+
 
 /**
  * This function is identical to `snprintf`,
@@ -397,10 +681,13 @@ int vsprintf(char* restrict, const char* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 3))));
+int vsnprintf(char* restrict buffer, size_t size, const char* restrict format, va_list args)
+{
+  char* buf = buffer;
+  P_CHAR(write_string, size, 1, 1, &buf);
+}
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `asprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -424,11 +711,15 @@ int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int vasprintf(char** restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
-#endif
+int vasprintf(char** restrict buffer, const char* restrict format, va_list args)
+{
+  char* buf = NULL;
+  size_t _size = 0;
+  int r = vbprintf(&buf, &_size, 0, 0, format, args);
+  return r ? r : (*buffer = buf, 0);
+}
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `bprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -470,12 +761,21 @@ int vasprintf(char** restrict, const char* restrict, va_list)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int vbprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2, 5), warn_unused_result)));
-#endif
+int vbprintf(char** restrict buffer, size_t* restrict size, size_t offset,
+	     int secure, const char* restrict format, va_list args)
+{
+  struct buffer buf =
+    {
+      .buf.str = *buffer,
+      .size = *size,
+      .off = offset,
+      .secure = secure,
+      .free_on_error = buffer == NULL,
+    };
+  P_CHAR(write_buffer, 0, 0, 1, &buf);
+}
 
 
-#if !defined(__PORTABLE) /* wchar_t is not portable. */
 /**
  * This function is identical to `printf` except
  * it uses wide characters.
@@ -494,8 +794,11 @@ int vbprintf(char** restrict, size_t* restrict, size_t, int, const char* restric
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int wprintf(const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1))));
+int wprintf(const wchar_t* restrict format, ...)
+{
+  V(wprintf(format, args));
+}
+
 
 /**
  * This function is identical to `fprintf` except
@@ -516,10 +819,12 @@ int wprintf(const wchar_t* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `fwrite`.
  */
-int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+int fwprintf(FILE* restrict stream, const wchar_t* restrict format, ...)
+{
+  V(fwprintf(stream, format, args));
+}
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `fprintf_unlocked` except
  * it uses wide characters.
@@ -541,8 +846,11 @@ int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
  */
-int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(1, 2))));
+int fwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, ...)
+{
+  V(fwprintf_unlocked(stream, format, args));
+}
+
 
 /**
  * This function is identical to `dprintf` except
@@ -565,9 +873,11 @@ int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
  */
-int dwprintf(int, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(2))));
-# endif
+int dwprintf(int fd, const wchar_t* restrict format, ...)
+{
+  V(dwprintf(fd, format, args));
+}
+
 
 /**
  * This function is identical to `snprintf`
@@ -590,10 +900,12 @@ int dwprintf(int, const wchar_t* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(3))));
+int swprintf(wchar_t* restrict buffer, size_t size, const wchar_t* restrict format, ...)
+{
+  V(swprintf(buffer, size, format, args));
+}
 
-# if defined(_GNU_SOURCE) && defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `aswprintf` except
  * it uses wide characters.
@@ -618,11 +930,12 @@ int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
-# endif
+int aswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, ...)
+{
+  V(aswprintf(buffer, format, args));
+}
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `bprintf` except
  * it uses wide characters.
@@ -665,9 +978,11 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int bwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(1, 2, 5), warn_unused_result)));
-# endif
+int bwprintf(wchar_t** restrict buffer, size_t* restrict size, size_t offset,
+	     int secure, const wchar_t* restrict format, ...)
+{
+  V(bwprintf(buffer, size, offset, secure, format, args));
+}
 
 
 /**
@@ -688,8 +1003,11 @@ int bwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* r
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int vwprintf(const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1))));
+int vwprintf(const wchar_t* restrict format, va_list args)
+{
+  return vfwprintf(stdout, format, args);
+}
+
 
 /**
  * This function is identical to `fwprintf`,
@@ -710,10 +1028,17 @@ int vwprintf(const wchar_t* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
  */
-int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2))));
+int vfwprintf(FILE* restrict stream, const wchar_t* restrict format, va_list args)
+{
+  int r, saved_errno;
+  FLOCK(stream);
+  r = vfwprintf_unlocked(stream, format, args);
+  saved_errno = errno;
+  FUNLOCK(stream);
+  return errno = saved_errno, r;
+}
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `fwprintf_unlocked`,
  * except it uses `va_list` instead of variadic argument.
@@ -735,8 +1060,11 @@ int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
  */
-int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2))));
+int vfwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va_list args)
+{
+  P_WCHAR(write_wstream, 0, 0, 0, stream);
+}
+
 
 /**
  * This function is identical to `vdprintf`,
@@ -759,9 +1087,11 @@ int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
  */
-int vdwprintf(int, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(2))));
-# endif
+int vdwprintf(int fd, const wchar_t* restrict format, va_list args)
+{
+  P_WCHAR(wwrite_fd, 0, 0, 0, &fd);
+}
+
 
 /**
  * This function is identical to `swprintf`,
@@ -784,10 +1114,13 @@ int vdwprintf(int, const wchar_t* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(3))));
+int vswprintf(wchar_t* restrict buffer, size_t size, const wchar_t* restrict format, va_list args)
+{
+  wchar_t* buf = buffer;
+  P_WCHAR(wwrite_string, size, 1, 1, &buf);
+}
 
-# if defined(_GNU_SOURCE) && defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `aswprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -812,11 +1145,15 @@ int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
-# endif
+int vaswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, va_list args)
+{
+  wchar_t* buf = NULL;
+  size_t _size = 0;
+  int r = vbwprintf(&buf, &_size, 0, 0, format, args);
+  return r ? r : (*buffer = buf, 0);
+}
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * This function is identical to `bwprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -859,12 +1196,17 @@ int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
  */
-int vbwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2, 5), warn_unused_result)));
-# endif
-#endif
-
-
-
-#endif
+int vbwprintf(wchar_t** restrict buffer, size_t* restrict size, size_t offset,
+	      int secure, const wchar_t* restrict format, va_list args)
+{
+  struct buffer buf =
+    {
+      .buf.wcs = *buffer,
+      .size = *size,
+      .off = offset,
+      .secure = secure,
+      .free_on_error = buffer == NULL,
+    };
+  P_WCHAR(wwrite_buffer, 0, 0, 1, &buf);
+}
 
