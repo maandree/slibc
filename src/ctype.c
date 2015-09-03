@@ -224,7 +224,7 @@ int (toupper)(int c)
  * Check whether a character is an ASCII character.
  * 
  * @param   c  The character
- * @return  -  Whether the character is an ASCII character.
+ * @return     Whether the character is an ASCII character.
  */
 int (isascii)(int c)
 {
@@ -238,8 +238,8 @@ int (isascii)(int c)
  * Note that this does not make a proper character set
  * convertion and the result is virtually arbitrary.
  * 
- * @param  c  The character.
- * @param  c  The character with the 8:th bit cleared.
+ * @param   c  The character.
+ * @return     The character with the 8:th bit cleared.
  */
 int (toascii)(int c)
 {
@@ -265,4 +265,30 @@ int _toupper(int c)
 {
   return toupper(c);
 }
+
+
+
+#define CTYPE_LOCALE(F)			\
+  int F##_l(int c, locale_t locale)	\
+  {					\
+    return F(c);			\
+    (void) locale;			\
+  }
+
+CTYPE_LOCALE(isalnum)
+CTYPE_LOCALE(isalpha)
+CTYPE_LOCALE(isblank)
+CTYPE_LOCALE(iscntrl)
+CTYPE_LOCALE(isdigit)
+CTYPE_LOCALE(isgraph)
+CTYPE_LOCALE(islower)
+CTYPE_LOCALE(isprint)
+CTYPE_LOCALE(ispunct)
+CTYPE_LOCALE(isspace)
+CTYPE_LOCALE(isupper)
+CTYPE_LOCALE(isxdigit)
+CTYPE_LOCALE(isascii)
+CTYPE_LOCALE(toascii)
+CTYPE_LOCALE(tolower)
+CTYPE_LOCALE(toupper)
 

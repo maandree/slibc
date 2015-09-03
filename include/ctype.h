@@ -55,7 +55,7 @@ int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
 #define isalpha(c)  (islower(tolower(c)))
 
 
-#ifdef _GNU_SOURCE
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
 /**
  * Check whether a character is a regular blank space
  * or a horizontal tabulation.
@@ -241,7 +241,7 @@ int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
  * Check whether a character is an ASCII character.
  * 
  * @param   c  The character
- * @return  -  Whether the character is an ASCII character.
+ * @return     Whether the character is an ASCII character.
  */
 int (isascii)(int)  /* [0x00, 0x7E] */
   __GCC_ONLY(__attribute__((const)));
@@ -253,8 +253,8 @@ int (isascii)(int)  /* [0x00, 0x7E] */
  * Note that this does not make a proper character set
  * convertion and the result is virtually arbitrary.
  * 
- * @param  c  The character.
- * @param  c  The character with the 8:th bit cleared.
+ * @param   c  The character.
+ * @return     The character with the 8:th bit cleared.
  */
 int (toascii)(int)
   __warning("Using 'toascii' is, generally, unwise.")
@@ -281,7 +281,220 @@ int _toupper(int)
 
 
 
-/* TODO _l variants */
+/**
+ * Check whether a character is an alphabetical
+ * character or a decimal digit.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is
+ *                  alphabetical or numerical.
+ */
+int isalnum_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswalnum_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is an alphabetical character.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is alphabetical.
+ */
+int isalpha_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswalpha_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+/**
+ * Check whether a character is a regular blank space
+ * or a horizontal tabulation.
+ * 
+ * This is a GNU extension.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is a ' ' or a '\t'.
+ */
+int isblank_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswblank_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+#endif
+
+/**
+ * Check whether a character is a non-printable
+ * ASCII character.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is non-printable.
+ */
+int iscntrl_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswcntrl_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is a decimal digit.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is numerical.
+ */
+int isdigit_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswdigit_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is has a printable glyph.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character has a glyph.
+ */
+int isgraph_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswgraph_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is a lowercase
+ * alphabetical character.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is a lowercase letter.
+ */
+int islower_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswlower_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is has a printable glyph
+ * or a blank space.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character has a printable
+ *                  glyph or is a blank space.
+ */
+int isprint_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswprint_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is has a punctuation,
+ * that is, a printable character but a blank space,
+ * numerical or alphabetical.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is a punctuation.
+ */
+int ispunct_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswpunct_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is a whitespace character.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is a
+ *                  whitespace character.
+ */
+int isspace_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswspace_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is an uppercase
+ * alphabetical character.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is a uppercase letter.
+ */
+int isupper_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswupper_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is an ASCII
+ * hexadecimal digit. Both uppercase and
+ * lowercase is supported.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          Whether the character is in
+ *                  ['0', '9'], ['A', 'Z'], or ['a', 'z'].
+ */
+int isxdigit_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswxdigit_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Check whether a character is an ASCII character.
+ * 
+ * @param   c       The character
+ * @param   locale  The locale.
+ * @return          Whether the character is an ASCII character.
+ */
+int isascii_l(int, locale_t)
+  __warning("This function is dangerous, use 'isascii_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Remove the 8:th bit from a character.
+ * 
+ * Note that this does not make a proper character set
+ * convertion and the result is virtually arbitrary.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          The character with the 8:th bit cleared.
+ */
+int toascii_l(int, locale_t)
+  __warning("This function is dangerous, use 'towascii_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Convert a uppercase ASCII character to
+ * an lowercase ASCII character.
+ * 
+ * The function's behaviour is unspecifed
+ * of the character is not alphabetical.
+ * You should consider running
+ * `(isupper_l(c, l) ? tolower_l(c, l) : c)`
+ * instead.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          The character in lowercase.
+ *                  Guaranteed to be unchanged if the
+ *                  character already is in lowercase.
+ */
+int tolower_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswlower_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Convert a lowercase ASCII character to
+ * an uppercase ASCII character.
+ * 
+ * The function's behaviour is unspecifed
+ * of the character is not alphabetical.
+ * You should consider running
+ * `(isupper_l(c, l) ? tolower_l(c, l) : c)`
+ * instead.
+ * 
+ * @param   c       The character.
+ * @param   locale  The locale.
+ * @return          The character in uppercase.
+ *                  Guaranteed to be unchanged if the
+ *                  character already is in lowercase.
+ */
+int toupper_l(int, locale_t)
+  __warning("This function is dangerous, use 'iswupper_l' instead.")
+  __GCC_ONLY(__attribute__((const)));
 
 
 
