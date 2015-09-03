@@ -32,7 +32,6 @@
  */
 void* memcpy(void* restrict whither, const void* restrict whence, size_t size)
 {
-  /* TODO improve implementation of memcpy */
   char* d = whither;
   char* s = whence;
   while (size--)

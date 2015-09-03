@@ -29,7 +29,6 @@
  */
 void* memmove(void* whither, const void* whence, size_t size)
 {
-  /* TODO improve implementation of memcpy */
   char* d = whither;
   const char* s = whence;
   if ((size_t)(d - s) < size)

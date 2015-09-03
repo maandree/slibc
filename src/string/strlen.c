@@ -31,7 +31,6 @@
  */
 size_t strlen(const char* str)
 {
-  /* TODO optimise strlen */
   char* s = str;
   while (*str++);
   return (size_t)(s - 1 - str);

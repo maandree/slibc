@@ -40,7 +40,6 @@
  */
 void* malloc(size_t size)
 {
-  /* TODO implement implementation of malloc */
   char* ptr;
   size_t full_size;
   
