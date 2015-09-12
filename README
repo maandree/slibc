@@ -1,5 +1,6 @@
-slibc, the Stockholm C Library, is an implementation
-of a C libray, for POSIX, just for fun.
+slibc, the Stockholm C Standard Library, is an
+implementation of a C standard libray, for POSIX,
+just for fun.
 
 slibc does not aim to support C++, or any other
 language than C. Furthermore, it does not try
