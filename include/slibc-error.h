@@ -213,7 +213,7 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((const))); /* TODO not im
  * 
  * This is a slibc extension.
  * 
- * @param  progname      The name of the program, `NULL` to use `program_invocation_name`.
+ * @param  progname      The name of the program, `NULL` or empty to use `program_invocation_name`.
  * @param  filename      The source code file where the error occurred.
  * @param  linenum       The line in the source code where the error occurred.
  * @param  function      The function in the source code where the error occurred.
