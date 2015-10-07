@@ -52,7 +52,11 @@ typedef __builtin_va_list va_list;
  * @param  last:identifier  The the last non-variadic argument.
  */
 #ifndef va_start
-# define va_start(state, last)  __builtin_va_start(state, last)
+# ifndef __PORTABLE
+#  define va_start(state, last)  __builtin_va_start(state, last)
+# else
+#  define va_start(state, last)  { __builtin_va_start(state, last)
+# endif
 #endif
 
 /**
@@ -61,7 +65,11 @@ typedef __builtin_va_list va_list;
  * @param  state:va_list  The state of the variadic argument-reading.
  */
 #ifndef va_end
-# define va_end(state)  __builtin_va_end(state)
+# ifndef __PORTABLE
+#  define va_end(state)  __builtin_va_end(state)
+# else
+#  define va_end(state)  } __builtin_va_end(state)
+# endif
 #endif
 
 /**
