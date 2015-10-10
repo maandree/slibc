@@ -134,6 +134,21 @@ char* relpath(const char*, const char*)
 
 
 /**
+ * Convert a string to a floating-point value,
+ * without checking for errors.
+ * 
+ * Note that, the behaviour is unspecified
+ * if the string contains anything else than
+ * digits, either a leading '-' (hyphen)
+ * or a leading plus, and at most one '.'.
+ * 
+ * @param   string  The string to convert.
+ * @return          The number encoded by the string.
+ */
+double atof(const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
  * Convert a string to an integer,
  * without checking for errors.
  * 
