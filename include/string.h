@@ -954,7 +954,7 @@ char* rawstrcasestr(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
 
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case insensitive.
  * 
  * This is a slibc extension added because it was useful
@@ -973,7 +973,7 @@ void* memcasemem(const void*, size_t, const void*, size_t)
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case sensitive.
  * 
  * This is a GNU-compliant slibc extension. It was useful

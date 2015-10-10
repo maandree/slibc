@@ -128,7 +128,7 @@ char* rawstrcasestr(const char* haystack, const char* needle)
 
 
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case sensitive.
  * 
  * This is a GNU-compliant slibc extension. It was useful
@@ -155,7 +155,7 @@ void* memmem(const void* __haystack, size_t haystack_length,
 
 
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case insensitive.
  * 
  * This is a slibc extension added because it was useful

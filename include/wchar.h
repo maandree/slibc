@@ -927,7 +927,7 @@ wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
 
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case insensitive.
  * 
  * This is a slibc extension added because it was useful
@@ -946,7 +946,7 @@ wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case sensitive.
  * 
  * This is a slibc extension added for completeness,

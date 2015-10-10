@@ -141,7 +141,7 @@ wchar_t* rawwcscasestr(const wchar_t* haystack, const wchar_t* needle)
 
 
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case sensitive.
  * 
  * This is a slibc extension added for completeness,
@@ -167,7 +167,7 @@ wchar_t* wmemmem(const wchar_t* haystack, size_t haystack_length,
 
 
 /**
- * Finds the first occurrence of a substring
+ * Finds the first occurrence of a substring.
  * This search is case insensitive.
  * 
  * This is a slibc extension added because it was useful
