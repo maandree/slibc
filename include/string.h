@@ -969,6 +969,62 @@ char* rawstrcasestr(const char*, const char*)
  */
 void* memcasemem(const void*, size_t, const void*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+
+/**
+ * Check whether a string starts with a specific string.
+ * This check is case sensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
+ */
+char* strstarts(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
+ * Check whether a string ends with a specific string.
+ * This check is case sensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired ending of the string.
+ * @return           The `string`, where `desired` beings if
+ *                   `string` ends with `desired`, `NULL` otherwise.
+ */
+char* strends(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
+ * Check whether a string starts with a specific string.
+ * This check is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
+ */
+char* strcasestarts(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
+ * Check whether a string ends with a specific string.
+ * This check is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired ending of the string.
+ * @return           The `string`, where `desired` beings if
+ *                   `string` ends with `desired`, `NULL` otherwise.
+ */
+char* strcaseends(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 #endif
 
 #if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)

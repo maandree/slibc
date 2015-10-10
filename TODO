@@ -16,6 +16,3 @@ input/output overview  (15 p429)
 debugging support  (16 p435)
 input/output on streams  (17 p439)
 
-add strstarts, strends, wcsstarts, wcsends as
-  faster specialised alternatives to strstr.
-

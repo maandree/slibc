@@ -182,3 +182,87 @@ void* memcasemem(const void* __haystack, size_t haystack_length,
 #undef CASE
 }
 
+
+/**
+ * Check whether a string starts with a specific string.
+ * This check is case sensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
+ */
+char* strstarts(const char* string, const char* desired)
+{
+  size_t n = strlen(string);
+  size_t m = strlen(desired);
+  if (n < m)
+    return NULL;
+  return memcmp(string, desired, m) ? NULL : string;
+}
+
+
+/**
+ * Check whether a string ends with a specific string.
+ * This check is case sensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired ending of the string.
+ * @return           The `string`, where `desired` beings if
+ *                   `string` ends with `desired`, `NULL` otherwise.
+ */
+char* strends(const char* string, const char* desired)
+{
+  size_t n = strlen(string);
+  size_t m = strlen(desired);
+  if (n < m)
+    return NULL;
+  return memcmp(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+
+/**
+ * Check whether a string starts with a specific string.
+ * This check is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
+ */
+char* strcasestarts(const char* string, const char* desired)
+{
+  size_t n = strlen(string);
+  size_t m = strlen(desired);
+  if (n < m)
+    return NULL;
+  return memcasecmp(string, desired, m) ? NULL : string;
+}
+
+
+/**
+ * Check whether a string ends with a specific string.
+ * This check is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired ending of the string.
+ * @return           The `string`, where `desired` beings if
+ *                   `string` ends with `desired`, `NULL` otherwise.
+ */
+char* strcaseends(const char* string, const char* desired)
+{
+  size_t n = strlen(string);
+  size_t m = strlen(desired);
+  if (n < m)
+    return NULL;
+  return memcasecmp(string + (n - m), desired, m) ? NULL : (string + n);
+}
+

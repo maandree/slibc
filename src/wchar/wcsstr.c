@@ -192,3 +192,87 @@ wchar_t* wmemcasemem(const wchar_t* haystack, size_t haystack_length,
 #undef CASE
 }
 
+
+/**
+ * Check whether a string starts with a specific string.
+ * This check is case sensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
+ */
+wchar_t* wcsstarts(const wchar_t* string, const wchar_t* desired)
+{
+  size_t n = wcslen(string);
+  size_t m = wcslen(desired);
+  if (n < m)
+    return NULL;
+  return wmemcmp(string, desired, m) ? NULL : string;
+}
+
+
+/**
+ * Check whether a string ends with a specific string.
+ * This check is case sensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired ending of the string.
+ * @return           The `string`, where `desired` beings if
+ *                   `string` ends with `desired`, `NULL` otherwise.
+ */
+wchar_t* wcsends(const wchar_t* string, const wchar_t* desired)
+{
+  size_t n = wcslen(string);
+  size_t m = wcslen(desired);
+  if (n < m)
+    return NULL;
+  return wmemcmp(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+
+/**
+ * Check whether a string starts with a specific string.
+ * This check is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
+ */
+wchar_t* wcscasestarts(const wchar_t* string, const wchar_t* desired)
+{
+  size_t n = wcslen(string);
+  size_t m = wcslen(desired);
+  if (n < m)
+    return NULL;
+  return wmemcasecmp(string, desired, m) ? NULL : string;
+}
+
+
+/**
+ * Check whether a string ends with a specific string.
+ * This check is case insensitive.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   string   The string to inspect.
+ * @param   desired  The desired ending of the string.
+ * @return           The `string`, where `desired` beings if
+ *                   `string` ends with `desired`, `NULL` otherwise.
+ */
+wchar_t* wcscaseends(const wchar_t* string, const wchar_t* desired)
+{
+  size_t n = wcslen(string);
+  size_t m = wcslen(desired);
+  if (n < m)
+    return NULL;
+  return wmemcasecmp(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
