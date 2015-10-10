@@ -300,9 +300,6 @@ int execve(const char* path, char* const argv[], char* const envp[])
 int execvpe(const char* file, char* const argv[], char* const envp[])
 {
   char* path = NULL;
-  char* path_cwd = NULL;
-  char* path_def = NULL;
-  char* path_env;
   char* pathname = NULL;
   char* p;
   char* q;
@@ -316,55 +313,40 @@ int execvpe(const char* file, char* const argv[], char* const envp[])
   if (!*file)
     return errno = ENOENT, -1;
   
-  path_env = getenv(PATH);
-  if (path_env == NULL)
+  path = getenv(PATH);
+  if (path == NULL)
     {
-      path_cwd = get_current_dir_name();
-      if (path_cwd == NULL)
-	goto fail;
-      
-      len = confstr(_CS_PATH, NULL, 0);
-      if (len)
+      if ((len = confstr(_CS_PATH, NULL, 0)))
 	{
-	  path_def = malloc((1 + len) * sizeof(char));
-	  if (path_def == NULL)
+	  path = malloc((2 + len) * sizeof(char));
+	  if (path == NULL)
 	    goto fail;
-	  *path_def = ':';
-	  if (confstr(_CS_PATH, path_def + 1, len))
-	    path_def = NULL, len = 0;
+	  if (!confstr(_CS_PATH, stpcpy(path, ".:"), len))
+	    free(path), path = NULL;
 	}
-      if (path_def == NULL)
-	path_def = ":/usr/local/bin:/bin:/usr/bin";
-      
-      path = malloc((strlen(path_cwd) + strlen(path_def) + 1) * sizeof(char));
       if (path == NULL)
-	goto fail;
-      
-      stpcpy(stpcpy(path, path_cwd), path_def);
-      free(path_cwd), path_cwd = NULL;
-      if (len)
-	free(path_def), path_def = NULL;
+	path = strdup(".:/usr/local/bin:/bin:/usr/bin");
     }
   else
-    if (path = strdup(path_env), path == NULL)
-      goto fail;
+    path = strdup(path);
+  if (path == NULL)
+    goto fail;
   
   pathname = malloc((strlen(path) + strlen(file) + 2) * sizeof(char));
+  if (pathname == NULL)
+    goto fail;
   
   for (p = path; *p; p = q + 1)
     {
-      q = strchr(p, ':');
-      if (q == p)
+      if (p == (q = strchr(p, ':')))
 	continue;
       *q = '\0';
       
       stpcpy(stpcpy(stpcpy(pathname, p), "/"), file);
       
       execve(pathname, argv, envp);
-      if (errno == EACCES)
-	eacces = 1;
-      else if (errno != ENOENT)
-	goto fail;
+      if      (errno == EACCES)  eacces = 1;
+      else if (errno != ENOENT)  goto fail;
     }
   
   free(path);
@@ -373,9 +355,6 @@ int execvpe(const char* file, char* const argv[], char* const envp[])
   
  fail:
   saved_errno = errno;
-  free(path_cwd);
-  if (len)
-    free(path_def);
   free(path);
   free(pathname);
   errno = saved_errno;
