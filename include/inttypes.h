@@ -21,6 +21,9 @@
 #include <slibc/features.h>
 
 
+#include <stdint.h>
+
+
 
 #define __NEED_intmax_t
 #define __NEED_imaxdiv_t
