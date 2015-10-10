@@ -15,30 +15,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _STDLIB_H
-#define _STDLIB_H
-#include <slibc/version.h>
-#include <slibc/features.h>
+#include <inttypes.h>
 
 
-
-#define __NEED_intmax_t
-#define __NEED_imaxdiv_t
-
-#include <bits/types.h>
-
-
-/**
- * Perform an integer division and return
- * both the quotient and the remainder.
- * 
- * @param   numerator    The numerator.
- * @param   denominator  The denominator.
- * @return               The quotient in `.quot`, and
- *                       the remainder in `.rem`.
- */
-imaxdiv_t imaxdiv(intmax_t, intmax_t)
-  __GCC_ONLY(__attribute__((const)));
 
 /**
  * Return the absolute value of an integer.
@@ -51,10 +30,8 @@ imaxdiv_t imaxdiv(intmax_t, intmax_t)
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-intmax_t imaxabs(intmax_t)
-  __GCC_ONLY(__attribute__((const)));
-
-
-
-#endif
+intmax_t imaxabs(intmax_t value)
+{
+  return value < 0 ? -value : value;
+}
 

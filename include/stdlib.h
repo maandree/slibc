@@ -93,6 +93,49 @@ lldiv_t lldiv(long long, long long)
   __GCC_ONLY(__attribute__((const)));
 
 
+/**
+ * Return the absolute value of an integer.
+ * 
+ * Be aware, if the value is `INT_MIN` and
+ * `-INT_MAX != -INT_MIN`, the result will
+ * overflow, and `INT_MIN` will (probably)
+ * be returned.
+ * 
+ * @param   value  The integer.
+ * @return         The absolute value of the integer.
+ */
+int abs(int)
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Return the absolute value of an integer.
+ * 
+ * Be aware, if the value is `LONG_MIN` and
+ * `-LONG_MAX != -LONG_MIN`, the result will
+ * overflow, and `LONG_MIN` will (probably)
+ * be returned.
+ * 
+ * @param   value  The integer.
+ * @return         The absolute value of the integer.
+ */
+long int labs(long int)
+  __GCC_ONLY(__attribute__((const)));
+
+/**
+ * Return the absolute value of an integer.
+ * 
+ * Be aware, if the value is `LLONG_MIN` and
+ * `-LLONG_MAX != -LLONG_MIN`, the result will
+ * overflow, and `LLONG_MIN` will (probably)
+ * be returned.
+ * 
+ * @param   value  The integer.
+ * @return         The absolute value of the integer.
+ */
+long long int llabs(long long int)
+  __GCC_ONLY(__attribute__((const)));
+
+
 #if !defined(__PORTABLE)
 /**
  * Get the absolute path of a file.
