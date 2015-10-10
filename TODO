@@ -13,7 +13,6 @@ searching and sorting  (12 p343)
 pattern matching  (13 p355)
 the basic program–system interface  (14 p379)
 input/output overview  (15 p429)
-debugging support  (16 p435)
 input/output on streams  (17 p439)
 
 It should be possible to configure malloc, calloc, and
@@ -21,4 +20,9 @@ realloc to allocate some extra space. This is usable
 for single-threaded allocations; they do not need to
 realloc strings returned by functions with
 __attribute__((malloc)), to append a string or character.
+
+
+LOW PRIORITY:
+  debugging support  (16 p435)
+    _GNU_SOURCE, system-dependant
 
