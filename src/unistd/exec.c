@@ -15,131 +15,53 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _UNISTD_H
-#define _UNISTD_H
-#include <slibc/version.h>
-#include <slibc/features.h>
+#include <unistd.h>
+#include <stdarg.h>
+#include <errno.h>
+#include <alloca.h>
+#include <string.h>
+#include <stdlib.h>
 
-
-
-#define __NEED_size_t
-#define __NEED_ssize_t
-#define __NEED_uid_t
-#define __NEED_gid_t
-#define __NEED_off_t
-#define __NEED_pid_t
-#define __NEED_ptrdiff_t
-#define __NEED_intptr_t
-#define __NEED_useconds_t
-#include <bits/types.h>
 
 
 /**
- * `NULL`'s canonical header is <stddef.h>.
+ * The current environment variables.
  */
-#ifndef NULL
-# define NULL  ((void*)0)
-#endif
+extern char** environ;
+
 
 
 /**
- * The file descriptor for stdin.
- * The file with input.
+ * Common code for the `execl*` functions.
+ * 
+ * @param   file        The first argument of said functions.
+ * @param   argv        The rest of the arguments of said functions;
+ *                      may conclude `envp`.
+ * @param   fetch_envp  Whether `argv` includes `envp`.
+ * @param   use_path    Whether $PATH may be used.
+ * 
+ * @throws              Any error specified for execve(2).
  */
-#define STDIN_FILENO  0
-
-/**
- * The file descriptor for stdout.
- * The file for output.
- */
-#define STDOUT_FILENO  1
-
-/**
- * The file descriptor for stderr.
- * The file for error messages and warnings.
- */
-#define STDERR_FILENO  2
-
-
-/**
- * Set the high end of the calling process's
- * data segment.
- * 
- * The high end is defined as the last byte
- * in the segment plus 1.
- * 
- * Using `brk` is highly discouraged. `malloc`,
- * `calloc` and `free`, and its related functions,
- * fall be used instead as they are much more
- * conformable. Use of `brk` can couse errors
- * when using `malloc`, `free`, &c. Thus, `brk`
- * shall (bascially) only be used if you are
- * writting an alterantive malloc-implementation.
- * 
- * `brk` was marked LEGACY in SUSv2, and it
- * was removed from the POSIX standard in revision
- * POSIX.1-2001. It is however fundamental in
- * implementing a fast `malloc`-implementation.
- * 
- * @param   address  The process's new high end of its data segment.
- *                   If lower than the current low end, nothing will
- *                   happen and the function will return with a success
- *                   status.
- * @return           Zero on succes, -1 on error. On error, `errno`
- *                   is set to indicate the error.
- * 
- * @throws  ENOMEM  The process can allocate the requested amount
- *                  of memory. Either the process store limit would
- *                  have been exceeded, RAM and swap memory would
- *                  have been exhausted, or the request would cause
- *                  the data segment to overlap another segment.
- */
-int brk(void*) /* TODO implement brk */
-  __GCC_ONLY(__attribute__((warn_unused_result)));
-
-/**
- * Set and get the current high end of the calling
- * process's data segment.
- * 
- * There is some documents that state that the new,
- * rather than the previous, high end is returned.
- * Additionally, some documentions do not document
- * possible failure. Thus only `sbrk(0)` is guaranteed
- * to be portable. The return type differs between
- * implementations; common return types are `int`,
- * `ssize_t`, `ptrdiff_t`, `ptrdiff_t`, `intptr_t`,
- * and `void*`. Note that `int` is
- * microarchitecture-portable.
- * 
- * `sbrk` was marked LEGACY in SUSv2, and it
- * was removed from the POSIX standard in revision
- * POSIX.1-2001. It is however fundamental in
- * implementing a fast `malloc`-implementation.
- * 
- * @param   delta  The incremant of the size of the data segment,
- *                 zero means that the high end shall not be moved
- *                 (thus the current high end is returned,) a
- *                 positive value will cause the segment to grow,
- *                 a negative value will cause the segment to shrink.
- * @return         The previous high end. `(void*)-1` is returned on error.
- * 
- * @throws  ENOMEM  The process can allocate the requested amount
- *                  of memory. Either the process store limit would
- *                  have been exceeded, RAM and swap memory would
- *                  have been exhausted, or the request would cause
- *                  the data segment to overlap another segment.
- */
-void* sbrk(ptrdiff_t) /* TODO implement sbrk */
-  __GCC_ONLY(__attribute__((warn_unused_result)));
-
-
-
-/* TODO implement exit-functions */
-void _exit(int) __noreturn;
-
-
-/* TODO implement I/O */
-int isatty(int);
+static void vexec(const char* file, va_list argv, int fetch_envp, int use_path)
+{
+  char* const* envp = environ;
+  size_t n = 0, i;
+  va_list args;
+  char** argv_;
+  
+  va_copy(args, argv);
+  while (n++, va_arg(args, char*) != NULL)
+    break;
+  
+  if (fetch_envp)
+    envp = va_arg(args, char* const*);
+  
+  argv_ = alloca(n * sizeof(char*));
+  for (i = 0; i < n; i++)
+    argv_[i] = va_arg(args, char*);
+  
+  (void)(use_path ? execvpe : execve)(file, argv_, envp);
+}
 
 
 
@@ -157,8 +79,17 @@ int isatty(int);
  * 
  * @throws        Any error specified for execve(2).
  */
-int execl(const char*, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0), nonnull(1))));
+int execl(const char* path, ... /*, NULL */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexec(path, argv, 0, 0);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -176,8 +107,17 @@ int execl(const char*, ... /*, NULL */)
  * 
  * @throws        Any error specified for execve(2).
  */
-int execlp(const char*, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0), nonnull(1))));
+int execlp(const char* file, ... /*, NULL */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexec(path, argv, 0, 1);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -197,10 +137,18 @@ int execlp(const char*, ... /*, NULL */)
  * 
  * @throws        Any error specified for execve(2).
  */
-int execle(const char*, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
+int execle(const char* path, ... /*, NULL, char* const envp[] */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexec(path, argv, 1, 0);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
 
-#if (defined(_SLIBC_SOURCE) && !defined(__PORTABLE))
+
 /**
  * Replace the current process image with a new process image.
  * 
@@ -223,9 +171,17 @@ int execle(const char*, ... /*, NULL, char* const[] */)
  * 
  * @throws        Any error specified for execve(2).
  */
-int execlpe(const char*, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
-#endif
+int execlpe(const char* file, ... /*, NULL, char* const envp[] */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexec(path, argv, 1, 1);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -245,8 +201,11 @@ int execlpe(const char*, ... /*, NULL, char* const[] */)
  * 
  * @throws        Any error specified for execve(2).
  */
-int execv(const char*, char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+int execv(const char* path, char* const argv[])
+{
+  return execve(path, argv, environ);
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -268,8 +227,11 @@ int execv(const char*, char* const[])
  * 
  * @throws        Any error specified for execve(2).
  */
-int execvp(const char*, char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+int execvp(const char* file, char* const argv[])
+{
+  return execvpe(path, argv, environ);
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -293,10 +255,14 @@ int execvp(const char*, char* const[])
  * 
  * @throws        Any error specified for execve(2).
  */
-int execve(const char*, char* const[], char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+int execve(const char* path, char* const argv[], char* const envp[])
+{
+  return errno = ENOTSUP, -1;
+  (void) path, (void) argv, (void) enpv;
+  /* TODO implement execve */
+}
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+
 /**
  * Replace the current process image with a new process image.
  * 
@@ -323,11 +289,88 @@ int execve(const char*, char* const[], char* const[])
  * 
  * @throws        Any error specified for execve(2).
  */
-int execvpe(const char*, char* const[], char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
-#endif
-
-
-
-#endif
+int execvpe(const char* file, char* const argv[], char* const envp[])
+{
+  char* path = NULL;
+  char* path_cwd = NULL;
+  char* path_def = NULL;
+  char* path_env;
+  char* pathname = NULL;
+  char* p;
+  char* q;
+  size_t len = 0;
+  int eacces = 0;
+  int saved_errno;
+  
+  if (strchr(file, '/'))
+    return execve(file, argv, envp);
+  
+  if (!*file)
+    return errno = ENOENT, -1;
+  
+  path_env = getenv(PATH);
+  if (path_env == NULL)
+    {
+      path_cwd = get_current_dir_name();
+      if (path_cwd == NULL)
+	goto fail;
+      
+      len = confstr(_CS_PATH, NULL, 0);
+      if (len)
+	{
+	  path_def = malloc((1 + len) * sizeof(char));
+	  if (path_def == NULL)
+	    goto fail;
+	  *path_def = ':';
+	  if (confstr(_CS_PATH, path_def + 1, len))
+	    path_def = NULL, len = 0;
+	}
+      if (path_def == NULL)
+	path_def = ":/usr/local/bin:/bin:/usr/bin";
+      
+      path = malloc((strlen(path_cwd) + strlen(path_def) + 1) * sizeof(char));
+      if (path == NULL)
+	goto fail;
+      
+      stpcpy(stpcpy(path, path_cwd), path_def);
+      free(path_cwd), path_cwd = NULL;
+      if (len)
+	free(path_def), path_def = NULL;
+    }
+  else
+    if (path = strdup(path_env), path == NULL)
+      goto fail;
+  
+  pathname = malloc((strlen(path) + strlen(file) + 2) * sizeof(char));
+  
+  for (p = path; *p; p = q + 1)
+    {
+      q = strchr(p, ':');
+      if (q == p)
+	continue;
+      *q = '\0';
+      
+      stpcpy(stpcpy(stpcpy(pathname, p), "/"), file);
+      
+      execve(pathname, argv, envp);
+      if (errno == EACCES)
+	eacces = 1;
+      else if (errno != ENOENT)
+	goto fail;
+    }
+  
+  free(path);
+  free(pathname);
+  return errno = (eaccess ? EACCES : ENOENT), -1;
+  
+ fail:
+  saved_errno = errno;
+  free(path_cwd);
+  if (len)
+    free(path_def);
+  free(path);
+  free(pathname);
+  errno = saved_errno;
+  return -1;
+}
 
