@@ -133,6 +133,63 @@ char* relpath(const char*, const char*)
 #endif
 
 
+/**
+ * Convert a string to an integer,
+ * without checking for errors.
+ * 
+ * Note that, the behaviour is unspecified
+ * if the string contains anything else than
+ * digits and either a leading '-' (hyphen)
+ * or a leading plus.
+ * 
+ * @param   string  The string to convert.
+ * @return          The integer encoded by the string.
+ */
+int atoi(const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
+ * Convert a string to an integer,
+ * without checking for errors.
+ * 
+ * Note that, the behaviour is unspecified
+ * if the string contains anything else than
+ * digits and either a leading '-' (hyphen)
+ * or a leading plus.
+ * 
+ * @param   string  The string to convert.
+ * @return          The integer encoded by the string.
+ */
+long int atol(const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+/**
+ * Convert a string to an integer,
+ * without checking for errors.
+ * 
+ * Note that, the behaviour is unspecified
+ * if the string contains anything else than
+ * digits and either a leading '-' (hyphen)
+ * or a leading plus.
+ * 
+ * @param   string  The string to convert.
+ * @return          The integer encoded by the string.
+ */
+long long int atoll(const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+
+#if !defined(__PORTABLE)
+/**
+ * This function is identical to `atoll`.
+ * 
+ * This is a Linux libc extension.
+ */
+long long int atoq(const char*)
+  __deprecated("'atoq' is obsolete and not portable, use 'atoll' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#endif
+
+
 
 /* TODO implement rand-functions */
 #define RAND_MAX  1
