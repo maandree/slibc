@@ -96,7 +96,9 @@ int execl(const char* path, ... /*, NULL */)
  * 
  * @param   file  The pathname of the file to execute,
  *                or the filename of a file in $PATH,
- *                to execute.
+ *                to execute. If $PATH is not set, the current
+ *                working directory (yes, you read that right,)
+ *                and a default value for $PATH will be used.
  * @param   ...   The arguments with which to execute the file.
  *                The arguments should have the type `const char*`.
  *                As a slibc extension, it can be empty.
@@ -156,7 +158,9 @@ int execle(const char* path, ... /*, NULL, char* const envp[] */)
  * 
  * @param   file  The pathname of the file to execute,
  *                or the filename of a file in $PATH,
- *                to execute.
+ *                to execute. If $PATH is not set, the current
+ *                working directory (yes, you read that right,)
+ *                and a default value for $PATH will be used.
  * @param   ...   The arguments with which to execute the file.
  *                The arguments should have the type `const char*`.
  *                As a slibc extension, it can be empty.
@@ -212,7 +216,9 @@ int execv(const char* path, char* const argv[])
  * 
  * @param   file  The pathname of the file to execute,
  *                or the filename of a file in $PATH,
- *                to execute.
+ *                to execute. If $PATH is not set, the current
+ *                working directory (yes, you read that right,)
+ *                and a default value for $PATH will be used.
  * @param   argv  The arguments with which to execute the file.
  *                This parameter should really have the type
  *                `const char* const[]`, but that probably not
@@ -270,7 +276,9 @@ int execve(const char* path, char* const argv[], char* const envp[])
  * 
  * @param   file  The pathname of the file to execute,
  *                or the filename of a file in $PATH,
- *                to execute.
+ *                to execute. If $PATH is not set, the current
+ *                working directory (yes, you read that right,)
+ *                and a default value for $PATH will be used.
  * @param   argv  The arguments with which to execute the file.
  *                This parameter should really have the type
  *                `const char* const[]`, but that probably not
