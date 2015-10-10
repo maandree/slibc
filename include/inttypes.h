@@ -27,6 +27,7 @@
 
 #define __NEED_intmax_t
 #define __NEED_imaxdiv_t
+#define __NEED_wchar_t
 
 #include <bits/types.h>
 
