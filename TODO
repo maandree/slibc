@@ -16,3 +16,9 @@ input/output overview  (15 p429)
 debugging support  (16 p435)
 input/output on streams  (17 p439)
 
+It should be possible to configure malloc, calloc, and
+realloc to allocate some extra space. This is usable
+for single-threaded allocations; they do not need to
+realloc strings returned by functions with
+__attribute__((malloc)), to append a string or character.
+
