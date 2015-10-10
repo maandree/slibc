@@ -93,6 +93,46 @@ lldiv_t lldiv(long long, long long)
   __GCC_ONLY(__attribute__((const)));
 
 
+#if !defined(__PORTABLE)
+/**
+ * Get the absolute path of a file.
+ * It will remove all redundant slashes, all "./":s,
+ * and all "../":s, but not resolve symbolic links.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   file  The file.
+ * @param   ref   The directory the file's specified path is
+ *                relative, `NULL` for the current working directory.
+ * @return        The file's absolute pathname. Will end with a slash
+ *                if `file` does. (Or if `ref` does but file is empty.)
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+char* abspath(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), malloc)));
+
+/**
+ * Get the relative path of a file.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   file  The file.
+ * @param   ref   The file the result shall be relative to,
+ *                `NULL` for the current working directory.
+ *                If and only if this path ends with a slash,
+ *                (or if it is `NULL`,) it will be treated as
+ *                a directory in which a symbolic link, with
+ *                the result as it target, can be located to
+ *                point to `file`.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+char* relpath(const char*, const char*)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), malloc)));
+#endif
+
+
 
 /* TODO implement rand-functions */
 #define RAND_MAX  1
