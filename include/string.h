@@ -21,6 +21,11 @@
 #include <slibc/features.h>
 
 
+#if (defined(_BSD_SOURCE) || defined(_GNU_SOURCE)) && !defined(__PORTABLE)
+# include <strings.h>
+#endif
+
+
 
 /**
  * `NULL`'s canonical header is <stddef.h>
