@@ -24,10 +24,11 @@
  * Convert a string to an integer,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits and either a leading '-' (hyphen)
- * or a leading plus.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+'.
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
@@ -42,10 +43,11 @@ int atoi(const char* string)
  * Convert a string to an integer,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits and either a leading '-' (hyphen)
- * or a leading plus.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+'.
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
@@ -75,10 +77,11 @@ long int atol(const char* string)
  * Convert a string to an integer,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits and either a leading '-' (hyphen)
- * or a leading plus.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+'.
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.

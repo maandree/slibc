@@ -137,10 +137,11 @@ char* relpath(const char*, const char*)
  * Convert a string to a floating-point value,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits, either a leading '-' (hyphen)
- * or a leading plus, and at most one '.'.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+', or the first '.'.
  * 
  * @param   string  The string to convert.
  * @return          The number encoded by the string.
@@ -152,10 +153,11 @@ double atof(const char*)
  * Convert a string to an integer,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits and either a leading '-' (hyphen)
- * or a leading plus.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+'.
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
@@ -167,10 +169,11 @@ int atoi(const char*)
  * Convert a string to an integer,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits and either a leading '-' (hyphen)
- * or a leading plus.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+'.
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
@@ -182,10 +185,11 @@ long int atol(const char*)
  * Convert a string to an integer,
  * without checking for errors.
  * 
- * Note that, the behaviour is unspecified
- * if the string contains anything else than
- * digits and either a leading '-' (hyphen)
- * or a leading plus.
+ * The string may being with an arbitrary number
+ * of whitespace characters. Convertion will end
+ * when a character is encountered that is not a
+ * decimal digit, and is not an absolutely leading
+ * '-' or '+'.
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
