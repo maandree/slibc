@@ -643,6 +643,97 @@ int execvpeat(int, const char*, char* const[], char* const[], int)
 #endif
 
 
+#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * Replace the current process image with a new process image.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd   File descriptor for the file to execute.
+ * @param   ...  The arguments with which to execute the file.
+ *               The arguments should have the type `const char*`.
+ *               As a slibc extension, it can be empty.
+ *               This list shall be terminated by a `NULL` sentinel.
+ * @return       This function does not return on success,
+ *               on error, -1 is returned and `errno` is
+ *               set to describe the error.
+ * 
+ * @throws       Any error specified for execve(2).
+ */
+int fexecl(int, ... /*, NULL */)
+  __GCC_ONLY(__attribute__((sentinel(0))));
+
+/**
+ * Replace the current process image with a new process image.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd    File descriptor for the file to execute.
+ * @param   ...   The arguments with which to execute the file.
+ *                The arguments should have the type `const char*`.
+ *                As a slibc extension, it can be empty.
+ *                This list shall be terminated by a `NULL` sentinel.
+ * @param   envp  The list of environment variables the new program shall
+ *                have set. Each element shall be formatted $name=$value.
+ *                This list shall be `NULL`-terminated. The behaviour
+ *                is system-dependant if this argument is `NULL`.
+ * @return        This function does not return on success,
+ *                on error, -1 is returned and `errno` is
+ *                set to describe the error.
+ * 
+ * @throws        Any error specified for execve(2).
+ */
+int fexecle(int, ... /*, NULL, char* const[] */)
+  __GCC_ONLY(__attribute__((sentinel(1))));
+
+/**
+ * Replace the current process image with a new process image.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd    File descriptor for the file to execute.
+ * @param   argv  The arguments with which to execute the file.
+ *                This parameter should really have the type
+ *                `const char* const[]`, but that probably not
+ *                so because compiles take issue with casts
+ *                adding const to any pointer in the type
+ *                except the outmost pointer. This list shall
+ *                be `NULL`-terminated. The behaviour is
+ *                system-dependant if this argument is `NULL`.
+ * @return        This function does not return on success,
+ *                on error, -1 is returned and `errno` is
+ *                set to describe the error.
+ * 
+ * @throws        Any error specified for execve(2).
+ */
+int fexecv(int, char* const[]);
+#endif
+
+/**
+ * Replace the current process image with a new process image.
+ * 
+ * @param   fd    File descriptor for the file to execute.
+ * @param   argv  The arguments with which to execute the file.
+ *                This parameter should really have the type
+ *                `const char* const[]`, but that probably not
+ *                so because compiles take issue with casts
+ *                adding const to any pointer in the type
+ *                except the outmost pointer. This list shall
+ *                be `NULL`-terminated. The behaviour is
+ *                system-dependant if this argument is `NULL`.
+ * @param   envp  The list of environment variables the new program shall
+ *                have set. Each element shall be formatted $name=$value.
+ *                This list shall be `NULL`-terminated. The behaviour
+ *                is system-dependant if this argument is `NULL`.
+ * @return        This function does not return on success,
+ *                on error, -1 is returned and `errno` is
+ *                set to describe the error.
+ * 
+ * @throws        Any error specified for execve(2).
+ */
+int fexecve(int, char* const[], char* const[]);
+
+
 
 #endif
 
