@@ -91,6 +91,31 @@ void* calloc(size_t elem_count, size_t elem_size)
 
 
 /**
+ * Variant of `malloc` that clears the allocation with zeroes.
+ * 
+ * `zalloc(n)` is equivalent to `calloc(1, n)`, or equivalently,
+ * `calloc(n, m)` is equivalent to `zalloc(n * m)` assumming `n * m`
+ * does not overflow (in which case `calloc(n, m)` returns `ENOMEM`.)
+ * 
+ * This is a klibc extension.
+ * 
+ * @param   size  The size of the allocation.
+ * @return        Pointer to the beginning of the new allocation.
+ *                If `size` is zero, this function will either return
+ *                `NULL` (that is what this implement does) or return
+ *                a unique pointer that can later be freed with `free`.
+ *                `NULL` is returned on error, and `errno` is set to
+ *                indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* zalloc(size_t size)
+{
+  return calloc(1, size);
+}
+
+
+/**
  * Variant of `malloc` that extends, or shrinks, an existing allocation,
  * if beneficial and possible, or creates a new allocation with the new
  * size, copies the data, and frees the old allocation.

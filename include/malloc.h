@@ -63,6 +63,31 @@ void* malloc(size_t)
 void* calloc(size_t, size_t)
   __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
 
+#if !defined(__PORTABLE)
+/**
+ * Variant of `malloc` that clears the allocation with zeroes.
+ * 
+ * `zalloc(n)` is equivalent to `calloc(1, n)`, or equivalently,
+ * `calloc(n, m)` is equivalent to `zalloc(n * m)` assumming `n * m`
+ * does not overflow (in which case `calloc(n, m)` returns `ENOMEM`.)
+ * 
+ * This is a klibc extension.
+ * 
+ * @param   size  The size of the allocation.
+ * @return        Pointer to the beginning of the new allocation.
+ *                If `size` is zero, this function will either return
+ *                `NULL` (that is what this implement does) or return
+ *                a unique pointer that can later be freed with `free`.
+ *                `NULL` is returned on error, and `errno` is set to
+ *                indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* zalloc(size_t)
+  __warning("'zalloc' is klibc extension, use 'calloc(1, n)' instead of 'zalloc(n)'."),
+  __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
+#endif
+
 /**
  * Variant of `malloc` that extends, or shrinks, an existing allocation,
  * if beneficial and possible, or creates a new allocation with the new
