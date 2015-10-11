@@ -37,7 +37,7 @@
 void bzero(void*, size_t)
   __deprecated("Use 'memset', 'explicit_bzero' or 'secure_free' instead.");
 
-#if !defined(__PORTABLE) && (defined(_SLIBC_SOURCE) || defined(_BSD_SOURCE))
+#if defined(__SLIBC_SOURCE) || defined(__BSD_SOURCE)
 /**
  * Override a memory segment with zeroes.
  * 

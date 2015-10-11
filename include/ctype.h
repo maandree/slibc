@@ -55,7 +55,7 @@ int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
 #define isalpha(c)  (islower(tolower(c)))
 
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Check whether a character is a regular blank space
  * or a horizontal tabulation.
@@ -305,7 +305,7 @@ int isalpha_l(int, locale_t)
   __warning("This function is dangerous, use 'iswalpha_l' instead.")
   __GCC_ONLY(__attribute__((const)));
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Check whether a character is a regular blank space
  * or a horizontal tabulation.

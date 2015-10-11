@@ -56,7 +56,7 @@
 #define static_assert _Static_assert
 
 
-#if (defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE) || defined(__GNU_SOURCE)
 /**
  * Unless `NDEBUG` is defined, print an error message
  * and abort the process, if `errnum` is non-zero.

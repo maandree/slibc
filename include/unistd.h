@@ -202,7 +202,7 @@ int execlp(const char*, ... /*, NULL */)
 int execle(const char*, ... /*, NULL, char* const[] */)
   __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
 
-#if (defined(_SLIBC_SOURCE) && !defined(__PORTABLE))
+#if defined(__SLIBC_SOURCE)
 /**
  * Replace the current process image with a new process image.
  * 
@@ -302,7 +302,7 @@ int execvp(const char*, char* const[])
 int execve(const char*, char* const[], char* const[])
   __GCC_ONLY(__attribute__((nonnull(1))));
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Replace the current process image with a new process image.
  * 
@@ -336,7 +336,7 @@ int execvpe(const char*, char* const[], char* const[])
 #endif
 
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Replace the current process image with a new process image.
  * 
@@ -596,7 +596,7 @@ int execvpat(int, const char*, char* const[], int)
 int execveat(int, const char*, char* const[], char* const[], int)
   __GCC_ONLY(__attribute__((nonnull(2))));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Replace the current process image with a new process image.
  * 
@@ -643,7 +643,7 @@ int execvpeat(int, const char*, char* const[], char* const[], int)
 #endif
 
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Replace the current process image with a new process image.
  * 

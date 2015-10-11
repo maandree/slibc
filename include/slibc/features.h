@@ -54,6 +54,37 @@
 
 
 /**
+ * Feature-test macros that also change that
+ * `_PORTABLE_SOURCE` and `_LIBRARY_HEADER`
+ * is not defined.
+ */
+#if !defined(__PORTABLE)
+# if defined(_GNU_SOURCE)
+#  define __GNU_SOURCE  _GNU_SOURCE
+# endif
+# if defined(_SLIBC_SOURCE)
+#  define __SLIBC_SOURCE  _SLIBC_SOURCE
+# endif
+# if defined(_BSD_SOURCE)
+#  define __BSD_SOURCE  _BSD_SOURCE
+# endif
+# if defined(_POSIX_SOURCE)
+#  define __POSIX_SOURCE  _POSIX_SOURCE
+# endif
+# if defined(_POSIX_C_SOURCE)
+#  define __POSIX_C_SOURCE  _POSIX_C_SOURCE
+# endif
+# if defined(_XOPEN_SOURCE)
+#  define __XOPEN_SOURCE  _XOPEN_SOURCE
+# endif
+# if defined(_ISOC11_SOURCE)
+#  define __ISOC11_SOURCE  _ISOC11_SOURCE
+# endif
+#endif
+
+
+
+/**
  * Macro used to exclude code unless GCC is used.
  */
 #if defined(__GNUC__)

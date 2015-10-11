@@ -88,7 +88,7 @@ int printf(const char* restrict, ...)
 int fprintf(FILE* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fprintf`,
  * except it does not lock the stream.
@@ -186,7 +186,7 @@ int sprintf(char* restrict, const char* restrict, ...)
 int snprintf(char* restrict, size_t, const char* restrict, ...)
   __GCC_ONLY(__attribute__((nonnull(3), format(slibc_printf, 3, 4))));
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * This function is identical to `sprintf`,
  * except it allocates a sufficiently large
@@ -215,7 +215,7 @@ int asprintf(char** restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3), warn_unused_result)));
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `asprintf`,
  * except it can reuse allocated buffers.
@@ -305,7 +305,7 @@ int vprintf(const char* restrict, va_list)
 int vfprintf(FILE* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((nonnull(1, 2))));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fprintf_unlocked`,
  * except it uses `va_list` instead of variadic argument.
@@ -398,7 +398,7 @@ int vsprintf(char* restrict, const char* restrict, va_list)
 int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((nonnull(1, 3))));
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * This function is identical to `asprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -426,7 +426,7 @@ int vasprintf(char** restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `bprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -517,7 +517,7 @@ int wprintf(const wchar_t* restrict, ...)
 int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((nonnull(1, 2))));
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+# if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fprintf_unlocked` except
  * it uses wide characters.
@@ -591,7 +591,7 @@ int dwprintf(int, const wchar_t* restrict, ...)
 int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((nonnull(3))));
 
-# if defined(_GNU_SOURCE) && defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+# if defined(__GNU_SOURCE) && defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `aswprintf` except
  * it uses wide characters.
@@ -620,7 +620,7 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
 # endif
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+# if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `bprintf` except
  * it uses wide characters.
@@ -711,7 +711,7 @@ int vwprintf(const wchar_t* restrict, va_list)
 int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((nonnull(1, 2))));
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+# if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fwprintf_unlocked`,
  * except it uses `va_list` instead of variadic argument.
@@ -785,7 +785,7 @@ int vdwprintf(int, const wchar_t* restrict, va_list)
 int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((nonnull(3))));
 
-# if defined(_GNU_SOURCE) && defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+# if defined(__GNU_SOURCE) && defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `aswprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -814,7 +814,7 @@ int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
 # endif
 
-# if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+# if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `bwprintf`,
  * except it uses `va_list` instead of variadic argument.
@@ -913,7 +913,7 @@ int fscanf(FILE* restrict, const char* restrict, ...)
 int sscanf(const char* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
 
-#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fscanf`,
  * except it does not lock the stream.
@@ -1022,7 +1022,7 @@ int vfscanf(FILE* restrict, const char* restrict, va_list)
 int vsscanf(const char* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
 
-#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fscanf_unlocked`,
  * except it uses `va_list` instead of variadic arguments.
@@ -1127,7 +1127,7 @@ int fwscanf(FILE* restrict, const wchar_t* restrict, ...)
 int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
 
-#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fscanf_unlocked`,
  * except it uses `wchar_t` instead of `char`.
@@ -1232,7 +1232,7 @@ int vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
 int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
 
-#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * This function is identical to `fwscanf_unlocked`,
  * except it uses `va_list` instead of variadic arguments.
@@ -1291,7 +1291,7 @@ int vdwscanf(int, const wchar_t* restrict, va_list)
 
 
 
-#if !defined(__PORTABLE_SOURCE)
+#if !defined(__PORTABLE)
 /**
  * This function is identical to `scanf`.
  */

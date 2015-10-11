@@ -90,7 +90,7 @@ wchar_t* wmemset(wchar_t*, wchar_t, size_t);
  */
 wchar_t* wmemcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment.
  * 
@@ -115,7 +115,7 @@ wchar_t* wmempcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
  */
 wchar_t* wmemmove(wchar_t*, const wchar_t*, size_t);
 
-# if defined(_SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment.
  * 
@@ -131,7 +131,7 @@ wchar_t* wmempmove(wchar_t*, const wchar_t*, size_t);
 # endif
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * but stop if a specific character is encountered.
@@ -180,7 +180,7 @@ wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
 wchar_t* wcscpy(wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if (defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE) || defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -195,7 +195,7 @@ wchar_t* wcpcpy(wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character or a specified wide character
@@ -253,7 +253,7 @@ wchar_t* wcsstrcpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* re
 wchar_t* wcsncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -274,7 +274,7 @@ wchar_t* wcsncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
 wchar_t* wcpncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-# if defined(_SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character or a specified wide character
@@ -330,7 +330,7 @@ wchar_t* wcsstrncpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* r
 # endif
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -413,7 +413,7 @@ wchar_t* wcsstrmove(wchar_t*, const wchar_t*, const wchar_t* restrict)
 wchar_t* wcsnmove(wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-# if defined(_GNU_SOURCE)
+# if defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL wide character is encountered.
@@ -527,8 +527,7 @@ wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size
 /* wcpncat does not exsits because use of it would be very inefficient. */
 
 
-#if !defined(__PORTABLE)
-# if defined(_SLIBC_SOURCE) || defined(_GNU_SOURCE)
+#if defined(__SLIBC_SOURCE) || defined(__GNU_SOURCE)
 /**
  * Duplicate a string.
  * 
@@ -542,10 +541,10 @@ wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size
  */
 wchar_t* wcsdup(const wchar_t*)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
-# endif
+#endif
 
-# if defined(_SLIBC_SOURCE)
-#  if defined(_GNU_SOURCE)
+#if defined(__SLIBC_SOURCE)
+# if defined(__GNU_SOURCE)
 /**
  * Duplicate a string.
  * 
@@ -563,7 +562,7 @@ wchar_t* wcsdup(const wchar_t*)
  */
 wchar_t* wcsndup(const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
-#  endif
+# endif
 
 /**
  * Duplicate a memory segment.
@@ -580,8 +579,8 @@ wchar_t* wcsndup(const wchar_t*, size_t)
 wchar_t* wmemdup(const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
 
-#  if defined(__GNUC__)
-#   if defined(_GNU_SOURCE)
+# if defined(__GNUC__)
+#  if defined(__GNU_SOURCE)
 /**
  * Duplicate a string, using dymanic stack allocation (`alloca`).
  * 
@@ -593,7 +592,7 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @return  :size_t                The new string. There is no way to
  *                                 detect whether the allocation failed.
  */
-#    define wcsdupa(string)					\
+#   define wcsdupa(string)					\
   ({								\
     const char* __s = (string);					\
     size_t __n = wcslen(__s) + 1;				\
@@ -614,14 +613,14 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @return  :size_t                The new string. There is no way to
  *                                 detect whether the allocation failed.
  */
-#    define wstrndupa(string, maxlen)				\
+#   define wstrndupa(string, maxlen)				\
   ({								\
     const char* __s = (string);					\
     size_t __n = wcsnlen(__s, (maxlen)) + 1;			\
     wchar_t* __r = __builtin_alloca(__n * sizeof(wchar_t));	\
     wmemcpy(__r, __s, __n);					\
   })
-#   endif
+#  endif
 
 /**
  * Duplicate a memory segment, using dymanic stack allocation (`alloca`).
@@ -634,13 +633,12 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @return  :size_t                 The new segment. There is no way to
  *                                  detect whether the allocation failed.
  */
-#   define wmemdupa(segment, size)				\
+#  define wmemdupa(segment, size)				\
   ({								\
     size_t __n = (size);					\
     wchar_t* __r = __builtin_alloca(__n * sizeof(wchar_t));	\
     wmemcpy(__r, (segmetn), __n);				\
   })
-#  endif
 # endif
 #endif
 
@@ -658,7 +656,7 @@ wchar_t* wmemdup(const wchar_t*, size_t)
 int wmemcmp(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Compare two memory segments alphabetically in a case insensitive manner.
  * 
@@ -686,7 +684,7 @@ int wmemcasecmp(const wchar_t*, const wchar_t*, size_t)
 int wcscmp(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Compare two strings alphabetically in a case insensitive manner.
  * Be aware, only ASCII characters are case insensitive, non-ASCII
@@ -747,7 +745,7 @@ int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
 wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Find the first occurrence of a wide character in a
  * memory segment. The memory segment must be known to
@@ -795,7 +793,7 @@ wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
 wchar_t* wcschr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Find the first occurrence of a wide character in a
  * string, or if there is no such character, the end of
@@ -852,7 +850,7 @@ wchar_t* wcswcs(const wchar_t*, const wchar_t*)
 wchar_t* wcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Finds the first occurrence of a substring.
  * This search is case insensitive.
@@ -1000,7 +998,7 @@ wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 #endif
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Finds the first occurrence of a substring.
  * This search is case sensitive.
@@ -1086,7 +1084,7 @@ wchar_t* wcspbrk(const wchar_t*, const wchar_t*)
 wchar_t* wcstok(wchar_t* restrict, const wchar_t* restrict, wchar_t** restrict)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2, 3))));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Tokenise a string.
  * 

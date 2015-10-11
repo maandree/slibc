@@ -21,7 +21,7 @@
 #include <slibc/features.h>
 
 
-#if (defined(_BSD_SOURCE) || defined(_GNU_SOURCE)) && !defined(__PORTABLE)
+#if defined(__BSD_SOURCE) || defined(__GNU_SOURCE)
 # include <strings.h>
 #endif
 
@@ -139,9 +139,9 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
 size_t strlen(const char*)
   __GCC_ONLY(__attribute__((nonnull, warn_unused_result, pure)));
 
-#if (defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
-     defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || \
-     defined(_BSD_SOURCE)) && !defined(__PORTABLE)
+#if defined(__POSIX_SOURCE) || defined(__POSIX_C_SOURCE) || \
+    defined(__XOPEN_SOURCE) || defined(__GNU_SOURCE) || \
+    defined(__BSD_SOURCE)
 /**
  * Variant of `strlen` that only inspects the
  * beginning of s string.
@@ -177,7 +177,7 @@ void* memset(void*, int, size_t);
  */
 void* memcpy(void* restrict, const void* restrict, size_t);
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment.
  * 
@@ -201,7 +201,7 @@ void* mempcpy(void* restrict, const void* restrict, size_t);
  */
 void* memmove(void*, const void*, size_t);
 
-#if defined(_SLIBC_SOURCE) && defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE) && defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment.
  * 
@@ -232,7 +232,7 @@ void* mempmove(void*, const void*, size_t);
  */
 void* memccpy(void* restrict, const void* restrict, int, size_t);
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * but stop if a specific byte is encountered.
@@ -274,7 +274,7 @@ char* strcpy(char* restrict, const char* restrict)
 char* stpcpy(char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL byte or a specified byte is encountered.
@@ -331,7 +331,7 @@ char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
 char* strncpy(char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL byte is encountered.
@@ -352,7 +352,7 @@ char* strncpy(char* restrict, const char* restrict, size_t)
 char* stpncpy(char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-# if defined(_SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL byte or a specified byte is encountered.
@@ -407,7 +407,7 @@ char* strstrncpy(char* restrict, const char* restrict, const char* restrict, siz
 # endif
 #endif
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL byte is encountered.
@@ -489,7 +489,7 @@ char* strstrmove(char*, const char*, const char* restrict)
 char* strnmove(char*, const char*, size_t)
   __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
 
-# if defined(_GNU_SOURCE)
+# if defined(__GNU_SOURCE)
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL byte is encountered.
@@ -614,8 +614,7 @@ char* strncat(char* restrict, const char* restrict, size_t)
 char* strdup(const char*)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
 
-#if !defined(__PORTABLE)
-# if defined(_GNU_SOURCE)
+#if defined(__GNU_SOURCE)
 /**
  * Duplicate a string.
  * 
@@ -632,9 +631,9 @@ char* strdup(const char*)
  */
 char* strndup(const char*, size_t)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
-# endif
+#endif
 
-# if defined(_SLIBC_SOURCE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Duplicate a memory segment.
  * 
@@ -649,10 +648,10 @@ char* strndup(const char*, size_t)
  */
 void* memdup(const void*, size_t)
   __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
-# endif
+#endif
 
-# if defined (__GNUC__)
-#  if defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)
+#if defined (__GNUC__)
+# if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Duplicate a string, using dymanic stack allocation (`alloca`).
  * 
@@ -663,16 +662,16 @@ void* memdup(const void*, size_t)
  * @return  :size_t             The new string. There is no way to
  *                              detect whether the allocation failed.
  */
-#   define strdupa(string)				\
+#  define strdupa(string)				\
   ({							\
     const char* __s = (string);				\
     size_t __n = strlen(__s) + 1;			\
     char* __r = __builtin_alloca(__n * sizeof(char));	\
     memcpy(__r, __s, __n * sizeof(char));		\
   })
-#  endif
+# endif
 
-#  if defined(_GNU_SOURCE)
+# if defined(__GNU_SOURCE)
 /**
  * Duplicate a string, using dymanic stack allocation (`alloca`).
  * 
@@ -685,16 +684,16 @@ void* memdup(const void*, size_t)
  * @return  :size_t             The new string. There is no way to
  *                              detect whether the allocation failed.
  */
-#   define strndupa(string, maxlen)			\
+#  define strndupa(string, maxlen)			\
   ({							\
     const char* __s = (string);				\
     size_t __n = strnlen(__s, (maxlen)) + 1;		\
     char* __r = __builtin_alloca(__n * sizeof(char));	\
     memcpy(__r, __s, __n * sizeof(char));		\
   })
-#  endif
+# endif
 
-#  if defined(_SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)
 /**
  * Duplicate a memory segment, using dymanic stack allocation (`alloca`).
  * 
@@ -706,13 +705,12 @@ void* memdup(const void*, size_t)
  * @return  :size_t              The new segment. There is no way to
  *                               detect whether the allocation failed.
  */
-#   define memdupa(segment, size)	\
+#  define memdupa(segment, size)	\
   ({					\
     size_t __n = (size);		\
     void* __r = __builtin_alloca(__n);	\
     memcpy(__r, (segment), __n);	\
   })
-#  endif
 # endif
 #endif
 
@@ -730,7 +728,7 @@ void* memdup(const void*, size_t)
 int memcmp(const void*, const void*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Compare two memory segments alphabetically in a case insensitive manner.
  * 
@@ -771,7 +769,7 @@ int strncmp(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 int strverscmp(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 /* TODO document and implement strverscmp */
@@ -790,7 +788,7 @@ int strverscmp(const char*, const char*)
 void* memchr(const void*, int, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Find the first occurrence of a byte in a memory segment.
  * The memory segment must be known to contain the sought after byte.
@@ -837,7 +835,7 @@ void* memrchr(const void*, int, size_t)
 char* strchr(const char*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Find the first occurrence of a byte in a string, or
  * if there is no such byte, the end of the string.
@@ -898,7 +896,7 @@ char* strstr(const char*, const char*)
 char* strcasestr(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Finds the first occurrence of a substring.
  * This search is case sensitive.
@@ -1032,7 +1030,7 @@ char* strcaseends(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
 #endif
 
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Finds the first occurrence of a substring.
  * This search is case sensitive.
@@ -1154,7 +1152,7 @@ char* strsep(char** restrict, const char* restrict)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
 
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE) && !defined(basename)
+#if defined(__GNU_SOURCE) && !defined(basename)
 /**
  * Get the basename of a filename.
  * 
@@ -1173,7 +1171,7 @@ char* __gnu_basename(const char*)
 #endif
 
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * Shuffles all bytes in a string.
  * 

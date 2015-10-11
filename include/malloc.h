@@ -135,13 +135,13 @@ void free(void*)
  *              beginning of a memory allocation on the heap.
  *              However, if it is `NULL`, nothing will happen.
  */
-#ifndef __PORTABLE
+#if !defined(__PORTABLE)
 void cfree(void*, ...)
   __deprecated("'cfree' is deprecated and not portable, use 'free' instead.");
 #endif
 
 
-#ifndef __PORTABLE
+#if !defined(__PORTABLE)
 /**
  * Variant of `malloc` that returns an address with a
  * specified alignment.
@@ -166,9 +166,9 @@ void cfree(void*, ...)
  * @throws  EINVAL  If `boundary` is not a power of two.
  */
 void* memalign(size_t, size_t)
-#ifdef __C11__
+# ifdef __C11__
    __deprecated("'memalign' has be deprecated by 'aligned_alloc' in C11.")
-#endif
+# endif
   __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
 #endif
 
@@ -192,7 +192,7 @@ void* memalign(size_t, size_t)
 int posix_memalign(void**, size_t, size_t)
   __GCC_ONLY(__attribute__((nonnull)));
 
-#ifndef __PORTABLE
+#if !defined(__PORTABLE)
 /**
  * `valloc(n)` is equivalent to `memalign(sysconf(_SC_PAGESIZE), n)`.
  * 
@@ -212,8 +212,9 @@ int posix_memalign(void**, size_t, size_t)
 void* valloc(size_t)
   __GCC_ONLY(__attribute__((malloc, warn_unused_result)))
   __deprecated("'valloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
+#endif
 
-#ifdef _GNU_SOURCE
+#if defined(__GNU_SOURCE)
 /**
  * This function works like `valloc`, except the allocation size,
  * including auxiliary space, is rounded up to the next multiple
@@ -232,7 +233,6 @@ void* valloc(size_t)
 void* pvalloc(size_t)
   __GCC_ONLY(__attribute__((malloc, warn_unused_result)))
   __deprecated("'pvalloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
-#endif
 #endif
 
 #ifdef __C11__
@@ -264,7 +264,7 @@ void* aligned_alloc(size_t, size_t)
 #endif
 
 
-#if defined(_GNU_SOURCE) && !defined(__PORTABLE)
+#if defined(__GNU_SOURCE)
 /**
  * This function returns the allocation size of
  * a memory segment.

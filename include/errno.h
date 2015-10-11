@@ -39,10 +39,10 @@
  * assured that the value is thread-dependent
  * and supported on all revisions of C.
  */
-volatile int* __errno(void) __GCC_ONLY(__attribute__((const))); /* TODO not implemented */
+volatile int* __errno(void) /* TODO not implemented */
+  __GCC_ONLY(__attribute__((const)));
 
 
-#ifndef __PORTABLE
 /**
  * This is the name that was used to invoke the program
  * running in the current process. This is the value
@@ -60,7 +60,7 @@ volatile int* __errno(void) __GCC_ONLY(__attribute__((const))); /* TODO not impl
  * 
  * This is a GNU and slibc extension.
  */
-#if defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 extern char* program_invocation_name; /* TODO not implemented */
 #endif
 
@@ -73,9 +73,8 @@ extern char* program_invocation_name; /* TODO not implemented */
  * 
  * This is a GNU extension.
  */
-#if defined(_GNU_SOURCE)
+#if defined(__GNU_SOURCE)
 extern char* program_invocation_short_name; /* TODO not implemented */
-#endif
 #endif
 
 

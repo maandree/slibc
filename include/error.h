@@ -60,7 +60,7 @@ void error(int, int, const char*, ...)
  * @param  format  Formatting-string for a detailed description of what happend.
  * @param  args    Formatting-arguments for `format`.
  */
-#if defined(_SLIBC_SOURCE)
+#if defined(__SLIBC_SOURCE)
 void verror(int, int, const char*, va_list);
 #endif
 
@@ -100,7 +100,7 @@ void error_at_line(int, int, const char*, unsigned int, const char*, ...)
  * @param  format    Formatting-string for a detailed description of what happend.
  * @param  args      Formatting-arguments for `format`.
  */
-#if defined(_SLIBC_SOURCE)
+#if defined(__SLIBC_SOURCE)
 void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
 #endif
 
