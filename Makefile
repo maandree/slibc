@@ -59,6 +59,19 @@ CCFLAGS_SHARED = $(CCFLAGS_COMMON) -fPIC -DSHARED
 MMFLAGS = $(CCFLAGS_COMMON) -Igen -MG
 
 
+# Flags to pass into the texinfo manual compilers.
+TEXIFLAGS =
+
+# This shall be set to 'logo' when doc/logo.svg exists, and is the logo of the project.
+LOGO =
+
+# The  number of splits of the info manual.
+INFOPARTS = 0
+
+# Splits number of the info manual.
+INFOPARTS_ = $(shell seq $(INFOPARTS))
+
+
 SHE = '\#'
 
 # Object files to build.
@@ -91,8 +104,12 @@ include obj/deps.mk
 
 # Build everything.
 .PHONY: all
-all: $(OBJECTS)
+all: $(OBJECTS) doc
 
+
+# Build the library.
+.PHONY: lib
+lib: $(OBJECTS)
 
 # Build object file.
 obj/%.o: $(GENERATED)
@@ -112,6 +129,58 @@ obj/gen/%.o: gen/%.c
 	@mkdir -p $$(dirname $@)
 	$(CC) -c -o $@ $<
 
+# Build the documentation.
+.PHONY: doc
+doc: info pdf ps dvi
+
+.PHONY: info pdf ps dvi
+info: bin/slibc.info
+pdf: bin/slibc.pdf
+ps: bin/slibc.ps
+dvi: bin/slibc.dvi
+
+# Project logo for the manual.
+obj/%.svg: doc/%.svg
+	@mkdir -p obj
+	cp $< $@
+
+obj/%.pdf: doc/%.svg
+	@mkdir -p obj
+	rsvg-convert --format=pdf $< > $@
+
+obj/%.eps: obj/%.ps
+	ps2eps $<
+
+obj/%.ps: doc/%.svg
+	@mkdir -p obj
+	rsvg-convert --format=ps $< > $@
+
+# Compile texinfo manual.
+bin/%.info $(foreach P,$(INFOPARTS_),bin/%.info-$(P)): doc/info/%.texinfo doc/info/*.texinfo
+	@mkdir -p bin
+	$(MAKEINFO) $(TEXIFLAGS) $<
+	mv $*.info
+ifneq ($(INFOPARTS),0)
+	$*.info-* bin
+endif
+
+bin/%.pdf: doc/info/%.texinfo doc/info/*.texinfo $(foreach F,$(LOGO),obj/$(F).pdf)
+	@! test -d obj/pdf || rm -rf obj/pdf
+	@mkdir -p obj/pdf bin
+	cd obj/pdf && texi2pdf $(TEXIFLAGS) ../../$< < /dev/null
+	mv obj/pdf/$*.pdf $@
+
+bin/%.dvi: doc/info/%.texinfo doc/info/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
+	@! test -d obj/dvi || rm -rf obj/dvi
+	@mkdir -p obj/dvi bin
+	cd obj/dvi && $(TEXI2DVI) $(TEXIFLAGS) ../../$< < /dev/null
+	mv obj/dvi/$*.dvi $@
+
+bin/%.ps: doc/info/%.texinfo doc/info/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
+	@! test -d obj/ps || rm -rf obj/ps
+	@mkdir -p obj/ps bin
+	cd obj/ps && texi2pdf $(TEXIFLAGS) --ps ../../$< < /dev/null
+	mv obj/ps/$*.ps $@
 
 
 # Generate list of file dependencies for object files.
