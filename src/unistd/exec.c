@@ -58,7 +58,7 @@ static void vexec(const char* file, va_list argv, int fetch_envp, int use_path)
   
   argv_ = alloca(n * sizeof(char*));
   for (i = 0; i < n; i++)
-    argv_[i] = va_arg(args, char*);
+    argv_[i] = va_arg(argv, char*);
   
   (void)(use_path ? execvpe : execve)(file, argv_, envp);
 }
