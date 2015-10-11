@@ -130,7 +130,7 @@ int execlp(const char* file, ... /*, NULL */)
  *                As a slibc extension, it can be empty.
  *                This list shall be terminated by a `NULL` sentinel.
  * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be foramtted $name=$value.
+ *                have set. Each element shall be formatted $name=$value.
  *                This list shall be `NULL`-terminated. The behaviour
  *                is system-dependant if this argument is `NULL`.
  * @return        This function does not return on success,
@@ -166,7 +166,7 @@ int execle(const char* path, ... /*, NULL, char* const envp[] */)
  *                As a slibc extension, it can be empty.
  *                This list shall be terminated by a `NULL` sentinel.
  * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be foramtted $name=$value.
+ *                have set. Each element shall be formatted $name=$value.
  *                This list shall be `NULL`-terminated. The behaviour
  *                is system-dependant if this argument is `NULL`.
  * @return        This function does not return on success,
@@ -252,7 +252,7 @@ int execvp(const char* file, char* const argv[])
  *                be `NULL`-terminated. The behaviour is
  *                system-dependant if this argument is `NULL`.
  * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be foramtted $name=$value.
+ *                have set. Each element shall be formatted $name=$value.
  *                This list shall be `NULL`-terminated. The behaviour
  *                is system-dependant if this argument is `NULL`.
  * @return        This function does not return on success,
@@ -288,7 +288,7 @@ int execve(const char* path, char* const argv[], char* const envp[])
  *                be `NULL`-terminated. The behaviour is
  *                system-dependant if this argument is `NULL`.
  * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be foramtted $name=$value.
+ *                have set. Each element shall be formatted $name=$value.
  *                This list shall be `NULL`-terminated. The behaviour
  *                is system-dependant if this argument is `NULL`.
  * @return        This function does not return on success,
