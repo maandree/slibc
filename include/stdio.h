@@ -864,5 +864,523 @@ int vbwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* 
 
 
 
+/**
+ * This function is identical to `fscanf` with
+ * `stdout` as the first argument.
+ * 
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int scanf(const char* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), format(slibc_scanf, 1, 2))));
+
+/**
+ * Parse data from from a text stream.
+ * 
+ * TODO list format rules for fscanf
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int fscanf(FILE* restrict, const char* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+
+/**
+ * This function is identical to `fscanf`,
+ * except it reads from a string rather than
+ * a file.
+ * 
+ * @param   input   The formatted string.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int sscanf(const char* restrict, const char* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+
+#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * This function is identical to `fscanf`,
+ * except it does not lock the stream.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int fscanf_unlocked(FILE* restrict, const char* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+
+/**
+ * This function is identical to `scanf`,
+ * except it will stop parsing the string
+ * after a selected number of bytes, or
+ * at the end of the string.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   input   The formatted string.
+ * @param   length  The maximum number of bytes to read.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int snscanf(const char* restrict, size_t, const char* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3), format(slibc_scanf, 3, 4))));
+
+/**
+ * This function is identical to `fscanf`,
+ * except it is limited to file descriptor-backed
+ * streams, and uses the file descriptor as the
+ * first argument rather than the stream.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd      The file descriptor.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int dscanf(int, const char* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2), format(slibc_scanf, 2, 3))));
+#endif
+
+
+/**
+ * This function is identical to `scanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vscanf(const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+
+/**
+ * This function is identical to `fscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vfscanf(FILE* restrict, const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `sscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * @param   input   The formatted string.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vsscanf(const char* restrict, const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * This function is identical to `fscanf_unlocked`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vfscanf_unlocked(FILE* restrict, const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `snscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   input   The formatted string.
+ * @param   length  The maximum number of bytes to read.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vsnscanf(const char* restrict, size_t, const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3))));
+
+/**
+ * This function is identical to `sscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd      The file descriptor.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vdscanf(int, const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+#endif
+
+
+/**
+ * This function is identical to `scanf`,
+ * except it uses `wchar_t` instead of `char`.
+ * 
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int wscanf(const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+
+/**
+ * This function is identical to `fscanf`,
+ * except it uses `wchar_t` instead of `char`.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int fwscanf(FILE* restrict, const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `sscanf`,
+ * except it uses `wchar_t` instead of `char`.
+ * 
+ * @param   input   The formatted string.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * This function is identical to `fscanf_unlocked`,
+ * except it uses `wchar_t` instead of `char`.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int fwscanf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `snscanf`,
+ * except it uses `wchar_t` instead of `char`.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   input   The formatted string.
+ * @param   length  The maximum number of characters to read.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int snwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3))));
+
+/**
+ * This function is identical to `dscanf`,
+ * except it uses `wchar_t` instead of `char`.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd      The file descriptor.
+ * @param   format  The format of the string.
+ * @param   ...     The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int dwscanf(int, const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+#endif
+
+
+/**
+ * This function is identical to `wscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vwscanf(const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+
+/**
+ * This function is identical to `fwscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `swscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * @param   input   The formatted string.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+#if defined (_SLIBC_SOURCE) && !defined(__PORTABLE)
+/**
+ * This function is identical to `fwscanf_unlocked`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   stream  The input stream.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vfwscanf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `snwscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   input   The formatted string.
+ * @param   length  The maximum number of characters to read.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vsnwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3))));
+
+/**
+ * This function is identical to `swscanf`,
+ * except it uses `va_list` instead of variadic arguments.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   fd      The file descriptor.
+ * @param   format  The format of the string.
+ * @param   args    The output parameter for the encoded values.
+ * @return          The number successfully converted argument
+ *                  (may be less than specified.) `EOF` is returned
+ *                  if the end of the input is reached before the
+ *                  first argument is successfully converted, or
+ *                  on error.
+ */
+int vdwscanf(int, const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+#endif
+
+
+
+#if !defined(__PORTABLE_SOURCE)
+/**
+ * This function is identical to `scanf`.
+ */
+int __isoc99_scanf(const char* restrict, ...)
+  __deprecated("Use 'scanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), format(slibc_scanf, 1, 2))));
+
+/**
+ * This function is identical to `fscanf`.
+ */
+int __isoc99_fscanf(FILE* restrict, const char* restrict, ...)
+  __deprecated("Use 'fscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+
+/**
+ * This function is identical to `sscanf`.
+ */
+int __isoc99_sscanf(const char* restrict, const char* restrict, ...)
+  __deprecated("Use 'sscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+
+
+/**
+ * This function is identical to `vscanf`.
+ */
+int __isoc99_vscanf(const char* restrict, va_list)
+  __deprecated("Use 'vscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+
+/**
+ * This function is identical to `vfscanf`.
+ */
+int __isoc99_vfscanf(FILE* restrict, const char* restrict, va_list)
+  __deprecated("Use 'vfscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `vsscanf`.
+ */
+int __isoc99_vsscanf(const char* restrict, const char* restrict, va_list)
+  __deprecated("Use 'vsscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+
+/**
+ * This function is identical to `wscanf`.
+ */
+int __isoc99_wscanf(const wchar_t* restrict, ...)
+  __deprecated("Use 'wscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+
+/**
+ * This function is identical to `fwscanf`.
+ */
+int __isoc99_fwscanf(FILE* restrict, const wchar_t* restrict, ...)
+  __deprecated("Use 'fwscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `swscanf`.
+ */
+int __isoc99_swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
+  __deprecated("Use 'swscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+
+/**
+ * This function is identical to `vwscanf`.
+ */
+int __isoc99_vwscanf(const wchar_t* restrict, va_list)
+  __deprecated("Use 'vwscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+
+/**
+ * This function is identical to `vfwscanf`.
+ */
+int __isoc99_vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
+  __deprecated("Use 'vfwscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+
+/**
+ * This function is identical to `vswscanf`.
+ */
+int __isoc99_vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
+  __deprecated("Use 'vswscanf' instead.")
+  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+#endif
+
+
+
 #endif
 
