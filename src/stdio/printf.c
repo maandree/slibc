@@ -24,7 +24,6 @@
 #include <slibc-alloc.h>
 #include <string.h>
 #include <wchar.h>
-#include <stdio.h>
 
 
 #define INT_MAX  0x7FFFFFFF  /* TODO temporary */
