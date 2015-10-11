@@ -450,9 +450,6 @@ int execvpeat(int dirfd, const char* file, char* const argv[], char* const envp[
   if (strchr(file, '/') || !*file)
     return execveat(dirfd, file, argv, envp, flags);
   
-  if (!*file)
-    return errno = ENOENT, -1;
-  
   path = getenv(PATH);
   if (path == NULL)
     {
