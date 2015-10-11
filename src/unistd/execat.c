@@ -15,328 +15,61 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _UNISTD_H
-#define _UNISTD_H
-#include <slibc/version.h>
-#include <slibc/features.h>
-
-
-
-#define __NEED_size_t
-#define __NEED_ssize_t
-#define __NEED_uid_t
-#define __NEED_gid_t
-#define __NEED_off_t
-#define __NEED_pid_t
-#define __NEED_ptrdiff_t
-#define __NEED_intptr_t
-#define __NEED_useconds_t
-#include <bits/types.h>
-
-
-/**
- * `NULL`'s canonical header is <stddef.h>.
- */
-#ifndef NULL
-# define NULL  ((void*)0)
-#endif
-
-
-/**
- * The file descriptor for stdin.
- * The file with input.
- */
-#define STDIN_FILENO  0
-
-/**
- * The file descriptor for stdout.
- * The file for output.
- */
-#define STDOUT_FILENO  1
-
-/**
- * The file descriptor for stderr.
- * The file for error messages and warnings.
- */
-#define STDERR_FILENO  2
-
-
-/**
- * Set the high end of the calling process's
- * data segment.
- * 
- * The high end is defined as the last byte
- * in the segment plus 1.
- * 
- * Using `brk` is highly discouraged. `malloc`,
- * `calloc` and `free`, and its related functions,
- * fall be used instead as they are much more
- * conformable. Use of `brk` can couse errors
- * when using `malloc`, `free`, &c. Thus, `brk`
- * shall (bascially) only be used if you are
- * writting an alterantive malloc-implementation.
- * 
- * `brk` was marked LEGACY in SUSv2, and it
- * was removed from the POSIX standard in revision
- * POSIX.1-2001. It is however fundamental in
- * implementing a fast `malloc`-implementation.
- * 
- * @param   address  The process's new high end of its data segment.
- *                   If lower than the current low end, nothing will
- *                   happen and the function will return with a success
- *                   status.
- * @return           Zero on succes, -1 on error. On error, `errno`
- *                   is set to indicate the error.
- * 
- * @throws  ENOMEM  The process can allocate the requested amount
- *                  of memory. Either the process store limit would
- *                  have been exceeded, RAM and swap memory would
- *                  have been exhausted, or the request would cause
- *                  the data segment to overlap another segment.
- */
-int brk(void*) /* TODO implement brk */
-  __GCC_ONLY(__attribute__((warn_unused_result)));
-
-/**
- * Set and get the current high end of the calling
- * process's data segment.
- * 
- * There is some documents that state that the new,
- * rather than the previous, high end is returned.
- * Additionally, some documentions do not document
- * possible failure. Thus only `sbrk(0)` is guaranteed
- * to be portable. The return type differs between
- * implementations; common return types are `int`,
- * `ssize_t`, `ptrdiff_t`, `ptrdiff_t`, `intptr_t`,
- * and `void*`. Note that `int` is
- * microarchitecture-portable.
- * 
- * `sbrk` was marked LEGACY in SUSv2, and it
- * was removed from the POSIX standard in revision
- * POSIX.1-2001. It is however fundamental in
- * implementing a fast `malloc`-implementation.
- * 
- * @param   delta  The incremant of the size of the data segment,
- *                 zero means that the high end shall not be moved
- *                 (thus the current high end is returned,) a
- *                 positive value will cause the segment to grow,
- *                 a negative value will cause the segment to shrink.
- * @return         The previous high end. `(void*)-1` is returned on error.
- * 
- * @throws  ENOMEM  The process can allocate the requested amount
- *                  of memory. Either the process store limit would
- *                  have been exceeded, RAM and swap memory would
- *                  have been exhausted, or the request would cause
- *                  the data segment to overlap another segment.
- */
-void* sbrk(ptrdiff_t) /* TODO implement sbrk */
-  __GCC_ONLY(__attribute__((warn_unused_result)));
-
-
-
-/* TODO implement exit-functions */
-void _exit(int) __noreturn;
-
-
-/* TODO implement I/O */
-int isatty(int);
+#include <unistd.h>
+#include <stdarg.h>
+#include <errno.h>
+#include <alloca.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 
 
 /**
- * Replace the current process image with a new process image.
- * 
- * @param   path  The pathname of the file to execute.
- * @param   ...   The arguments with which to execute the file.
- *                The arguments should have the type `const char*`.
- *                As a slibc extension, it can be empty.
- *                This list shall be terminated by a `NULL` sentinel.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
+ * The current environment variables.
  */
-int execl(const char*, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0), nonnull(1))));
+extern char** environ;
+
+
 
 /**
- * Replace the current process image with a new process image.
+ * Common code for the `execl*at` functions.
  * 
- * @param   file  The pathname of the file to execute,
- *                or the filename of a file in $PATH,
- *                to execute. If $PATH is not set, the current
- *                working directory (yes, you read that right,)
- *                and a default value for $PATH will be used.
- * @param   ...   The arguments with which to execute the file.
- *                The arguments should have the type `const char*`.
- *                As a slibc extension, it can be empty.
- *                This list shall be terminated by a `NULL` sentinel.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
+ * @param   dirfd       The first argument of said functions.
+ * @param   file        The second argument of said functions.
+ * @param   argv        The rest of the arguments of said functions;
+ *                      may conclude `envp`.
+ * @param   fetch_envp  Whether `argv` includes `envp`.
+ * @param   use_path    Whether $PATH may be used.
  * 
- * @throws        Any error specified for execve(2).
+ * @throws              Any error specified for execve(2).
  */
-int execlp(const char*, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0), nonnull(1))));
-
-/**
- * Replace the current process image with a new process image.
- * 
- * @param   path  The pathname of the file to execute.
- * @param   ...   The arguments with which to execute the file.
- *                The arguments should have the type `const char*`.
- *                As a slibc extension, it can be empty.
- *                This list shall be terminated by a `NULL` sentinel.
- * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be formatted $name=$value.
- *                This list shall be `NULL`-terminated. The behaviour
- *                is system-dependant if this argument is `NULL`.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
- */
-int execle(const char*, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
-
-#if (defined(_SLIBC_SOURCE) && !defined(__PORTABLE))
-/**
- * Replace the current process image with a new process image.
- * 
- * This is a slibc extension, added for completeness.
- * 
- * @param   file  The pathname of the file to execute,
- *                or the filename of a file in $PATH,
- *                to execute. If $PATH is not set, the current
- *                working directory (yes, you read that right,)
- *                and a default value for $PATH will be used.
- * @param   ...   The arguments with which to execute the file.
- *                The arguments should have the type `const char*`.
- *                As a slibc extension, it can be empty.
- *                This list shall be terminated by a `NULL` sentinel.
- * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be formatted $name=$value.
- *                This list shall be `NULL`-terminated. The behaviour
- *                is system-dependant if this argument is `NULL`.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
- */
-int execlpe(const char*, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
-#endif
-
-/**
- * Replace the current process image with a new process image.
- * 
- * @param   path  The pathname of the file to execute.
- * @param   argv  The arguments with which to execute the file.
- *                This parameter should really have the type
- *                `const char* const[]`, but that probably not
- *                so because compiles take issue with casts
- *                adding const to any pointer in the type
- *                except the outmost pointer. This list shall
- *                be `NULL`-terminated. The behaviour is
- *                system-dependant if this argument is `NULL`.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
- */
-int execv(const char*, char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
-
-/**
- * Replace the current process image with a new process image.
- * 
- * @param   file  The pathname of the file to execute,
- *                or the filename of a file in $PATH,
- *                to execute. If $PATH is not set, the current
- *                working directory (yes, you read that right,)
- *                and a default value for $PATH will be used.
- * @param   argv  The arguments with which to execute the file.
- *                This parameter should really have the type
- *                `const char* const[]`, but that probably not
- *                so because compiles take issue with casts
- *                adding const to any pointer in the type
- *                except the outmost pointer. This list shall
- *                be `NULL`-terminated. The behaviour is
- *                system-dependant if this argument is `NULL`.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
- */
-int execvp(const char*, char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
-
-/**
- * Replace the current process image with a new process image.
- * 
- * @param   path  The pathname of the file to execute.
- * @param   argv  The arguments with which to execute the file.
- *                This parameter should really have the type
- *                `const char* const[]`, but that probably not
- *                so because compiles take issue with casts
- *                adding const to any pointer in the type
- *                except the outmost pointer. This list shall
- *                be `NULL`-terminated. The behaviour is
- *                system-dependant if this argument is `NULL`.
- * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be formatted $name=$value.
- *                This list shall be `NULL`-terminated. The behaviour
- *                is system-dependant if this argument is `NULL`.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
- */
-int execve(const char*, char* const[], char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
-
-#if (defined(_GNU_SOURCE) || defined(_SLIBC_SOURCE)) && !defined(__PORTABLE)
-/**
- * Replace the current process image with a new process image.
- * 
- * This is a GNU-compliant slibc extension.
- * 
- * @param   file  The pathname of the file to execute,
- *                or the filename of a file in $PATH,
- *                to execute. If $PATH is not set, the current
- *                working directory (yes, you read that right,)
- *                and a default value for $PATH will be used.
- * @param   argv  The arguments with which to execute the file.
- *                This parameter should really have the type
- *                `const char* const[]`, but that probably not
- *                so because compiles take issue with casts
- *                adding const to any pointer in the type
- *                except the outmost pointer. This list shall
- *                be `NULL`-terminated. The behaviour is
- *                system-dependant if this argument is `NULL`.
- * @param   envp  The list of environment variables the new program shall
- *                have set. Each element shall be formatted $name=$value.
- *                This list shall be `NULL`-terminated. The behaviour
- *                is system-dependant if this argument is `NULL`.
- * @return        This function does not return on success,
- *                on error, -1 is returned and `errno` is
- *                set to describe the error.
- * 
- * @throws        Any error specified for execve(2).
- */
-int execvpe(const char*, char* const[], char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
-#endif
+static void vexecat(int dirfd, const char* file, va_list argv, int fetch_envp, int use_path)
+{
+  char* const* envp = environ;
+  size_t n = 0, i;
+  va_list args;
+  char** argv_;
+  int flags;
+  
+  va_copy(args, argv);
+  while (n++, va_arg(args, char*) != NULL)
+    break;
+  
+  if (fetch_envp)
+    envp = va_arg(args, char* const*);
+  flags = va_arg(args, int);
+  
+  argv_ = alloca(n * sizeof(char*));
+  for (i = 0; i < n; i++)
+    argv_[i] = va_arg(argv, char*);
+  
+  (void)(use_path ? execvpeat : execveat)(dirfd, file, argv_, envp, flags);
+}
 
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * Replace the current process image with a new process image.
  * 
@@ -366,8 +99,17 @@ int execvpe(const char*, char* const[], char* const[])
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execlat(int, const char*, ... /*, NULL, int */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(2))));
+int execlat(int dirfd, const char* path, ... /*, NULL, int flags */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexecat(dirfd, path, argv, 0, 0);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -402,8 +144,17 @@ int execlat(int, const char*, ... /*, NULL, int */)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execlpat(int, const char*, ... /*, NULL, int */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(2))));
+int execlpat(int dirfd, const char* file, ... /*, NULL, int flags */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexecat(dirfd, path, argv, 0, 1);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -438,8 +189,17 @@ int execlpat(int, const char*, ... /*, NULL, int */)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execleat(int, const char*, ... /*, NULL, char* const[], int */)
-  __GCC_ONLY(__attribute__((sentinel(2), nonnull(2))));
+int execleat(int dirfd, const char* path, ... /*, NULL, char* const[] envp, int flags */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexecat(dirfd, path, argv, 1, 0);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -478,8 +238,17 @@ int execleat(int, const char*, ... /*, NULL, char* const[], int */)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execlpeat(int, const char*, ... /*, NULL, char* const[], int */)
-  __GCC_ONLY(__attribute__((sentinel(2), nonnull(2))));
+int execlpeat(int dirfd, const char* file, ... /*, NULL, char* const[] envp, int flags */)
+{
+  int saved_errno;
+  va_list argv;
+  va_start(argv, path);
+  vexecat(dirfd, path, argv, 1, 1);
+  saved_errno = errno;
+  va_end(argv);
+  return errno = saved_errno, -1;
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -514,8 +283,11 @@ int execlpeat(int, const char*, ... /*, NULL, char* const[], int */)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execvat(int, const char*, char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+int execvat(int dirfd, const char* path, char* const argv[], int flags)
+{
+  return execveat(dirfd, path, argv, environ, flags);
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -554,9 +326,11 @@ int execvat(int, const char*, char* const[], int)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execvpat(int, const char*, char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
-#endif
+int execvpat(int dirfd, const char* file, char* const argv[], int flags)
+{
+  return execvpe(dirfd, path, argv, environ, flags);
+}
+
 
 /**
  * Replace the current process image with a new process image.
@@ -593,10 +367,35 @@ int execvpat(int, const char*, char* const[], int)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execveat(int, const char*, char* const[], char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+int execveat(int dirfd, const char* path, char* const argv[], char* const envp[], int flags)
+{
+/* TODO use linux system call if available */
+  struct stat attr;
+  char* pathname;
+  
+  if (*path == '/')
+    return execve(path, argv, envp);
+  
+  if ((dirfd == AT_FDCWD) && (flags & AT_EMPTY_PATH) && !*path)
+    return errno = EISDIR, -1;
+  
+  if ((dirfd == AT_FDCWD) && (flags & AT_SYMLINK_NOFOLLOW))
+    {
+      if (lstat(path, &attr))
+	return -1;
+      if (S_IFLNK(attr.st_mode))
+	return errno = ELOOP, -1;
+    }
+  
+  pathname = malloc(sizeof("/dev/fd//") + (3 * sizeof(int) + strlen(path)) * sizeof(char));
+  if (pathname == NULL)
+    return -1;
+  
+  sprintf(pathname, "/dev/fd/%i%s%s", dirfd, *path ? "/" : "", path);
+  return execve(pathname, argv, envp);
+}
 
-#if defined(_SLIBC_SOURCE) && !defined(__PORTABLE)
+
 /**
  * Replace the current process image with a new process image.
  * 
@@ -638,11 +437,71 @@ int execveat(int, const char*, char* const[], char* const[], int)
  * 
  * @throws         Any error specified for execveat(2).
  */
-int execvpeat(int, const char*, char* const[], char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
-#endif
-
-
-
-#endif
+int execvpeat(int dirfd, const char* file, char* const argv[], char* const envp[], int flags)
+{
+  char* path = NULL;
+  char* pathname = NULL;
+  char* p;
+  char* q;
+  size_t len = 0;
+  int eacces = 0;
+  int saved_errno;
+  
+  if (strchr(file, '/') || !*file)
+    return execveat(dirfd, file, argv, envp, flags);
+  
+  if (!*file)
+    return errno = ENOENT, -1;
+  
+  path = getenv(PATH);
+  if (path == NULL)
+    {
+      execveat(dirfd, file, argv, envp, flags);
+      if      (errno == EACCES)  eacces = 1;
+      else if (errno != ENOENT)  goto fail;
+      
+      if ((len = confstr(_CS_PATH, NULL, 0)))
+	{
+	  path = malloc(len * sizeof(char));
+	  if (path == NULL)
+	    goto fail;
+	  if (!confstr(_CS_PATH, path, len))
+	    free(path), path = NULL;
+	}
+      if (path == NULL)
+	path = strdup("/usr/local/bin:/bin:/usr/bin");
+    }
+  else
+    path = strdup(path);
+  if (path == NULL)
+    goto fail;
+  
+  pathname = malloc((strlen(path) + strlen(file) + 2) * sizeof(char));
+  if (pathname == NULL)
+    goto fail;
+  
+  for (p = path; *p; p = q + 1)
+    {
+      if (p == (q = strchr(p, ':')))
+	continue;
+      *q = '\0';
+      
+      stpcpy(stpcpy(stpcpy(pathname, p), "/"), file);
+      
+      execve(pathname, argv, envp);
+      if      (errno == EACCES)  eacces = 1;
+      else if (errno != ENOENT)  goto fail;
+    }
+  
+  free(path);
+  free(pathname);
+  return errno = (eaccess ? EACCES : ENOENT), -1;
+  
+ fail:
+  saved_errno = errno;
+  free(path);
+  free(pathname);
+  errno = saved_errno;
+  return -1;
+}
 
