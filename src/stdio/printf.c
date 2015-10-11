@@ -216,9 +216,9 @@ static int write_stream(const char* text, size_t length, FILE* stream)
  * 
  * @throws  Any error specified for `fwrite_unlocked`.
  */
-static int write_wstream(const wchar_t* text, size_t length, FILE* stream)
+static int wwrite_stream(const wchar_t* text, size_t length, FILE* stream)
 {
-  /* TODO write_wstream */
+  /* TODO wwrite_stream */
   return 0;
   (void) text, (void) length, (void) stream;
 }
@@ -1059,7 +1059,7 @@ int vfwprintf(FILE* restrict stream, const wchar_t* restrict format, va_list arg
  */
 int vfwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va_list args)
 {
-  P_WCHAR(write_wstream, 0, 0, 0, stream);
+  P_WCHAR(wwrite_stream, 0, 0, 0, stream);
 }
 
 
