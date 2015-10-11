@@ -111,9 +111,16 @@
 
 
 /**
- * Format for the `format` GCC function attribute.
+ * Format for the `format` GCC function attribute,
+ * for `*printf` functions.
  */
 #define slibc_printf  printf /* TODO write GCC extension */
+
+/**
+ * Format for the `format` GCC function attribute,
+ * for `*scanf` functions.
+ */
+#define slibc_scanf  scanf /* TODO write GCC extension */
 
 
 

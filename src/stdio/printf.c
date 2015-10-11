@@ -397,11 +397,9 @@ int dprintf(int fd, const char* restrict format, ...)
 
 /**
  * This function is identical to `fprintf`,
- * except it is limited to buffer-backed
- * streams, and uses the buffer as the first
- * argument rather than then the stream.
+ * it prints to a buffer rather than a stream.
  * 
- * This is identical to `sprintf` with
+ * This is identical to `snprintf` with
  * `SIZE_MAX` as the second argument.
  * 
  * @param   buffer  The output buffer.
