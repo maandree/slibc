@@ -1132,7 +1132,7 @@ int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
  * This function is identical to `fscanf_unlocked`,
  * except it uses `wchar_t` instead of `char`.
  * 
- * This is a slibc extension.
+ * This is a slibc extension added for completeness.
  * 
  * @param   stream  The input stream.
  * @param   format  The format of the string.
@@ -1150,7 +1150,7 @@ int fwscanf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  * This function is identical to `snscanf`,
  * except it uses `wchar_t` instead of `char`.
  * 
- * This is a slibc extension.
+ * This is a slibc extension added for completeness.
  * 
  * @param   input   The formatted string.
  * @param   length  The maximum number of characters to read.
@@ -1169,7 +1169,7 @@ int snwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  * This function is identical to `dscanf`,
  * except it uses `wchar_t` instead of `char`.
  * 
- * This is a slibc extension.
+ * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
  * @param   format  The format of the string.
@@ -1237,7 +1237,7 @@ int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
  * This function is identical to `fwscanf_unlocked`,
  * except it uses `va_list` instead of variadic arguments.
  * 
- * This is a slibc extension.
+ * This is a slibc extension added for completeness.
  * 
  * @param   stream  The input stream.
  * @param   format  The format of the string.
@@ -1255,7 +1255,7 @@ int vfwscanf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  * This function is identical to `snwscanf`,
  * except it uses `va_list` instead of variadic arguments.
  * 
- * This is a slibc extension.
+ * This is a slibc extension added for completeness.
  * 
  * @param   input   The formatted string.
  * @param   length  The maximum number of characters to read.
@@ -1274,7 +1274,7 @@ int vsnwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  * This function is identical to `swscanf`,
  * except it uses `va_list` instead of variadic arguments.
  * 
- * This is a slibc extension.
+ * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
  * @param   format  The format of the string.
