@@ -40,7 +40,7 @@
 /**
  * Is C99, or newer, used?
  */
-#if __STDC_VERSION__ >= 199901L
+#if __STDC_VERSION__ >= 199901L || defined(_ISOC99_SOURCE)
 # define __C99__
 #endif
 
@@ -51,6 +51,55 @@
 # define __C90__
 #endif
 
+
+
+/**
+ * _POSIX_SOURCE is implied if (_POSIX_C_SOURCE >= 1L).
+ */
+#if !defined(_POSIX_SOURCE) && defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE >= 1L)
+# define _POSIX_SOURCE 1
+#endif
+#if (!defined(_POSIX_C_SOURCE) || (_POSIX_C_SOURCE <= 0)) && !defined(_POSIX_SOURCE)
+# define _POSIX_C_SOURCE  1L
+#endif
+
+/**
+ * _BSD_SOURCE || _SVID_SOURCE implies _POSIX_C_SOURCE = 2.
+ */
+#if defined(_BSD_SOURCE) || defined(_SVID_SOURCE)
+# if defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE < 1L)
+#  undef _POSIX_C_SOURCE
+# endif
+# if !defined(_POSIX_C_SOURCE)
+#  define _POSIX_C_SOURCE  2
+# endif
+#endif
+
+/**
+ * _SVID_SOURCE implies _XOPEN_SOURCE
+ */
+#if defined(_SVID_SOURCE) && !defined(_XOPEN_SOURCE)
+# define _XOPEN_SOURCE  1
+#endif
+
+/**
+ * _BSD_COMPATIBLE_SOURCE requires _BSD_SOURCE.
+ */
+#if defined(_BSD_COMPATIBLE_SOURCE) && !defined(_BSD_SOURCE)
+# if !defined(_SLIBC_SUPPRESS_WARNINGS)
+#  warning "_BSD_COMPATIBLE_SOURCE is defined, but _BSD_SOURCE is undefined."
+# endif
+#endif
+
+/**
+ * _BSD_COMPATIBLE_SOURCE and _POSIX_COMPATIBLE_SOURCE
+ * are incompatible.
+ */
+#if defined(_BSD_COMPATIBLE_SOURCE) && defined(_POSIX_COMPATIBLE_SOURCE)
+# if !defined(_SLIBC_SUPPRESS_WARNINGS)
+#  warning "You should not define both _BSD_COMPATIBLE_SOURCE and _POSIX_COMPATIBLE_SOURCE."
+# endif
+#endif
 
 
 /**
@@ -138,6 +187,18 @@
 #else
 # define __warning(msg)        /* ignore */
 # define __slibc_warning(msg)  /* ignore */
+#endif
+
+
+/**
+ * Functions that have a BSD-specification that is conficting
+ * with the POSIX-specification shall have this attribute.
+ */
+#if defined(_BSD_SOURCE) && !defined(_POSIX_COMPATIBLE_SOURCE) && !defined(_BSD_COMPATIBLE_SOURCE)
+# define __bsd_posix_conflict  \
+  __warning("The BSD-version of this function is incompatible with the POSIX-version.")
+#else
+# define __bsd_posix_conflict  /* ignore*/
 #endif
 
 

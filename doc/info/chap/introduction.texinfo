@@ -51,6 +51,8 @@ the C programming language.
 @node Reserved Names
 @section Reserved Names
 
+@cpindex Reserved names
+@cpindex Names, reserved
 The names of all types, variables, functions and
 macros, that comes from the @sc{ISO}@tie{}C standard
 are reserved. Additionally, all names that are
@@ -241,4 +243,98 @@ Additionally, @command{slibc} specifies the
 @code{_SLIBC_SUPPRESS_WARNINGS} macro. If this
 macro defined, all warnings @command{slibc}
 defines for header files and functions are disabled.
+
+@command{slibc} also recognises feature-test
+macros defined by other projects.
+
+@table @code
+@item _ISOC90_SOURCE
+@cpindex @sc{ISO}@tie{}C
+@cpindex C90
+@lvindex _ISOC90_SOURCE
+Enables functionality from the @sc{ISO}@tie{}C90
+standard, even if the program is not compiled
+with C90.
+
+@item _ISOC99_SOURCE
+@cpindex @sc{ISO}@tie{}C
+@cpindex C99
+@lvindex _ISOC99_SOURCE
+Enables functionality from the @sc{ISO}@tie{}C99
+standard, even if the program is not compiled
+with C99.
+
+@item _ISOC11_SOURCE
+@cpindex @sc{ISO}@tie{}C
+@cpindex C11
+@lvindex _ISOC11_SOURCE
+Enables functionality from the @sc{ISO}@tie{}C11
+standard, even if the program is not compiled
+with C11.
+
+@item _POSIX_SOURCE
+@cpindex @sc{POSIX}
+@cpindex @sc{ISO}@tie{}C
+@lvindex _POSIX_SOURCE
+Enables functionality from the @sc{POSIX}.1
+standard (@sc{IEEE} Standard 1003.1) as well
+as @sc{ISO}@tie{}C. @code{_POSIX_SOURCE} is
+automatically enabled if @code{_POSIX_C_SOURCE}
+is defined and has a positive value.
+
+@item _POSIX_C_SOURCE >= 1L
+@cpindex @sc{POSIX}
+@lvindex _POSIX_C_SOURCE
+Enables functionality from the 1990 edition
+of the @sc{POSIX}.1 standard (@sc{IEEE}
+Standard 1003.1-1990).
+
+@item _POSIX_C_SOURCE >= 2L
+@cpindex @sc{POSIX}
+@lvindex _POSIX_C_SOURCE
+Enables functionality from the 1992 edition
+of the @sc{POSIX}.2 standard (@sc{IEEE}
+Standard 1003.2-1992).
+
+@item _POSIX_C_SOURCE >= 199309L
+@cpindex @sc{POSIX}
+@lvindex _POSIX_C_SOURCE
+Enables functionality from the 1993 edition
+of the @sc{POSIX}.1b standard (@sc{IEEE}
+Standard 1003.1b-1993).
+
+@item _POSIX_C_SOURCE >= 199506L
+@cpindex @sc{POSIX}
+@lvindex _POSIX_C_SOURCE
+Enables functionality from the 1996 edition
+of the @sc{POSIX}.1 standard (@sc{ISO}/@sc{IEC}
+9945-1: 1996).
+
+@item _BSD_SOURCE
+@cpindex @sc{BSD}
+@lvindex _BSD_SOURCE
+Enables functionality from @sc{BSD}, as well
+as @sc{ISO}@tie{}C, @sc{POSIX}.1, and @sc{POSIX}.2.
+Note that some @sc{BSD} function conflicts with
+@sc{POSIX}.1.
+
+@lvindex _BSD_COMPATIBLE_SOURCE
+@lvindex _POSIX_COMPATIBLE_SOURCE
+To enable the @sc{BSD} functionality that conflicts
+with @sc{POSIX}.1 functionality, also define
+@code{_BSD_COMPATIBLE_SOURCE}. If you however
+prefer to use the @sc{POSIX}.1 functionality, define
+@code{_POSIX_COMPATIBLE_SOURCE} to suppress warnings
+about conflicts. These two feature-test macros are
+specific to @command{slibc}.
+
+@item _SVID_SOURCE
+@cpindex @sc{SVID}
+@cpindex System V Interface Description
+@lvindex _SVID_SOURCE
+Enables functionality from @i{System V Interface
+Description} (@sc{SVID}), as well as @sc{ISO}@tie{}C,
+@sc{POSIX}.1, @sc{POSIX}.2, and X/Open.
+
+@end table
 
