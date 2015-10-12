@@ -4,7 +4,7 @@
 @cpindex Hosted environment
 @cpindex Unhosted environment
 The C programming language does not provide
-an built-in functions or constant values.
+any built-in functions or constant values.
 It only, provides a few basic numerical
 data types. In fact, it does not even call
 the function @code{main}. All of these
@@ -39,4 +39,145 @@ features it implements. This manual is intended
 as a more extensive documentation. It is written
 with the assumption that you are familiar with
 the C programming language.
+
+
+@menu
+* Reserved Names::                            Names you should not use for your functions and variables.
+* Feature-Test Macros::                       Specifying features that should be available.
+@end menu
+
+
+
+@node Reserved Names
+@section Reserved Names
+
+The names of all types, variables, functions and
+macros, that comes from the @sc{ISO}@tie{}C standard
+are reserved. Additionally, all names that are
+defined or declared from an explicitly included
+header file is reserved.
+
+It is important for maintainability that reserved
+names are not redefined. But it is also important
+because the C compiler can do special optimisations
+bases on the semantics of the standardised function.
+It may even replace the function calls, with functions
+built into the compiler.
+
+The names that are reserved is not implemented to
+those documented in this manual. Some names are
+reserved for future use, for the C standard library
+to use internally, and for the compiler to define
+to give information about the platform. Names
+starting with at least one underscore (`_') are
+reserved for the two latter. The names that are
+reserved for the C and @sc{POSIX} standards, and the
+operating system, are:
+
+@itemize @bullet{}
+@item
+Names that begin with an uppercase @code{E} and
+a digit or uppercase letter. These are used for
+error-codes names.
+
+@item
+Names that begin with @code{LC_} and an uppercase
+letter are reserved for locale attributes.
+
+@item
+Names that being with @code{SIG} and an uppercase
+letter are reserved for signal names.
+
+@item
+Names that being with @code{SIG_} and an uppercase
+letter are reserved for signal actions.
+
+@item
+Names that begin with @code{is} and a lowercase
+letter are reserved for character type testing.
+
+@item
+Names that begin with @code{mem} and a lowercase
+letter are reserved for functions that operate
+over character arrays.
+
+@item
+Names that begin with @code{str} and a lowercase
+letter are reserved for functions that operate
+over strings.
+
+@item
+Names that begin with @code{to} and a lowercase
+letter are reserved for character type conversion.
+
+@item
+Names that begin with @code{wmem} and a lowercase
+letter are reserved for functions that operate
+over wide-character arrays.
+
+@item
+Names that begin with @code{wcs} and a lowercase
+letter are reserved for functions that operate
+over wide-character strings.
+
+@item
+Names that end with @code{_t} ae reserved for
+type definitions.
+
+@item
+Names of existing mathematics functions, suffixed
+with @code{f} or @code{l} are reserved for
+@code{float}- and @code{long double}-variants
+of corresponding functions.
+
+@item
+Names that begin with @code{d_} are reserved
+for @file{<dirent.h>}.
+
+@item
+Names that begin with @code{F_}, @code{O_},
+or @code{l_} are reserved for @file{<fcntl.h>}.
+
+@item
+Names that begin with @code{gr_} are reserved
+for @file{<grp.h>}.
+
+@item
+Names that end with @code{_MAX} are reserved
+for @file{<limits.h>}.
+
+@item
+Names that begin with @code{pw_} are reserved
+for @file{<pwd.h>}.
+
+@item
+Names that begin with @code{sa_} or @code{SA_}
+are reserved for @file{<signal.h>}.
+
+@item
+Names that begin with @code{S_} or @code{st_}
+are reserved for @file{<sys/stat.h>}.
+
+@item
+Names that begin with @code{tms_} are reserved
+for @file{<sys/times.h>}.
+
+@item
+Names that begin with @code{B} and a digit,
+@code{I}, @code{O}, @code{TB}, @code{V}, or
+@code{c_} are reserved for @file{<termios.h>}.
+@end itemize
+
+It is possible for libraries to avoid restrictions
+by prefixing all names with the name of the library
+(starting with @code{lib}.) Names that are reserved
+for specific header files do not need to considered
+unless the header file is included.
+
+
+
+@node Feature-Test Macros
+@section Feature-Test Macros
+
+LOREM IPSUM
 
