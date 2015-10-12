@@ -292,6 +292,7 @@ Stockholm C Standard Library.
 @menu
 * Introduction::                              Introduction to @command{slibc} and this manual.
 
+* Free Software Needs Free Documentation::    Why free documentation is important.
 * GNU General Public License::                Copying and sharing @command{slibc}.
 * GNU Free Documentation License::            Copying and sharing this manual.
 
@@ -311,6 +312,8 @@ Stockholm C Standard Library.
 @include chap/introduction.texinfo
 
 
+
+@include appx/free-software-needs-free-documentation.texinfo
 
 @node GNU General Public License
 @appendix GNU General Public License
