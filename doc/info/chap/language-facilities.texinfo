@@ -1,0 +1,78 @@
+@node Language facilities
+@chapter Language facilities
+
+
+
+@menu
+* Alternative tokens::                        Alternative spellings of common operators.
+@end menu
+
+
+
+@node Alternative tokens
+@section Alternative tokens
+
+@hfindex iso646.h
+@cpindex Alternative tokens
+@cpindex Tokens, alternative
+The C90 standard was amended in 1995 to include
+alternative spellings of common operators, referred
+to as C alternative tokens.
+
+@table @code
+@item and
+@fnindex and
+@code{&&}
+
+@item and_eq
+@fnindex and_eq
+@code{&=}
+
+@item bitand
+@fnindex bitand
+@code{&}
+
+@item bitor
+@fnindex bitor
+@code{|}
+
+@item compl
+@fnindex compl
+@code{~}
+
+@item not
+@fnindex not
+@code{!}
+
+@item not_eq
+@fnindex not_eq
+@code{!=}
+
+@item or
+@fnindex or
+@code{||}
+
+@item or_eq
+@fnindex or_eq
+@code{|=}
+
+@item xor
+@fnindex xor
+@code{^}
+
+@item xor_eq
+@fnindex xor_eq
+@code{^=}
+@end table
+
+These alternative spellings are implemented as a
+group of macro constants, and are made available
+by including the header file @file{<iso646.h>}.
+They were added because a concern that the standard
+names are difficult to type on some keyboard-layouts.
+
+Use of these alternative tokens are discouraged,
+they lessen the readability of your code. If it is
+difficult to type some characters without yout
+keyboard-layout, it is better to change keyboard-layout.
+
