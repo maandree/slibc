@@ -6,6 +6,7 @@
 @menu
 * Alternative tokens::                        Alternative spellings of common operators.
 * Booleans::                                  Proper booleans in the C programming language.
+* Non-returning functions::                   Specifying that functions never return.
 @end menu
 
 
@@ -118,4 +119,44 @@ the header file is included.
 The macros @code{bool}, @code{true}, and @code{false}
 may be removed and become built-in the future; or at
 least, the right to undefined them may be removed.
+
+
+
+@node Non-returning functions
+@section Non-returning functions
+
+@hfindex stdnoreturn.h
+@cpindex Non-returning functions
+@cpindex @code{noreturn}
+@cpindex @code{_Noreturn}
+@tpindex noreturn
+@tpindex _Noreturn
+A few, such as @code{exit}, functions never return,
+and cannot fail. The @sc{ISO}@tie{}C11 added a
+function qualifier that lets you specify that a
+functon never returns, that is, the process exits
+or changes process image before returning. Note
+that this is not the same thing only returning on
+failure, like the @code{exec} functions. This
+qualifier is known as @code{_Noreturn} and must be
+used at the beginning the the function declaration.
+
+By including the header file @file{<stdnoreturn.h>},
+the macro definition @code{noreturn} is made
+available as an alias for @code{_Noreturn} .
+
+@lvindex __noreturn_is_defined
+Note that @code{slibc}, in contrast to some C
+standard libraries, does not defined, the
+non-standardised, @code{__noreturn_is_defined} macro.
+
+Some compilers have supported this before
+@sc{ISO}@tie{}C11, by specifying the function
+attribute @code{noreturn}. Note that including the
+@file{<stdnoreturn.h>} header file conflicts with
+this compiler feature. Because of this,
+@file{<stdnoreturn.h>} is considered non-portable
+by @code{slibc}. If you want to use both, GCC
+supports @code{__attribute__((__noreturn__))} as
+a synonym for @code{__attribute__((noreturn))}.
 
