@@ -15,8 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _STDBOOL_H
-#define _STDBOOL_H
+#ifndef __bool_true_false_are_defined
 #include <slibc/version.h>
 #include <slibc/features.h>
 
