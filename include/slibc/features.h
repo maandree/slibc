@@ -68,18 +68,18 @@
 # if defined(_BSD_SOURCE)
 #  define __BSD_SOURCE  _BSD_SOURCE
 # endif
-# if defined(_POSIX_SOURCE)
-#  define __POSIX_SOURCE  _POSIX_SOURCE
-# endif
-# if defined(_POSIX_C_SOURCE)
-#  define __POSIX_C_SOURCE  _POSIX_C_SOURCE
-# endif
 # if defined(_XOPEN_SOURCE)
 #  define __XOPEN_SOURCE  _XOPEN_SOURCE
 # endif
 # if defined(_ISOC11_SOURCE)
 #  define __ISOC11_SOURCE  _ISOC11_SOURCE
 # endif
+#endif
+#if defined(_POSIX_SOURCE)
+# define __POSIX_SOURCE  _POSIX_SOURCE
+#endif
+#if defined(_POSIX_C_SOURCE)
+# define __POSIX_C_SOURCE  _POSIX_C_SOURCE
 #endif
 
 
