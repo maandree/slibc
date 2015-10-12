@@ -156,27 +156,27 @@ obj/%.ps: doc/%.svg
 	rsvg-convert --format=ps $< > $@
 
 # Compile texinfo manual.
-bin/%.info $(foreach P,$(INFOPARTS_),bin/%.info-$(P)): doc/info/%.texinfo doc/info/*.texinfo
+bin/%.info $(foreach P,$(INFOPARTS_),bin/%.info-$(P)): doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo
 	@mkdir -p bin
 	$(MAKEINFO) $(TEXIFLAGS) $<
-	mv $*.info
+	mv $*.info bin
 ifneq ($(INFOPARTS),0)
-	$*.info-* bin
+	mv $*.info-* bin
 endif
 
-bin/%.pdf: doc/info/%.texinfo doc/info/*.texinfo $(foreach F,$(LOGO),obj/$(F).pdf)
+bin/%.pdf: doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo $(foreach F,$(LOGO),obj/$(F).pdf)
 	@! test -d obj/pdf || rm -rf obj/pdf
 	@mkdir -p obj/pdf bin
 	cd obj/pdf && texi2pdf $(TEXIFLAGS) ../../$< < /dev/null
 	mv obj/pdf/$*.pdf $@
 
-bin/%.dvi: doc/info/%.texinfo doc/info/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
+bin/%.dvi: doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
 	@! test -d obj/dvi || rm -rf obj/dvi
 	@mkdir -p obj/dvi bin
 	cd obj/dvi && $(TEXI2DVI) $(TEXIFLAGS) ../../$< < /dev/null
 	mv obj/dvi/$*.dvi $@
 
-bin/%.ps: doc/info/%.texinfo doc/info/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
+bin/%.ps: doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
 	@! test -d obj/ps || rm -rf obj/ps
 	@mkdir -p obj/ps bin
 	cd obj/ps && texi2pdf $(TEXIFLAGS) --ps ../../$< < /dev/null
