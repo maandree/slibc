@@ -213,7 +213,7 @@ Stockholm C Standard Library.
 
 @titlepage
 @title Stockholm C Standard Library
-@subtitle The @sc{slibc} reference manual
+@subtitle The @command{slibc} reference manual
 
 @ifset DATE
 @ifset VERSION
@@ -308,10 +308,7 @@ Stockholm C Standard Library.
 
 
 
-@node Introduction
-@chapter Introduction
-
-Lorem ipsum
+@include chap/introduction.texinfo
 
 
 
@@ -322,6 +319,7 @@ Lorem ipsum
 @node GNU Free Documentation License
 @appendix GNU Free Documentation License
 @include fdl.texinfo
+
 
 @node Concept index
 @unnumbered Concept index

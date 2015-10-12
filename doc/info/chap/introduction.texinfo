@@ -1,0 +1,42 @@
+@node Introduction
+@chapter Introduction
+
+@cpindex Hosted environment
+@cpindex Unhosted environment
+The C programming language does not provide
+an built-in functions or constant values.
+It only, provides a few basic numerical
+data types. In fact, it does not even call
+the function @code{main}. All of these
+facilities are provided by the C standard
+library. A C environment with a C standard
+library is called a hosted environment; one
+without it is called an unhosted environment.
+Almost all software written in C are written
+in hosted C. There are practically only two
+types of software not written in an unhosted
+environment, the C standard library (commonly
+called @command{libc}) implementations
+themself, and operating system kernels and
+programs started before it.
+
+The Stockholm C Standard Library, or simply
+@command{slibc}, described in this document,
+is an implementaton of a C standard library for
+@sc{POSIX} systems. It is aimed at supporting
+@sc{C99} and newer dialects of @sc{ISO}@tie{}C,
+and no other programming languages. @command{slibc}
+is not aimed to replace an existing @command{libc}
+implementation or suiting a particular niche.
+Rather, @command{slibc} is intended as a learning
+experiences for its developer. It does however,
+add extensions (features) that are not defined
+by the standards it covers or even existing
+@command{libc} implementations.
+
+@command{slibc}'s header files document all
+features it implements. This manual is intended
+as a more extensive documentation. It is written
+with the assumption that you are familiar with
+the C programming language.
+
