@@ -179,5 +179,66 @@ unless the header file is included.
 @node Feature-Test Macros
 @section Feature-Test Macros
 
-LOREM IPSUM
+@cpindex Feature-test macros
+@cpindex Enable features
+@cpindex Disable features
+@cpindex Extensions
+The exact set of features that are make available
+by @command{slibc}, depend on which feature-test
+macros that are defined.
+
+@command{slibc} specifies four feature-test macros:
+
+@table @code
+@item _PORTABLE_SOURCE
+@lvindex _PORTABLE_SOURCE
+@cpindex Portability
+Disables all non-@sc{POSIX} extensions, and
+otherwise help ensure that the source is portable.
+
+@item _LIBRARY_HEADER
+@lvindex _LIBRARY_HEADER
+@cpindex Portability
+Alternative to @code{_PORTABLE_SOURCE} that should
+be used in header files for libraries. This allows
+you to be sure that your library is portable between
+@code{libc}:s, and that sources using your library
+does not been to be compiled with the same @code{libc}.
+It is important to use this instead of
+@code{_PORTABLE_SOURCE} in library header files,
+otherwise the user of the library cannot fully utilise
+@code{_PORTABLE_SOURCE}.
+
+@item _ALL_SOURCE
+@lvindex _ALL_SOURCE
+@cpindex Portability
+Enables all support extensions.
+@* TODO: This is not implemented yet.
+
+@item _SLIBC_SOURCE
+@lvindex _SLIBC_SOURCE
+Enables extensions added by @command{slibc},
+and extensions added in other @command{libc}:s
+that are considered to be good extensions.
+@end table
+
+@cpindex Portability
+For programs that are intended to be portable,
+it is recommended to develop the software with
+@code{_PORTABLE_SOURCE} defined, by adding the
+flag @code{-D_PORTABLE_SOURCE} when compiling
+the software, to ensure that you are not using
+any non-portable extensions. You should also
+occasionally compile with the @code{_ALL_SOURCE}
+macro defined instead of the @code{_PORTABLE_SOURCE}
+defined, to ensure that you do not define names
+that may conflict with other @command{libc}:s.
+
+@cpindex Suppress warnings
+@cpindex Warnings, suppress
+@lvindex _SLIBC_SUPPRESS_WARNINGS
+Additionally, @command{slibc} specifies the
+@code{_SLIBC_SUPPRESS_WARNINGS} macro. If this
+macro defined, all warnings @command{slibc}
+defines for header files and functions are disabled.
 
