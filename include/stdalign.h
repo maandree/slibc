@@ -20,6 +20,10 @@
 #include <slibc/version.h>
 #include <slibc/features.h>
 
+#if !defined(_SLIBC_SUPPRESS_WARNINGS) && !defined(__C11__)
+# warning "<stdalign.h> requires that C11 or newer revision is used."
+#endif
+
 
 
 /**
