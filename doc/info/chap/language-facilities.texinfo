@@ -5,6 +5,7 @@
 
 @menu
 * Alternative tokens::                        Alternative spellings of common operators.
+* Booleans::                                  Proper booleans in the C programming language.
 @end menu
 
 
@@ -15,9 +16,9 @@
 @hfindex iso646.h
 @cpindex Alternative tokens
 @cpindex Tokens, alternative
-The C90 standard was amended in 1995 to include
-alternative spellings of common operators, referred
-to as C alternative tokens.
+The @sc{ISO}@tie{}C90 standard was amended in 1995 to
+include alternative spellings of common operators,
+referred to as C alternative tokens.
 
 @table @code
 @item and
@@ -75,4 +76,46 @@ Use of these alternative tokens are discouraged,
 they lessen the readability of your code. If it is
 difficult to type some characters without yout
 keyboard-layout, it is better to change keyboard-layout.
+
+
+
+@node Booleans
+@section Booleans
+
+@hfindex stdbool.h
+@cpindex Booleans
+@tpindex bool
+@tpindex _Bool
+@lvindex true
+@lvindex false
+@lvindex __bool_true_false_are_defined
+The @sc{ISO}@tie{}C99 standard added the keyword
+@code{_Bool}, as well as a set macro definitions
+that are made available by including the header
+file @file{<stdbool.h>}.
+
+@table @code
+@item bool
+Expands to @code{_Bool}, an integer data
+type. Any non-zero value (any true value)
+is stored as 1, to avoid integer overflows,
+that may occur when using @code{int}, and
+not using @code{!!} when casting to @code{int}.
+
+@item true
+Has the value 1, and represents a true value.
+
+@item false
+Has the value 0, and represents a false value.
+
+@item __bool_true_false_are_defined
+Will be defined if the other three macros
+are define. So, it will will be defined if
+the header file is included.
+
+@end table
+
+The macros @code{bool}, @code{true}, and @code{false}
+may be removed and become built-in the future; or at
+least, the right to undefined them may be removed.
 
