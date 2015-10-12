@@ -20,6 +20,9 @@
 #include <slibc/version.h>
 #include <slibc/features.h>
 
+#if !defined(_SLIBC_SUPPRESS_WARNINGS) && !defined(__C99__)
+# warning "<stdbool.h> requires that C99 or newer revision is used."
+#endif
 
 
 /* These should be macros, because the user is allowed to undefine them.
