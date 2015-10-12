@@ -133,38 +133,47 @@ with @code{f} or @code{l} are reserved for
 of corresponding functions.
 
 @item
+@hfindex dirent.h
 Names that begin with @code{d_} are reserved
 for @file{<dirent.h>}.
 
 @item
+@hfindex fcntl.h
 Names that begin with @code{F_}, @code{O_},
 or @code{l_} are reserved for @file{<fcntl.h>}.
 
 @item
+@hfindex grp.h
 Names that begin with @code{gr_} are reserved
 for @file{<grp.h>}.
 
 @item
+@hfindex limits.h
 Names that end with @code{_MAX} are reserved
 for @file{<limits.h>}.
 
 @item
+@hfindex pwd.h
 Names that begin with @code{pw_} are reserved
 for @file{<pwd.h>}.
 
 @item
+@hfindex signal.h
 Names that begin with @code{sa_} or @code{SA_}
 are reserved for @file{<signal.h>}.
 
 @item
+@hfindex sys/stat.h
 Names that begin with @code{S_} or @code{st_}
 are reserved for @file{<sys/stat.h>}.
 
 @item
+@hfindex sys/times.h
 Names that begin with @code{tms_} are reserved
 for @file{<sys/times.h>}.
 
 @item
+@hfindex termios.h
 Names that begin with @code{B} and a digit,
 @code{I}, @code{O}, @code{TB}, @code{V}, or
 @code{c_} are reserved for @file{<termios.h>}.
