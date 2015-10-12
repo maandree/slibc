@@ -23,17 +23,23 @@
 #if !defined(_SLIBC_SUPPRESS_WARNINGS) && !defined(__C99__)
 # warning "<stdnoreturn.h> requires that C11 or newer revision is used."
 #endif
+#if !defined(_SLIBC_SUPPRESS_WARNINGS) && defined(__PORTABLE)
+# warning "<stdnoreturn.h> is not portable because it conflicts with some compilers."
+#endif
 
 
 
+#if !defined(__PORTABLE)
 /**
  * Specifies that a function never returns, that is,
- * the process exits before the function returns.
+ * the process exits or changes process image before
+ * the function returns.
  */
-#if !defined(__C11__) && defined(__GNUC__)
-# define _Noreturn  __attribute__((noreturn))
+# if !defined(__C11__) && defined(__GNUC__)
+#  define _Noreturn  __attribute__((__noreturn__))
+# endif
+# define noreturn  _Noreturn
 #endif
-#define noreturn  _Noreturn
 
 
 
