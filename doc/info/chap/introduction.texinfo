@@ -336,5 +336,59 @@ Enables functionality from @i{System V Interface
 Description} (@sc{SVID}), as well as @sc{ISO}@tie{}C,
 @sc{POSIX}.1, @sc{POSIX}.2, and X/Open.
 
+@item _XOPEN_SOURCE
+@cpindex X/Open Portability Guide
+@lvindex _XOPEN_SOURCE
+Enables functionality from @i{X/Open Portability Guide},
+included in @sc{BSD} and @sc{SVID}, as well as
+@sc{POSIX}.1 and @sc{POSIX}.2.
+
+@item _XOPEN_SOURCE_EXTENDED
+@cpindex X/Open Portability Guide
+@lvindex _XOPEN_SOURCE
+@lvindex _XOPEN_SOURCE_EXTENDED
+Enables all functionality that @code{_XOPEN_SOURCE}
+enables, and functionality that is required for the
+X/Open Unix brand.
+
+@item _XOPEN_SOURCE >= 500
+@cpindex X/Open Portability Guide
+@cpindex Single Unix Specification
+@cpindex @sc{SUS}
+@lvindex _XOPEN_SOURCE
+@lvindex _XOPEN_SOURCE_EXTENDED
+Enables all functionality that @code{_XOPEN_SOURCE_EXTENDED}
+enables. It also enables functionality from version 2
+of the @i{Single Unix Specification} (@sc{SUS}).
+
+@item _GNU_SOURCE
+@cpindex @sc{GNU}'s not Unix
+@cpindex @sc{GNU} C Libraries
+@lvindex _GNU_SOURCE
+Enables all functionality from @sc{ISO}@tie{}C89,
+@sc{ISO}@tie{}C99, @sc{POSIX}.1, @sc{POSIX}.2,
+@sc{BSD}, @sc{SVID}, X/Open, @sc{SUS}, the
+Large File Support extension, and extensions
+derived from the @sc{GNU} C Libraries. It also
+defines @code{_ATFILE_SOURCE}.
+
+@lvindex _BSD_SOURCE
+@sc{POSIX}.1 takes precedence when there are
+conflicts between @sc{POSIX}.1 and @sc{BSD}
+or @sc{SVID}. To override this, define
+@code{_BSD_SOURCE}.
+
+@code{_GNU_SOURCE} does not automatically
+define @code{_BSD_SOURCE} or @code{_SVID_SOURCE}.
+
 @end table
+@c TODO: _LARGEFILE_SUPPORT
+@c TODO: _LARGEFILE64_SUPPORT
+@c TODO: _FILE_OFFSET_BITS
+@c TODO: _ATFILE_SOURCE
+@c TODO: _DEFAULT_SOURCE
+@c TODO: _REETRANT
+@c TODO: _THREADSAFE (alias for _REETRANT)
+@c TODO: _POSIX_C_SOURCE >= 200112L
+@c TODO: _POSIX_C_SOURCE >= 200809L
 

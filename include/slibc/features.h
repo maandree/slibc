@@ -22,198 +22,127 @@
 /* These definitions are only to be used in slibc header-files. */
 
 
-/**
- * Macro that is defined if portability shall be ensured.
- */
-#if defined(_PORTABLE_SOURCE) || defined(_LIBRARY_HEADER)
-# define __PORTABLE
-#endif
-
-
-/**
- * Is C11, or newer, used?
- */
-#if __STDC_VERSION__ >= 201112L || defined(_ISOC11_SOURCE)
-# define __C11__
-#endif
-
-/**
- * Is C99, or newer, used?
- */
-#if __STDC_VERSION__ >= 199901L || defined(_ISOC99_SOURCE)
-# define __C99__
-#endif
-
-/**
- * Is C90, or newer, used?
- */
-#if defined(__STDC_VERSION__) || defined(__STDC__)
-# define __C90__
-#endif
+#include "portability.h"
+#include "c-version.h"
+#include "attributes.h"
 
 
 
 /**
- * _POSIX_SOURCE is implied if (_POSIX_C_SOURCE >= 1L).
+ * _BSD_SOURCE || _SVID_SOURCE || _GNU_SOURCE implies _POSIX_C_SOURCE = 2.
  */
-#if !defined(_POSIX_SOURCE) && defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE >= 1L)
-# define _POSIX_SOURCE 1
-#endif
-#if (!defined(_POSIX_C_SOURCE) || (_POSIX_C_SOURCE <= 0)) && !defined(_POSIX_SOURCE)
-# define _POSIX_C_SOURCE  1L
-#endif
-
-/**
- * _BSD_SOURCE || _SVID_SOURCE implies _POSIX_C_SOURCE = 2.
- */
-#if defined(_BSD_SOURCE) || defined(_SVID_SOURCE)
-# if defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE < 1L)
-#  undef _POSIX_C_SOURCE
+#if defined(__BSD_SOURCE) || defined(__SVID_SOURCE) || defined(__GNU_SOURCE)
+# if (__POSIX_C_SOURCE <= 1L)
+#  undef __POSIX_C_SOURCE
 # endif
-# if !defined(_POSIX_C_SOURCE)
-#  define _POSIX_C_SOURCE  2
+# if !defined(__POSIX_C_SOURCE)
+#  define __POSIX_C_SOURCE  2L
 # endif
 #endif
 
 /**
- * _SVID_SOURCE implies _XOPEN_SOURCE
+ * _SVID_SOURCE implies _XOPEN_SOURCE.
  */
-#if defined(_SVID_SOURCE) && !defined(_XOPEN_SOURCE)
-# define _XOPEN_SOURCE  1
+#if defined(__SVID_SOURCE) && !defined(__XOPEN_SOURCE)
+# define __XOPEN_SOURCE  1L
 #endif
 
 /**
- * _BSD_COMPATIBLE_SOURCE requires _BSD_SOURCE.
+ * _GNU_SOURCE implies _XOPEN_SOURCE = 500.
  */
-#if defined(_BSD_COMPATIBLE_SOURCE) && !defined(_BSD_SOURCE)
-# if !defined(_SLIBC_SUPPRESS_WARNINGS)
-#  warning "_BSD_COMPATIBLE_SOURCE is defined, but _BSD_SOURCE is undefined."
+#if defined(__GNU_SOURCE)
+# if __XOPEN_SOURCE <= 499L
+#  undef __XOPEN_SOURCE
+# endif
+# if !defined(__XOPEN_SOURCE)
+#  define __XOPEN_SOURCE  500L
 # endif
 #endif
 
 /**
- * _BSD_COMPATIBLE_SOURCE and _POSIX_COMPATIBLE_SOURCE
- * are incompatible.
+ * _XOPEN_SOURCE >= 500 implies _XOPEN_SOURCE_EXTENDED.
  */
-#if defined(_BSD_COMPATIBLE_SOURCE) && defined(_POSIX_COMPATIBLE_SOURCE)
-# if !defined(_SLIBC_SUPPRESS_WARNINGS)
-#  warning "You should not define both _BSD_COMPATIBLE_SOURCE and _POSIX_COMPATIBLE_SOURCE."
+#if (__XOPEN_SOURCE >= 500L) && !defined(__XOPEN_SOURCE_EXTENDED)
+# define __XOPEN_SOURCE_EXTENDED  1L
+#endif
+
+/**
+ * _XOPEN_SOURCE_EXTENDED implies _XOPEN_SOURCE.
+ */
+#if defined(__XOPEN_SOURCE_EXTENDED) && !defined(__XOPEN_SOURCE)
+# define __XOPEN_SOURCE  1L
+#endif
+
+/**
+ * _XOPEN_SOURCE implies _POSIX_C_SOURCE = 2.
+ */
+#if defined(__XOPEN_SOURCE)
+# if __POSIX_C_SOURCE <= 1L
+#  undef __POSIX_C_SOURCE
+# endif
+# if !defined(__POSIX_C_SOURCE)
+#  define __POSIX_C_SOURCE  2L
 # endif
 #endif
 
-
 /**
- * Feature-test macros that also change that
- * `_PORTABLE_SOURCE` and `_LIBRARY_HEADER`
- * is not defined.
+ * _POSIX_SOURCE is implied if _POSIX_C_SOURCE >= 1.
  */
-#if !defined(__PORTABLE)
-# if defined(_GNU_SOURCE)
-#  define __GNU_SOURCE  _GNU_SOURCE
-# endif
-# if defined(_SLIBC_SOURCE)
-#  define __SLIBC_SOURCE  _SLIBC_SOURCE
-# endif
-# if defined(_BSD_SOURCE)
-#  define __BSD_SOURCE  _BSD_SOURCE
-# endif
-# if defined(_XOPEN_SOURCE)
-#  define __XOPEN_SOURCE  _XOPEN_SOURCE
-# endif
-# if defined(_ISOC11_SOURCE)
-#  define __ISOC11_SOURCE  _ISOC11_SOURCE
-# endif
+#if !defined(__POSIX_SOURCE) && (__POSIX_C_SOURCE >= 1L)
+# define __POSIX_SOURCE  1L
 #endif
-#if defined(_POSIX_SOURCE)
-# define __POSIX_SOURCE  _POSIX_SOURCE
-#endif
-#if defined(_POSIX_C_SOURCE)
-# define __POSIX_C_SOURCE  _POSIX_C_SOURCE
+#if (__POSIX_C_SOURCE <= 0) && !defined(__POSIX_SOURCE)
+# define __POSIX_C_SOURCE  1L
 #endif
 
-
-
 /**
- * Macro used to exclude code unless GCC is used.
+ * _GNU_SOURCE implies _ISOC89_SOURCE.
  */
-#if defined(__GNUC__)
-# define __GCC_ONLY(...)   __VA_ARGS__
-#else
-# define __GCC_ONLY(...)   /* ignore */
+#if defined(__GNU_SOURCE) && !defined(__ISOC89_SOURCE)
+# define __ISOC89_SOURCE
 #endif
 
-
 /**
- * Specifies that a function never returns, that is,
- * the process exits before the function returns.
+ * _GNU_SOURCE implies _ISOC90_SOURCE.
  */
-#if !defined(__C11__) && defined(__GNUC__)
-# define __noreturn  __attribute__((noreturn))
-#elif defined(__C11__)
-# define __noreturn  _Noreturn
-#else
-# define __noreturn  /* ignore */
+#if defined(__GNU_SOURCE) && !defined(__ISOC90_SOURCE)
+# define __ISOC90_SOURCE
 #endif
 
-
 /**
- * Macro used to exclude code unless `_SLIBC_SOURCE` is set.
+ * _GNU_SOURCE implies _ISOC95_SOURCE.
  */
-#if defined(_SLIBC_SOURCE)
-# define __SLIBC_ONLY(...)  __VA_ARGS__
-#else
-# define __SLIBC_ONLY(...)  /* ignore */
+#if defined(__GNU_SOURCE) && !defined(__ISOC95_SOURCE)
+# define __ISOC95_SOURCE
 #endif
 
-
 /**
- * Mark a function, variable or type as deprecated,
- * with a message that tells the user why the the
- * function is deprecated, or functions to use instead.
+ * _GNU_SOURCE implies _ISOC99_SOURCE.
  */
-#if !defined(_SLIBC_SUPPRESS_WARNINGS)
-# define __deprecated(msg)  __GCC_ONLY(__attribute__((deprecated(msg))))
-#else
-# define __deprecated(msg)  /* ignore */
+#if defined(__GNU_SOURCE) && !defined(__ISOC99_SOURCE)
+# define __ISOC99_SOURCE
 #endif
 
-
 /**
- * Warn if a function, variable or type is used.
+ * _GNU_SOURCE implies _LARGEFILE_SOURCE.
  */
-#if !defined(_SLIBC_SUPPRESS_WARNINGS)
-# define __warning(msg)        __GCC_ONLY(__attribute__((warning(msg))))
-# define __slibc_warning(msg)  __SLIBC_ONLY(__warning(msg))
-#else
-# define __warning(msg)        /* ignore */
-# define __slibc_warning(msg)  /* ignore */
+#if defined(__GNU_SOURCE) && !defined(__LARGEFILE_SOURCE)
+# define __LARGEFILE_SOURCE  1L
 #endif
 
-
 /**
- * Functions that have a BSD-specification that is conficting
- * with the POSIX-specification shall have this attribute.
+ * _GNU_SOURCE implies _LARGEFILE64_SOURCE.
  */
-#if defined(_BSD_SOURCE) && !defined(_POSIX_COMPATIBLE_SOURCE) && !defined(_BSD_COMPATIBLE_SOURCE)
-# define __bsd_posix_conflict  \
-  __warning("The BSD-version of this function is incompatible with the POSIX-version.")
-#else
-# define __bsd_posix_conflict  /* ignore*/
+#if defined(__GNU_SOURCE) && !defined(__LARGEFILE64_SOURCE)
+# define __LARGEFILE64_SOURCE  1L
 #endif
 
-
 /**
- * Format for the `format` GCC function attribute,
- * for `*printf` functions.
+ * _GNU_SOURCE implies _ATFILE_SOURCE.
  */
-#define slibc_printf  printf /* TODO write GCC extension */
-
-/**
- * Format for the `format` GCC function attribute,
- * for `*scanf` functions.
- */
-#define slibc_scanf  scanf /* TODO write GCC extension */
-
+#if defined(__GNU_SOURCE) && !defined(__ATFILE_SOURCE)
+# define __ATFILE_SOURCE  1L
+#endif
 
 
 #endif
