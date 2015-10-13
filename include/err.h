@@ -19,7 +19,6 @@
 #define _ERR_H
 #include <slibc/version.h>
 #include <slibc/features.h>
-#ifndef __PORTABLE
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
 # warning "Please consider not using <err.h>."
@@ -31,6 +30,7 @@
 
 
 
+#if defined(__BSD_SOURCE)
 /**
  * Print a warning to stderr, followed by a description
  * of the value of `errno`.
@@ -126,9 +126,9 @@ __noreturn void errx(int, const char*, ...)
  * @param  args    Formatting-arguments.
  */
 __noreturn void verrx(int, const char*, va_list);
-
-
-
 #endif
+
+
+
 #endif
 
