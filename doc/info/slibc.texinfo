@@ -292,6 +292,7 @@ Stockholm C Standard Library.
 @menu
 * Introduction::                              Introduction to @command{slibc} and this manual.
 * Language facilities::                       C language facilities provided by the library.
+* Error reporting::                           Detecting, reporting, and printing errors.
 
 * Free Software Needs Free Documentation::    Why free documentation is important.
 * GNU General Public License::                Copying and sharing @command{slibc}.
@@ -312,6 +313,7 @@ Stockholm C Standard Library.
 
 @include chap/introduction.texinfo
 @include chap/language-facilities.texinfo
+@include chap/error-reporting.texinfo
 
 
 

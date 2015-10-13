@@ -1,0 +1,53 @@
+@node Error reporting
+@chapter Error reporting
+
+Many functions, especially those involving
+system calls, detect and report exceptional
+conditions, including error conditions and
+interruptions. Exception conditions must often
+be checked and handled, often by retrying,
+doing something else, or reporting the error
+to the user and exit.
+
+Unless otherwise specified, exceptional
+conditions are reporting using the facilities
+described in this chapter.
+
+
+@menu
+* Error checking::                            Checking whether an exception condition occurred.
+@end menu
+
+
+
+@node Error checking
+@section Error checking
+
+@cpindex Checking for errors
+@cpindex Errors checking
+@cpindex Exception checking
+Most functions return a sentinel value when an
+exceptional condition occurs, typically a negative
+value (actually @code{-1}), a constant such as
+@code{EOF}, or @code{NULL}. This return value only
+tells you that an exeception condition has occurred.
+
+@hfindex errno.h
+@lvindex errno
+By including the header file @file{<errno.h>}, the
+modifiable lvalue @code{errno} is made available.
+@sc{ISO}@tie{}C specifies that @code{errno} is not
+necessarily a variable, but rather just an modifiable
+lvalue. In fact, must @code{libc}:s, including
+@code{slibc} defines it as a macro that calls a
+function and uses the unary @code{*}-operator on the
+return.
+
+@code{errno} is often thought of as a variable
+declared as @code{int errno}, or @code{volatile int errno}.
+But the value is thread-local, and is thus more
+like @code{_Thread_local volatile int errno}. Because
+of this, the @code{errno} is defined as a macro that
+calls a function. Otherwise, it would not be implementable
+without @sc{ISO}@tie{}C11.
+
