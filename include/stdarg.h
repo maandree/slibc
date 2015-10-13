@@ -22,6 +22,14 @@
 #include <slibc/version.h>
 #include <slibc/features.h>
 
+#if !defined(_SLIBC_SUPPRESS_WARNINGS)
+# if !defined(__C89__)
+#  warning "<stdargs.h> requires that C89 or newer revision is used."
+# elif !defined(__C99__)
+#  warning "'va_copy' was introduced to <stdargs.h> in C99."
+# endif
+#endif
+
 
 #include <bits/stdarg.h>
 
