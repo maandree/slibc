@@ -49,9 +49,9 @@
  * Unless `NDEBUG` is defined, print an error message
  * and abort the process, if `errnum` is non-zero.
  * 
- * @param  errnum:int  The error code, describing the error that occurred.
+ * `assert_perror` is a GNU-compliant slibc extension.
  * 
- * `assert_perror` is a GNU extension.
+ * @param  errnum:int  The error code, describing the error that occurred.
  */
 # ifdef assert_perror
 #  undef assert_perror
