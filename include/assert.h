@@ -15,8 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _ASSERT_H
-#define _ASSERT_H
 #include <slibc/version.h>
 #include <slibc/features.h>
 
@@ -46,16 +44,6 @@
 #endif
 
 
-/**
- * A compile-time error should occur if the expression
- * evaluates to zero.
- * 
- * @param  expression:scalar    The expression to evaluate.
- * @param  message:const char*  The message to print on error.
- */
-#define static_assert _Static_assert
-
-
 #if defined(__SLIBC_SOURCE) || defined(__GNU_SOURCE)
 /**
  * Unless `NDEBUG` is defined, print an error message
@@ -76,6 +64,21 @@
 # endif
 #endif
 
+
+
+#ifndef _ASSERT_H
+#define _ASSERT_H
+
+
+
+/**
+ * A compile-time error should occur if the expression
+ * evaluates to zero.
+ * 
+ * @param  expression:scalar    The expression to evaluate.
+ * @param  message:const char*  The message to print on error.
+ */
+#define static_assert _Static_assert
 
 
 /**
