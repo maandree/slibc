@@ -71,6 +71,7 @@
 
 
 
+#if defined(__C11__)
 /**
  * A compile-time error should occur if the expression
  * evaluates to zero.
@@ -78,7 +79,8 @@
  * @param  expression:scalar    The expression to evaluate.
  * @param  message:const char*  The message to print on error.
  */
-#define static_assert _Static_assert
+# define static_assert _Static_assert
+#endif
 
 
 /**
