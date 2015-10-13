@@ -164,7 +164,7 @@ are reserved for @file{<signal.h>}.
 
 @item
 @hfindex sys/stat.h
-Names that begin with @code{S_} or @code{st_}
+Names that begin with @code{st_} or @code{S_}
 are reserved for @file{<sys/stat.h>}.
 
 @item
