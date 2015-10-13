@@ -106,7 +106,7 @@ void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
 
 
 /**
- * Counts the number of times `error` ( verror`) and
+ * Counts the number of times `error` (`verror`) and
  * `error_at_line` (`verror_at_line`) has returned.
  * This variable is global and shared by all threads.
  * 
