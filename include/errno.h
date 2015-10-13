@@ -49,7 +49,7 @@ volatile int* __errno(void) /* TODO not implemented */
  * of `argv[0]` from the `main` function (where `argv`
  * is the second parameter). If `argc` is zero, this
  * variable will have the value `NULL`. This is not
- * necessarily a proper comman name. For example,
+ * necessarily a proper command name. For example,
  * login shells are usually prefixes with a dash,
  * for example "-bash", despite that there is no such
  * command. Often, but not always, this will not contain
