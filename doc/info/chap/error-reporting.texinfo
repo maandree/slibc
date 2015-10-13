@@ -313,7 +313,9 @@ the part after the last slash.
 
 If @code{program_invocation_name} is edited,
 @code{program_invocation_short_name} may be
-modified too.
+modified too. However, if @code{error_print_progname}
+from @file{<error.h>} is not @code{NULL},
+it will be used to pritn the process name.
 
 @item void warn(const char* format, ...)
 @fnindex warn
@@ -326,6 +328,12 @@ to @code{printf} except it prints the message
 to stderr, and a description of the error
 specified by the current value on @code{errno}
 is also printed.
+
+It is specified that the last component of
+the process name shall be printed, however,
+the @command{slibc}'s implementation will
+print the full process name, or more precisely,
+it prints @code{program_invocation_name}.
 
 @item void vwarn(const char* format, va_list args)
 @fnindex vwarn
@@ -397,5 +405,122 @@ the header file @file{<err.h>}. It is identical
 to @code{errx} except it uses @code{va_list}
 instead of being a variadic function.
 
+@item void error(int status, int errnum, const char* format, ...)
+@fnindex error
+@hfindex error.h
+This function is a GNU-extension (@code{_GNU_SOURCE})
+that is made available by including the header
+file @file{<error.h>}.
+
+This function flushes stdout and prints an
+error message to stderr. The message begins
+with the process name (more precisely:
+@code{program_invocation_name}), a colon,
+and a blank space. The message, continues with
+a desciption of the @code{errno}-value pass
+via the argument @code{errnum}. However, if
+@code{errnum} is @code{0}, the string described
+by @code{format} and the following arguments
+are printed --- using @code{fprintf} --- instead
+of the description of @code{errnum}.
+
+Unless @code{status} is @code{0}, the process
+will exit with the exit value @code{status & 255}.
+
+@item void verror(int status, int errnum, const char* format, va_list args)
+@fnindex verror
+@hfindex error.h
+This function is made available, if both
+@code{_GNU_SOURCE} and @code{_SLIBC_SOURCE} are
+defined, by including the header file
+@file{<error.h>}. It is identical to
+@code{error} except it uses @code{va_list}
+instead of being a variadic function.
+
+@item void error_at_line(int status, int errnum, const char* filename, unsigned int linenum, const char* format, ...)
+@fnindex error_at_line
+@hfindex error.h
+This function is a GNU-extension (@code{_GNU_SOURCE})
+that is made available by including the header
+file @file{<error.h>}. It is a variant of @code{error}.
+It will also print the filename and the line where
+there error occured.
+
+A way to use this function is to utilise the
+C preprocessor.
+@example
+#include <error.h>
+#include <errno.h>
+#define if(...)  if (error_line = __LINE__, __VA_ARGS__)
+
+int main(void)
+@{
+  int error_line;
+
+  if (something_that_may_fail())
+    goto fail;
+
+  return 0;
+ fail:
+  error_at_line(1, errno, __FILE__, error_line, NULL);
+@}
+@end example
+
+@item void verror_at_line(int status, int errnum, const char* filename, unsigned int linenum, const char* format, va_list args)
+@fnindex verror_at_line
+@hfindex error.h
+This function is made available, if both
+@code{_GNU_SOURCE} and @code{_SLIBC_SOURCE} are
+defined, by including the header file
+@file{<error.h>}. It is identical to
+@code{error_at_line} except it uses @code{va_list}
+instead of being a variadic function.
+
+@item volatile unsigned int error_message_count
+@lvindex error_message_count
+@hfindex error.h
+This variable is a GNU-extension (@code{_GNU_SOURCE})
+that is made available by including the header
+file @file{<error.h>}. Counts the number of times
+@code{error} (or @code{verror}) and @code{error_at_line}
+(@code{verror_at_line}) has returned. This variable
+is global and shared by all threads.
+
+@item volatile int error_one_per_line
+@lvindex error_message_count
+@hfindex error.h
+This variable is a GNU-extension (@code{_GNU_SOURCE})
+that is made available by including the header
+file @file{<error.h>}.
+
+If set to non-zero (the default), @code{error_at_line}
+and @code{verror_at_line} restrict themself to only
+print an error the first time it appears. This is
+determined by the uniqueness of the combination of
+the values on @code{filename} and @code{linenum}.
+However it will forget the line the next time the
+function is called from a different line. This
+variable is global and shared by all threads. As a
+@code{slibc} modification, @code{errnum} is also
+remembered, meaning if the error code is different
+(zero is considered an error code), the error is
+printed even if it occurred on the same line as the
+last time.
+
+@item void (*volatile error_print_progname)(void)
+@lvindex error_message_count
+@hfindex error.h
+This variable is a GNU-extension (@code{_GNU_SOURCE})
+that is made available by including the header
+file @file{<error.h>}.
+
+If not @code{NULL}, this function is used instead
+of flushing stdout and printing the process name to
+stderr, by @code{error} (@code{verror}) and
+@code{verror_at_line} (@code{verror_at_line}). This
+variable is global and shared by all threads.
 @end table
+
+In @code{slibc}, functions defined in @file{<err.h>}
+use functions defined in @file{<error.h>}.
 
