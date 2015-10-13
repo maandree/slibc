@@ -38,9 +38,12 @@
  */
 #ifdef NDEBUG
 # define assert(expression)   ((void)0)
-#else
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 # define assert(expression)  \
   ((void)((expression) ? 0 : (__assert_fail(#expression, 0, __FILE__, __LINE__, __func__), 0)))
+#else
+# define assert(expression)  \
+  ((void)((expression) ? 0 : (__assert_fail(#expression, 0, __FILE__, __LINE__, NULL), 0)))
 #endif
 
 
@@ -58,9 +61,12 @@
 # endif
 # ifdef NDEBUG
 #  define assert_perror(errnum)  ((void)0)
-# else
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #  define assert_perror(errnum)  \
   ((void)((errnum == 0) ? 0 : (__assert_fail(NULL, errnum, __FILE__, __LINE__, __func__), 0)))
+# else
+#  define assert_perror(errnum)  \
+  ((void)((errnum == 0) ? 0 : (__assert_fail(NULL, errnum, __FILE__, __LINE__, NULL), 0)))
 # endif
 #endif
 
@@ -86,11 +92,12 @@
 /**
  * The function that is called if an assertion fails.
  * 
- * @param  expression  The expression that failed, `NULL` if `assert_perror` failed
- * @param  errnum      The code of the fatal error, 0 if `assert` failed
- * @param  file        The filename of the source cose whence the assertion was made
- * @param  line        The line in the source code whence the assertion was made
- * @param  func        The function in the source code whence the assertion was made
+ * @param  expression  The expression that failed, `NULL` if `assert_perror` failed.
+ * @param  errnum      The code of the fatal error, 0 if `assert` failed.
+ * @param  file        The filename of the source cose whence the assertion was made.
+ * @param  line        The line in the source code whence the assertion was made.
+ * @param  func        The function in the source code whence the assertion was made,
+ *                     `NULL` if unknown (C99 is required.)
  */
 __noreturn void __assert_fail(const char*, int, const char*, int, const char*)
   __GCC_ONLY(__attribute__((nonnull(3, 5))));
