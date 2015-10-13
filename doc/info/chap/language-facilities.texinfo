@@ -318,5 +318,5 @@ supported variadic functions without fixed
 arguments.
 
 @command{slibc} does not implement the
-non-stanard macro @code{va_count}.
+non-standard macro @code{va_count}.
 
