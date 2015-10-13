@@ -135,7 +135,7 @@ void* sbrk(ptrdiff_t) /* TODO implement sbrk */
 
 
 /* TODO implement exit-functions */
-void _exit(int) __noreturn;
+__noreturn void _exit(int);
 
 
 /* TODO implement I/O */

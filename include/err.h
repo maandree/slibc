@@ -87,8 +87,8 @@ void vwarnx(const char*, va_list);
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
-void err(int, const char*, ...)
-  __GCC_ONLY(__attribute__((format(printf, 2, 3)))) __noreturn;
+__noreturn void err(int, const char*, ...)
+  __GCC_ONLY(__attribute__((format(printf, 2, 3))));
 
 /**
  * Print an error message to stderr, followed by a
@@ -100,7 +100,7 @@ void err(int, const char*, ...)
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
-void verr(int, const char*, va_list) __noreturn;
+__noreturn void verr(int, const char*, va_list);
 
 /**
  * Print an error message to stderr, but do not print a
@@ -112,8 +112,8 @@ void verr(int, const char*, va_list) __noreturn;
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
-void errx(int, const char*, ...)
-  __noreturn __GCC_ONLY(__attribute__((format(printf, 2, 3))));
+__noreturn void errx(int, const char*, ...)
+  __GCC_ONLY(__attribute__((format(printf, 2, 3))));
 
 /**
  * Print an error message to stderr, but do not print a
@@ -125,7 +125,7 @@ void errx(int, const char*, ...)
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
-void verrx(int, const char*, va_list) __noreturn;
+__noreturn void verrx(int, const char*, va_list);
 
 
 
