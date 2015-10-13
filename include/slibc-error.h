@@ -22,9 +22,6 @@
 #ifndef __PORTABLE
 
 
-#define __NEED_va_list
-#include <bits/types.h>
-
 #include <errno.h>
 
 
@@ -225,7 +222,7 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((const))); /* TODO not im
  * @param  ...           Formatting-arguments for `format`.
  */
 void slibc_perror(const char*, const char*, int, const char*, int*, const char*, const char*, ...)
-  __GCC_ONLY(__attribute__((nonnull(2, 4), format(printf, 7, 8))));
+  __GCC_ONLY(__attribute__((nonnull(2, 4), format(slibc_printf, 7, 8))));
 
 
 
