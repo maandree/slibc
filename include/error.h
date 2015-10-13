@@ -19,7 +19,6 @@
 #define _ERROR_H
 #include <slibc/version.h>
 #include <slibc/features.h>
-#ifndef __PORTABLE
 
 #ifndef _SLIBC_SUPPRESS_WARNINGS
 # warning "Please consider not using <error.h>."
@@ -31,6 +30,7 @@
 
 
 
+#if defined(__GNU_SOURCE)
 /**
  * Print an error message with a detailed description, and optionally exit.
  * 
@@ -60,9 +60,9 @@ void error(int, int, const char*, ...)
  * @param  format  Formatting-string for a detailed description of what happend.
  * @param  args    Formatting-arguments for `format`.
  */
-#if defined(__SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)
 void verror(int, int, const char*, va_list);
-#endif
+# endif
 
 
 /**
@@ -100,9 +100,9 @@ void error_at_line(int, int, const char*, unsigned int, const char*, ...)
  * @param  format    Formatting-string for a detailed description of what happend.
  * @param  args      Formatting-arguments for `format`.
  */
-#if defined(__SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)
 void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
-#endif
+# endif
 
 
 /**
@@ -142,9 +142,9 @@ extern volatile int error_one_per_line;
  * This is a GNU extension.
  */
 extern void (*volatile error_print_progname)(void);
-
-
-
 #endif
+
+
+
 #endif
 
