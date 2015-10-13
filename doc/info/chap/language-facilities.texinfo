@@ -7,6 +7,7 @@
 * Alternative tokens::                        Alternative spellings of common operators.
 * Booleans::                                  Proper booleans in the C programming language.
 * Non-returning functions::                   Specifying that functions never return.
+* Variable alignment::                        Aligment of variables and data types.
 @end menu
 
 
@@ -159,4 +160,32 @@ this compiler feature. Because of this,
 by @code{slibc}. If you want to use both, GCC
 supports @code{__attribute__((__noreturn__))} as
 a synonym for @code{__attribute__((noreturn))}.
+
+
+
+@node Variable alignment
+@section Variable alignment
+
+@hfindex stdalign.h
+@cpindex Variable alignment
+@cpindex Alignment, variables
+@cpindex @code{alignas}
+@fnindex @code{alignof}
+@cpindex @code{_Alignas}
+@fnindex @code{_Alignof}
+The @sc{ISO}@tie{}C11 added a variable qualifier
+and a function used to specify the aligned of
+variable, and retrieve the alignment of a type,
+respectively, These are called @code{_Alignas}
+and @code{_Alignof}, by including the header file
+@file{<stdalign.h>}, the macros @code{alignas}
+and @code{alignof}, that alias this keywords, are
+defined.
+
+Declaring a variable with the qualifier
+@code{alignas(TYPE)} specifies that the variable
+should have the alignment of the type @code{TYPE}.
+
+The function call @code{alignof(TYPE)}, returns
+the alignment of the type @code{TYPE}.
 
