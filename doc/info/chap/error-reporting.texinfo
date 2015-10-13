@@ -315,5 +315,87 @@ If @code{program_invocation_name} is edited,
 @code{program_invocation_short_name} may be
 modified too.
 
+@item void warn(const char* format, ...)
+@fnindex warn
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is similar
+to @code{printf} except it prints the message
+to stderr, and a description of the error
+specified by the current value on @code{errno}
+is also printed.
+
+@item void vwarn(const char* format, va_list args)
+@fnindex vwarn
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{warn} except it uses @code{va_list}
+instead of being a variadic function.
+
+@item void warnx(const char* format, ...)
+@fnindex warnx
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{warn} except it does not print a
+description of the value of @code{errno}.
+
+@item void vwarnx(const char* format, va_list args)
+@fnindex vwarnx
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{warnx} except it uses @code{va_list}
+instead of being a variadic function.
+
+@item noreturn void err(int status, const char* format, ...)
+@fnindex err
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{warn} except will return with the
+exit value @code{status & 255}.
+
+@item noreturn void verr(int status, const char* format, va_list args)
+@fnindex verr
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{err} except it uses @code{va_list}
+instead of being a variadic function.
+
+@item noreturn void errx(int status, const char* format, ...)
+@fnindex errx
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{err} except it does not print a
+description of the value of @code{errno}.
+
+@item noreturn void verrx(int status, const char* format, va_list args)
+@fnindex verrx
+@hfindex err.h
+This function is a non-standard @sc{BSD}
+extension, and requires that @code{_BSD_SOURCE}
+is defined. It is made available by including
+the header file @file{<err.h>}. It is identical
+to @code{errx} except it uses @code{va_list}
+instead of being a variadic function.
+
 @end table
 
