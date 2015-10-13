@@ -8,6 +8,7 @@
 * Booleans::                                  Proper booleans in the C programming language.
 * Non-returning functions::                   Specifying that functions never return.
 * Variable alignment::                        Aligment of variables and data types.
+* Member offsets::                            Getting the offset of members of a structure.
 @end menu
 
 
@@ -188,4 +189,40 @@ should have the alignment of the type @code{TYPE}.
 
 The function call @code{alignof(TYPE)}, returns
 the alignment of the type @code{TYPE}.
+
+
+
+@node Member offsets
+@section Member offsets
+
+@hfindex stddef.h
+@cpindex Member offsets
+@cpindex Structure member offsets
+@cpindex Offsets of structure member
+@fnindex @code{offsetof}
+@sc{ANSI}@tie{}C defines the macro @code{offsetof}
+to be declared by the header file @file{<stddef.h>}.
+It returns the offset, in bytes, of a direct or
+indirect member in a @code{struct} or @code{union}.
+The call @code{offsetof(type, member)} returns the
+offset of the member @code{member} in the type
+@code{type}.
+
+As en example, consider the structure
+@example
+struct example
+@{
+  char offset_is_0[16];
+  char offset_is_16[16];
+@}
+@end example
+@code{offsetof(struct example, offset_is_0)}
+evaluates to 0 because it is at the top of the
+structure. @code{offsetof(struct example, offset_is_16)}
+evaluates to 16 because the member above it in the
+structure has offset 0 and size 16. 0 + 16 = 16.
+
+@code{offsetof} does not support bit field-@code{struct}:s.
+@code{offsetof} is also known to be problematic in C++,
+because C++ supports redefining operators.
 
