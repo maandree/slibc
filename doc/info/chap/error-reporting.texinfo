@@ -16,6 +16,8 @@ described in this chapter.
 
 @menu
 * Error checking::                            Checking whether an exception condition occurred.
+* Error codes::                               Values for @code{errno}.
+* Error messages::                            Reporting errors to the user.
 @end menu
 
 
@@ -48,6 +50,259 @@ declared as @code{int errno}, or @code{volatile int errno}.
 But the value is thread-local, and is thus more
 like @code{_Thread_local volatile int errno}. Because
 of this, the @code{errno} is defined as a macro that
-calls a function. Otherwise, it would not be implementable
-without @sc{ISO}@tie{}C11.
+calls a function. Otherwise, it would not be
+implementable without @sc{ISO}@tie{}C11.
+
+The value of @code{errno} is describes the error,
+if and only if the function returned a value indicating
+an error. Some, function can return the sentinel
+value both on success and error. Therefore, the value
+@code{0} on @code{errno} means that the function
+returned after successful completion rather than on
+failure. Exceptional conditions are describe by
+non-zero values listed in @ref{Error codes}.
+
+The state of @code{errno} is undefined unless otherwise
+specified after a succesful completion of a function call.
+This means that you, generally, cannot check whether an
+error has occurred by checking the value of @code{errno}
+rather than the return value.
+
+
+
+@node Error codes
+@section Error codes
+
+TODO: The list of error codes have not be added to slibc yet.
+
+
+
+@node Error messages
+@section Error messages
+
+@cpindex Error messages
+@cpindex Printing errors
+@cpindex Errors, printing
+The C standard library provides a several mechanisms
+for reporting errors to the user, spread out over
+a few header files.
+
+@table @code
+@item void perror(const char* prefix)
+@fnindex perror
+@hfindex stdio.h
+The @sc{POSIX}.1-2001 standard
+(@code{_POSIX_C_SOURCE >= 200112L}), the
+@sc{ISO}@tie{}C89 standard, and 4.3 @sc{BSD}
+(@code{_BSD_SOURCE}) added this function
+to the header file @file{<stdio.h>}.
+
+This function prints an error message
+for the current value on @code{errno},
+to stderr. If @code{prefix} is neither
+@code{NULL} or an empty string, @code{prefix}
+followed by a colon and a blank space,
+is prepended to the ouput. The function
+will also (always) add a line feed to
+the end of the message.
+
+This function does not detect or report
+errors. Thus, you should not use this
+function if you want to be able to tell
+whether the messages was actually printed.
+Of course, if it was not, your only option
+is to print it to another file descriptor
+which you normally do not want to do.
+
+This function is subject to race condition
+over @code{stderr}.
+
+Because successful function calls may change
+the value on @code{errno}, its value must
+be saved if there are function calls between
+the failure and the call to @code{perror}.
+
+TODO: Not implemented.
+
+@item char* strerror(int errnum)
+@fnindex strerror
+@hfindex string.h
+The @sc{POSIX}.1-2001 standard
+(@code{_POSIX_C_SOURCE >= 200112L}) and
+@sc{ISO}@tie{}C89 standard, defines this
+function in the header file @file{<string.h>}.
+
+@vrindex LC_MESSAGES
+This function returns a description of
+the error code whose number is @code{errnum}.
+Description may or may not (it is in @command{slibc})
+be localised using the @env{LC_MESSAGES} part of
+the current locale.
+
+The returned value must not be modified the
+the program, by it may be modified by subsequent
+calls to @code{strerror}-functions. If the error
+code is not recognised some implementations
+will return @code{NULL}, other implementations,
+such as @command{slibc}'s, will return a message
+that states to number of the error code.
+
+According to @sc{POSIX}, @code{errno} must not
+be modified if the call is successful. It may
+however set @code{errno} on failure. However,
+the @command{slibc} implementation cannot fail.
+
+@command{slibc}'s implementation of this function
+is threadsafe, this is however not true for
+all implementions.
+
+@item int strerror_r(int errnum, char* buffer, size_t size)
+@fnindex strerror_r
+@hfindex string.h
+The @sc{POSIX}.1-2001 standard added this function
+to the header file @file{<string.h>}. It is a
+reenterant variant fo @code{strerror}. Instead of
+returning the error message, it saves it to
+@code{buffer}. The allocation size of @code{buffer}
+is pass to the function via the argument @code{size}.
+If it is too small, @code{ERANGE} is returned.
+
+The function returns a positive value, that is
+appropriate for @code{errno}, on error, rather than
+setting the value of @code{errno}. Upon successful
+completion, @code{0} is returned.
+
+This function is not available if @code{_PORTABLE_SOURCE}
+or @code{_LIBRARY_HEADER} is defined, because it is
+conflicting with the @sc{GNU}-version. Without knowning
+which version that is used, it is impossible to
+check for errors.
+
+This function is also non-portable even if the
+@sc{GNU}-version is not used, that is, if
+@code{_GNU_SOURCE} is not defined and
+@code{(_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)}.
+Old versions of @sc{GNU} C Library, returned @code{-1}
+on failure and set @code{errno}, instead of returned
+a value for @code{errno}.
+
+Whilst @code{strerror_r} is not portable, the most
+portable use of @code{strerror_r} is
+@example
+int r;
+r = strerror_r(errnum, buffer, size);
+if (r > 0 ? (errno = r) : r)
+  goto fail;
+@end example
+
+Note that, unlike @code{strerror}, there is no
+restriction against @code{strerror_r} to set
+@code{errno} on success.
+
+@item char* strerror_r(int errnum, char* buffer, size_t size)
+@fnindex strerror_r
+@hfindex string.h
+This is a @sc{GNU} extension, defined in the header file
+@file{<string.h>} and is available, instead of the
+@sc{XSI}-compliant version, if @code{_GNU_SOURCE} is
+defined or if
+@code{(_POSIX_C_SOURCE < 200112L) && (_XOPEN_SOURCE < 600)}.
+It is identical to the @sc{XSI}-compliant version,
+except, rather than returning an error code, it
+will set @code{errno} and return @code{NULL} on
+failure. On successful completion, @code{buffer}
+is returned.
+
+This function is not available if @code{_PORTABLE_SOURCE}
+or @code{_LIBRARY_HEADER} is defined, because it is
+conflicting with the @sc{XSI}-compliant version. Without
+knowning which version that is used, it is impossible
+to check for errors.
+
+@item char* strerror_l(int errnum, locale_t locale)
+@fnindex strerror_l
+@hfindex string.h
+The @sc{POSIX}.1-2008 standard
+(@code{_POSIX_C_SOURCE >= 200809L}),
+defines this function in the header file
+@file{<string.h>}. It is identical to
+@code{strerror_l} with two exceptions:
+it is thread save, and it uses a specified
+locale.
+
+@lvindex LC_GLOBAL_LOCALE
+The behaviour of this function is undefined
+if @code{locale} is @code{LC_GLOBAL_LOCALE}.
+
+@item const char* const sys_errlist[]
+This variable is defined in the header files
+@file{<errno.h>} (derived from @sc{BSD}
+@code{libc}) and @file{<stdio.h>} (derived
+from @sc{GNU} @code{libc}) if @code{_BSD_SOURCE}
+is defined.
+
+This is a list, index by error codes, of
+error messages.
+
+This list is deprecated, and all error codes
+may not have been added in all @code{libc}
+implementations.
+
+TODO: Not implemented.
+
+@item int sys_nerr
+This variable is defined in the header files
+@file{<errno.h>} (derived from @sc{BSD}
+@code{libc}) and @file{<stdio.h>} (derived
+from @sc{GNU} @code{libc}) if @code{_BSD_SOURCE}
+is defined.
+
+This is the number of error codes that are
+defined, including @code{0} (successful completion.)
+That is, the value of the error code with
+highest value, plus 1.
+
+TODO: Not implemented.
+
+@item char* program_invocation_name
+@lvindex program_invocation_name
+@hfindex errno.h
+@cpindex Process name
+This variable is defined in the header file
+@file{<errno.h>}, if @code{_GNU_SOURCE} or
+@code{_SLIBC_SOURCE} is defined.
+
+This is the name that was used to invoke the
+program running in the current process. This
+is the value @code{argv[0]} from the @code{main}
+function (where @code{argv} is the second parameter.)
+If @code{argc} (the first parameter) is zero, this
+variable will have the value @code{NULL}. This is
+not necessarily a proper command name. For example,
+login shells are usually prefixes with a dash,
+for example @code{-bash}, despite that there is
+no such command. Often, but not always, this will
+not contain directory.
+
+It is recommended for portable programs
+to saved the value of @code{argv[0]} from
+@code{main} to a global variable (often
+named @code{argv0}) instead of using this
+variable.
+
+@item char* program_invocation_short_name
+@lvindex program_invocation_short_name
+@hfindex errno.h
+@cpindex Process name
+This variable is defined in the header file
+@file{<errno.h>}, if @code{_GNU_SOURCE} is
+defined. It is similar to @code{program_invocation_name},
+but it only contains the basename, that is,
+the part after the last slash.
+
+If @code{program_invocation_name} is edited,
+@code{program_invocation_short_name} may be
+modified too.
+
+@end table
 

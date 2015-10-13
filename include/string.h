@@ -41,6 +41,7 @@
 
 
 
+#if defined(__C89__) || (_POSIX_C_SOURCE >= 200112L)
 /**
  * Return a textual representation of an error code.
  * This error code must from `errno`.
@@ -61,7 +62,9 @@
  */
 char* strerror(int)
   __GCC_ONLY(__attribute__((returns_nonnull, warn_unused_result)));
+#endif
 
+#if _POSIX_C_SOURCE >= 200809L
 /**
  * Return a textual representation of an error code.
  * This error code must from `errno`.
@@ -80,6 +83,7 @@ char* strerror(int)
  */
 char* strerror_l(int, locale_t)
   __GCC_ONLY(__attribute__((warn_unused_result))); /* TODO attributes */
+#endif
 
 
 #if !defined(__PORTABLE)
