@@ -122,7 +122,7 @@ extern volatile unsigned int error_message_count;
  * of the values on `filename` and `linenum`. However
  * it will forget the line the next time the function
  * is called from a different line. This variable is
- * global and shared by all threads. Has a slibc
+ * global and shared by all threads. As a slibc
  * modification, `errnum` is also remembered, meaning
  * if the error code is different (zero is considered
  * an error code), the error is printed even if it
