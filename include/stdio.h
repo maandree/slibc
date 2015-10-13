@@ -28,7 +28,7 @@
 #define __NEED_ssize_t
 #define __NEED_wchar_t
 #define __NEED_va_list
-#if __STDC_VERSION__ >= 201112L
+#if defined(__C11__)
 # define __NEED_max_align_t
 #endif
 #define FILE void /* TODO temporary */

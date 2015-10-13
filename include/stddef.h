@@ -79,7 +79,7 @@
 #define __NEED_ptrdiff_t
 #define __NEED_wchar_t
 #define __NEED_size_t
-#if __STDC_VERSION__ >= 201112L
+#if defined(__C11__)
 # define __NEED_max_align_t
 #endif
 
