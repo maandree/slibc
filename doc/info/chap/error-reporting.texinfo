@@ -408,7 +408,7 @@ instead of being a variadic function.
 @item void error(int status, int errnum, const char* format, ...)
 @fnindex error
 @hfindex error.h
-This function is a GNU-extension (@code{_GNU_SOURCE})
+This function is a @sc{GNU}-extension (@code{_GNU_SOURCE})
 that is made available by including the header
 file @file{<error.h>}.
 
@@ -440,7 +440,7 @@ instead of being a variadic function.
 @item void error_at_line(int status, int errnum, const char* filename, unsigned int linenum, const char* format, ...)
 @fnindex error_at_line
 @hfindex error.h
-This function is a GNU-extension (@code{_GNU_SOURCE})
+This function is a @sc{GNU}-extension (@code{_GNU_SOURCE})
 that is made available by including the header
 file @file{<error.h>}. It is a variant of @code{error}.
 It will also print the filename and the line where
@@ -479,7 +479,7 @@ instead of being a variadic function.
 @item volatile unsigned int error_message_count
 @lvindex error_message_count
 @hfindex error.h
-This variable is a GNU-extension (@code{_GNU_SOURCE})
+This variable is a @sc{GNU}-extension (@code{_GNU_SOURCE})
 that is made available by including the header
 file @file{<error.h>}. Counts the number of times
 @code{error} (or @code{verror}) and @code{error_at_line}
@@ -489,7 +489,7 @@ is global and shared by all threads.
 @item volatile int error_one_per_line
 @lvindex error_message_count
 @hfindex error.h
-This variable is a GNU-extension (@code{_GNU_SOURCE})
+This variable is a @sc{GNU}-extension (@code{_GNU_SOURCE})
 that is made available by including the header
 file @file{<error.h>}.
 
@@ -510,7 +510,7 @@ last time.
 @item void (*volatile error_print_progname)(void)
 @lvindex error_message_count
 @hfindex error.h
-This variable is a GNU-extension (@code{_GNU_SOURCE})
+This variable is a @sc{GNU}-extension (@code{_GNU_SOURCE})
 that is made available by including the header
 file @file{<error.h>}.
 
