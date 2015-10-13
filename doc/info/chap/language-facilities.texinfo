@@ -9,6 +9,7 @@
 * Non-returning functions::                   Specifying that functions never return.
 * Variable alignment::                        Aligment of variables and data types.
 * Member offsets::                            Getting the offset of members of a structure.
+* Variadic functions::                        Support for variadic functions.
 @end menu
 
 
@@ -134,7 +135,7 @@ least, the right to undefined them may be removed.
 @tpindex noreturn
 @tpindex _Noreturn
 A few, such as @code{exit}, functions never return,
-and cannot fail. The @sc{ISO}@tie{}C11 added a
+and cannot fail. The @sc{ISO}@tie{}C11 standard added a
 function qualifier that lets you specify that a
 functon never returns, that is, the process exits
 or changes process image before returning. Note
@@ -174,9 +175,9 @@ a synonym for @code{__attribute__((noreturn))}.
 @fnindex @code{alignof}
 @cpindex @code{_Alignas}
 @fnindex @code{_Alignof}
-The @sc{ISO}@tie{}C11 added a variable qualifier
-and a function used to specify the aligned of
-variable, and retrieve the alignment of a type,
+The @sc{ISO}@tie{}C11 standard added a variable
+qualifier and a function used to specify the aligned
+of variable, and retrieve the alignment of a type,
 respectively, These are called @code{_Alignas}
 and @code{_Alignof}, by including the header file
 @file{<stdalign.h>}, the macros @code{alignas}
@@ -225,4 +226,97 @@ structure has offset 0 and size 16. 0 + 16 = 16.
 @code{offsetof} does not support bit field-@code{struct}:s.
 @code{offsetof} is also known to be problematic in C++,
 because C++ supports redefining operators.
+
+
+
+@node Variadic functions
+@section Variadic functions
+
+@hfindex stdarg.h
+@cpindex Variadic functions
+@cpindex Functions, variadic
+@cpindex Arguments, variadic
+The @sc{ISO}@tie{}C89 standard added variadic
+arguments for non-tradition function declarations.
+The header file @file{<stdarg.h>} defines a
+data type and the three macro functions.
+
+@tpindex va_list
+@fnindex va_start
+@fnindex va_end
+@fnindex va_arg
+@table @code
+@item va_list
+Data type that is used to traverse the non-fixed
+arguments in a variadic function.
+
+@item void va_start(va_list @i{list}, @i{last})
+Initialises a @code{va_list}, specified by the
+first argument. The second argument must be the
+last fixed argument.
+
+@item void va_end(va_list @i{list})
+Deallocates resources that was allocated by
+@code{va_start}. The specified list, must not
+be used after calling this macro.
+
+@item @i{type} va_arg(va_list @i{list}, @i{type})
+Returns the next argument, the specified type
+must have the same width the argument hade in
+the call of the function. Note however, types
+narrower than @code{int} are casted to @code{int}.
+Therefore, if you call a function with @code{char}
+or @code{short int} (or variant thereof), the
+corresponding call to @code{va_arg} shall
+specify @code{int} or a variant thereof (with
+the same width as @code{int}.)
+@end table
+
+@fnindex va_copy
+The @sc{ISO}@tie{}C99 standard added the
+macro @code{va_copy}. This macro copies a
+@code{va_list}.
+
+@example
+#inclue <stdarg.h>
+void fun(int arg, ...)
+@{
+  va_list original;
+  va_list duplicate;
+
+  va_start(original, arg);
+  va_copy(duplicate, original);
+  /* Use 'duplicate'... */
+  va_end(duplicate);
+  /* Use 'original'... */
+  va_end(original);
+@}
+@end example
+
+Some systems define @code{va_start} and @code{va_end}
+with a @code{@{} in @code{va_start} and a @code{@}}
+in @code{va_end}. Therefore, they are declared this
+way in @command{slibc} if @code{_PORTABLE_SOURCE}
+or @code{_LIBRARY_HEADER} is defined.
+
+@cpindex @code{...}
+@code{...} is a syntactical language facility that
+is built into the language. Therefore, @file{<stdarg.h>}
+is not required when declaring variadic functions.
+@file{<stdarg.h>} is only required when implemention
+variadic functions.
+
+@hfindex varargs.h
+@command{slibc} does not implement the legacy
+header file @file{<varargs.h>}, that is an
+incompatible alternative to @file{<stdarg.h>}.
+@file{<varargs.h>} only supports traditional
+function declarations, wheres @file{<stdarg.h>}
+only supports modern function declarations.
+In contrast to @file{<stdarg.h>}, @file{<varargs.h>}
+supported variadic functions without fixed
+arguments.
+
+@command{slibc} does not implement the
+non-stanard macro @code{va_count}.
 
