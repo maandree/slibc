@@ -71,6 +71,8 @@
  */
 #define offsetof(type, member)  \
   ((size_t)((char*)&(((type*)NULL)->member) - (char*)NULL))
+/* TODO The behaviour of this is undefined, and a builtin function
+ * shall be used when available. That would also improve diagnostics. */
 
 
 
