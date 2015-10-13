@@ -208,7 +208,7 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((const))); /* TODO not im
  * Print a description of an error, and where the error occurred.
  * This function is capable of printed the full call-stack.
  * 
- * It is not recommended to used this function direction.
+ * It is not recommended to used this function directly.
  * Use the macros in <slibc-error.h> instead.
  * 
  * This is a slibc extension.
