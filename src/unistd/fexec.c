@@ -58,6 +58,7 @@ static void vexec(int fd, va_list argv, int fetch_envp)
   for (i = 0; i < n; i++)
     argv_[i] = va_arg(argv, char*);
   
+  va_end(args);
   fexecve(fd, argv_, envp);
 }
 
