@@ -27,7 +27,7 @@
 #include <bits/types.h>
 
 
-/* alloca is machine- _and_  compiler-dependent, it is not
+/* alloca is machine- _and_ compiler-dependent, it is not
  * implemented in slibc, but in the compiler. */
 
 
