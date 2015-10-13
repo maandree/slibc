@@ -13,7 +13,7 @@ library. A C environment with a C standard
 library is called a hosted environment; one
 without it is called an unhosted environment.
 Almost all software written in C are written
-in hosted C. There are practically only two
+in hosted C@. There are practically only two
 types of software not written in an unhosted
 environment, the C standard library (commonly
 called @command{libc}) implementations
@@ -218,7 +218,7 @@ does not been to be compiled with the same @code{libc}.
 It is important to use this instead of
 @code{_PORTABLE_SOURCE} in library header files,
 otherwise the user of the library cannot fully utilise
-@code{_PORTABLE_SOURCE}.
+@code{_PORTABLE_SOURCE}@.
 
 @item _ALL_SOURCE
 @lvindex _ALL_SOURCE
@@ -287,7 +287,7 @@ with C11.
 @lvindex _POSIX_SOURCE
 Enables functionality from the @sc{POSIX}.1
 standard (@sc{IEEE} Standard 1003.1) as well
-as @sc{ISO}@tie{}C. @code{_POSIX_SOURCE} is
+as @sc{ISO}@tie{}C@. @code{_POSIX_SOURCE} is
 automatically enabled if @code{_POSIX_C_SOURCE}
 is defined and has a positive value.
 
@@ -331,7 +331,7 @@ Note that some @sc{BSD} function conflicts with
 @lvindex _POSIX_COMPATIBLE_SOURCE
 To enable the @sc{BSD} functionality that conflicts
 with @sc{POSIX}.1 functionality, also define
-@code{_BSD_COMPATIBLE_SOURCE}. If you however
+@code{_BSD_COMPATIBLE_SOURCE}@. If you however
 prefer to use the @sc{POSIX}.1 functionality, define
 @code{_POSIX_COMPATIBLE_SOURCE} to suppress warnings
 about conflicts. These two feature-test macros are
@@ -379,16 +379,16 @@ Enables all functionality from @sc{ISO}@tie{}C89,
 @sc{BSD}, @sc{SVID}, X/Open, @sc{SUS}, the
 Large File Support extension, and extensions
 derived from the @sc{GNU} C Libraries. It also
-defines @code{_ATFILE_SOURCE}.
+defines @code{_ATFILE_SOURCE}@.
 
 @lvindex _BSD_SOURCE
 @sc{POSIX}.1 takes precedence when there are
 conflicts between @sc{POSIX}.1 and @sc{BSD}
-or @sc{SVID}. To override this, define
-@code{_BSD_SOURCE}.
+or @sc{SVID}@. To override this, define
+@code{_BSD_SOURCE}@.
 
 @code{_GNU_SOURCE} does not automatically
-define @code{_BSD_SOURCE} or @code{_SVID_SOURCE}.
+define @code{_BSD_SOURCE} or @code{_SVID_SOURCE}@.
 
 @end table
 @c TODO: _LARGEFILE_SUPPORT

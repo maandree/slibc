@@ -31,7 +31,7 @@ described in this chapter.
 Most functions return a sentinel value when an
 exceptional condition occurs, typically a negative
 value (actually @code{-1}), a constant such as
-@code{EOF}, or @code{NULL}. This return value only
+@code{EOF}, or @code{NULL}@. This return value only
 tells you that an exeception condition has occurred.
 
 @hfindex errno.h
@@ -243,7 +243,7 @@ locale.
 
 @lvindex LC_GLOBAL_LOCALE
 The behaviour of this function is undefined
-if @code{locale} is @code{LC_GLOBAL_LOCALE}.
+if @code{locale} is @code{LC_GLOBAL_LOCALE}@.
 
 @item const char* const sys_errlist[]
 This variable is defined in the header files
@@ -288,7 +288,7 @@ program running in the current process. This
 is the value @code{argv[0]} from the @code{main}
 function (where @code{argv} is the second parameter.)
 If @code{argc} (the first parameter) is zero, this
-variable will have the value @code{NULL}. This is
+variable will have the value @code{NULL}@. This is
 not necessarily a proper command name. For example,
 login shells are usually prefixes with a dash,
 for example @code{-bash}, despite that there is

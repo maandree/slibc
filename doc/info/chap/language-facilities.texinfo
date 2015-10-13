@@ -15,7 +15,7 @@ documented in this chapter.
 * Member offsets::                            Getting the offset of members of a structure.
 * Variadic functions::                        Support for variadic functions.
 * Assertions::                                Checking for impossible errors.
-* NULL::                                      The constant @code{NULL}.
+* NULL::                                      The constant @code{NULL}@.
 @end menu
 
 
@@ -192,10 +192,10 @@ defined.
 
 Declaring a variable with the qualifier
 @code{alignas(TYPE)} specifies that the variable
-should have the alignment of the type @code{TYPE}.
+should have the alignment of the type @code{TYPE}@.
 
 The function call @code{alignof(TYPE)}, returns
-the alignment of the type @code{TYPE}.
+the alignment of the type @code{TYPE}@.
 
 
 
@@ -424,7 +424,7 @@ Note on considerations of @code{NULL} being harmful:
 It is important to remember than @code{sizeof(NULL)}
 does not equal @code{sizeof(int)} on all machines.
 Therefore, in variadic arguments, it is important
-not to substitute @code{x} for @code{x != NULL}. This
+not to substitute @code{x} for @code{x != NULL}@. This
 would cause horrible bugs. If you insist on not
 using @code{NULL}, correct substitutions would be
 @code{!!x} or @code{x != 0}.
