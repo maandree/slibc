@@ -122,6 +122,17 @@ the value on @code{errno}, its value must
 be saved if there are function calls between
 the failure and the call to @code{perror}.
 
+@lvindex program_invocation_name
+@lvindex program_invocation_short_name
+It is customary to set @code{prefix} to
+a value equivalent to @code{program_invocation_name},
+or alternatively @code{program_invocation_short_name}.
+Sometiems, the name of the called function is
+used, this is to simplify debugging. But the
+standard is that programs shall print there
+them when reporting an error so that the user
+knows that program failed.
+
 TODO: Not implemented.
 
 @item char* strerror(int errnum)
