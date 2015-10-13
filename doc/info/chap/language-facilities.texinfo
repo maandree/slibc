@@ -165,7 +165,7 @@ attribute @code{noreturn}. Note that including the
 @file{<stdnoreturn.h>} header file conflicts with
 this compiler feature. Because of this,
 @file{<stdnoreturn.h>} is considered non-portable
-by @code{slibc}. If you want to use both, GCC
+by @code{slibc}. If you want to use both, @sc{GCC}
 supports @code{__attribute__((__noreturn__))} as
 a synonym for @code{__attribute__((noreturn))}.
 
