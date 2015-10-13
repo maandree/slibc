@@ -1,6 +1,10 @@
 @node Language facilities
 @chapter Language facilities
 
+Some of the facilities implemented in the C standard
+library should be thought of as parts of the C
+programming language itself. These facilities are
+documented in this chapter.
 
 
 @menu
@@ -339,13 +343,13 @@ considered a C language facility.
 
 @table @code
 @item void assert(bool expression)
-If and only if the expression evaluates to a zero
-value, the program prints what failed --- the
-expression, the filename, the line in the source
-code, and if C99 is used, the function where the
-assertion took place --- and aborts the process.
-If the expression evaluates non-zero value,
-nothing happens.
+If and only if the expression evaluates to a
+zero value, the program prints, to stderr, what
+failed --- the expression, the filename, the
+line in the source code, and if C99 is used, the
+function where the assertion took place --- and
+aborts the process. If the expression evaluates
+non-zero value, nothing happens.
 
 The expression must not have said effects.
 @sc{POSIX} specifies that the expression
