@@ -10,6 +10,8 @@
 * Variable alignment::                        Aligment of variables and data types.
 * Member offsets::                            Getting the offset of members of a structure.
 * Variadic functions::                        Support for variadic functions.
+* Assertions::                                Checking for impossible errors.
+* NULL::                                      The constant @code{NULL}.
 @end menu
 
 
@@ -319,4 +321,111 @@ arguments.
 
 @command{slibc} does not implement the
 non-standard macro @code{va_count}.
+
+
+
+@node Assertions
+@section Assertions
+
+@hfindex assert.h
+@cpindex Assertion
+@fnindex assert
+@lvindex NDEBUG
+The @sc{ANSI}@tie{}C standard defines the header
+file @file{<assert.h>} which defines the function
+macro @code{assert} that is used to verify in
+runtime that a condition is true. This is often
+considered a C language facility.
+
+@table @code
+@item void assert(bool expression)
+If and only if the expression evaluates to a zero
+value, the program prints what failed --- the
+expression, the filename, the line in the source
+code, and if C99 is used, the function where the
+assertion took place --- and aborts the process.
+If the expression evaluates non-zero value,
+nothing happens.
+
+The expression must not have said effects.
+@sc{POSIX} specifies that the expression
+must not be evaluated if @code{NDEBUG} is
+defined. If @code{NDEBUG} is defined,
+@code{assert} has no effect, but is defined.
+@end table
+
+If @command{slibc} extensions or GNU extensions
+are enabled, the function macro @code{assert_perror}
+is defined.
+
+@table @code
+@item void assert_perror(int errnum)
+@fnindex assert_perror
+This macro is identical to @code{assert}, except
+the argument should be an error code, and a
+description of it is printed before the process
+exits. (Nothing happens if @code{errnum} is zero.)
+@end table
+
+@fnindex static_assert
+@cpindex Static assertion
+@fnindex _Static_assert
+The @sc{ISO}@tie{}C11 standard adds the keyword
+@code{_Static_assert}, and the macro @code{static_assert}
+that expands to said keyword if @file{<assert.h>}
+is included. @code{static_assert} is similar to
+@code{assert}, however it has a second parameter:
+the message to print if the assertion failed,
+and the assertion is evaluated at compile-time.
+
+Assertions should only be used to make sure that
+impossible conditions are not reached.
+
+
+
+@node NULL
+@section @code{NULL}
+
+@lvindex NULL
+@code{NULL} is an implementation-defined
+lvalue macro that is a sentinel value of a
+non-existing pointer. In @sc{ISO}@tie{}C99
+it was declared that it should have a zero-value.
+This enabled implicit @code{NULL}-checking.
+@sc{POSIX} however declares further that it
+shall have the type @code{void*}. @code{NULL}
+is hence declared as @code{((void*)0)}.
+
+@sc{POSIX}'s requirement on @code{NULL} is
+important for variadic functions. Because it
+ensures that it it has the same width as
+any pointer type, @code{NULL} does not need
+to be casted when used in variadic functions.
+
+@hfindex stddef.h
+@code{NULL} is defined by many header files,
+however its canonical location is @file{<stddef.h>}.
+
+Deferring @code{NULL} causes undefined behaviour.
+The usual behaviour (implemented in the operating
+system kernel) is to abort the process because of
+a segmentation fault or access violation. However,
+programs that do not run under an operating system
+kernel will access the memory address 0 (assuming
+@code{NULL} is zero) which is a valid address.
+
+@cpindex @code{NULL} considerationed harmful
+@cpindex @code{NULL} considerationed harmful considerationed harmful
+Note on considerations of @code{NULL} being harmful:
+It is important to remember than @code{sizeof(NULL)}
+does not equal @code{sizeof(int)} on all machines.
+Therefore, in variadic arguments, it is important
+not to substitute @code{x} for @code{x != NULL}. This
+would cause horrible bugs. If you insist on not
+using @code{NULL}, correct substitutions would be
+@code{!!x} or @code{x != 0}.
+
+Note that @code{NULL} is genuinely harmful in C++,
+but excessive use of C++, and especially it
+features, is harmful too.
 
