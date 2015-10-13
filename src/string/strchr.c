@@ -151,6 +151,6 @@ char* strrchr(const char* string, int c)
     if (*string == c)
       r = string;
     else if (!*string++)
-      return r;
+      return c ? r : (string - 1);
 }
 

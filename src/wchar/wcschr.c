@@ -151,6 +151,6 @@ wchar_t* wcsrchr(const wchar_t* string, wchar_t c)
     if (*string == c)
       r = string;
     else if (!*string++)
-      return r;
+      return c ? r : (string - 1);
 }
 
