@@ -524,3 +524,249 @@ variable is global and shared by all threads.
 In @code{slibc}, functions defined in @file{<err.h>}
 use functions defined in @file{<error.h>}.
 
+@hfindex slib-error.h
+@code{slibc} adds the header file @file{<slib-error.h>}.
+It includes @file{<errno.h>}. It does not require
+the @code{_SLIBC_SOURCE} is defined, but it does
+require that neither @code{_PORTABLE_SOURCE} nor
+@code{_LIBRARY_HEADER}@. @file{<slib-error.h>} also
+uses C preprocessors directives added by the
+@sc{ISO}@tie{}C99 standard. Additionally, the
+C language extensions @code{(@{ @})} and @code{typeof}.
+These extensions are available in @sc{GCC}@.
+
+@table @code
+@item FAILABLE_CALL(expression)
+@fnindex FAILABLE_CALL
+Store the current line, so we know which line
+failed, when @code{PRINT_CUSTOM_FAILURE},
+@code{PRINT_FAILURE} or @code{slibc_perror} is
+called. @code{expression} will be evaluated
+exaclty once, and is returned without casting.
+
+Currently, the expression is not stored. However,
+if it is found in the future that it is preferable
+to have the expression printed on failure, this may
+change in the future. Therefore, it is advisable
+to only include the function call (and perhaps a
+variable assigment) in @code{expression}, and not
+the failure check.
+
+Example usage:
+@example
+int my_function(void)
+@{
+  size_t n;
+  void* array;
+  /* ... */
+  if (FAILABLE_CALL(array = malloc(n)) == NULL)
+    goto fail;
+  /* ... */
+  return 0;
+
+ fail:
+  PRINT_FAILURE(NULL);
+  /* ... */
+  return errno = 0, -1;
+@}
+@end example
+
+A more scalable example:
+@example
+#define fail_if (call_and_check)  \
+  do @{ \
+    if (FAILABLE_CALL(call_and_check)) \
+      goto fail; \
+  @} while (0)
+/* @w{@xtext{`@xcode{try}` or simply `@xcode{t}` may be even better.}} */
+
+#define fail_unless (call_and_check)  \
+  fail_if(!(call_and_check))
+/* @w{@xtext{`@xcode{f}` may be even better.}} */
+
+int my_function(void)
+@{
+  size_t n;
+  void* array;
+  /* ... */
+  fail_if (!(array = malloc(n)));
+  /* @w{@xtext{or perhaps, @xcode{fail_unless (array = malloc(n));}}} */
+  /* ... */
+  return 0;
+
+ fail:
+  PRINT_FAILURE(NULL);
+  /* ... */
+  return errno = 0, -1;
+@}
+@end example
+
+@item FAILURE_CHECK(condition, offset)
+@fnindex FAILURE_CHECK
+Check whether an error occurred. If an
+error occurred, stored the line, for
+@code{PRINT_CUSTOM_FAILURE} or
+@code{PRINT_FAILURE}, where the error occurred.
+
+@code{condition} should evaluate to non-zero
+on and only on error. @code{offset} is the
+number of lines above the current line
+that was the line that failed, if @code{condition}
+evaluates to non-zero. @code{!!condition} is returned.
+
+Example usage:
+@example
+int my_function(void)
+@{
+  char* buf;
+  size_t bufsize;
+  ssize_t r;
+  int fd;
+  /* ... */
+  for (;;)
+    @{
+      r = read(fd, buf, bufsize);
+      if (FAILURE_CHECK(r < 0, 1))
+        @{
+          if (errno != EINTR)
+            /* @w{@xtext{Or @xcode{FAILURE_CHECK(errno != EINTR, 3)}.}} */
+            goto fail;
+          continue;
+        @}
+      /* ... */
+    @}
+  /* ... */
+  return 0;
+
+ fail:
+  PRINT_FAILURE(NULL);
+  /* ... */
+  return errno = 0, -1;
+@}
+@end example
+
+@item PRINT_FAILURE(...)
+@fnindex PRINT_FAILURE
+This macro print an error message describing the
+error, and where the error happened. Optionally
+with detailed description of the action that failed.
+
+This function must be called in the same file and
+function as the the expansion of @code{FAILABLE_CALL},
+@code{FAILURE_CHECK}, or @code{slibc_perror}. It is
+recommended that this is done all the way down the
+call-stack to @code{main}. This is however problematic
+(although it is possible) if you do not want the
+process to exit.
+
+Example of recursion:
+@example
+static int b(void)
+@{
+  if (FAILABLE_CALL(some_function()) < 0)
+    goto fail;
+  return 0;
+ fail:
+  return PRINT_FAILURE(NULL), -1;
+@}
+static int a(void)
+@{
+  if (FAILABLE_CALL(b()) < 0)
+    goto fail;
+  return 0;
+ fail:
+  return PRINT_FAILURE(NULL), -1;
+@}
+int main(void)
+@{
+  if (FAILABLE_CALL(a()) < 0)
+    goto fail;
+  return 0;
+ fail:
+  return PRINT_FAILURE(NULL), 1;
+@}
+@end example
+
+This macro will set @code{errno} to zero. If you
+have statements after the call to this function that
+may modify @code{errno}, be sure to set @code{errno}
+to zero before returning. A good way to do this is
+to have the return statement look like
+@code{return errno = 0, -1}.
+
+The arguments for this macro should be a
+@code{printf}-formatting-string followed by
+formatting-arguments used to describe what action
+failed. If the first argument is @code{NULL}, this
+is not printed and only the location of the error
+and @code{errno} is used to describe the error.
+
+@item PRINT_CUSTOM_FAILURE(error_code, error_string, ...)
+@fnindex PRINT_CUSTOM_FAILURE
+This macro is is a generalisation of
+@code{PRINT_FAILURE}@. It is useful if the error
+is not described with @code{errno} and @code{strerror}.
+It adds two parameters at the beginning:
+
+@table @code
+@item error_code
+The error code. This must be a modifiable lvalue,
+as it will be modified to zero to indicate that the
+error string has already been printed. Thus, on the
+original error location this value must not be zero.
+
+@item error_string
+Textual representation of the error. If @code{errno}
+indicates the error, this should usually be
+@code{strerror(errno)}.
+@end table
+
+Usage example:
+@example
+PRINT_CUSTOM_FAILURE(r, gai_strerror(r), 
+  _("fail to connect to server: %s"), host)
+@end example
+
+@item void slibc_perror(const char* progname, const char* filename, int linenum, const char* function, int* error_code, const char* error_string, const char* format, ...)
+@fnindex slibc_perror
+This function print a description of an error, and
+where the error occurred. This function is capable
+of printed the full call-stack.
+
+It is not recommended to used this function directly.
+Use the macros in @file{<slibc-error.h>} instead.
+
+This function has a number of argument:
+@table @code
+@item progname
+The name of the program. @code{`NULL} or an empty
+string to use @code{program_invocation_name}.
+
+@item filename
+The source code file where the error occurred.
+
+@item linenum
+The line in the source code where the error occurred.
+
+@item function
+The function in the source code where the
+error occurred.
+
+@item error_code
+Pointer the variable that stores the error
+code, will zeroed.
+
+@item error_string
+Textual description of the error code. @code{NULL}
+if @code{strerror} should be used. This parameter
+is unused if @code{error_code} is zero.
+
+@item format
+Formatting-string for a description of the action
+that failed. @code{NULL} if no description other
+than the location and @code{error_string} should
+be printed. It is followed by the formatting-arguments.
+@end table
+
+@end table
+

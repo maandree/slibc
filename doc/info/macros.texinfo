@@ -8,3 +8,26 @@
 @email{\a\}
 @end macro
 @end ifnottex
+
+@iftex
+@macro xcode{a}
+@code{\a\}
+@end macro
+@end iftex
+@ifnottex
+@macro xcode{a}
+\a\
+@end macro
+@end ifnottex
+
+@iftex
+@macro xtext{a}
+@rm{}\a\@tt{}
+@end macro
+@end iftex
+@ifnottex
+@macro xtext{a}
+\a\
+@end macro
+@end ifnottex
+
