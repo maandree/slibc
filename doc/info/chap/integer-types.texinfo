@@ -279,6 +279,8 @@ The exact ranges of these types are
 [0, @code{UINT_LEAST@i{N}_MAX}].
 
 @item int_fast@i{N}_t
+@cpindex Fast integers
+@cpindex Integers, fast
 @tpindex int_fast@i{N}_t
 @lvindex INT_FAST@i{N}_MIN
 @lvindex INT_FAST@i{N}_MAX
@@ -306,6 +308,8 @@ The exact ranges of these types are
 [@code{INT_FAST@i{N}_MIN}, @code{INT_FAST@i{N}_MAX}].
 
 @item uint_fast@i{N}_t
+@cpindex Fast integers
+@cpindex Integers, fast
 @tpindex uint_fast@i{N}_t
 @lvindex UINT_FAST@i{N}_MAX
 Signed integer types with ranges of at least
@@ -365,6 +369,7 @@ compiler-independent, but machine-dependent.
 The range if this type is [0, @code{UINTMAX_MAX}].
 
 @item intptr_t
+@cpindex Pointers
 @tpindex intptr_t
 @lvindex INTPTR_MIN
 @lvindex INTPTR_MAX
@@ -379,6 +384,7 @@ The range if this type is [@code{INTPTR_MIN},
 @code{INTMAX_MAX}].
 
 @item uintptr_t
+@cpindex Pointers
 @tpindex uintptr_t
 @lvindex UINTPTR_MAX
 Unsigned integer type cast to or from
