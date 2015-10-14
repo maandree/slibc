@@ -4,6 +4,7 @@
 
 @menu
 * Builtin integer types::                     Integer types provided by the compiler.
+* Portable integer types::                    Integer types provided by the standard library.
 @end menu
 
 
@@ -25,6 +26,9 @@ made available by including the header file
 @table @code
 @item char
 @tpindex char
+@lvindex CHAR_BIT
+@lvindex CHAR_MIN
+@lvindex CHAR_MAX
 The smallest addressable unit of the machine
 that can contain a basic character set.
 It is either signed or unsigned, depending
@@ -36,6 +40,8 @@ is [@code{CHAR_MIN}, @code{CHAR_MAX}].
 
 @item signed char
 @tpindex signed char
+@lvindex SCHAR_MIN
+@lvindex SCHAR_MAX
 @iftex
 Signed version of @code{char}. It is guaranteed
 to have a range of either
@@ -56,6 +62,8 @@ The exact range is [@code{SCHAR_MIN}, @code{SCHAR_MAX}].
 
 @item unsigned char
 @tpindex unsigned char
+@lvindex UCHAR_MIN
+@lvindex UCHAR_MAX
 @iftex
 Unsigned version of @code{char}. It is guaranteed
 to have a range of exactly
@@ -75,13 +83,16 @@ or equivalently [0, @code{UCHAR_MAX}].
 @itemx signed short
 @tpindex short int
 @tpindex signed short int
+@lvindex SHORT_MIN
+@lvindex SHORT_MAX
 Signed integer type of at least 16 bits. Its range is
 guaranteed contain at least [@math{-32767}, @math{32767}].
 The exact range [@code{SHORT_MIN}, @code{SHORT_MAX}].
 
-@itemx unsigned short int
+@item unsigned short int
 @itemx unsigned short
 @tpindex unsigned short int
+@lvindex USHORT_MAX
 Unsigned integer type of at least 16 bits. Its range is
 guaranteed contain at least [0, @math{65535}].
 The exact range [0, @code{USHORT_MAX}].
@@ -90,12 +101,15 @@ The exact range [0, @code{USHORT_MAX}].
 @itemx int
 @tpindex int
 @tpindex signed int
+@lvindex INT_MIN
+@lvindex INT_MAX
 Signed integer type of at least 16 bits. Its range is
 guaranteed contain at least [@math{-32767}, @math{32767}].
 The exact range [@code{INT_MIN}, @code{INT_MAX}].
 
 @item unsigned int
 @tpindex unsigned int
+@lvindex UINT_MAX
 Unsigned integer type of at least 16 bits. Its range is
 guaranteed contain at least [0, @math{65535}].
 The exact range [0, @code{UINT_MAX}].
@@ -121,6 +135,8 @@ outside that range [[0, @math{65535}]] should not be used.
 @itemx signed long
 @tpindex signed long int
 @tpindex long int
+@lvindex LONG_MIN
+@lvindex LONG_MAX
 Signed integer type of at least 32 bits. Its range is
 guaranteed contain at least [@math{-2147483647},
 @math{2147483647}]. The exact range [@code{LONG_MIN},
@@ -129,6 +145,7 @@ guaranteed contain at least [@math{-2147483647},
 @item unsigned long int
 @itemx unsigned long
 @tpindex unsigned long int
+@lvindex ULONG_MAX
 Unsigned integer type of at least 32 bits. Its range is
 guaranteed contain at least [0, @math{4294967295}].
 The exact range [0, @code{ULONG_MAX}].
@@ -139,6 +156,8 @@ The exact range [0, @code{ULONG_MAX}].
 @itemx signed long long
 @tpindex long long int
 @tpindex signed long long int
+@lvindex LLONG_MIN
+@lvindex LLONG_MAX
 Signed integer type of at least 64 bits. Its range is
 guaranteed contain at least [@math{-9223372036854775807},
 @math{9223372036854775807}]. This type was added in C99.
@@ -147,9 +166,236 @@ The exact range [@code{LLONG_MIN}, @code{LLONG_MAX}].
 @item unsigned long long int
 @itemx unsigned long long
 @tpindex unsigned long long int
+@lvindex ULLONG_MAX
 Unsigned integer type of at least 64 bits. Its range is
 guaranteed contain at least [0, @math{18446744073709551615}].
 This type was added in C99. The exact range [0,
 @code{ULLONG_MAX}].
 @end table
+
+
+
+@node Portable integer types
+@section Portable integer types
+
+@cpindex Integer types
+@cpindex Types, integer
+@hfindex stdint.h
+@hfindex inttypes.h
+@sc{ISO}@tie{}C99 added integers types of increased
+portability. These, and constants describing their
+properties, are made available by including either
+of the header files @file{<stdint.h>} or
+@file{<inttypes.h>}. @file{<inttypes.h>} includes
+@file{<stdint.h>}. All integer types have limited
+portability, but they --- with exceptions ---
+are available even if @code{_PORTABLE_SOURCE} or
+@code{_LIBRARY_HEADER} is defined.
+
+@table @code
+@item int@i{N}_t
+@tpindex int@i{N}_t
+@lvindex INT@i{N}_MIN
+@lvindex INT@i{N}_MAX
+Signed integer types of exaclty @i{N} bits.
+They have do not have any padding bits, and
+use two's complement. They are only defined
+if there are matching integer types. Thus,
+if the compile do not use two's complement,
+none will defined.
+
+Their range are [@code{INT@i{N}_MIN},
+@code{INT@i{N}_MAX}], where
+@code{INT@i{N}_MIN == -@code{INT@i{N}_MAX} - 1},
+and @code{INT@i{N}_MAX == (1 << (@i{N} - 1)) - 1}.
+Numerical literals, without type suffixes, can
+be @sc{CPP}-safely casted to their type with
+the macros @code{INT@i{N}_C(value)}.
+
+@code{int@i{N}_t}, where @i{N} is 8, 16, 32,
+or 64, must be defined if possible.
+
+These types are standard library-independent,
+but compiler-dependent and machine-dependent.
+
+@item uint@i{N}_t
+@tpindex uint@i{N}_t
+@lvindex UINT@i{N}_MAX
+Unsigned integer types of exaclty @i{N} bits.
+They have do not have any padding bits. They
+are only defined if there are matching integer
+types.
+
+Their range are [0, @code{UINT@i{N}_MAX}], where
+@code{UINT@i{N}_MAX == (1 << @i{N}) - 1}.
+Numerical literals, without type suffixes, can
+be @sc{CPP}-safely casted to their type with
+the macros @code{UINT@i{N}_C(value)}.
+
+@code{int@i{N}_t}, where @i{N} is 8, 16, 32,
+or 64, must be defined if possible.
+
+These types are standard library-independent
+and compiler-independent, but machine-dependent.
+
+@item int_least@i{N}_t
+@tpindex int_least@i{N}_t
+@lvindex INT_LEAST@i{N}_MIN
+@lvindex INT_LEAST@i{N}_MAX
+Signed integer types with ranges of at least
+[@code{INT@i{N}_MIN}, @code{INT@i{N}_MAX}].
+The types are as narrow as possible, they
+do not however need to use two's complement.
+Numerical literals, without type suffixes, can
+be @sc{CPP}-safely casted to their type with
+the macros @code{INT_LEAST@i{N}_C(value)}.
+
+Types where @i{N} is 8, 16, 32, or 64 are
+guaranteed to be defined.
+
+These types are standard library-independent,
+but compiler-dependent and machine-dependent.
+
+The exact ranges of these types are
+[@code{INT_LEAST@i{N}_MIN}, @code{INT_LEAST@i{N}_MAX}].
+
+@item uint_least@i{N}_t
+@tpindex uint_least@i{N}_t
+@lvindex UINT_LEAST@i{N}_MAX
+Unsigned integer types with ranges of at least
+[0, @code{UINT@i{N}_MAX}]. The types are
+as narrow as possible. Numerical literals,
+without type suffixes, can be @sc{CPP}-safely
+casted to their type with the macros
+@code{UINT_LEAST@i{N}_C(value)}.
+
+Types where @i{N} is 8, 16, 32, or 64 are
+guaranteed to be defined.
+
+These types are standard library-independent
+and compiler-independent, but machine-dependent.
+
+The exact ranges of these types are
+[0, @code{UINT_LEAST@i{N}_MAX}].
+
+@item int_fast@i{N}_t
+@tpindex int_fast@i{N}_t
+@lvindex INT_FAST@i{N}_MIN
+@lvindex INT_FAST@i{N}_MAX
+Signed integer types with ranges of at least
+[@code{INT@i{N}_MIN}, @code{INT@i{N}_MAX}].
+They do not need to use two's complement.
+Numerical literals, without type suffixes, can
+be @sc{CPP}-safely casted to their type with
+the macros @code{INT_FAST@i{N}_C(value)}.
+
+Types where @i{N} is 8, 16, 32, or 64 are
+guaranteed to be defined.
+
+The underlaying types of these types are selected,
+by the C standard library, to the types that
+are thought to be the fastest type to operate
+over in most use-cases.
+For example, @code{int_fast16_t} can actually
+be a @code{int64_t} (@code{long long int}).
+
+These types are standard library-dependent,
+compiler-dependent and machine-dependent.
+
+The exact ranges of these types are
+[@code{INT_FAST@i{N}_MIN}, @code{INT_FAST@i{N}_MAX}].
+
+@item uint_fast@i{N}_t
+@tpindex uint_fast@i{N}_t
+@lvindex UINT_FAST@i{N}_MAX
+Signed integer types with ranges of at least
+[0, @code{UINT@i{N}_MAX}]. Numerical literals,
+without type suffixes, can be @sc{CPP}-safely
+casted to their type with the macros
+@code{UINT_FAST@i{N}_C(value)}.
+
+Types where @i{N} is 8, 16, 32, or 64 are
+guaranteed to be defined.
+
+The underlaying types of these types are selected,
+by the C standard library, to the types that
+are thought to be the fastest type to operate
+over in most use-cases.
+For example, @code{uint_fast16_t} can actually
+be a @code{uint64_t} (@code{unsigned long long int}).
+
+These types are standard library-dependent and
+machine-dependent, but compiler-independent.
+
+The exact ranges of these types are
+[0, @code{UINT_FAST@i{N}_MAX}].
+
+@item intmax_t
+@tpindex intmax_t
+@lvindex INTMAX_MIN
+@lvindex INTMAX_MAX
+Widest natively available signed integer type.
+If the compiler provides wider integers than the
+machine, the widest integer provided by the machine
+(not the compiler) is used.
+
+Because @code{long long int} has at least 64 bits,
+this type has at least 64 bits too.
+
+This type is standard library-independent and
+compiler-independent, but machine-dependent.
+
+The range if this type is [@code{INTMAX_MIN},
+@code{INTMAX_MAX}].
+
+@item uintmax_t
+@tpindex uintmax_t
+@lvindex UINTMAX_MAX
+Widest natively available unsigned integer type.
+If the compiler provides wider integers than the
+machine, the widest integer provided by the machine
+(not the compiler) is used.
+
+Because @code{long long int} has at least 64 bits,
+this type has at least 64 bits too.
+
+This type is standard library-independent and
+compiler-independent, but machine-dependent.
+
+The range if this type is [0, @code{UINTMAX_MAX}].
+
+@item intptr_t
+@tpindex intptr_t
+@lvindex INTPTR_MIN
+@lvindex INTPTR_MAX
+Signed integer type cast to or from
+@code{void*} without loss of precision. It can
+point to any address.
+
+This type is standard library-independent and
+compiler-independent, but machine-dependent.
+
+The range if this type is [@code{INTPTR_MIN},
+@code{INTMAX_MAX}].
+
+@item uintptr_t
+@tpindex uintptr_t
+@lvindex UINTPTR_MAX
+Unsigned integer type cast to or from
+@code{void*} without loss of precision. It can
+point to any address.
+
+This type is standard library-independent and
+compiler-independent, but machine-dependent.
+
+The range if this type is [0, @code{UINTPTR_MAX}].
+
+@end table
+
+Types where @i{N} is neither 8, 16, 32, nor 64,
+are not available if @code{_PORTABLE_SOURCE} or
+@code{_LIBRARY_HEADER} is defined. @command{slibc},
+currently, does not define any integer types where
+@i{N} is neither 8, 16, 32, nor 64.
+
 
