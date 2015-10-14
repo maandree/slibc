@@ -1,0 +1,121 @@
+@node Integer types
+@chapter Integer types
+
+@cpindex Integer types
+@cpindex Types, integer
+The C programming languages, provides several
+integer types. All of these have limited
+portability, and are intrinsic (they are
+provided by the compiler, not the standard library.)
+
+@table @code
+@item char
+@tpindex char
+The smallest addressable unit of the machine
+that can contain a basic character set.
+It is either signed or unsigned, depending
+on the implementation. It contains @code{CHAR_BIT}
+bits. @sc{POSIX} requires that @code{CHAR_BIT == 8},
+however the C standard only specifies that
+@code{CHAR_BIT >= 8}.
+
+@item signed char
+@tpindex signed char
+@iftex
+Signed version of @code{char}. It is guaranteed
+to have a range of either
+[@math{-2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~+~1},
+@math{2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~-~1}]
+or
+[@math{-2}@sup{@code{CHAR_BIT}@math{~-~1}},
+@math{2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~-~1}].
+@end iftex
+@ifnottex
+Signed version of @code{char}. It is
+guaranteed to have a range of at least either
+[-2^(@code{CHAR_BIT} - 1) + 1, 2^(@code{CHAR_BIT} - 1) - 1] or
+[-2^(@code{CHAR_BIT} - 1), 2^(@code{CHAR_BIT} - 1) - 1].
+@end ifnottex
+
+@item unsigned char
+@tpindex unsigned char
+Unsigned version of @code{char}. It is guaranteed
+to have a range of exactly
+[0, @math{2}@sup{@code{CHAR_BIT}}@math{~-~1}].
+
+@item short int
+@itemx short
+@itemx signed short int
+@itemx signed short
+@tpindex short int
+@tpindex signed short int
+Signed integer type of at least 16 bits. Its range is
+guaranteed contain at least [@math{-32767}, @math{32767}].
+
+@itemx unsigned short int
+@itemx unsigned short
+@tpindex unsigned short int
+Unsigned integer type of at least 16 bits. Its range is
+guaranteed contain at least [0, @math{65535}].
+
+@item signed int
+@itemx int
+@tpindex int
+@tpindex signed int
+Signed integer type of at least 16 bits. Its range is
+guaranteed contain at least [@math{-32767}, @math{32767}].
+
+@item unsigned int
+@tpindex unsigned int
+Unsigned integer type of at least 16 bits. Its range is
+guaranteed contain at least [0, @math{65535}].
+
+@item signed
+@tpindex signed
+Alias for @code{signed int} which is used when the
+valid value range is the least guaranteed range. Thus
+The range may exceed [@math{-32767}, @math{32767}],
+but values outside that range [[@math{-32767},
+@math{32767}]] should not be used.
+
+@item unsigned
+@tpindex unsigned
+Alias for @code{unsigned int} which is used when the
+valid value range is the least guaranteed range. Thus
+The range may exceed [0, @math{65535}], but values
+outside that range [[0, @math{65535}]] should not be used.
+
+@item long int
+@itemx long
+@itemx signed long int
+@itemx signed long
+@tpindex signed long int
+@tpindex long int
+Signed integer type of at least 32 bits. Its range is
+guaranteed contain at least [@math{-2147483647},
+@math{2147483647}].
+
+@item unsigned long int
+@itemx unsigned long
+@tpindex unsigned long int
+Unsigned integer type of at least 32 bits. Its range is
+guaranteed contain at least [0, @math{4294967295}].
+
+@item long long int
+@itemx long long
+@itemx signed long long int
+@itemx signed long long
+@tpindex long long int
+@tpindex signed long long int
+Signed integer type of at least 64 bits. Its range is
+guaranteed contain at least [@math{-9223372036854775807},
+@math{9223372036854775807}]. This type was added in C99.
+
+@item unsigned long long int
+@itemx unsigned long long
+@tpindex unsigned long long int
+Unsigned integer type of at least 64 bits. Its range is
+guaranteed contain at least [0, @math{18446744073709551615}].
+This type was added in C99.
+@end table
+
