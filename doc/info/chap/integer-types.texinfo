@@ -1,12 +1,26 @@
 @node Integer types
 @chapter Integer types
 
+
+@menu
+* Builtin integer types::                     Integer types provided by the compiler.
+@end menu
+
+
+
+@node Builtin integer types
+@section Builtin integer types
+
 @cpindex Integer types
 @cpindex Types, integer
+@hfindex limits.h
 The C programming languages, provides several
 integer types. All of these have limited
 portability, and are intrinsic (they are
 provided by the compiler, not the standard library.)
+All constants named in this section of are
+made available by including the header file
+@file{<limits.h>}.
 
 @table @code
 @item char
@@ -17,7 +31,8 @@ It is either signed or unsigned, depending
 on the implementation. It contains @code{CHAR_BIT}
 bits. @sc{POSIX} requires that @code{CHAR_BIT == 8},
 however the C standard only specifies that
-@code{CHAR_BIT >= 8}.
+@code{CHAR_BIT >= 8}. The range of this type
+is [@code{CHAR_MIN}, @code{CHAR_MAX}].
 
 @item signed char
 @tpindex signed char
@@ -29,19 +44,30 @@ to have a range of either
 or
 [@math{-2}@sup{@code{CHAR_BIT}@math{~-~1}},
 @math{2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~-~1}].
+The exact range is [@code{SCHAR_MIN}, @code{SCHAR_MAX}].
 @end iftex
 @ifnottex
 Signed version of @code{char}. It is
 guaranteed to have a range of at least either
 [-2^(@code{CHAR_BIT} - 1) + 1, 2^(@code{CHAR_BIT} - 1) - 1] or
 [-2^(@code{CHAR_BIT} - 1), 2^(@code{CHAR_BIT} - 1) - 1].
+The exact range is [@code{SCHAR_MIN}, @code{SCHAR_MAX}].
 @end ifnottex
 
 @item unsigned char
 @tpindex unsigned char
+@iftex
 Unsigned version of @code{char}. It is guaranteed
 to have a range of exactly
-[0, @math{2}@sup{@code{CHAR_BIT}}@math{~-~1}].
+[0, @math{2}@sup{@code{CHAR_BIT}}@math{~-~1}],
+or equivalently [0, @code{UCHAR_MAX}].
+@end iftex
+@ifnottex
+Unsigned version of @code{char}. It is guaranteed
+to have a range of exactly
+[0, 2^@code{CHAR_BIT} -1],
+or equivalently [0, @code{UCHAR_MAX}].
+@end ifnottex
 
 @item short int
 @itemx short
@@ -51,12 +77,14 @@ to have a range of exactly
 @tpindex signed short int
 Signed integer type of at least 16 bits. Its range is
 guaranteed contain at least [@math{-32767}, @math{32767}].
+The exact range [@code{SHORT_MIN}, @code{SHORT_MAX}].
 
 @itemx unsigned short int
 @itemx unsigned short
 @tpindex unsigned short int
 Unsigned integer type of at least 16 bits. Its range is
 guaranteed contain at least [0, @math{65535}].
+The exact range [0, @code{USHORT_MAX}].
 
 @item signed int
 @itemx int
@@ -64,11 +92,13 @@ guaranteed contain at least [0, @math{65535}].
 @tpindex signed int
 Signed integer type of at least 16 bits. Its range is
 guaranteed contain at least [@math{-32767}, @math{32767}].
+The exact range [@code{INT_MIN}, @code{INT_MAX}].
 
 @item unsigned int
 @tpindex unsigned int
 Unsigned integer type of at least 16 bits. Its range is
 guaranteed contain at least [0, @math{65535}].
+The exact range [0, @code{UINT_MAX}].
 
 @item signed
 @tpindex signed
@@ -93,13 +123,15 @@ outside that range [[0, @math{65535}]] should not be used.
 @tpindex long int
 Signed integer type of at least 32 bits. Its range is
 guaranteed contain at least [@math{-2147483647},
-@math{2147483647}].
+@math{2147483647}]. The exact range [@code{LONG_MIN},
+@code{LONG_MAX}].
 
 @item unsigned long int
 @itemx unsigned long
 @tpindex unsigned long int
 Unsigned integer type of at least 32 bits. Its range is
 guaranteed contain at least [0, @math{4294967295}].
+The exact range [0, @code{ULONG_MAX}].
 
 @item long long int
 @itemx long long
@@ -110,12 +142,14 @@ guaranteed contain at least [0, @math{4294967295}].
 Signed integer type of at least 64 bits. Its range is
 guaranteed contain at least [@math{-9223372036854775807},
 @math{9223372036854775807}]. This type was added in C99.
+The exact range [@code{LLONG_MIN}, @code{LLONG_MAX}].
 
 @item unsigned long long int
 @itemx unsigned long long
 @tpindex unsigned long long int
 Unsigned integer type of at least 64 bits. Its range is
 guaranteed contain at least [0, @math{18446744073709551615}].
-This type was added in C99.
+This type was added in C99. The exact range [0,
+@code{ULLONG_MAX}].
 @end table
 
