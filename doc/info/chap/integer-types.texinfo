@@ -255,6 +255,11 @@ guaranteed to be defined.
 
 These types are standard library-independent,
 but compiler-dependent and machine-dependent.
+Because these types' width depending on the
+compiler, their use in function prototypes,
+@code{struct}:s, and @code{union}:s is
+discouraged. Use in inline function however,
+is should be fine.
 
 The exact ranges of these types are
 [@code{INT_LEAST@i{N}_MIN}, @code{INT_LEAST@i{N}_MAX}].
@@ -303,6 +308,11 @@ be a @code{int64_t} (@code{long long int}).
 
 These types are standard library-dependent,
 compiler-dependent and machine-dependent.
+Because these types are library-dependent, their
+use in function prototypes, @code{struct}:s,
+and @code{union}:s is highly discouraged.
+Use in inline function however, is should be
+fine.
 
 The exact ranges of these types are
 [@code{INT_FAST@i{N}_MIN}, @code{INT_FAST@i{N}_MAX}].
@@ -330,6 +340,11 @@ be a @code{uint64_t} (@code{unsigned long long int}).
 
 These types are standard library-dependent and
 machine-dependent, but compiler-independent.
+Because these types are library-dependent, their
+use in function prototypes, @code{struct}:s,
+and @code{union}:s is highly discouraged.
+Use in inline function however, is should be
+fine.
 
 The exact ranges of these types are
 [0, @code{UINT_FAST@i{N}_MAX}].
