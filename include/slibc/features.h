@@ -29,6 +29,60 @@
 
 
 /**
+ * Macro for any function with at least 2 arguments,
+ * that shall return with `const` qualifier if and only
+ * if the first argument is `const`-qualifier.
+ * 
+ * Other qualifiers could be dropped.
+ * 
+ * Usage example:
+ * ```
+ * char* strchr(const char*, int)
+ * #ifdef __CONST_CORRECT
+ * # define strchr(...)  __const_correct(strchr, __VA_ARGS__)
+ * #endif
+ * ```
+ * 
+ * @param   function  The name of the function.
+ * @param   first     The first argument.
+ * @param   ...       The rest of the arguments.
+ * @return            The result casted to the same type as `first`.
+ */
+#if defined(__CONST_CORRECT)
+# undef __CONST_CORRECT
+# undef __const_correct
+#endif
+#if defined(__GNUC__) && defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define __CONST_CORRECT
+# define __const_correct(function, first, ...) \
+  (_Generic(&(first), \
+            const wchar_t(*)[]: (const wchar_t*)function(first, __VA_ARGS__), \
+            const char(*)[]:    (const char*)   function(first, __VA_ARGS__), \
+            const void**:       (const void*)   function(first, __VA_ARGS__), \
+            void**:                             function(first, __VA_ARGS__), \
+            default:       (__typeof__(&*first))function(first, __VA_ARGS__)))
+#elif defined(__GNUC__)
+# define __CONST_CORRECT
+# define __const_correct(function, first, ...) \
+  ((__typeof__(&*first))function(first, __VA_ARGS__))
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define __CONST_CORRECT
+# define __const_correct(function, first, ...) \
+  (_Generic(&(first), \
+            const wchar_t(*)[]: (const wchar_t*)function(first, __VA_ARGS__), \
+            const char(*)[]:    (const char*)   function(first, __VA_ARGS__),  \
+            const wchar_t**:    (const wchar_t*)function(first, __VA_ARGS__), \
+            const char**:       (const char*)   function(first, __VA_ARGS__), \
+            const void**:       (const void*)   function(first, __VA_ARGS__), \
+            default:                            function(first, __VA_ARGS__)))
+#endif
+/* Note, string literals are compiler-dependent. Does not work too well in GCC. */
+/* Note, __VA_ARGS__ requires, C99, therefore we need __CONST_CORRECT, rather
+ * than using a fall back. */
+
+
+
+/**
  * _BSD_SOURCE || _SVID_SOURCE || _GNU_SOURCE implies _POSIX_C_SOURCE = 2.
  */
 #if defined(__BSD_SOURCE) || defined(__SVID_SOURCE) || defined(__GNU_SOURCE)

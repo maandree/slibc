@@ -744,11 +744,8 @@ int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
  */
 wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-# define wmemchr(segment, c, size) \
-  (_Generic((segment), \
-            const wchar_t*: (const wchar_t*)wmemchr(segment, c, size), \
-            wchar_t*: wmemchr(segment, c, size)))
+#ifdef __CONST_CORRECT
+# define wmemchr(...)  (__const_correct(wmemchr, __VA_ARGS__))
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -765,12 +762,9 @@ wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
  */
 wchar_t* rawwmemchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define rawwmemchr(segment, c) \
-  (_Generic((segment), \
-            const wchar_t*: (const wchar_t*)rawwmemchr(segment, c), \
-            wchar_t*: rawwmemchr(segment, c)))
-# endif
+#ifdef __CONST_CORRECT
+# define rawwmemchr(...)  (__const_correct(rawwmemchr, __VA_ARGS__))
+#endif
 
 /**
  * Find the last occurrence of a wide character in
@@ -790,11 +784,8 @@ wchar_t* rawwmemchr(const wchar_t*, wchar_t)
  */
 wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wmemrchr(segment, c, size) \
-  (_Generic((segment), \
-            const wchar_t*: (const wchar_t*)wmemrchr(segment, c, size), \
-            wchar_t*: wmemrchr(segment, c, size)))
+# ifdef __CONST_CORRECT
+#  define wmemrchr(...)  (__const_correct(wmemrchr, __VA_ARGS__))
 # endif
 #endif
 
@@ -810,11 +801,8 @@ wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
  */
 wchar_t* wcschr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-# define wcschr(string, c) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcschr(string, c), \
-            wchar_t*: wcschr(string, c)))
+#ifdef __CONST_CORRECT
+# define wcschr(...)  (__const_correct(wcschr, __VA_ARGS__))
 #endif
 
 #if defined(__GNU_SOURCE)
@@ -835,11 +823,8 @@ wchar_t* wcschr(const wchar_t*, wchar_t)
  */
 wchar_t* wcschrnul(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcschrnul(string, c) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcschrnul(string, c), \
-            wchar_t*: wcschrnul(string, c)))
+# ifdef __CONST_CORRECT
+#  define wcschrnul(...)  (__const_correct(wcschrnul, __VA_ARGS__))
 # endif
 #endif
 
@@ -859,11 +844,8 @@ wchar_t* wcschrnul(const wchar_t*, wchar_t)
  */
 wchar_t* wcsrchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-# define wcsrchr(string, c) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcsrchr(string, c), \
-            wchar_t*: wcsrchr(string, c)))
+#ifdef __CONST_CORRECT
+# define wcsrchr(...)  (__const_correct(wcsrchr, __VA_ARGS__))
 #endif
 
 
@@ -873,11 +855,8 @@ wchar_t* wcsrchr(const wchar_t*, wchar_t)
 wchar_t* wcswcs(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)))
   __deprecated("Use 'wcsstr' instead.");
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-# define wcswcs(haystack, needle) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wcswcs(haystack, needle), \
-            wchar_t*: wcswcs(haystack, needle)))
+#ifdef __CONST_CORRECT
+# define wcswcs(...)  (__const_correct(wcswcs, __VA_ARGS__))
 #endif
 
 /**
@@ -891,11 +870,8 @@ wchar_t* wcswcs(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-# define wcsstr(haystack, needle) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wcsstr(haystack, needle), \
-            wchar_t*: wcsstr(haystack, needle)))
+#ifdef __CONST_CORRECT
+# define wcsstr(...)  (__const_correct(wcsstr, __VA_ARGS__))
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -912,11 +888,8 @@ wchar_t* wcsstr(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcscasestr(haystack, needle) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wcscasestr(haystack, needle), \
-            wchar_t*: wcscasestr(haystack, needle)))
+# ifdef __CONST_CORRECT
+#  define wcscasestr(...)  (__const_correct(wcscasestr, __VA_ARGS__))
 # endif
 
 /**
@@ -934,11 +907,8 @@ wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcsnstr(haystack, needle, maxlen) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wcsnstr(haystack, needle, maxlen), \
-            wchar_t*: wcsnstr(haystack, needle, maxlen)))
+# ifdef __CONST_CORRECT
+#  define wcsnstr(...)  (__const_correct(wcsnstr, __VA_ARGS__))
 # endif
 
 /**
@@ -955,11 +925,8 @@ wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
  */
 wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcsncasestr(haystack, needle, maxlen) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wcsncasestr(haystack, needle, maxlen), \
-            wchar_t*: wcsncasestr(haystack, needle, maxlen)))
+# ifdef __CONST_CORRECT
+#  define wcsncasestr(...)  (__const_correct(wcsncasestr, __VA_ARGS__))
 # endif
 
 /**
@@ -975,11 +942,8 @@ wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
  */
 wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define rawwcsstr(haystack, needle) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)rawwcsstr(haystack, needle), \
-            wchar_t*: rawwcsstr(haystack, needle)))
+# ifdef __CONST_CORRECT
+#  define rawwcsstr(...)  (__const_correct(rawwcsstr, __VA_ARGS__))
 # endif
 
 /**
@@ -995,11 +959,8 @@ wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
  */
 wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define rawwcscasestr(haystack, needle) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)rawwcscasestr(haystack, needle), \
-            wchar_t*: rawwcscasestr(haystack, needle)))
+# ifdef __CONST_CORRECT
+#  define rawwcscasestr(...)  (__const_correct(rawwcscasestr, __VA_ARGS__))
 # endif
 
 /**
@@ -1018,11 +979,8 @@ wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
  */
 wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wmemcasemem(haystack, haystack_length, needle, needle_length) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wmemcasemem(haystack, haystack_length, needle, needle_length), \
-            wchar_t*: wmemcasemem(haystack, haystack_length, needle, needle_length)))
+# ifdef __CONST_CORRECT
+#  define wmemcasemem(...)  (__const_correct(wmemcasemem, __VA_ARGS__))
 # endif
 
 /**
@@ -1038,11 +996,8 @@ wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
  */
 wchar_t* wcsstarts(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcsstarts(string, desired) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcsstarts(string, desired), \
-            wchar_t*: wcsstarts(string, desired)))
+# ifdef __CONST_CORRECT
+#  define wcsstarts(...)  (__const_correct(wcsstarts, __VA_ARGS__))
 # endif
 
 /**
@@ -1058,11 +1013,8 @@ wchar_t* wcsstarts(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcsends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcsends(string, desired) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcsends(string, desired), \
-            wchar_t*: wcsends(string, desired)))
+# ifdef __CONST_CORRECT
+#  define wcsends(...)  (__const_correct(wcsends, __VA_ARGS__))
 # endif
 
 /**
@@ -1078,11 +1030,8 @@ wchar_t* wcsends(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcscasestarts(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcscasestarts(string, desired) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcscasestarts(string, desired), \
-            wchar_t*: wcscasestarts(string, desired)))
+# ifdef __CONST_CORRECT
+#  define wcscasestarts(...)  (__const_correct(wcscasestarts, __VA_ARGS__))
 # endif
 
 /**
@@ -1098,11 +1047,8 @@ wchar_t* wcscasestarts(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wcscaseends(string, desired) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcscaseends(string, desired), \
-            wchar_t*: wcscaseends(string, desired)))
+# ifdef __CONST_CORRECT
+#  define wcscaseends(...)  (__const_correct(wcscaseends, __VA_ARGS__))
 # endif
 #endif
 
@@ -1124,11 +1070,8 @@ wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
  */
 wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
-# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-#  define wmemmem(haystack, haystack_length, needle, needle_length) \
-  (_Generic((haystack), \
-            const wchar_t*: (const wchar_t*)wmemmem(haystack, haystack_length, needle, needle_length), \
-            wchar_t*: wmemmem(haystack, haystack_length, needle, needle_length)))
+# ifdef __CONST_CORRECT
+#  define wmemmem(...)  (__const_correct(wmemmem, __VA_ARGS__))
 # endif
 #endif
 
@@ -1174,11 +1117,8 @@ size_t wcscspn(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcspbrk(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
-#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
-# define wcspbrk(string, stopset) \
-  (_Generic((string), \
-            const wchar_t*: (const wchar_t*)wcspbrk(string, stopset), \
-            wchar_t*: wcspbrk(string, stopset)))
+#ifdef __CONST_CORRECT
+# define wcspbrk(...)  (__const_correct(wcspbrk, __VA_ARGS__))
 #endif
 
 
