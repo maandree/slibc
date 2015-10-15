@@ -744,6 +744,12 @@ int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
  */
 wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define wmemchr(segment, c, size) \
+  (_Generic((segment), \
+            const wchar_t*: (const wchar_t*)wmemchr(segment, c, size), \
+            wchar_t*: wmemchr(segment, c, size)))
+#endif
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -759,6 +765,12 @@ wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
  */
 wchar_t* rawwmemchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define rawwmemchr(segment, c) \
+  (_Generic((segment), \
+            const wchar_t*: (const wchar_t*)rawwmemchr(segment, c), \
+            wchar_t*: rawwmemchr(segment, c)))
+# endif
 
 /**
  * Find the last occurrence of a wide character in
@@ -778,6 +790,12 @@ wchar_t* rawwmemchr(const wchar_t*, wchar_t)
  */
 wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wmemrchr(segment, c, size) \
+  (_Generic((segment), \
+            const wchar_t*: (const wchar_t*)wmemrchr(segment, c, size), \
+            wchar_t*: wmemrchr(segment, c, size)))
+# endif
 #endif
 
 /**
@@ -792,6 +810,12 @@ wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
  */
 wchar_t* wcschr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define wcschr(string, c) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcschr(string, c), \
+            wchar_t*: wcschr(string, c)))
+#endif
 
 #if defined(__GNU_SOURCE)
 /**
@@ -811,6 +835,12 @@ wchar_t* wcschr(const wchar_t*, wchar_t)
  */
 wchar_t* wcschrnul(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcschrnul(string, c) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcschrnul(string, c), \
+            wchar_t*: wcschrnul(string, c)))
+# endif
 #endif
 
 /**
@@ -829,6 +859,12 @@ wchar_t* wcschrnul(const wchar_t*, wchar_t)
  */
 wchar_t* wcsrchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define wcsrchr(string, c) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcsrchr(string, c), \
+            wchar_t*: wcsrchr(string, c)))
+#endif
 
 
 /**
@@ -837,6 +873,12 @@ wchar_t* wcsrchr(const wchar_t*, wchar_t)
 wchar_t* wcswcs(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)))
   __deprecated("Use 'wcsstr' instead.");
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define wcswcs(haystack, needle) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wcswcs(haystack, needle), \
+            wchar_t*: wcswcs(haystack, needle)))
+#endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -849,6 +891,12 @@ wchar_t* wcswcs(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define wcsstr(haystack, needle) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wcsstr(haystack, needle), \
+            wchar_t*: wcsstr(haystack, needle)))
+#endif
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -864,6 +912,12 @@ wchar_t* wcsstr(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcscasestr(haystack, needle) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wcscasestr(haystack, needle), \
+            wchar_t*: wcscasestr(haystack, needle)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -880,6 +934,12 @@ wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcsnstr(haystack, needle, maxlen) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wcsnstr(haystack, needle, maxlen), \
+            wchar_t*: wcsnstr(haystack, needle, maxlen)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -895,6 +955,12 @@ wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
  */
 wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcsncasestr(haystack, needle, maxlen) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wcsncasestr(haystack, needle, maxlen), \
+            wchar_t*: wcsncasestr(haystack, needle, maxlen)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -909,6 +975,12 @@ wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
  */
 wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define rawwcsstr(haystack, needle) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)rawwcsstr(haystack, needle), \
+            wchar_t*: rawwcsstr(haystack, needle)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -923,6 +995,12 @@ wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
  */
 wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define rawwcscasestr(haystack, needle) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)rawwcscasestr(haystack, needle), \
+            wchar_t*: rawwcscasestr(haystack, needle)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -940,6 +1018,12 @@ wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
  */
 wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wmemcasemem(haystack, haystack_length, needle, needle_length) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wmemcasemem(haystack, haystack_length, needle, needle_length), \
+            wchar_t*: wmemcasemem(haystack, haystack_length, needle, needle_length)))
+# endif
 
 /**
  * Check whether a string starts with a specific string.
@@ -954,6 +1038,12 @@ wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
  */
 wchar_t* wcsstarts(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcsstarts(string, desired) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcsstarts(string, desired), \
+            wchar_t*: wcsstarts(string, desired)))
+# endif
 
 /**
  * Check whether a string ends with a specific string.
@@ -968,6 +1058,12 @@ wchar_t* wcsstarts(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcsends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcsends(string, desired) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcsends(string, desired), \
+            wchar_t*: wcsends(string, desired)))
+# endif
 
 /**
  * Check whether a string starts with a specific string.
@@ -982,6 +1078,12 @@ wchar_t* wcsends(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcscasestarts(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcscasestarts(string, desired) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcscasestarts(string, desired), \
+            wchar_t*: wcscasestarts(string, desired)))
+# endif
 
 /**
  * Check whether a string ends with a specific string.
@@ -996,6 +1098,12 @@ wchar_t* wcscasestarts(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wcscaseends(string, desired) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcscaseends(string, desired), \
+            wchar_t*: wcscaseends(string, desired)))
+# endif
 #endif
 
 #if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
@@ -1016,6 +1124,12 @@ wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
  */
 wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define wmemmem(haystack, haystack_length, needle, needle_length) \
+  (_Generic((haystack), \
+            const wchar_t*: (const wchar_t*)wmemmem(haystack, haystack_length, needle, needle_length), \
+            wchar_t*: wmemmem(haystack, haystack_length, needle, needle_length)))
+# endif
 #endif
 
 
@@ -1060,6 +1174,12 @@ size_t wcscspn(const wchar_t*, const wchar_t*)
  */
 wchar_t* wcspbrk(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define wcspbrk(string, stopset) \
+  (_Generic((string), \
+            const wchar_t*: (const wchar_t*)wcspbrk(string, stopset), \
+            wchar_t*: wcspbrk(string, stopset)))
+#endif
 
 
 /**
