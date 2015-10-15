@@ -257,13 +257,21 @@ defines for header files and functions are disabled.
 macros defined by other projects.
 
 @table @code
-@item _ISOC90_SOURCE
+@item _ISOC89_SOURCE
+@itemx _ISOC90_SOURCE
 @cpindex @sc{ISO}@tie{}C
 @cpindex C90
+@cpindex C89
+@cpindex @sc{ANSI}@tie{}C
 @lvindex _ISOC90_SOURCE
+@lvindex _ISOC89_SOURCE
 Enables functionality from the @sc{ISO}@tie{}C90
 standard, even if the program is not compiled
 with C90.
+
+Note, @sc{ISO}@tie{}C89, @sc{ISO}@tie{}C90,
+@sc{ANSI}@tie{}C and Standard C, all refer to
+the same standard.
 
 @item _ISOC99_SOURCE
 @cpindex @sc{ISO}@tie{}C

@@ -79,3 +79,20 @@
 # endif
 #endif
 
+/**
+ * C89, C90, ANSI C and Standard C are all the
+ * same standard.
+ */
+#if defined(__C89__) && !defined(__C90__)
+# define __C90__
+#endif
+#if defined(__C90__) && !defined(__C89__)
+# define __C89__
+#endif
+#if defined(__ISOC89_SOURCE) && !defined(__ISOC90_SOURCE)
+# define __ISOC90_SOURCE
+#endif
+#if defined(__ISOC90_SOURCE) && !defined(__ISOC89_SOURCE)
+# define __ISOC89_SOURCE
+#endif
+
