@@ -791,6 +791,13 @@ int strverscmp(const char*, const char*)
  */
 void* memchr(const void*, int, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define memchr(segment, c, size) \
+  (_Generic((segment), \
+            const void*: (const void*)memchr(segment, c, size), \
+            void*: memchr(segment, c, size)))
+#endif
+
 
 #if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
@@ -805,6 +812,12 @@ void* memchr(const void*, int, size_t)
  */
 void* rawmemchr(const void*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define rawmemchr(segment, c) \
+  (_Generic((segment), \
+            const void*: (const void*)rawmemchr(segment, c), \
+            void*: rawmemchr(segment, c)))
+# endif
 #endif
 
 /**
@@ -822,6 +835,12 @@ void* rawmemchr(const void*, int)
  */
 void* memrchr(const void*, int, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define memrchr(segment, c, size) \
+  (_Generic((segment), \
+            const void*: (const void*)memrchr(segment, c, size), \
+            void*: memrchr(segment, c, size)))
+#endif
 
 /**
  * Find the first occurrence of a byte in a string.
@@ -838,6 +857,12 @@ void* memrchr(const void*, int, size_t)
  */
 char* strchr(const char*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define strchr(string, c) \
+  (_Generic((string), \
+            const char*: (const char*)strchr(string, c), \
+            char*: strchr(string, c)))
+#endif
 
 #if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
@@ -856,6 +881,12 @@ char* strchr(const char*, int)
  */
 char* strchrnul(const char*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strchrnul(string, c) \
+  (_Generic((string), \
+            const char*: (const char*)strchrnul(string, c), \
+            char*: strchrnul(string, c)))
+# endif
 #endif
 
 /**
@@ -874,6 +905,12 @@ char* strchrnul(const char*, int)
  */
 char* strrchr(const char*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define strrchr(string, c) \
+  (_Generic((string), \
+            const char*: (const char*)strrchr(string, c), \
+            char*: strrchr(string, c)))
+#endif
 
 
 /**
@@ -887,6 +924,12 @@ char* strrchr(const char*, int)
  */
 char* strstr(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define strstr(haystack, needle) \
+  (_Generic((haystack), \
+            const char*: (const char*)strstr(haystack, needle), \
+            char*: strstr(haystack, needle)))
+#endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -899,6 +942,12 @@ char* strstr(const char*, const char*)
  */
 char* strcasestr(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define strcasestr(haystack, needle) \
+  (_Generic((haystack), \
+            const char*: (const char*)strcasestr(haystack, needle), \
+            char*: strcasestr(haystack, needle)))
+#endif
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -916,6 +965,12 @@ char* strcasestr(const char*, const char*)
  */
 char* strnstr(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strnstr(haystack, needle, maxlen) \
+  (_Generic((haystack), \
+            const char*: (const char*)strnstr(haystack, needle, maxlen), \
+            char*: strnstr(haystack, needle, maxlen)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -931,6 +986,12 @@ char* strnstr(const char*, const char*, size_t)
  */
 char* strncasestr(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strncasestr(haystack, needle, maxlen) \
+  (_Generic((haystack), \
+            const char*: (const char*)strncasestr(haystack, needle, maxlen), \
+            char*: strncasestr(haystack, needle, maxlen)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -945,6 +1006,12 @@ char* strncasestr(const char*, const char*, size_t)
  */
 char* rawstrstr(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define rawstrstr(haystack, needle) \
+  (_Generic((haystack), \
+            const char*: (const char*)rawstrstr(haystack, needle), \
+            char*: rawstrstr(haystack, needle)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -959,6 +1026,12 @@ char* rawstrstr(const char*, const char*)
  */
 char* rawstrcasestr(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define rawstrcasestr(haystack, needle) \
+  (_Generic((haystack), \
+            const char*: (const char*)rawstrcasestr(haystack, needle), \
+            char*: rawstrcasestr(haystack, needle)))
+# endif
 
 /**
  * Finds the first occurrence of a substring.
@@ -976,6 +1049,12 @@ char* rawstrcasestr(const char*, const char*)
  */
 void* memcasemem(const void*, size_t, const void*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define memcasemem(haystack, haystack_length, needle, needle_length) \
+  (_Generic((haystack), \
+            const void*: (const void*)memcasemem(haystack, haystack_length, needle, needle_length), \
+            void*: memcasemem(haystack, haystack_length, needle, needle_length)))
+# endif
 
 /**
  * Check whether a string starts with a specific string.
@@ -990,6 +1069,12 @@ void* memcasemem(const void*, size_t, const void*, size_t)
  */
 char* strstarts(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strstarts(string, desired) \
+  (_Generic((string), \
+            const char*: (const char*)strstarts(string, desired), \
+            char*: strstarts(string, desired)))
+# endif
 
 /**
  * Check whether a string ends with a specific string.
@@ -1004,6 +1089,12 @@ char* strstarts(const char*, const char*)
  */
 char* strends(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strends(string, desired) \
+  (_Generic((string), \
+            const char*: (const char*)strends(string, desired), \
+            char*: strends(string, desired)))
+# endif
 
 /**
  * Check whether a string starts with a specific string.
@@ -1018,6 +1109,12 @@ char* strends(const char*, const char*)
  */
 char* strcasestarts(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strcasestarts(string, desired) \
+  (_Generic((string), \
+            const char*: (const char*)strcasestarts(string, desired), \
+            char*: strcasestarts(string, desired)))
+# endif
 
 /**
  * Check whether a string ends with a specific string.
@@ -1032,6 +1129,12 @@ char* strcasestarts(const char*, const char*)
  */
 char* strcaseends(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define strcaseends(string, desired) \
+  (_Generic((string), \
+            const char*: (const char*)strcaseends(string, desired), \
+            char*: strcaseends(string, desired)))
+# endif
 #endif
 
 #if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
@@ -1051,6 +1154,12 @@ char* strcaseends(const char*, const char*)
  */
 void* memmem(const void*, size_t, const void*, size_t)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+#  define memmem(haystack, haystack_length, needle, needle_length) \
+  (_Generic((haystack), \
+            const void*: (const void*)memmem(haystack, haystack_length, needle, needle_length), \
+            void*: memmem(haystack, haystack_length, needle, needle_length)))
+# endif
 #endif
 
 
@@ -1095,6 +1204,12 @@ size_t strcspn(const char*, const char*)
  */
 char* strpbrk(const char*, const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define strpbrk(string, stopset) \
+  (_Generic((string), \
+            const void*: (const void*)strpbrk(string, stopset), \
+            void*: strpbrk(string, stopset)))
+#endif
 
 
 /**
@@ -1172,6 +1287,10 @@ char* strsep(char** restrict, const char* restrict)
 char* __gnu_basename(const char*)
   __GCC_ONLY(__attribute__((warn_unused_result, pure)));
 # define basename  __gnu_basename
+/* It does not look like it is possible to solve the
+ * const-correctness problem here. We cannot use
+ * _Generic in the macro `basename` here. That would
+ * stop us from getting a pointer to the function. */
 #endif
 
 
