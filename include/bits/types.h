@@ -44,7 +44,7 @@
 
 /**
  * Signed integer type of the result of subtracting two pointers.
- * May not be greater than the with of type long.
+ * May not be greater than the width of type `long int`.
  */
 #if defined(__NEED_ptrdiff_t) && !defined(__DEFINED_ptrdiff_t)
 # define __DEFINED_ptrdiff_t
