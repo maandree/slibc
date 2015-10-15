@@ -134,6 +134,9 @@ int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
 char* index(const char*, int)
   __deprecated("Use 'strchr' instead.")
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#ifdef __CONST_CORRECT
+# define index(...)  (__const_correct(index, __VA_ARGS__))
+#endif
 
 /**
  * This function is identical to `strrchr`.
@@ -143,6 +146,9 @@ char* index(const char*, int)
 char* rindex(const char*, int)
   __deprecated("Use 'strrchr' instead.")
   __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+#ifdef __CONST_CORRECT
+# define rindex(...)  (__const_correct(rindex, __VA_ARGS__))
+#endif
 
 
 /**
