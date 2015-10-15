@@ -809,8 +809,9 @@ void* memchr(const void*, int, size_t)
  */
 void* rawmemchr(const void*, int)
   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
-#ifdef __CONST_CORRECT
-# define rawmemchr(...)  (__const_correct(rawmemchr, __VA_ARGS__))
+# ifdef __CONST_CORRECT
+#  define rawmemchr(...)  (__const_correct(rawmemchr, __VA_ARGS__))
+# endif
 #endif
 
 /**
