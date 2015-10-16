@@ -17,13 +17,12 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include <stddef.h>
 #include <time.h>
 
 
 
 volatile char nul = 0;
-volatile wchar_t wnul = 0;
+volatile typeof(L'\0') wnul = 0;
 
 
 
@@ -39,14 +38,14 @@ volatile wchar_t wnul = 0;
 #define FAST_TEST(VAR)  \
   n = 0, *VAR##p = 0; \
   if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &start)) \
-    return perror(NULL), -1; \
+    return perror(""), -1; \
   for (;;) \
     { \
       for (m = 1000; m--;) \
 	VAR = 50, VAR += 50, VAR -= 50, VAR *= 50, VAR /= 50, VAR <<= 1, VAR >>= 1, *VAR##p |= 1; \
       n++; \
       if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &end)) \
-	return perror(NULL), -1; \
+	return perror(""), -1; \
       if (end.tv_sec > start.tv_sec + 2) \
 	break; \
       if (end.tv_sec > start.tv_sec + 1) \
@@ -61,19 +60,19 @@ volatile wchar_t wnul = 0;
   fprintf(stderr, "int%zu_t:%s %i000 op:s in %lli.%09lli s = %lf op:s/s\n", \
 	  8 * sizeof(VAR), 8 * sizeof(VAR) < 10 ? " " : "", 8 * n, \
 	  time_elapsed / 1000000000LL, time_elapsed % 1000000000LL, adjn * 8000.); \
-  if (adjn > bestn) \
+  if ((!best) || (adjn > bestn)) \
     bestn = adjn, best = 8 * sizeof(VAR); \
   last = this
 
 
 #define TEST(VAR)  (this = 8 * (int)sizeof(VAR), ((this >= bits) && (this > last)))
-#ifdef __GNUC__
+#if defined(__GNUC__)
 __attribute__((optimize("-O0")))
 #endif
 static int fast(int bits)
 {
   int last = 0, this = 0, best = 0, n, m;
-  float bestn;
+  float bestn = 0;
   float adjn;
   struct timespec start, end;
   long long int time_elapsed;
