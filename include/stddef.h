@@ -72,7 +72,10 @@
 #define offsetof(type, member)  \
   ((size_t)((char*)&(((type*)NULL)->member) - (char*)NULL))
 /* TODO The behaviour of this is undefined, and a builtin function
- * shall be used when available. That would also improve diagnostics. */
+ * shall be used when available. That would also improve diagnostics.
+ * If compilers that support ({  }), NULL could be replaced with a
+ * temporary variable, this would only remove the undefined behaviour,
+ * but any serious compiler should support the current implementation. */
 
 
 
