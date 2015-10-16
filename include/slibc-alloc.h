@@ -47,6 +47,11 @@ void secure_free(void*);
  * This function returns the allocation size of
  * a memory segment.
  * 
+ * Note, this only works for the malloc-family of functions.
+ * It does not work on `alloca`, `strdupa` (or similar
+ * functions), memory maps (that are not created by `malloc`,)
+ * or arrays.
+ * 
  * `p = malloc(n), allocsize(p)` will return `n`.
  * 
  * @param   segment  The memory segment.
