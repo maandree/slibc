@@ -110,9 +110,9 @@ void* secure_realloc(void*, size_t)
 
 /**
  * This function behaves exactly like `fast_realloc`, except:
- * - Its haviour is undefined if `ptr` is `NULL`.
- * - Its haviour is undefined `size` equals the old allocation size.
- * - Its haviour is undefined if `size` is zero.
+ * - Its behaviour is undefined if `ptr` is `NULL`.
+ * - Its behaviour is undefined `size` equals the old allocation size.
+ * - Its behaviour is undefined if `size` is zero.
  * - It will never free `ptr`.
  * 
  * @param   ptr   The old allocation, see `realloc` for more details.
