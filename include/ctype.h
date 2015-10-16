@@ -27,6 +27,11 @@
 
 
 
+#define __NEED_locale_t
+
+#include <bits/types.h>
+
+
 /**
  * Check whether a character is an alphabetical
  * character or a decimal digit.

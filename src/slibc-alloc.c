@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <errno.h>
-#include <sys/mman.h>
+/* TODO #include <sys/mman.h> */
 
 
 
@@ -37,7 +37,7 @@
  */
 void fast_free(void* segment)
 {
-  if (segument == NULL)
+  if (segment == NULL)
     return;
   munmap(PURE_ALLOC(segment), PURE_SIZE(segment));
 }
@@ -51,7 +51,7 @@ void fast_free(void* segment)
  */
 void secure_free(void* segment)
 {
-  if (segument == NULL)
+  if (segment == NULL)
     return;
   explicit_bzero(PURE_ALLOC(segment), PURE_SIZE(segment));
   fast_free(segment);
@@ -82,7 +82,10 @@ void secure_free(void* segment)
 size_t allocsize(void* segment)
 {
   if (segment == NULL)
-    return errno = EINVAL, 0;
+    {
+      errno = EINVAL;
+      return 0;
+    }
   return *(size_t*)PURE_ALLOC(segment);
 }
 
@@ -97,36 +100,36 @@ size_t allocsize(void* segment)
  * @param   CLEAR_FREE:int  Whether the old allocation is cleared if a new pointer is returned.
  * @return                  The new allocation, see `realloc` for more details.
  */
-#define REALLOC(ptr, size, CLEAR_OLD, CLEAR_NEW, CLEAR_FREE)	\
-  size_t old_size;						\
-  void* new_ptr;						\
-								\
-  if (size == 0)						\
-    return secure_free(ptr), NULL;				\
-			   					\
-  if (ptr == NULL)	   					\
-    return CLEAR_NEW ? malloc(size) : calloc(1, size);		\
-			   					\
-  old_size = allocsize(ptr);					\
-  if (old_size == size)						\
-    return ptr;							\
-								\
-  if (CLEAR_OLD ? (old_size > size) : 0)			\
-    explicit_bzero(((char*)ptr) + size, old_size - size);	\
-								\
-  new_ptr = naive_realloc(ptr);					\
-  if (new_ptr != ptr)						\
-    {								\
-      if (new_ptr == NULL)					\
-	return NULL;						\
-      if (CLEAR_FREE)						\
-	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));	\
-      fast_free(ptr);						\
-    }								\
-								\
-  if (CLEAR_NEW ? (old_size < size) : 0)			\
-    explicit_bzero(((char*)new_ptr) + old, size - old_size);	\
-								\
+#define REALLOC(ptr, size, CLEAR_OLD, CLEAR_NEW, CLEAR_FREE)		\
+  size_t old_size;							\
+  void* new_ptr;							\
+									\
+  if (size == 0)							\
+    return secure_free(ptr), NULL;					\
+			   						\
+  if (ptr == NULL)	   						\
+    return CLEAR_NEW ? malloc(size) : calloc(1, size);			\
+			   						\
+  old_size = allocsize(ptr);						\
+  if (old_size == size)							\
+    return ptr;								\
+									\
+  if (CLEAR_OLD ? (old_size > size) : 0)				\
+    explicit_bzero(((char*)ptr) + size, old_size - size);		\
+									\
+  new_ptr = naive_realloc(ptr, size);					\
+  if (new_ptr != ptr)							\
+    {									\
+      if (new_ptr == NULL)						\
+	return NULL;							\
+      if (CLEAR_FREE)							\
+	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));		\
+      fast_free(ptr);							\
+    }									\
+									\
+  if (CLEAR_NEW ? (old_size < size) : 0)				\
+    explicit_bzero(((char*)new_ptr) + old_size, size - old_size);	\
+									\
   return new_ptr
 
 
@@ -234,14 +237,14 @@ void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int c
 void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
 {
   int clear = mode & EXTALLOC_CLEAR;
-  size_t old_size;
+  size_t old_size = allocsize(ptr);
   void* new_ptr;
   
   if (clear ? (old_size > size) : 0)
     explicit_bzero(((char*)ptr) + size, old_size - size);
   
-  new_ptr = ((mode & EXTALLOC_MALLOC) ? naive_realloc : naive_extalloc)(ptr);
-  if ((new_ptr != ptr) && (ptr_new != NULL))
+  new_ptr = ((mode & EXTALLOC_MALLOC) ? naive_realloc : naive_extalloc)(ptr, size);
+  if ((new_ptr != ptr) && (new_ptr != NULL))
     {
       if (clear)
 	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));

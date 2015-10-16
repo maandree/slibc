@@ -25,6 +25,19 @@
 /* #include <slibc-scan.h> */
 
 
+# pragma GCC diagnostic ignored "-Wcast-qual"
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
+
+/* TODO add <slibc-scan.h> { */
+# define generic_scanf_read_func_t  void*
+# define generic_wscanf_read_func_t  void*
+extern int vgeneric_scanf(void*, void*, size_t, size_t, void*, void*, char*, va_list);
+extern int vgeneric_wscanf(void*, void*, size_t, size_t, void*, void*, wchar_t*, va_list);
+/* } */
+
+
 #define V(C)			\
   int r;			\
   va_list args;			\
@@ -35,14 +48,24 @@
 
 #define S_CHAR(UNDERLAYING, MAXIMUM, LIMITED, DATA)			\
   return vgeneric_scanf((generic_scanf_read_func_t)UNDERLAYING, NULL,	\
-			MAXIMUM, LIMITED, NULL, DATA, format, data)
+			MAXIMUM, LIMITED, NULL, DATA, format, args)
 
 #define S_WCHAR(UNDERLAYING, MAXIMUM, LIMITED, DATA)			\
   return vgeneric_wscanf((generic_wscanf_read_func_t)UNDERLAYING, NULL,	\
-			 MAXIMUM, LIMITED, NULL, DATA, format, data)
+			 MAXIMUM, LIMITED, NULL, DATA, format, args)
 
 #define FLOCK(F)    /* TODO lock stream */
 #define FUNLOCK(F)  /* TODO unlock stream */
+
+
+/* TODO implement underlaying scan functions { */
+extern int read_string(void);
+extern int read_stream(void);
+extern int read_fd(void);
+extern int wread_string(void);
+extern int wread_stream(void);
+extern int wread_fd(void);
+/* } */
 
 
 
@@ -186,7 +209,7 @@ int dscanf(int fd, const char* restrict format, ...)
  */
 int vscanf(const char* restrict format, va_list args)
 {
-  return vscanf(stdout, format, args);
+  return vfscanf(stdout, format, args);
 }
 
 
@@ -229,7 +252,7 @@ int vfscanf(FILE* restrict stream, const char* restrict format, va_list args)
  */
 int vsscanf(const char* restrict input, const char* restrict format, va_list args)
 {
-  S_CHAR(read_string, 0, 0, input);
+  S_CHAR(read_string, 0, 0, (char*)input);
 }
 
 
@@ -272,7 +295,7 @@ int vfscanf_unlocked(FILE* restrict stream, const char* restrict format, va_list
  */
 int vsnscanf(const char* restrict input, size_t length, const char* restrict format, va_list args)
 {
-  S_CHAR(read_string, length, 1, input);
+  S_CHAR(read_string, length, 1, (char*)input);
 }
 
 
@@ -392,7 +415,7 @@ int fwscanf_unlocked(FILE* restrict stream, const wchar_t* restrict format, ...)
  */
 int snwscanf(const wchar_t* restrict input, size_t length, const wchar_t* restrict format, ...)
 {
-  V(snscanf(input, length, format, args));
+  V(snwscanf(input, length, format, args));
 }
 
 
@@ -431,7 +454,7 @@ int dwscanf(int fd, const wchar_t* restrict format, ...)
  */
 int vwscanf(const wchar_t* restrict format, va_list args)
 {
-  return vwscanf(stdout, format, args);
+  return vfwscanf(stdout, format, args);
 }
 
 
@@ -474,7 +497,7 @@ int vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_list args
  */
 int vswscanf(const wchar_t* restrict input, const wchar_t* restrict format, va_list args)
 {
-  S_WCHAR(wread_string, 0, 0, input);
+  S_WCHAR(wread_string, 0, 0, (wchar_t*)input);
 }
 
 
@@ -517,7 +540,7 @@ int vfwscanf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va_
  */
 int vsnwscanf(const wchar_t* restrict input, size_t length, const wchar_t* restrict format, va_list args)
 {
-  S_WCHAR(wread_string, length, 1, input);
+  S_WCHAR(wread_string, length, 1, (wchar_t*)input);
 }
 
 

@@ -35,9 +35,9 @@
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-char* strstr(const char* haystack, const char* needle)
+char* (strstr)(const char* haystack, const char* needle)
 {
-  return memmem(haystack, strlen(haystack), needle, strlen(needle));
+  return (memmem)(haystack, strlen(haystack), needle, strlen(needle));
 }
 
 
@@ -50,9 +50,9 @@ char* strstr(const char* haystack, const char* needle)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-char* strcasestr(const char* haystack, const char* needle)
+char* (strcasestr)(const char* haystack, const char* needle)
 {
-  return memcasemem(haystack, strlen(haystack), needle, strlen(needle));
+  return (memcasemem)(haystack, strlen(haystack), needle, strlen(needle));
 }
 
 
@@ -69,9 +69,9 @@ char* strcasestr(const char* haystack, const char* needle)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-char* strnstr(const char* haystack, const char* needle, size_t maxlen)
+char* (strnstr)(const char* haystack, const char* needle, size_t maxlen)
 {
-  return memmem(haystack, strnlen(haystack, maxlen), needle, strlen(needle));
+  return (memmem)(haystack, strnlen(haystack, maxlen), needle, strlen(needle));
 }
 
 
@@ -87,9 +87,9 @@ char* strnstr(const char* haystack, const char* needle, size_t maxlen)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-char* strncasestr(const char* haystack, const char* needle, size_t maxlen)
+char* (strncasestr)(const char* haystack, const char* needle, size_t maxlen)
 {
-  return memcasemem(haystack, strnlen(haystack, maxlen), needle, strlen(needle));
+  return (memcasemem)(haystack, strnlen(haystack, maxlen), needle, strlen(needle));
 }
 
 
@@ -104,9 +104,9 @@ char* strncasestr(const char* haystack, const char* needle, size_t maxlen)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
  */
-char* rawstrstr(const char* haystack, const char* needle)
+char* (rawstrstr)(const char* haystack, const char* needle)
 {
-  return memmem(haystack, SIZE_MAX, needle, strlen(needle));
+  return (memmem)(haystack, SIZE_MAX, needle, strlen(needle));
 }
 
 
@@ -121,9 +121,9 @@ char* rawstrstr(const char* haystack, const char* needle)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
  */
-char* rawstrcasestr(const char* haystack, const char* needle)
+char* (rawstrcasestr)(const char* haystack, const char* needle)
 {
-  return memcasemem(haystack, SIZE_MAX, needle, strlen(needle));
+  return (memcasemem)(haystack, SIZE_MAX, needle, strlen(needle));
 }
 
 
@@ -141,15 +141,15 @@ char* rawstrcasestr(const char* haystack, const char* needle)
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-void* memmem(const void* __haystack, size_t haystack_length,
-	     const void* __needle, size_t needle_length)
+void* (memmem)(const void* __haystack, size_t haystack_length,
+	       const void* __needle, size_t needle_length)
 {
   const char* haystack = __haystack;
   const char* needle = __needle;
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !memcmp(haystack, needle, haystack_length) ? haystack : NULL;
+    return !(memcmp)(haystack, needle, haystack_length) ? haystack : NULL;
 #include "substring.h"
 }
 
@@ -168,15 +168,15 @@ void* memmem(const void* __haystack, size_t haystack_length,
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-void* memcasemem(const void* __haystack, size_t haystack_length,
-		 const void* __needle, size_t needle_length)
+void* (memcasemem)(const void* __haystack, size_t haystack_length,
+		   const void* __needle, size_t needle_length)
 {
   const char* haystack = __haystack;
   const char* needle = __needle;
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !memcasecmp(haystack, needle, haystack_length) ? haystack : NULL;
+    return !(memcasecmp)(haystack, needle, haystack_length) ? haystack : NULL;
 #define CASE
 #include "substring.h"
 #undef CASE
@@ -194,13 +194,13 @@ void* memcasemem(const void* __haystack, size_t haystack_length,
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
  */
-char* strstarts(const char* string, const char* desired)
+char* (strstarts)(const char* string, const char* desired)
 {
   size_t n = strlen(string);
   size_t m = strlen(desired);
   if (n < m)
     return NULL;
-  return memcmp(string, desired, m) ? NULL : string;
+  return (memcmp)(string, desired, m) ? NULL : string;
 }
 
 
@@ -215,13 +215,13 @@ char* strstarts(const char* string, const char* desired)
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
  */
-char* strends(const char* string, const char* desired)
+char* (strends)(const char* string, const char* desired)
 {
   size_t n = strlen(string);
   size_t m = strlen(desired);
   if (n < m)
     return NULL;
-  return memcmp(string + (n - m), desired, m) ? NULL : (string + n);
+  return (memcmp)(string + (n - m), desired, m) ? NULL : (string + n);
 }
 
 
@@ -236,13 +236,13 @@ char* strends(const char* string, const char* desired)
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
  */
-char* strcasestarts(const char* string, const char* desired)
+char* (strcasestarts)(const char* string, const char* desired)
 {
   size_t n = strlen(string);
   size_t m = strlen(desired);
   if (n < m)
     return NULL;
-  return memcasecmp(string, desired, m) ? NULL : string;
+  return (memcasecmp)(string, desired, m) ? NULL : string;
 }
 
 
@@ -257,12 +257,12 @@ char* strcasestarts(const char* string, const char* desired)
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
  */
-char* strcaseends(const char* string, const char* desired)
+char* (strcaseends)(const char* string, const char* desired)
 {
   size_t n = strlen(string);
   size_t m = strlen(desired);
   if (n < m)
     return NULL;
-  return memcasecmp(string + (n - m), desired, m) ? NULL : (string + n);
+  return (memcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
 }
 

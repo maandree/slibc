@@ -23,7 +23,16 @@
 
 
 /* TODO include error definitions */
-#define ERANGE 34
+#define ENOMEM 1
+#define EINVAL 1
+#define ERANGE 1
+#define ENOENT 1
+#define EBADF 1
+#define ENOSYS 1
+#define ELOOP 1
+#define EISDIR 1
+#define EACCES 1
+#define ENOTSUP 1
 
 
 

@@ -32,7 +32,7 @@
  * @return           Pointer to the first occurrence of `c`,
  *                   `NULL` if none were found.
  */
-wchar_t* wmemchr(const wchar_t* segment, wchar_t c, size_t size)
+wchar_t* (wmemchr)(const wchar_t* segment, wchar_t c, size_t size)
 {
   while (size--)
     if (*segment++ == c)
@@ -52,7 +52,7 @@ wchar_t* wmemchr(const wchar_t* segment, wchar_t c, size_t size)
  * @param   c        The sought after character.
  * @return           Pointer to the first occurrence of `c`.
  */
-wchar_t* rawwmemchr(const wchar_t* segment, wchar_t c)
+wchar_t* (rawwmemchr)(const wchar_t* segment, wchar_t c)
 {
   for (;;)
     if (*segment++ == c)
@@ -76,7 +76,7 @@ wchar_t* rawwmemchr(const wchar_t* segment, wchar_t c)
  * @return           Pointer to the last occurrence of `c`,
  *                   `NULL` if none were found.
  */
-wchar_t* wmemrchr(const wchar_t* segment, wchar_t c, size_t size)
+wchar_t* (wmemrchr)(const wchar_t* segment, wchar_t c, size_t size)
 {
   while (size--)
     if (segment[size] == c)
@@ -95,7 +95,7 @@ wchar_t* wmemrchr(const wchar_t* segment, wchar_t c, size_t size)
  * @return          Pointer to the first occurrence of `c`,
  *                  `NULL` if none were found.
  */
-wchar_t* wcschr(const wchar_t* string, wchar_t c)
+wchar_t* (wcschr)(const wchar_t* string, wchar_t c)
 {
   for (;;)
     if (*string == c)
@@ -120,7 +120,7 @@ wchar_t* wcschr(const wchar_t* string, wchar_t c)
  *                  Pointer to the terminating NUL character
  *                  if none were found.
  */
-wchar_t* wcschrnul(const wchar_t* string, wchar_t c)
+wchar_t* (wcschrnul)(const wchar_t* string, wchar_t c)
 {
   for (;; string++)
     if (*string == c)
@@ -144,7 +144,7 @@ wchar_t* wcschrnul(const wchar_t* string, wchar_t c)
  * @return          Pointer to the last occurrence of `c`,
  *                  `NULL` if none were found.
  */
-wchar_t* wcsrchr(const wchar_t* string, wchar_t c)
+wchar_t* (wcsrchr)(const wchar_t* string, wchar_t c)
 {
   wchar_t* r = NULL;
   for (;;)

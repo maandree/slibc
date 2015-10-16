@@ -279,7 +279,7 @@ static int wwrite_buffer(const wchar_t* text, size_t length, struct buffer* buff
   enum extalloc_mode flags = EXTALLOC_MALLOC | (buffer->secure ? EXTALLOC_CLEAR : 0);
   wchar_t* new;
   
-  if (buffer->off + length > buffer->size)
+  if (buffer->off + length > *(buffer->size))
     {
       if (buffer->off || !*(buffer->size))
 	new = (buffer->secure ? secure_realloc : fast_realloc)

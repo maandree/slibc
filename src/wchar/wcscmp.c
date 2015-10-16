@@ -17,7 +17,7 @@
  */
 #include <wchar.h>
 #include <stdint.h>
-#include <wctype.h>
+/* TODO #include <wctype.h> */
 
 
 
@@ -54,7 +54,7 @@ int wmemcasecmp(const wchar_t* a, const wchar_t* b, size_t size)
 {
   wchar_t c1, c2;
   for (; size--; a++, b++)
-    if (*a != *b);
+    if (*a != *b)
       {
 	c1 = iswalpha(*a) ? towlower(*a) : *a;
 	c2 = iswalpha(*b) ? towlower(*b) : *b;
@@ -115,7 +115,7 @@ int wcsncmp(const wchar_t* a, const wchar_t* b, size_t length)
   size_t n = wcsnlen(a, length);
   size_t m = wcsnlen(b, length);
   int r = wmemcmp(a, b, (n < m ? n : m));
-  return r ? r : n == m ? 0 : n < m ? -1 : +1
+  return r ? r : n == m ? 0 : n < m ? -1 : +1;
 }
 
 

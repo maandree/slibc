@@ -61,6 +61,13 @@
 #define STDERR_FILENO  2
 
 
+/* TODO temporary values */
+#define F_OK  0
+#define X_OK  1
+#define W_OK  2
+#define R_OK  4
+
+
 /**
  * Set the high end of the calling process's
  * data segment.

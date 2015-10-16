@@ -25,9 +25,9 @@
  * 
  * This is a deprecated BSD extension.
  */
-char* index(const char* string, int c)
+char* (index)(const char* string, int c)
 {
-  return strchr(string, c);
+  return (strchr)(string, c);
 }
 
 
@@ -36,8 +36,8 @@ char* index(const char* string, int c)
  * 
  * This is a deprecated BSD extension.
  */
-char* rindex(const char* string, int c)
+char* (rindex)(const char* string, int c)
 {
-  return strrchr(string, c);
+  return (strrchr)(string, c);
 }
 

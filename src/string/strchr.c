@@ -31,7 +31,7 @@
  * @return           Pointer to the first occurrence of `c`,
  *                   `NULL` if none were found.
  */
-void* memchr(const void* segment, int c, size_t size)
+void* (memchr)(const void* segment, int c, size_t size)
 {
   char* s = segment;
   while (size--)
@@ -51,7 +51,7 @@ void* memchr(const void* segment, int c, size_t size)
  * @param   c        The sought after character.
  * @return           Pointer to the first occurrence of `c`.
  */
-void* rawmemchr(const void* segment, int c)
+void* (rawmemchr)(const void* segment, int c)
 {
   char* s = segment;
   for (;;)
@@ -73,7 +73,7 @@ void* rawmemchr(const void* segment, int c)
  * @return           Pointer to the last occurrence of `c`,
  *                   `NULL` if none were found.
  */
-void* memrchr(const void* segment, int c, size_t size)
+void* (memrchr)(const void* segment, int c, size_t size)
 {
   char* s = segment;
   while (size--)
@@ -96,7 +96,7 @@ void* memrchr(const void* segment, int c, size_t size)
  * @return          Pointer to the first occurrence of `c`,
  *                  `NULL` if none were found.
  */
-char* strchr(const char* string, int c)
+char* (strchr)(const char* string, int c)
 {
   for (;;)
     if (*string == c)
@@ -120,7 +120,7 @@ char* strchr(const char* string, int c)
  *                  Pointer to the terminating NUL character
  *                  if none were found.
  */
-char* strchrnul(const char* string, int c)
+char* (strchrnul)(const char* string, int c)
 {
   for (;; string++)
     if (*string == c)
@@ -144,7 +144,7 @@ char* strchrnul(const char* string, int c)
  * @return          Pointer to the last occurrence of `c`,
  *                  `NULL` if none were found.
  */
-char* strrchr(const char* string, int c)
+char* (strrchr)(const char* string, int c)
 {
   char* r = NULL;
   for (;;)

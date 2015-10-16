@@ -40,7 +40,7 @@ extern char** environ;
  * 
  * @throws              Any error specified for execve(2).
  */
-static void vexec(int fd, va_list argv, int fetch_envp)
+static void vfexec(int fd, va_list argv, int fetch_envp)
 {
   char* const* envp = environ;
   size_t n = 0, i;
@@ -84,7 +84,7 @@ int fexecl(int fd, ... /*, NULL */)
 {
   int saved_errno;
   va_list argv;
-  va_start(argv, path);
+  va_start(argv, fd);
   vfexec(fd, argv, 0);
   saved_errno = errno;
   va_end(argv);
@@ -116,7 +116,7 @@ int fexecle(int fd, ... /*, NULL, char* const envp[] */)
 {
   int saved_errno;
   va_list argv;
-  va_start(argv, path);
+  va_start(argv, fd);
   vfexec(fd, argv, 1);
   saved_errno = errno;
   va_end(argv);

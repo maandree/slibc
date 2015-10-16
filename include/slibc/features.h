@@ -48,7 +48,7 @@
  * @param   ...       The rest of the arguments.
  * @return            The result casted to the same type as `first`.
  */
-#if defined(__CONST_CORRECT)
+#ifdef __CONST_CORRECT
 # undef __CONST_CORRECT
 # undef __const_correct
 #endif
@@ -70,7 +70,7 @@
 # define __const_correct(function, first, ...) \
   (_Generic(&(first), \
             const wchar_t(*)[]: (const wchar_t*)function(first, __VA_ARGS__), \
-            const char(*)[]:    (const char*)   function(first, __VA_ARGS__),  \
+            const char(*)[]:    (const char*)   function(first, __VA_ARGS__), \
             const wchar_t**:    (const wchar_t*)function(first, __VA_ARGS__), \
             const char**:       (const char*)   function(first, __VA_ARGS__), \
             const void**:       (const void*)   function(first, __VA_ARGS__), \

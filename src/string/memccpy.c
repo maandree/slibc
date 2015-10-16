@@ -33,9 +33,9 @@
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
  */
-void* memccpy(void* restrict whither, const void* restrict whence, int c, size_t size)
+void* (memccpy)(void* restrict whither, const void* restrict whence, int c, size_t size)
 {
-  char* stop = memchr(whence, c, size);
+  char* stop = (memchr)(whence, c, size);
   void* r = NULL;
   if (stop != NULL)
     size = (size_t)(stop - (const char*)whence), r = whither + size;
@@ -60,9 +60,9 @@ void* memccpy(void* restrict whither, const void* restrict whence, int c, size_t
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
  */
-void* memcmove(void* whither, const void* whence, int c, size_t size)
+void* (memcmove)(void* whither, const void* whence, int c, size_t size)
 {
-  char* stop = memchr(whence, c, size);
+  char* stop = (memchr)(whence, c, size);
   void* r = NULL;
   if (stop != NULL)
     size = (size_t)(stop - (const char*)whence), r = whither + size;

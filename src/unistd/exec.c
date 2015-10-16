@@ -21,6 +21,9 @@
 #include <alloca.h>
 #include <string.h>
 #include <stdlib.h>
+/* TODO temporary contants from other headers { */
+#define _CS_PATH 1
+/* } */
 
 
 
@@ -114,8 +117,8 @@ int execlp(const char* file, ... /*, NULL */)
 {
   int saved_errno;
   va_list argv;
-  va_start(argv, path);
-  vexec(path, argv, 0, 1);
+  va_start(argv, file);
+  vexec(file, argv, 0, 1);
   saved_errno = errno;
   va_end(argv);
   return errno = saved_errno, -1;
@@ -180,8 +183,8 @@ int execlpe(const char* file, ... /*, NULL, char* const envp[] */)
 {
   int saved_errno;
   va_list argv;
-  va_start(argv, path);
-  vexec(path, argv, 1, 1);
+  va_start(argv, file);
+  vexec(file, argv, 1, 1);
   saved_errno = errno;
   va_end(argv);
   return errno = saved_errno, -1;
@@ -236,7 +239,7 @@ int execv(const char* path, char* const argv[])
  */
 int execvp(const char* file, char* const argv[])
 {
-  return execvpe(path, argv, environ);
+  return execvpe(file, argv, environ);
 }
 
 
@@ -265,7 +268,7 @@ int execvp(const char* file, char* const argv[])
 int execve(const char* path, char* const argv[], char* const envp[])
 {
   return errno = ENOTSUP, -1;
-  (void) path, (void) argv, (void) enpv;
+  (void) path, (void) argv, (void) envp;
   /* TODO implement execve */
 }
 
@@ -314,7 +317,7 @@ int execvpe(const char* file, char* const argv[], char* const envp[])
   if (!*file)
     return errno = ENOENT, -1;
   
-  path = getenv(PATH);
+  path = getenv("PATH");
   if (path == NULL)
     {
       if ((len = confstr(_CS_PATH, NULL, 0)))
@@ -352,7 +355,7 @@ int execvpe(const char* file, char* const argv[], char* const envp[])
   
   free(path);
   free(pathname);
-  return errno = (eaccess ? EACCES : ENOENT), -1;
+  return errno = (eacces ? EACCES : ENOENT), -1;
   
  fail:
   saved_errno = errno;

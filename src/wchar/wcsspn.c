@@ -79,7 +79,7 @@ size_t wcscspn(const wchar_t* string, const wchar_t* stopset)
  *                   `string` of a character found in `stopset`.
  *                   `NULL` is returned if none is found.
  */
-wchar_t* wcspbrk(const wchar_t* string, const wchar_t* stopset)
+wchar_t* (wcspbrk)(const wchar_t* string, const wchar_t* stopset)
 {
   string += wcscspn(string, stopset);
   return *string ? string : NULL;

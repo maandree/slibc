@@ -22,8 +22,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+/* TODO #include <sys/types.h> */
+/* TODO #include <sys/stat.h> */
+/* TODO temporary contants/structs from other headers { */
+#define AT_FDCWD 1
+#define AT_EMPTY_PATH 1
+#define AT_SYMLINK_NOFOLLOW 1
+#define _CS_PATH 1
+struct stat { int st_mode; };
+/* } */
 
 
 
@@ -150,8 +157,8 @@ int execlpat(int dirfd, const char* file, ... /*, NULL, int flags */)
 {
   int saved_errno;
   va_list argv;
-  va_start(argv, path);
-  vexecat(dirfd, path, argv, 0, 1);
+  va_start(argv, file);
+  vexecat(dirfd, file, argv, 0, 1);
   saved_errno = errno;
   va_end(argv);
   return errno = saved_errno, -1;
@@ -244,8 +251,8 @@ int execlpeat(int dirfd, const char* file, ... /*, NULL, char* const[] envp, int
 {
   int saved_errno;
   va_list argv;
-  va_start(argv, path);
-  vexecat(dirfd, path, argv, 1, 1);
+  va_start(argv, file);
+  vexecat(dirfd, file, argv, 1, 1);
   saved_errno = errno;
   va_end(argv);
   return errno = saved_errno, -1;
@@ -330,7 +337,7 @@ int execvat(int dirfd, const char* path, char* const argv[], int flags)
  */
 int execvpat(int dirfd, const char* file, char* const argv[], int flags)
 {
-  return execvpe(dirfd, path, argv, environ, flags);
+  return execvpeat(dirfd, file, argv, environ, flags);
 }
 
 
@@ -452,7 +459,7 @@ int execvpeat(int dirfd, const char* file, char* const argv[], char* const envp[
   if (strchr(file, '/') || !*file)
     return execveat(dirfd, file, argv, envp, flags);
   
-  path = getenv(PATH);
+  path = getenv("PATH");
   if (path == NULL)
     {
       execveat(dirfd, file, argv, envp, flags);
@@ -494,7 +501,7 @@ int execvpeat(int dirfd, const char* file, char* const argv[], char* const envp[
   
   free(path);
   free(pathname);
-  return errno = (eaccess ? EACCES : ENOENT), -1;
+  return errno = (eacces ? EACCES : ENOENT), -1;
   
  fail:
   saved_errno = errno;

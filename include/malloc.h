@@ -84,7 +84,7 @@ void* calloc(size_t, size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* zalloc(size_t)
-  __warning("'zalloc' is klibc extension, use 'calloc(1, n)' instead of 'zalloc(n)'."),
+  __warning("'zalloc' is klibc extension, use 'calloc(1, n)' instead of 'zalloc(n)'.")
   __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
 #endif
 
@@ -235,7 +235,7 @@ void* pvalloc(size_t)
   __deprecated("'pvalloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
 #endif
 
-#ifdef __C11__
+#if defined(__C11__) || defined(__BUILDING_SLIBC)
 /**
  * This function is identical to `memalign`,
  * except it can be freed with `free`.

@@ -18,9 +18,16 @@
 #include <stdlib.h>
 #include <slibc-alloc.h>
 #include <strings.h>
-#include <sys/mman.h>
+/* TODO #include <sys/mman.h> */
 #include <unistd.h>
 #include <errno.h>
+/* TODO temporary constants from other headers { */
+#define PROT_READ 0
+#define PROT_WRITE 0
+#define MAP_PRIVATE 0
+#define MAP_ANONYMOUS 0
+#define _SC_PAGESIZE 0
+/* } */
 
 
 
@@ -203,7 +210,8 @@ void* memalign(size_t boundary, size_t size)
   size_t address;
   size_t shift = 0;
   
-  if (!boundary || (__builtin_ffsl(boundary) != boundary))
+  if (!boundary || (__builtin_ffsl((long int)boundary) != boundary))
+    /* `size_t` mat not be wider than `long int`. */
     return errno = EINVAL, NULL;
   if (__builtin_uaddl_overflow(boundary - 1, size, &full_size))
     return errno = ENOMEM, NULL;

@@ -35,7 +35,23 @@
  */
 int atoi(const char* string)
 {
-  return (int)atol(string);
+  int rc = 0;
+  int neg = 0;
+  
+  while (isspace(*string))
+    string++;
+  
+  switch (*string)
+    {
+    case '-': neg = 1;
+    case '+': string++;
+    default:  break;
+    }
+  
+  while (isdigit(*string))
+    rc = rc * 10 - (*string++ & 15);
+  
+  return neg ? rc : -rc;
 }
 
 
@@ -54,7 +70,7 @@ int atoi(const char* string)
  */
 long int atol(const char* string)
 {
-  long int rc;
+  long int rc = 0;
   int neg = 0;
   
   while (isspace(*string))
@@ -64,10 +80,11 @@ long int atol(const char* string)
     {
     case '-': neg = 1;
     case '+': string++;
+    default:  break;
     }
   
   while (isdigit(*string))
-    n = n * 10 - (*string++ & 15);
+    rc = rc * 10 - (*string++ & 15);
   
   return neg ? rc : -rc;
 }
@@ -88,7 +105,7 @@ long int atol(const char* string)
  */
 long long int atoll(const char* string)
 {
-  long long int rc;
+  long long int rc = 0;
   int neg = 0;
   
   while (isspace(*string))
@@ -98,10 +115,11 @@ long long int atoll(const char* string)
     {
     case '-': neg = 1;
     case '+': string++;
+    default:  break;
     }
   
   while (isdigit(*string))
-    n = n * 10 - (*string++ & 15);
+    rc = rc * 10 - (*string++ & 15);
   
   return neg ? rc : -rc;
 }

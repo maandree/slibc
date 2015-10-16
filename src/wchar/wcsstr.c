@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <alloca.h>
-#include <wctype.h>
+/* TODO #include <wctype.h> */
 
 #define WIDE
 
@@ -31,9 +31,9 @@
 /**
  * This function is identical to `wcsstr`.
  */
-wchar_t* wcswcs(const wchar_t* haystack, const wchar_t* needle)
+wchar_t* (wcswcs)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wcsstr(haystack, needle);
+  return (wcsstr)(haystack, needle);
 }
 
 
@@ -46,9 +46,9 @@ wchar_t* wcswcs(const wchar_t* haystack, const wchar_t* needle)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-wchar_t* wcsstr(const wchar_t* haystack, const wchar_t* needle)
+wchar_t* (wcsstr)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wmemmem(haystack, wcslen(haystack), needle, wcslen(needle));
+  return (wmemmem)(haystack, wcslen(haystack), needle, wcslen(needle));
 }
 
 
@@ -63,9 +63,9 @@ wchar_t* wcsstr(const wchar_t* haystack, const wchar_t* needle)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-wchar_t* wcscasestr(const wchar_t* haystack, const wchar_t* needle)
+wchar_t* (wcscasestr)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wmemcasemem(haystack, wcslen(haystack), needle, wcslen(needle));
+  return (wmemcasemem)(haystack, wcslen(haystack), needle, wcslen(needle));
 }
 
 
@@ -82,9 +82,9 @@ wchar_t* wcscasestr(const wchar_t* haystack, const wchar_t* needle)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-wchar_t* wcsnstr(const wchar_t* haystack, const wchar_t* needle, size_t maxlen)
+wchar_t* (wcsnstr)(const wchar_t* haystack, const wchar_t* needle, size_t maxlen)
 {
-  return wmemmem(haystack, wcsnlen(haystack, maxlen), needle, wcslen(needle));
+  return (wmemmem)(haystack, wcsnlen(haystack, maxlen), needle, wcslen(needle));
 }
 
 
@@ -100,9 +100,9 @@ wchar_t* wcsnstr(const wchar_t* haystack, const wchar_t* needle, size_t maxlen)
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
  */
-wchar_t* wcsncasestr(const wchar_t* haystack, const wchar_t* needle, size_t maxlen)
+wchar_t* (wcsncasestr)(const wchar_t* haystack, const wchar_t* needle, size_t maxlen)
 {
-  return wmemcasemem(haystack, wcsnlen(haystack, maxlen), needle, wcslen(needle));
+  return (wmemcasemem)(haystack, wcsnlen(haystack, maxlen), needle, wcslen(needle));
 }
 
 
@@ -117,9 +117,9 @@ wchar_t* wcsncasestr(const wchar_t* haystack, const wchar_t* needle, size_t maxl
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
  */
-wchar_t* rawwcsstr(const wchar_t* haystack, const wchar_t* needle)
+wchar_t* (rawwcsstr)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wmemmem(haystack, SIZE_MAX, needle, wcslen(needle));
+  return (wmemmem)(haystack, SIZE_MAX, needle, wcslen(needle));
 }
 
 
@@ -134,9 +134,9 @@ wchar_t* rawwcsstr(const wchar_t* haystack, const wchar_t* needle)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
  */
-wchar_t* rawwcscasestr(const wchar_t* haystack, const wchar_t* needle)
+wchar_t* (rawwcscasestr)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wmemcasemem(haystack, SIZE_MAX, needle, wcslen(needle));
+  return (wmemcasemem)(haystack, SIZE_MAX, needle, wcslen(needle));
 }
 
 
@@ -155,8 +155,8 @@ wchar_t* rawwcscasestr(const wchar_t* haystack, const wchar_t* needle)
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-wchar_t* wmemmem(const wchar_t* haystack, size_t haystack_length,
-		 const wchar_t* needle, size_t needle_length)
+wchar_t* (wmemmem)(const wchar_t* haystack, size_t haystack_length,
+		   const wchar_t* needle, size_t needle_length)
 {
   if (haystack_length < needle_length)
     return NULL;
@@ -180,8 +180,8 @@ wchar_t* wmemmem(const wchar_t* haystack, size_t haystack_length,
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-wchar_t* wmemcasemem(const wchar_t* haystack, size_t haystack_length,
-		     const wchar_t* needle, size_t needle_length)
+wchar_t* (wmemcasemem)(const wchar_t* haystack, size_t haystack_length,
+		       const wchar_t* needle, size_t needle_length)
 {
   if (haystack_length < needle_length)
     return NULL;
@@ -204,7 +204,7 @@ wchar_t* wmemcasemem(const wchar_t* haystack, size_t haystack_length,
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
  */
-wchar_t* wcsstarts(const wchar_t* string, const wchar_t* desired)
+wchar_t* (wcsstarts)(const wchar_t* string, const wchar_t* desired)
 {
   size_t n = wcslen(string);
   size_t m = wcslen(desired);
@@ -225,7 +225,7 @@ wchar_t* wcsstarts(const wchar_t* string, const wchar_t* desired)
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
  */
-wchar_t* wcsends(const wchar_t* string, const wchar_t* desired)
+wchar_t* (wcsends)(const wchar_t* string, const wchar_t* desired)
 {
   size_t n = wcslen(string);
   size_t m = wcslen(desired);
@@ -246,7 +246,7 @@ wchar_t* wcsends(const wchar_t* string, const wchar_t* desired)
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
  */
-wchar_t* wcscasestarts(const wchar_t* string, const wchar_t* desired)
+wchar_t* (wcscasestarts)(const wchar_t* string, const wchar_t* desired)
 {
   size_t n = wcslen(string);
   size_t m = wcslen(desired);
@@ -267,7 +267,7 @@ wchar_t* wcscasestarts(const wchar_t* string, const wchar_t* desired)
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
  */
-wchar_t* wcscaseends(const wchar_t* string, const wchar_t* desired)
+wchar_t* (wcscaseends)(const wchar_t* string, const wchar_t* desired)
 {
   size_t n = wcslen(string);
   size_t m = wcslen(desired);
