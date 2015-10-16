@@ -434,3 +434,12 @@ currently, does not define any integer types where
 
 TODO
 
+@ignore
+
+ptrdiff_t  ANSI C  <stddef.h>
+size_t     ANSI C  <stddef.h>
+wchar_t    ANSI C  <stddef.h>
+ssize_t    POSIX   <stddef.h>
+
+@end ignore
+
