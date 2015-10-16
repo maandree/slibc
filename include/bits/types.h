@@ -94,11 +94,27 @@ typedef unsigned __LIMITED_PTR_INT uptrdiff_t;
  */
 # if defined(__NEED_wchar_t) && !defined(__DEFINED_wchar_t)
 #  define __DEFINED_wchar_t
-typedef long int wchar_t
+#  if __WCHAR_BIT == 8
+typedef __WCHAR_SIGNESS __INT8 wchar_t
+#  elif __WCHAR_BIT == 16
+typedef __WCHAR_SIGNESS __INT16 wchar_t
+#  elif __WCHAR_BIT == 32
+typedef __WCHAR_SIGNESS __INT32 wchar_t
+#  elif __WCHAR_BIT == 64
+typedef __WCHAR_SIGNESS __INT64 wchar_t
+#  endif
   __warning("'wchar_t' is not guaranteed to be defined as expected, use 'int32_t'.");
 # endif
 # ifndef __WCHAR_MAX
-#  define  __WCHAR_MAX  INTPTR_MAX
+#  if __WCHAR_BIT == 8
+#   define __WCHAR_MAX  INT8_MAX
+#  elif __WCHAR_BIT == 16
+#   define __WCHAR_MAX  INT16_MAX
+#  elif __WCHAR_BIT == 32
+#   define __WCHAR_MAX  INT32_MAX
+#  elif __WCHAR_BIT == 64
+#   define __WCHAR_MAX  INT64_MAX
+#  endif
 # endif
 
 

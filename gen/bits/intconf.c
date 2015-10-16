@@ -17,7 +17,13 @@
  */
 #include <stdio.h>
 #include <string.h>
+#include <stddef.h>
 #include <time.h>
+
+
+
+volatile char nul = 0;
+volatile wchar_t wnul = 0;
 
 
 
@@ -109,6 +115,7 @@ int main(int argc, char* argv[])
       r |= printf("LONG_BIT %zu\n",      8 * sizeof(long int));
       r |= printf("LONG_LONG_BIT %zu\n", 8 * sizeof(long long int));
       r |= printf("PTR_BIT %zu\n",       8 * sizeof(void*));
+      r |= printf("WCHAR_BIT %zu\n",     8 * sizeof(L'\0'));
       
       r |= printf("INT%zu %s\n", 8 * sizeof(char), "char");
       r |= printf("INT%zu %s\n", 8 * sizeof(short int), "short int");
@@ -123,6 +130,19 @@ int main(int argc, char* argv[])
       else if (!strcmp(argv[1], "fast16"))  r = fast(16);
       else if (!strcmp(argv[1], "fast32"))  r = fast(32);
       else if (!strcmp(argv[1], "fast64"))  r = fast(64);
+      else if (!strcmp(argv[1], "char-signed"))
+	{
+	  nul = ~nul;
+	  r = !(nul > 0);
+	  return printf("%i\n", r) < 0 ? 1 : 0;
+	}
+      else if (!strcmp(argv[1], "wchar-signed"))
+	{
+	  wnul = ~wnul;
+	  r = !(wnul > 0);
+	  return printf("%i\n", r) < 0 ? 1 : 0;
+	}
+      
       if (r <= 0)
 	return 1;
       return printf("%i\n", r) < 0 ? 1 : 0;

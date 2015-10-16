@@ -25,12 +25,25 @@
 //>FAST64=$(bin/gen/bits/intconf fast64)
 
 #define __MAX_TO_MIN(max)  (-(max) - 1)
+#if //(bin/gen/bits/intconf char-signed)
+# define __CHAR_SIGNED
+# define __CHAR_SIGNESS  signed
+#endif
+# define __CHAR_SIGNESS  unsigned
+#endif
+#if //(bin/gen/bits/intconf wchar-signed)
+# define __WCHAR_SIGNED
+# define __WCHAR_SIGNESS  signed
+#else
+# define __WCHAR_SIGNESS  unsigned
+#endif
 #define __CHAR_BIT         //(bin/gen/bits/intconf | grep ^CHAR_BIT      | sed "s/^[^ ]* //")
 #define __SHORT_BIT        //(bin/gen/bits/intconf | grep ^SHORT_BIT     | sed "s/^[^ ]* //")
 #define __INT_BIT          //(bin/gen/bits/intconf | grep ^INT_BIT       | sed "s/^[^ ]* //")
 #define __LONG_BIT         //(bin/gen/bits/intconf | grep ^LONG_BIT      | sed "s/^[^ ]* //")
 #define __LONG_LONG_BIT    //(bin/gen/bits/intconf | grep ^LONG_LONG_BIT | sed "s/^[^ ]* //")
 #define __PTR_BIT          //(bin/gen/bits/intconf | grep ^PTR_BIT       | sed "s/^[^ ]* //")
+#define __WCHAR_BIT        //(bin/gen/bits/intconf | grep ^WCHAR_BIT     | sed "s/^[^ ]* //")
 #define __INT8             //(bin/gen/bits/intconf | grep ^INT8          | sed "s/^[^ ]* //" | sed 1q)
 #define __INT16            //(bin/gen/bits/intconf | grep ^INT16         | sed "s/^[^ ]* //" | sed 1q)
 #define __INT32            //(bin/gen/bits/intconf | grep ^INT32         | sed "s/^[^ ]* //" | sed 1q)

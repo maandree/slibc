@@ -42,7 +42,17 @@
  * End of a wide-character stream
  */
 #ifndef WEOF
-# define WEOF  -1L
+# if __WCHAR_BIT == __CHAR_BIT
+#  define WEOF  -1
+# elif __WCHAR_BIT == __SHORT_BIT
+#  define WEOF  -1
+# elif __WCHAR_BIT == __INT_BIT
+#  define WEOF  -1
+# elif __WCHAR_BIT == __LONG_BIT
+#  define WEOF  -1L
+# else
+#  define WEOF  -1LL
+# endif
 #endif
 
 
