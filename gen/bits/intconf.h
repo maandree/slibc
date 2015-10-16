@@ -27,15 +27,15 @@
 #define __MAX_TO_MIN(max)  (-(max) - 1)
 #if //(bin/gen/bits/intconf char-signed)
 # define __CHAR_SIGNED
-# define __CHAR_SIGNESS  signed
-#endif
-# define __CHAR_SIGNESS  unsigned
+# define __CHAR_SIGNNESS  signed
+#else
+# define __CHAR_SIGNNESS  unsigned
 #endif
 #if //(bin/gen/bits/intconf wchar-signed)
 # define __WCHAR_SIGNED
-# define __WCHAR_SIGNESS  signed
+# define __WCHAR_SIGNNESS  signed
 #else
-# define __WCHAR_SIGNESS  unsigned
+# define __WCHAR_SIGNNESS  unsigned
 #endif
 #define __CHAR_BIT         //(bin/gen/bits/intconf | grep ^CHAR_BIT      | sed "s/^[^ ]* //")
 #define __SHORT_BIT        //(bin/gen/bits/intconf | grep ^SHORT_BIT     | sed "s/^[^ ]* //")
