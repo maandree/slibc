@@ -289,7 +289,7 @@ void* naive_realloc(void* ptr, size_t size)
 void* naive_extalloc(void* ptr, size_t size)
 {
   /* TODO implement naive_extalloc */
-  return NULL;
+  return errno = 0, NULL;
   (void) ptr, (void) size;
 }
 
