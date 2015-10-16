@@ -89,6 +89,13 @@ size_t allocsize(void* segment)
 
 /**
  * Common code for realloc-functions, apart from `naive_realloc`.
+ * 
+ * @param   ptr:void*       The old allocation, see `realloc` for more details.
+ * @param   size:size_t     The new allocation size, see `realloc` for more details.
+ * @param   CLEAR_OLD:int   Whether the disowned area is cleared, even if `ptr` is returned.
+ * @param   CLEAR_NEW:int   Whether the newly claimed area is cleared.
+ * @param   CLEAR_FREE:int  Whether the old allocation is cleared if a new pointer is returned.
+ * @return                  The new allocation, see `realloc` for more details.
  */
 #define REALLOC(ptr, size, CLEAR_OLD, CLEAR_NEW, CLEAR_FREE)	\
   size_t old_size;						\
@@ -168,6 +175,34 @@ void* fast_realloc(void* ptr, size_t size)
 void* secure_realloc(void* ptr, size_t size)
 {
   REALLOC(ptr, size, 1, 0, 1);
+}
+
+
+/**
+ * This function behaves exactly like `realloc`,
+ * except you can freely select what memory it clears.
+ * 
+ * `crealloc(p, n)` is equivalent to (but slightly fast than)
+ * `custom_realloc(p, n, 1, 1, 1)`.
+ * 
+ * `fast_realloc(p, n)` is equivalent to (but slightly fast than)
+ * `custom_realloc(p, n, 0, 0, 0)`.
+ * 
+ * `secure_realloc(p, n)` is equivalent to (but slightly fast than)
+ * `custom_realloc(p, n, 1, 0, 1)`.
+ * 
+ * @param   ptr         The old allocation, see `realloc` for more details.
+ * @param   size        The new allocation size, see `realloc` for more details.
+ * @param   clear_old   Whether the disowned area is cleared, even if `ptr` is returned.
+ * @param   clear_new   Whether the newly claimed area is cleared.
+ * @param   clear_free  Whether the old allocation is cleared if a new pointer is returned.
+ * @return              The new allocation, see `realloc` for more details.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int clear_free)
+{
+  REALLOC(ptr, size, clear_old, clear_new, clear_free);
 }
 
 
