@@ -26,6 +26,7 @@
 #define __INT_BIT          //(bin/gen/bits/intconf | grep ^INT_BIT       | sed "s/^[^ ]* //")
 #define __LONG_BIT         //(bin/gen/bits/intconf | grep ^LONG_BIT      | sed "s/^[^ ]* //")
 #define __LONG_LONG_BIT    //(bin/gen/bits/intconf | grep ^LONG_LONG_BIT | sed "s/^[^ ]* //")
+#define __PTR_BIT          //(bin/gen/bits/intconf | grep ^PTR_BIT       | sed "s/^[^ ]* //")
 #define __INT8             //(bin/gen/bits/intconf | grep ^INT8          | sed "s/^[^ ]* //" | sed 1q)
 #define __INT16            //(bin/gen/bits/intconf | grep ^INT16         | sed "s/^[^ ]* //" | sed 1q)
 #define __INT32            //(bin/gen/bits/intconf | grep ^INT32         | sed "s/^[^ ]* //" | sed 1q)

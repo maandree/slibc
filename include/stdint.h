@@ -342,7 +342,11 @@
 /**
  * Maximum value of `uintptr_t`.
  */
-# if __LONG_BIT == 32
+# if __PTR_BIT == 8
+#  define UINTPTR_MAX  UINT8_MAX
+# elif __PTR_BIT == 16
+#  define UINTPTR_MAX  UINT16_MAX
+# elif __PTR_BIT == 32
 #  define UINTPTR_MAX  UINT32_MAX
 # else
 #  define UINTPTR_MAX  UINT64_MAX
@@ -351,7 +355,11 @@
 /**
  * Maximum value of `intptr_t`.
  */
-# if __LONG_BIT == 32
+# if __PTR_BIT == 8
+#  define INTPTR_MAX  INT8_MAX
+# elif __PTR_BIT == 16
+#  define INTPTR_MAX  INT16_MAX
+# elif __PTR_BIT == 32
 #  define INTPTR_MAX  INT32_MAX
 # else
 #  define INTPTR_MAX  INT64_MAX

@@ -26,6 +26,7 @@ int main(void)
   printf("INT_BIT %zu\n",       8 * sizeof(int));
   printf("LONG_BIT %zu\n",      8 * sizeof(long int));
   printf("LONG_LONG_BIT %zu\n", 8 * sizeof(long long int));
+  printf("PTR_BIT %zu\n",       8 * sizeof(void*));
   
   printf("INT%zu %s\n", 8 * sizeof(char), "char");
   printf("INT%zu %s\n", 8 * sizeof(short int), "short int");

@@ -88,8 +88,19 @@ intmax_t imaxabs(intmax_t)
 #define __PRIMAX  "j"
 #define __SCNMAX  "j"
 
-#define __PRIPTR  "l"
-#define __SCNPTR  "l"
+#if __PTR_BIT == 8
+# define __PRIPTR  __PRI8
+# define __SCNPTR  __SCN8
+#elif __PTR_BIT == 16
+# define __PRIPTR  __PRI16
+# define __SCNPTR  __SCN16
+#elif __PTR_BIT == 32
+# define __PRIPTR  __PRI32
+# define __SCNPTR  __SCN32
+#elif __PTR_BIT == 64
+# define __PRIPTR  __PRI64
+# define __SCNPTR  __SCN64
+#endif
 
 
 
