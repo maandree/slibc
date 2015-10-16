@@ -1,6 +1,11 @@
 @node Integer types
 @chapter Integer types
 
+Many programmers have widely false assumption of
+the integer types in C. You should read this chapter.
+Integer types in C are not as straight-forward as
+they are in other programming languages.
+
 
 @menu
 * Builtin integer types::                     Integer types provided by the compiler.
@@ -31,7 +36,9 @@ made available by including the header file
 @lvindex CHAR_MIN
 @lvindex CHAR_MAX
 The smallest addressable unit of the machine
-that can contain a basic character set.
+that can contain a basic character set.@footnote{Because
+of this, @code{char*} has been given a special property
+in the C programming language: it may alias anything.}
 It is either signed or unsigned, depending
 on the implementation. It contains @code{CHAR_BIT}
 bits. @sc{POSIX} requires that @code{CHAR_BIT == 8},
@@ -48,16 +55,15 @@ Signed version of @code{char}. It is guaranteed
 to have a range of either
 [@math{-2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~+~1},
 @math{2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~-~1}]
-or
-[@math{-2}@sup{@code{CHAR_BIT}@math{~-~1}},
+or [@math{-2}@sup{@code{CHAR_BIT}@math{~-~1}},
 @math{2}@sup{@code{CHAR_BIT}@math{~-~1}}@math{~-~1}].
 The exact range is [@code{SCHAR_MIN}, @code{SCHAR_MAX}].
 @end iftex
 @ifnottex
 Signed version of @code{char}. It is
 guaranteed to have a range of at least either
-[-2^(@code{CHAR_BIT} - 1) + 1, 2^(@code{CHAR_BIT} - 1) - 1] or
-[-2^(@code{CHAR_BIT} - 1), 2^(@code{CHAR_BIT} - 1) - 1].
+[-2^(@code{CHAR_BIT} - 1) + 1, 2^(@code{CHAR_BIT} - 1) - 1]
+or [-2^(@code{CHAR_BIT} - 1), 2^(@code{CHAR_BIT} - 1) - 1].
 The exact range is [@code{SCHAR_MIN}, @code{SCHAR_MAX}].
 @end ifnottex
 
@@ -73,8 +79,7 @@ or equivalently [0, @code{UCHAR_MAX}].
 @end iftex
 @ifnottex
 Unsigned version of @code{char}. It is guaranteed
-to have a range of exactly
-[0, 2^@code{CHAR_BIT} -1],
+to have a range of exactly [0, 2^@code{CHAR_BIT} -1],
 or equivalently [0, @code{UCHAR_MAX}].
 @end ifnottex
 
@@ -88,15 +93,15 @@ or equivalently [0, @code{UCHAR_MAX}].
 @lvindex SHORT_MAX
 Signed integer type of at least 16 bits. Its range is
 guaranteed contain at least [@math{-32767}, @math{32767}].
-The exact range [@code{SHORT_MIN}, @code{SHORT_MAX}].
+The exact range is [@code{SHORT_MIN}, @code{SHORT_MAX}].
 
 @item unsigned short int
 @itemx unsigned short
 @tpindex unsigned short int
 @lvindex USHORT_MAX
-Unsigned integer type of at least 16 bits. Its range is
-guaranteed contain at least [0, @math{65535}].
-The exact range [0, @code{USHORT_MAX}].
+Unsigned integer type of at least 16 bits. Its range
+is guaranteed contain at least [0, @math{65535}].
+The exact range is [0, @code{USHORT_MAX}].
 
 @item signed int
 @itemx int
@@ -106,21 +111,22 @@ The exact range [0, @code{USHORT_MAX}].
 @lvindex INT_MAX
 Signed integer type of at least 16 bits. Its range is
 guaranteed contain at least [@math{-32767}, @math{32767}].
-The exact range [@code{INT_MIN}, @code{INT_MAX}].
+The exact range is [@code{INT_MIN}, @code{INT_MAX}]. This
+integer type should not be used for indices!
 
 @item unsigned int
 @tpindex unsigned int
 @lvindex UINT_MAX
-Unsigned integer type of at least 16 bits. Its range is
-guaranteed contain at least [0, @math{65535}].
-The exact range [0, @code{UINT_MAX}].
+Unsigned integer type of at least 16 bits. Its range
+is guaranteed contain at least [0, @math{65535}].
+The exact range is [0, @code{UINT_MAX}].
 
 @item signed
 @tpindex signed
 Alias for @code{signed int} which is used when the
 valid value range is the least guaranteed range. Thus
 The range may exceed [@math{-32767}, @math{32767}],
-but values outside that range [[@math{-32767},
+but values outside that range is [[@math{-32767},
 @math{32767}]] should not be used.
 
 @item unsigned
@@ -128,7 +134,8 @@ but values outside that range [[@math{-32767},
 Alias for @code{unsigned int} which is used when the
 valid value range is the least guaranteed range. Thus
 The range may exceed [0, @math{65535}], but values
-outside that range [[0, @math{65535}]] should not be used.
+outside that range is [[0, @math{65535}]] should not
+be used.
 
 @item long int
 @itemx long
@@ -140,7 +147,7 @@ outside that range [[0, @math{65535}]] should not be used.
 @lvindex LONG_MAX
 Signed integer type of at least 32 bits. Its range is
 guaranteed contain at least [@math{-2147483647},
-@math{2147483647}]. The exact range [@code{LONG_MIN},
+@math{2147483647}]. The exact range is [@code{LONG_MIN},
 @code{LONG_MAX}].
 
 @item unsigned long int
@@ -149,7 +156,7 @@ guaranteed contain at least [@math{-2147483647},
 @lvindex ULONG_MAX
 Unsigned integer type of at least 32 bits. Its range is
 guaranteed contain at least [0, @math{4294967295}].
-The exact range [0, @code{ULONG_MAX}].
+The exact range is [0, @code{ULONG_MAX}].
 
 @item long long int
 @itemx long long
@@ -162,7 +169,7 @@ The exact range [0, @code{ULONG_MAX}].
 Signed integer type of at least 64 bits. Its range is
 guaranteed contain at least [@math{-9223372036854775807},
 @math{9223372036854775807}]. This type was added in C99.
-The exact range [@code{LLONG_MIN}, @code{LLONG_MAX}].
+The exact range is [@code{LLONG_MIN}, @code{LLONG_MAX}].
 
 @item unsigned long long int
 @itemx unsigned long long
@@ -170,7 +177,7 @@ The exact range [@code{LLONG_MIN}, @code{LLONG_MAX}].
 @lvindex ULLONG_MAX
 Unsigned integer type of at least 64 bits. Its range is
 guaranteed contain at least [0, @math{18446744073709551615}].
-This type was added in C99. The exact range [0,
+This type was added in C99. The exact range is [0,
 @code{ULLONG_MAX}].
 @end table
 
