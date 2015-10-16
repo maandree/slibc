@@ -256,7 +256,7 @@ The types are as narrow as possible, they
 do not however need to use two's complement.
 Numerical literals, without type suffixes, can
 be @sc{CPP}-safely casted to their type with
-the macros @code{INT_LEAST@i{N}_C(value)}.
+the macros @code{INT@i{N}_C(value)}.
 
 Types where @i{N} is 8, 16, 32, or 64 are
 guaranteed to be defined.
@@ -280,7 +280,7 @@ Unsigned integer types with ranges of at least
 as narrow as possible. Numerical literals,
 without type suffixes, can be @sc{CPP}-safely
 casted to their type with the macros
-@code{UINT_LEAST@i{N}_C(value)}.
+@code{UINT@i{N}_C(value)}.
 
 Types where @i{N} is 8, 16, 32, or 64 are
 guaranteed to be defined.
@@ -302,7 +302,7 @@ Signed integer types with ranges of at least
 They do not need to use two's complement.
 Numerical literals, without type suffixes, can
 be @sc{CPP}-safely casted to their type with
-the macros @code{INT_FAST@i{N}_C(value)}.
+the macros @code{INT@i{N}_C(value)}.
 
 Types where @i{N} is 8, 16, 32, or 64 are
 guaranteed to be defined.
@@ -334,7 +334,7 @@ Signed integer types with ranges of at least
 [0, @code{UINT@i{N}_MAX}]. Numerical literals,
 without type suffixes, can be @sc{CPP}-safely
 casted to their type with the macros
-@code{UINT_FAST@i{N}_C(value)}.
+@code{UINT@i{N}_C(value)}.
 
 Types where @i{N} is 8, 16, 32, or 64 are
 guaranteed to be defined.
