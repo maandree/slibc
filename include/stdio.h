@@ -1384,3 +1384,4 @@ int __isoc99_vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
 
 #endif
 
+/* TODO wprintf and wscanf belongs in <wchar.h> */
