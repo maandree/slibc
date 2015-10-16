@@ -28,6 +28,26 @@
 
 
 /**
+ * Configurations for `extalloc`.
+ * There are independent of each other, and
+ * multiple can be selected by using bitwise or
+ * between them.
+ */
+enum extalloc_mode
+  {
+    /**
+     * Clear disowned memory.
+     */
+    EXTALLOC_CLEAR = 1,
+    
+    /**
+     * Create new allocation with `malloc` if necessary.
+     */
+    EXTALLOC_MALLOC = 2,
+  };
+
+
+/**
  * This function is identical to `free`, except it is guaranteed not to
  * override the memory segment with zeroes before freeing the allocation.
  * 
@@ -134,6 +154,32 @@ void* custom_realloc(void*, size_t, int, int, int)
   __GCC_ONLY(__attribute__((warn_unused_result)));
 
 /**
+ * This function is similar to `realloc`, however it
+ * does not copy the data in the memory segment when
+ * a new pointer is created. Additionally, the
+ * behaviour is undefined if `ptr` is `NULL`, `size`
+ * is zero, or `size` equals the old allocation size.
+ * These additional quirks were added to improve
+ * performance; after all, this function was added
+ * to improve performance.
+ * 
+ * The behaviour is undefined if `mode` does not
+ * contain a valid flag-combination.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @param   mode  `EXTALLOC_CLEAR` or `EXTALLOC_MALLOC`, or both or neither.
+ * @return        The new allocation, see `realloc` for more details.
+ *                If `EXTALLOC_MALLOC` is not used, `NULL` is returned
+ *                and `errno` set to zero, if a new allocation is required.
+ * 
+ * @throws  0       `errno` is set to zero success if `NULL` is returned.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* extalloc(void*, size_t, enum extalloc_mode)
+  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+
+/**
  * This function behaves exactly like `fast_realloc`, except:
  * - Its behaviour is undefined if `ptr` is `NULL`.
  * - Its behaviour is undefined if `size` equals the old allocation size.
@@ -147,6 +193,22 @@ void* custom_realloc(void*, size_t, int, int, int)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* naive_realloc(void*, size_t) /* sic! we limit ourself to ASCII */
+  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+
+/**
+ * This function behaves exactly like `__attribute__`, except
+ * it will return `NULL` with `errno` set to zero, if it is
+ * not possible to perform the shrink or growth without creating
+ * new pointer.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @return        `ptr` on success or `NULL` on error or if `malloc` is needed.
+ * 
+ * @throws  0       `malloc` is require to perform the action.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
   __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
 
 

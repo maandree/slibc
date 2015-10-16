@@ -117,9 +117,11 @@ size_t allocsize(void* segment)
   new_ptr = naive_realloc(ptr);					\
   if (new_ptr != ptr)						\
     {								\
+      if (new_ptr == NULL)					\
+	return NULL;						\
       if (CLEAR_FREE)						\
 	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));	\
-      fast_free(new_ptr);					\
+      fast_free(ptr);						\
     }								\
 								\
   if (CLEAR_NEW ? (old_size < size) : 0)			\
@@ -207,6 +209,50 @@ void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int c
 
 
 /**
+ * This function is similar to `realloc`, however it
+ * does not copy the data in the memory segment when
+ * a new pointer is created. Additionally, the
+ * behaviour is undefined if `ptr` is `NULL`, `size`
+ * is zero, or `size` equals the old allocation size.
+ * These additional quirks were added to improve
+ * performance; after all, this function was added
+ * to improve performance.
+ * 
+ * The behaviour is undefined if `mode` does not
+ * contain a valid flag-combination.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @param   mode  `EXTALLOC_CLEAR` or `EXTALLOC_MALLOC`, or both or neither.
+ * @return        The new allocation, see `realloc` for more details.
+ *                If `EXTALLOC_MALLOC` is not used, `NULL` is returned
+ *                and `errno` set to zero, if a new allocation is required.
+ * 
+ * @throws  0       `errno` is set to zero success if `NULL` is returned.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
+{
+  int clear = mode & EXTALLOC_CLEAR;
+  size_t old_size;
+  void* new_ptr;
+  
+  if (clear ? (old_size > size) : 0)
+    explicit_bzero(((char*)ptr) + size, old_size - size);
+  
+  new_ptr = ((mode & EXTALLOC_MALLOC) ? naive_realloc : naive_extalloc)(ptr);
+  if ((new_ptr != ptr) && (ptr_new != NULL))
+    {
+      if (clear)
+	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));
+      fast_free(ptr);
+    }
+  
+  return new_ptr;
+}
+
+
+/**
  * This function behaves exactly like `fast_realloc`, except:
  * - Its behaviour is undefined if `ptr` is `NULL`.
  * - Its behaviour is undefined if `size` equals the old allocation size.
@@ -224,5 +270,26 @@ void* naive_realloc(void* ptr, size_t size)
   /* TODO implementation of naive_realloc with reallocation */
   return malloc(size);
   (void) ptr;
+}
+
+
+/**
+ * This function behaves exactly like `__attribute__`, except
+ * it will return `NULL` with `errno` set to zero, if it is
+ * not possible to perform the shrink or growth without creating
+ * new pointer.
+ * 
+ * @param   ptr   The old allocation, see `realloc` for more details.
+ * @param   size  The new allocation size, see `realloc` for more details.
+ * @return        `ptr` on success or `NULL` on error or if `malloc` is needed.
+ * 
+ * @throws  0       `malloc` is require to perform the action.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* naive_extalloc(void* ptr, size_t size)
+{
+  /* TODO implement naive_extalloc */
+  return NULL;
+  (void) ptr, (void) size;
 }
 
