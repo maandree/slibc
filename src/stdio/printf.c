@@ -76,9 +76,9 @@ struct buffer
   } buf;
   
   /**
-   * The size of the buffer, in number of elements.
+   * Pointer to the size of the buffer, in number of elements.
    */
-  size_t size;
+  size_t* size;
   
   /**
    * The write offset.
@@ -86,7 +86,8 @@ struct buffer
   size_t off;
   
   /**
-   * Whether `secure_realloc` shall be used.
+   * Whether `EXTALLOC_CLEAR`, `secure_realloc`,
+   * or `secure_free` shall be used.
    */
   int secure;
   
@@ -237,11 +238,17 @@ static int wwrite_stream(const wchar_t* text, size_t length, FILE* stream)
  */
 static int write_buffer(const char* text, size_t length, struct buffer* buffer)
 {
+  enum extalloc_mode flags = EXTALLOC_MALLOC | (buffer->secure ? EXTALLOC_CLEAR : 0);
   char* new;
-  if (buffer->off + length > buffer->size)
+  
+  if (buffer->off + length > *(buffer->size))
     {
-      new = (buffer->secure ? secure_realloc : fast_realloc)
-	(buffer->buf.str, buffer->size * sizeof(char));
+      if (buffer->off || !*(buffer->size))
+	new = (buffer->secure ? secure_realloc : fast_realloc)
+	  (buffer->buf.str, *(buffer->size) * sizeof(char));
+      else
+	new = extalloc(buffer->buf.str, *(buffer->size) * sizeof(char), flags);
+      
       if (new == NULL)
 	{
 	  if (buffer->free_on_error)
@@ -249,7 +256,7 @@ static int write_buffer(const char* text, size_t length, struct buffer* buffer)
 	      buffer->buf.str = NULL;
 	  return -1;
 	}
-      buffer->size = buffer->off + length;
+      *(buffer->size) = buffer->off + length;
       buffer->buf.str = new;
     }
   memcpy(buffer->buf.str, text, length);
@@ -268,11 +275,17 @@ static int write_buffer(const char* text, size_t length, struct buffer* buffer)
  */
 static int wwrite_buffer(const wchar_t* text, size_t length, struct buffer* buffer)
 {
+  enum extalloc_mode flags = EXTALLOC_MALLOC | (buffer->secure ? EXTALLOC_CLEAR : 0);
   wchar_t* new;
+  
   if (buffer->off + length > buffer->size)
     {
-      new = (buffer->secure ? secure_realloc : fast_realloc)
-	(buffer->buf.wcs, buffer->size * sizeof(wchar_t));
+      if (buffer->off || !*(buffer->size))
+	new = (buffer->secure ? secure_realloc : fast_realloc)
+	  (buffer->buf.wcs, *(buffer->size) * sizeof(wchar_t));
+      else
+	new = extalloc(buffer->buf.wcs, *(buffer->size) * sizeof(wchar_t), flags);
+      
       if (new == NULL)
 	{
 	  if (buffer->free_on_error)
@@ -280,7 +293,7 @@ static int wwrite_buffer(const wchar_t* text, size_t length, struct buffer* buff
 	      buffer->buf.wcs = NULL;
 	  return -1;
 	}
-      buffer->size = buffer->off + length;
+      *(buffer->size) = buffer->off + length;
       buffer->buf.wcs = new;
     }
   wmemcpy(buffer->buf.wcs, text, length);
@@ -764,7 +777,7 @@ int vbprintf(char** restrict buffer, size_t* restrict size, size_t offset,
   struct buffer buf =
     {
       .buf.str = *buffer,
-      .size = *size,
+      .size = size,
       .off = offset,
       .secure = secure,
       .free_on_error = buffer == NULL,
@@ -1199,7 +1212,7 @@ int vbwprintf(wchar_t** restrict buffer, size_t* restrict size, size_t offset,
   struct buffer buf =
     {
       .buf.wcs = *buffer,
-      .size = *size,
+      .size = size,
       .off = offset,
       .secure = secure,
       .free_on_error = buffer == NULL,
