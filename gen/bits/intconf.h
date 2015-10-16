@@ -18,7 +18,11 @@
 #ifndef _BITS_INTCONF_H
 #define _BITS_INTCONF_H
 //>set -e
-//>FAST8=8; FAST16=64; FAST32=64; FAST64=64
+
+//>FAST8=$(bin/gen/bits/intconf fast8)
+//>FAST16=$(bin/gen/bits/intconf fast16)
+//>FAST32=$(bin/gen/bits/intconf fast32)
+//>FAST64=$(bin/gen/bits/intconf fast64)
 
 #define __MAX_TO_MIN(max)  (-(max) - 1)
 #define __CHAR_BIT         //(bin/gen/bits/intconf | grep ^CHAR_BIT      | sed "s/^[^ ]* //")
@@ -43,7 +47,6 @@
 #define __UINT_FAST16_MAX  UINT//{FAST16}_MAX
 #define __UINT_FAST32_MAX  UINT//{FAST32}_MAX
 #define __UINT_FAST64_MAX  UINT//{FAST64}_MAX
-
 
 
 #endif
