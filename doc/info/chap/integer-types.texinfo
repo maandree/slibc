@@ -212,6 +212,7 @@ if there are matching integer types. Thus,
 if the compile do not use two's complement,
 none will defined.
 
+@fnindex INT@i{N}_C
 Their range are [@code{INT@i{N}_MIN},
 @code{INT@i{N}_MAX}], where
 @code{INT@i{N}_MIN == -@code{INT@i{N}_MAX} - 1},
@@ -234,6 +235,7 @@ They have do not have any padding bits. They
 are only defined if there are matching integer
 types.
 
+@fnindex UINT@i{N}_C
 Their range are [0, @code{UINT@i{N}_MAX}], where
 @code{UINT@i{N}_MAX == (1 << @i{N}) - 1}.
 Numerical literals, without type suffixes, can
