@@ -5,6 +5,7 @@
 @menu
 * Builtin integer types::                     Integer types provided by the compiler.
 * Portable integer types::                    Integer types provided by the standard library.
+* Specialised integer types::                 Purpose-defined integer types.
 @end menu
 
 
@@ -419,4 +420,10 @@ are not available if @code{_PORTABLE_SOURCE} or
 currently, does not define any integer types where
 @i{N} is neither 8, 16, 32, nor 64.
 
+
+
+@node Specialised integer types
+@section Specialised integer types
+
+TODO
 
