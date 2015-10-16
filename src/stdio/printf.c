@@ -95,6 +95,7 @@ struct buffer
    * Whether `.buf` shall be freed on error.
    */
   int free_on_error;
+  
 };
 
 
