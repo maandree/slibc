@@ -41,6 +41,20 @@
   (((type)1) << sizeof(type))
 #endif
 
+/**
+ * An integer type for pointers, but not wider than `long int`.
+ */
+#ifndef __LIMITED_PTR_INT
+# if __PTR_BIT == __CHAR_BIT
+#  define __LIMITED_PTR_INT  char
+# elif __PTR_BIT == __SHORT_BIT
+#  define __LIMITED_PTR_INT  short int
+# elif __PTR_BIT == __INT_BIT
+#  define __LIMITED_PTR_INT  int
+# else
+#  define __LIMITED_PTR_INT  long int
+#endif
+
 
 /**
  * Signed integer type of the result of subtracting two pointers.
@@ -48,7 +62,7 @@
  */
 #if defined(__NEED_ptrdiff_t) && !defined(__DEFINED_ptrdiff_t)
 # define __DEFINED_ptrdiff_t
-typedef signed long int ptrdiff_t;
+typedef signed __LIMITED_PTR_INT ptrdiff_t;
 #endif
 
 
@@ -57,7 +71,7 @@ typedef signed long int ptrdiff_t;
  */
 #if defined(__NEED_uptrdiff_t) && !defined(__DEFINED_uptrdiff_t)
 # define __DEFINED_uptrdiff_t
-typedef unsigned long int uptrdiff_t;
+typedef unsigned __LIMITED_PTR_INT uptrdiff_t;
 #endif
 
 
@@ -107,11 +121,11 @@ typedef wchar_t wint_t
 /**
  * Unsigned integer type of the result of the
  * `sizeof` operator. May not be greater than the
- * with of type long.
+ * width of type `long int`.
  */
 #if defined(__NEED_size_t) && !defined(__DEFINED_size_t)
 # define __DEFINED_size_t
-typedef unsigned long int size_t;
+typedef unsigned __LIMITED_PTR_INT size_t;
 #endif
 
 
@@ -120,7 +134,7 @@ typedef unsigned long int size_t;
  */
 #if defined(__NEED_ssize_t) && !defined(__DEFINED_ssize_t)
 # define __DEFINED_ssize_t
-typedef signed long int ssize_t;
+typedef signed __LIMITED_PTR_INT ssize_t;
 #endif
 
 
@@ -482,7 +496,7 @@ typedef unsigned __INT64 fsfilcnt_t;
  */
 #if defined(__NEED_blksize_t) && !defined(__DEFINED_blksize_t)
 # define __DEFINED_blksize_t
-typedef signed long int blksize_t;
+typedef signed __LIMITED_PTR_INT blksize_t;
 #endif
 
 
@@ -493,4 +507,7 @@ typedef signed long int blksize_t;
 # define __DEFINED_blkcnt_t
 typedef signed __INT64 blkcnt_t;
 #endif
+
+
+/* pid_t and suseconds_t may not exceed long int */
 
