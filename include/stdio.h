@@ -662,7 +662,8 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
 # endif
 
-# if defined(__SLIBC_SOURCE)# if defined(__GNUC__)
+# if defined(__SLIBC_SOURCE)
+#  if defined(__GNUC__)
 /**
  * This function is identical to `swprintf`,
  * except it allocates a sufficiently large
@@ -702,7 +703,7 @@ int aswprintfa(buffer, format, ...)						\
 	__r = swprintf(*buffer, (size_t)__size, format, ##__VA_ARGS__);		\
     __r;									\
   })
-# endif
+#  endif
 
 /**
  * This function is identical to `bprintf` except
