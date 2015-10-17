@@ -21,7 +21,11 @@
 #include <slibc/features.h>
 
 #ifndef _STDLIB_H
-# warning "Do not directly include <malloc.h>, include <stdlib.h> instead."
+# if defined(__PORTABLE)
+#  error "Do not directly include <malloc.h>, include <stdlib.h> instead."
+# else
+#  warning "Do not directly include <malloc.h>, include <stdlib.h> instead."
+# endif
 #endif
 
 
@@ -145,7 +149,7 @@ void cfree(void*, ...)
 #endif
 
 
-#if !defined(__PORTABLE)
+#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Variant of `malloc` that returns an address with a
  * specified alignment.
@@ -176,6 +180,7 @@ void* memalign(size_t, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 #endif
 
+#if (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
 /**
  * `posix_memalign(p, b, n)` is equivalent to
  * `(*p = memalign(b, n), *p ? 0 : errno)`, except
@@ -195,8 +200,9 @@ void* memalign(size_t, size_t)
  */
 int posix_memalign(void**, size_t, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
+#endif
 
-#if !defined(__PORTABLE)
+#if defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE_EXTENDED) || defined(__SLIBC_SOURCE)
 /**
  * `valloc(n)` is equivalent to `memalign(sysconf(_SC_PAGESIZE), n)`.
  * 
