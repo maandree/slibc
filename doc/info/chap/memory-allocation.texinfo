@@ -31,7 +31,7 @@ There are three important segments.
 When a process exec:s this segment is allocated.
 It contains instructions, static constants, and
 literals.
-@item @sc{BSS} segment
+@item BSS segment
 When a process exec:s this segment is allocated.
 It contains all global and static variables that are
 initialised to zero or lacks explicit initialisation.
