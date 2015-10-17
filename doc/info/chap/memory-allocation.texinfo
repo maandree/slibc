@@ -320,7 +320,7 @@ optimisations. You should avoid code similar to
   strcpy(alloca((strlen(string) + 1) * sizeof(char)), string)
 @end example
 
-@code{alloca} has its restricts --- limited lifetime,
+@code{alloca} has its restrictions --- limited lifetime,
 cannot be explicitly deallocated, not growable, and
 not shrinkable ---  but it can also be advantageous
 because:
@@ -354,19 +354,19 @@ TODO
 @node Efficient stack-based allocations
 @section Efficient stack-based allocations
 
-TODO
+TODO obstack.h
 
 
 
 @node Resizing the data segment
 @section Resizing the data segment
 
-TODO
+TODO brk, sbrk
 
 
 
 @node Memory locking
 @section Memory locking
 
-TODO
+TODO mlock, munlock, mlockall, munlockall
 
