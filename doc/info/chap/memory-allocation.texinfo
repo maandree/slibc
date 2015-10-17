@@ -340,7 +340,145 @@ Uses a faster memory allocation mechanism.
 @node Basic memory allocation
 @section Basic memory allocation
 
-TODO
+@cpindex Dynamic allocation
+@fnindex malloc
+@hfindex malloc.h
+@hfindex stdlib.h
+@code{malloc} is the most general, and most commonly
+used memory allocation facility. It is also the most
+portable, and is available on all environments. There
+are three important function that were introduced in
+@sc{ANSI}@tie{}C. These are defined in @file{<malloc.h>},
+however, they should be included via @file{<stdlib.h>}
+whihc includes @file{<malloc.h>}.
+
+@table @code
+@item void* malloc(size_t size)
+@fnindex malloc
+@cpindex Memory allocation without initialisation
+@cpindex Initialised memory allocation
+Allocates a contiguous memory block of @code{size}
+bytes of usuable memory, and returns a pointer
+to the beginning of the usable part of the allocation.
+The function allocates some extra memory for internal
+bookkeeping, this part of the allocation is located
+before the address the returned pointer points.
+Allocated memory is uninitialised.
+
+If the memory cannot be allocated (due to memory
+exhaustion,) @code{NULL} is returned and @code{errno}
+is set to @code{ENOMEM}.
+
+It is implementation defined whether this function
+returns @code{NULL} or a unique pointer if
+@code{size} is zero. In @code{slibc}, @code{NULL}
+is returned.
+
+The allocation be grown or shrinked at any time.
+See @ref{Resizing memory allocations}.
+
+In @sc{ISO}@tie{}C, @code{void*} can be implicitly
+casted to any other pointer type. Therefore it
+is sufficient (and preferable) to write
+@example
+int* ten_integers = malloc(10 * sizeof(int));
+@end example
+You do not need to write
+@example
+int* ten_integers = (int*)malloc(10 * sizeof(int));
+@end example
+
+@item void* calloc(size_t count, size_t size)
+@fnindex calloc
+@cpindex Memory allocation without uninitialisation
+@cpindex Uninitialised memory allocation
+This function is similar to @code{malloc}, but
+it initialises the memory to zeroes. The only
+other difference is that it as two parameters
+rather than one.
+
+If @code{count * size} would overflow, @code{NULL}
+is returned and @code{errno} is set to @code{ENOMEM}.
+Otherwise, @code{p = calloc(a, b)} is identical to
+@example
+p = malloc(a * b);
+memset(p, 0, a * b);
+@end example
+
+@item void free(void* ptr)
+@fnindex free
+@cpindex Deallocate memory
+@cpindex Memory, deallocation
+Memory that is dynamically allocated (without
+automatic deallocation) can be deallocated with
+this function. It is required that @code{ptr}
+is the pointer returned by the function that
+allocated it. It must not have been incremented.
+Undefined behaviour is invoked otherwise. One
+exception is @code{NULL}, if @code{ptr} is
+@code{NULL} nothing happens.
+
+Do not try to free a pointer twice, undefined
+behaviour. Neither should you try to pass
+pointers to variables to this function, nor
+pointers to functions, arrays, @code{main}'s
+parameters, memory-mapped I/O, or memory allocate
+with @code{alloca}. Function-like macros that allocate
+memory with @code{alloca}@footnote{There functions
+that will return pointers allocate with @code{alloca},
+because the memory would be deallocated at the
+return. Thus, such facilities are implemented as
+function-like macros.} specifies so, and their
+name typically end with an `a', which is not too
+common for other functions.
+
+Be also cautious of whether functions return
+statically allocated arrays, which must not
+be deallocated, or dynamically allocated
+memory, which should be deallocated to avoid
+memory leaks.
+@end table
+
+@file{<malloc.h>} also includes three unportable
+functions.
+@table @code
+@item void* zalloc(size_t size)
+@fnindex zalloc
+This function is similar to @code{calloc}, but it
+only has one parameter. Assuming @code{a} and
+@code{b} are two @code{size_t}:s, and @code{a * b}
+does not overflow, @code{calloc(a, b)} is identical
+to @code{zalloc(a * b)}. @code{zalloc} is a
+@command{klibc} extension.
+
+@item void cfree(void* ptr, ...)
+@fnindex cfree
+This function is an obsolete function provided
+by a number of C standard library implementations.
+It has been replaced by @code{free}. @code{cfree}
+is identical to @code{free}.
+
+Different implementions @command{libc}, defined
+@code{cfree} with different numbers of parameters,
+therefore @code{slibc} declares @code{cfree} as
+a variadic function, and ignores all but the first
+argument.
+
+@item size_t malloc_usable_size(void* ptr)
+@fnindex malloc_usable_sizew
+@cpindex Retrieve allocation size
+@cpindex Allocation size, retrieve
+This function returns the number of usable bytes
+for a pointer. If @code{ptr} is @code{NULL}, zero
+is returned. It has the same restrictions as the
+function @code{free}.
+
+@code{malloc_usable_size(malloc(n))} returns
+@code{n} (and allocates memory in the process.)
+
+This function is a GNU extension and requires
+@code{_GNU_SOURCE}.
+@end table
 
 
 
