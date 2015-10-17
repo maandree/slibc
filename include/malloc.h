@@ -20,6 +20,10 @@
 #include <slibc/version.h>
 #include <slibc/features.h>
 
+#ifndef _STDLIB_H
+# warning "Do not directly include <malloc.h>, include <stdlib.h> instead."
+#endif
+
 
 
 #define __NEED_size_t
