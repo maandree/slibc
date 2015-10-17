@@ -216,6 +216,48 @@ int asprintf(char** restrict, const char* restrict, ...)
 #endif
 
 #if defined(__SLIBC_SOURCE)
+# if defined(__GNUC__)
+/**
+ * This function is identical to `sprintf`,
+ * except it allocates a sufficiently large
+ * buffer to the stack (using `alloca`.)
+ * 
+ * This is a slibc extension. It is only available
+ * if compiling with GCC.
+ * 
+ * There is no `vasprintfa` function.
+ * 
+ * @param   buffer:char**  Output parameter for the output buffer,
+ *                         must not be `NULL`. On error the content
+ *                         of this pointer is either `NULL` or a
+ *                         pointer to memory allocated with `alloca`.
+ * @param   format:char*   The formatting-string, must not have
+ *                         side-effects or be `NULL`.
+ * @param   ...            The formatting-arguments, must not have
+ *                         side-effects.
+ * @return  :int           The number of written bytes, excluding
+ *                         the NUL byte. On error, a negative value
+ *                         (namely -1 in this implementation) is
+ *                         returned. It is unspecified what shall
+ *                         happen if more than `INT_MAX` non-NUL
+ *                         bytes are written; in slibc, `INT_MAX`
+ *                         is returned if more is written, you can
+ *                         use "%zn" to find the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ */
+int asprintfa(buffer, format, ...)					\
+  ({									\
+    ssize_t __size;							\
+    int __r;								\
+    __r = snprintf(NULL, 0, format "%zn", ##__VA_ARGS__, &__size);	\
+    if (*buffer = NULL, __size += 1, __r >= 0)				\
+      *buffer = __builtin_alloca((size_t)__size * sizeof(char)),	\
+	__r = sprintf(*buffer, format, ##__VA_ARGS__);			\
+    __r;						\
+  })
+# endif
+
 /**
  * This function is identical to `asprintf`,
  * except it can reuse allocated buffers.
@@ -620,7 +662,48 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
 # endif
 
-# if defined(__SLIBC_SOURCE)
+# if defined(__SLIBC_SOURCE)# if defined(__GNUC__)
+/**
+ * This function is identical to `swprintf`,
+ * except it allocates a sufficiently large
+ * buffer to the stack (using `alloca`.)
+ * 
+ * This is a slibc extension. It is only available
+ * if compiling with GCC.
+ * 
+ * There is no `vaswprintfa` function.
+ * 
+ * @param   buffer:char**  Output parameter for the output buffer,
+ *                         must not be `NULL`. On error the content
+ *                         of this pointer is either `NULL` or a
+ *                         pointer to memory allocated with `alloca`.
+ * @param   format:char*   The formatting-string, must not have
+ *                         side-effects or be `NULL`.
+ * @param   ...            The formatting-arguments, must not have
+ *                         side-effects.
+ * @return  :int           The number of written bytes, excluding
+ *                         the NUL byte. On error, a negative value
+ *                         (namely -1 in this implementation) is
+ *                         returned. It is unspecified what shall
+ *                         happen if more than `INT_MAX` non-NUL
+ *                         bytes are written; in slibc, `INT_MAX`
+ *                         is returned if more is written, you can
+ *                         use "%zn" to find the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ */
+int aswprintfa(buffer, format, ...)						\
+  ({										\
+    ssize_t __size;								\
+    int __r;									\
+    __r = swprintf(NULL, 0, format "%zn", ##__VA_ARGS__, &__size);		\
+    if (*buffer = NULL, __size += 1, __r >= 0)					\
+      *buffer = __builtin_alloca((size_t)__size * sizeof(wchar_t)),		\
+	__r = swprintf(*buffer, (size_t)__size, format, ##__VA_ARGS__);		\
+    __r;									\
+  })
+# endif
+
 /**
  * This function is identical to `bprintf` except
  * it uses wide characters.
