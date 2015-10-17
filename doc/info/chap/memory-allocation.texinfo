@@ -233,6 +233,20 @@ void function(size_t n)
 Both of these allocation-methods are both automatic
 and dynamic.
 
+@cpindex Memory exhaustion
+Memory allocation functions return @code{NULL} if
+the process cannot allocate more memory. However,
+under typical configurations of the operating system
+kernel, memory allocation functions can return
+succesfully, even if the system's memory is exhausted.
+The process's virtual address space is not exhausted,
+so it thinks it can allocate the memory, but the machines
+memory is exhausted, so once the process tries to write
+to the memory, the kernel cannot map the virtual address
+to a real address. When this happens the process is
+killed by a @code{SIGSEGV}@footnote{Segmentation
+violation, also known as segmentation fault.} signal.
+
 
 @menu
 * The alloca function::                       Dynamically allocate automatically freed memory.
@@ -248,7 +262,57 @@ and dynamic.
 @node The alloca function
 @section The @code{alloca} function
 
-TODO
+@cpindex Dynamic allocation
+@cpindex Automatic allocations
+@cpindex Stack-allocations
+@fnindex alloca
+The function @code{void* alloca(size_t n)} appears
+on multiple systems: 32V, @sc{PWB}, @sc{PWB}.2,
+3@sc{BSD}, 4@sc{BSD}, and @sc{GNU}. It has been
+added to @command{slibc}, without require on
+feature-test macros, despite not being standardised
+(for instance, it does not appear in @sc{POSIX}).
+This function is however not portable, and will not
+be made available if @code{_PORTABLE_SOURCE} or
+@code{_LIBRARY_HEADER} is defined.
+
+@code{void* alloca(size_t n)} is similar to the
+function @code{malloc}. It allocates a contiguous
+space of usable memory of @code{n} bytes, and
+returns a pointer, which points to the beginning
+of the allocated memory. However, the allocate
+appears on the stack rather than the heap, and
+it automatically deallocated when the function
+whence the call to @code{alloca} was made. Be
+cause if this, @code{alloca} is implemented as
+a macro --- using an intrinsic function provided
+by the compiler --- rather than as a function.
+
+You must not try to free the memory explicitly,
+with a function like @code{free}, or resize it
+with a function like @code{realloc}. Just like
+arrays and pointers to automatic variables,
+memory management functions cannot operate
+memory allocated with @code{alloca}.
+
+@cpindex Memory exhaustion
+Unlike @code{malloc}, @code{alloca} does not detect
+memory exhaustion, thus it will never return
+@code{NULL}. However, it is likely that the process
+will receive @code{SIGSEGV}@footnote{Segmentation
+violation, also known as segmentation fault.} if it
+tries to access memory that could not be allocated,
+or, depending on the kernel's configuration, before
+it returns.
+
+Undefined behaviour may be invoked if @code{alloca}
+is called within a function call. The behaviour
+depends on the machine, the compiler, and
+optimisations. You should avoid code similar to
+@example
+#define strdupa(string)  \
+  strcpy(alloca((strlen(string) + 1) * sizeof(char)), string)
+@end example
 
 
 
