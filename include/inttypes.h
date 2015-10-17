@@ -43,7 +43,7 @@
  *                       the remainder in `.rem`.
  */
 imaxdiv_t imaxdiv(intmax_t, intmax_t)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Return the absolute value of an integer.
@@ -57,7 +57,7 @@ imaxdiv_t imaxdiv(intmax_t, intmax_t)
  * @return         The absolute value of the integer.
  */
 intmax_t imaxabs(intmax_t)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 
 

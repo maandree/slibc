@@ -63,7 +63,7 @@ int fflush(FILE*);
  * @throws          Any error specified for `fwrite`.
  */
 int printf(const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1), format(slibc_printf, 1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1), __format__(__slibc_printf__, 1, 2))));
 
 /**
  * Print a formatted string to a stream.
@@ -86,7 +86,7 @@ int printf(const char* restrict, ...)
  * @throws          Any error specified for `fwrite`.
  */
 int fprintf(FILE* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -111,7 +111,7 @@ int fprintf(FILE* restrict, const char* restrict, ...)
  * @throws          Any error specified for `fwrite_unlocked`.
  */
 int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3))));
 #endif
 
 /**
@@ -136,7 +136,7 @@ int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
  * @throws           Any error specified for `write`.
  */
 int dprintf(int, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(2), format(slibc_printf, 2, 3))));
+  __GCC_ONLY(__attribute__((__nonnull__(2), __format__(__slibc_printf__, 2, 3))));
 
 /**
  * This function is identical to `fprintf`,
@@ -160,7 +160,7 @@ int dprintf(int, const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
 int sprintf(char* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3))));
 
 /**
  * This function is identical to `sprintf`,
@@ -184,7 +184,7 @@ int sprintf(char* restrict, const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
 int snprintf(char* restrict, size_t, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(3), format(slibc_printf, 3, 4))));
+  __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
 
 #if defined(__GNU_SOURCE)
 /**
@@ -212,7 +212,7 @@ int snprintf(char* restrict, size_t, const char* restrict, ...)
  *                  sufficient amount of memory.
  */
 int asprintf(char** restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), format(slibc_printf, 2, 3), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3), __warn_unused_result__)));
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -258,7 +258,7 @@ int asprintf(char** restrict, const char* restrict, ...)
  *                  sufficient amount of memory.
  */
 int bprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2, 5), format(slibc_printf, 5, 6), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __format__(__slibc_printf__, 5, 6), __warn_unused_result__)));
 #endif
 
 
@@ -281,7 +281,7 @@ int bprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict
  * @throws          Any error specified for `fwrite`.
  */
 int vprintf(const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1))));
+  __GCC_ONLY(__attribute__((__nonnull__(1))));
 
 /**
  * This function is identical to `fprintf`,
@@ -303,7 +303,7 @@ int vprintf(const char* restrict, va_list)
  * @throws          Any error specified for `fwrite`.
  */
 int vfprintf(FILE* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -328,7 +328,7 @@ int vfprintf(FILE* restrict, const char* restrict, va_list)
  * @throws          Any error specified for `fwrite_unlocked`.
  */
 int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 #endif
 
 /**
@@ -351,7 +351,7 @@ int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
  * @throws          Any error specified for `write`.
  */
 int vdprintf(int, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+  __GCC_ONLY(__attribute__((__nonnull__(2))));
 
 /**
  * This function is identical to `sprintf`,
@@ -372,7 +372,7 @@ int vdprintf(int, const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
 int vsprintf(char* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 /**
  * This function is identical to `snprintf`,
@@ -396,7 +396,7 @@ int vsprintf(char* restrict, const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
 int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 3))));
+  __GCC_ONLY(__attribute__((__nonnull__(3))));
 
 #if defined(__GNU_SOURCE)
 /**
@@ -423,7 +423,7 @@ int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
  *                  sufficient amount of memory.
  */
 int vasprintf(char** restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -469,7 +469,7 @@ int vasprintf(char** restrict, const char* restrict, va_list)
  *                  sufficient amount of memory.
  */
 int vbprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((nonnull(1, 2, 5), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __warn_unused_result__)));
 #endif
 
 
@@ -493,7 +493,7 @@ int vbprintf(char** restrict, size_t* restrict, size_t, int, const char* restric
  * @throws          Any error specified for `fwrite`.
  */
 int wprintf(const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1))));
+  __GCC_ONLY(__attribute__((__nonnull__(1))));
 
 /**
  * This function is identical to `fprintf` except
@@ -515,7 +515,7 @@ int wprintf(const wchar_t* restrict, ...)
  * @throws           Any error specified for `fwrite`.
  */
 int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 # if defined(__SLIBC_SOURCE)
 /**
@@ -540,7 +540,7 @@ int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
  * @throws          Any error specified for `fwrite_unlocked`.
  */
 int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(1, 2))));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 /**
  * This function is identical to `dprintf` except
@@ -564,7 +564,7 @@ int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  * @throws           Any error specified for `write`.
  */
 int dwprintf(int, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(2))));
+ __GCC_ONLY(__attribute__((__nonnull__(2))));
 # endif
 
 /**
@@ -589,7 +589,7 @@ int dwprintf(int, const wchar_t* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
 int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(3))));
+ __GCC_ONLY(__attribute__((__nonnull__(3))));
 
 # if defined(__GNU_SOURCE) && defined(__SLIBC_SOURCE)
 /**
@@ -617,7 +617,7 @@ int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  *                  sufficient amount of memory.
  */
 int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
 # endif
 
 # if defined(__SLIBC_SOURCE)
@@ -664,7 +664,7 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  *                  sufficient amount of memory.
  */
 int bwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* restrict, ...)
- __GCC_ONLY(__attribute__((nonnull(1, 2, 5), warn_unused_result)));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __warn_unused_result__)));
 # endif
 
 
@@ -687,7 +687,7 @@ int bwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* r
  * @throws          Any error specified for `fwrite`.
  */
 int vwprintf(const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1))));
+ __GCC_ONLY(__attribute__((__nonnull__(1))));
 
 /**
  * This function is identical to `fwprintf`,
@@ -709,7 +709,7 @@ int vwprintf(const wchar_t* restrict, va_list)
  * @throws          Any error specified for `fwrite`.
  */
 int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2))));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 # if defined(__SLIBC_SOURCE)
 /**
@@ -734,7 +734,7 @@ int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
  * @throws          Any error specified for `fwrite_unlocked`.
  */
 int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2))));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 /**
  * This function is identical to `vdprintf`,
@@ -758,7 +758,7 @@ int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  * @throws           Any error specified for `write`.
  */
 int vdwprintf(int, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(2))));
+ __GCC_ONLY(__attribute__((__nonnull__(2))));
 # endif
 
 /**
@@ -783,7 +783,7 @@ int vdwprintf(int, const wchar_t* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
 int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(3))));
+ __GCC_ONLY(__attribute__((__nonnull__(3))));
 
 # if defined(__GNU_SOURCE) && defined(__SLIBC_SOURCE)
 /**
@@ -811,7 +811,7 @@ int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  *                  sufficient amount of memory.
  */
 int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2), warn_unused_result)));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
 # endif
 
 # if defined(__SLIBC_SOURCE)
@@ -858,7 +858,7 @@ int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
  *                  sufficient amount of memory.
  */
 int vbwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* restrict, va_list)
- __GCC_ONLY(__attribute__((nonnull(1, 2, 5), warn_unused_result)));
+ __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __warn_unused_result__)));
 # endif
 #endif
 
@@ -877,7 +877,7 @@ int vbwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* 
  *                  on error.
  */
 int scanf(const char* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), format(slibc_scanf, 1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __format__(__slibc_scanf__, 1, 2))));
 
 /**
  * Parse data from from a text stream.
@@ -894,7 +894,7 @@ int scanf(const char* restrict, ...)
  *                  on error.
  */
 int fscanf(FILE* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
 
 /**
  * This function is identical to `fscanf`,
@@ -911,7 +911,7 @@ int fscanf(FILE* restrict, const char* restrict, ...)
  *                  on error.
  */
 int sscanf(const char* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -930,7 +930,7 @@ int sscanf(const char* restrict, const char* restrict, ...)
  *                  on error.
  */
 int fscanf_unlocked(FILE* restrict, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
 
 /**
  * This function is identical to `scanf`,
@@ -951,7 +951,7 @@ int fscanf_unlocked(FILE* restrict, const char* restrict, ...)
  *                  on error.
  */
 int snscanf(const char* restrict, size_t, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3), format(slibc_scanf, 3, 4))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3), __format__(__slibc_scanf__, 3, 4))));
 
 /**
  * This function is identical to `fscanf`,
@@ -971,7 +971,7 @@ int snscanf(const char* restrict, size_t, const char* restrict, ...)
  *                  on error.
  */
 int dscanf(int, const char* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2), format(slibc_scanf, 2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2), __format__(__slibc_scanf__, 2, 3))));
 #endif
 
 
@@ -988,7 +988,7 @@ int dscanf(int, const char* restrict, ...)
  *                  on error.
  */
 int vscanf(const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
 
 /**
  * This function is identical to `fscanf`,
@@ -1004,7 +1004,7 @@ int vscanf(const char* restrict, va_list)
  *                  on error.
  */
 int vfscanf(FILE* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `sscanf`,
@@ -1020,7 +1020,7 @@ int vfscanf(FILE* restrict, const char* restrict, va_list)
  *                  on error.
  */
 int vsscanf(const char* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -1039,7 +1039,7 @@ int vsscanf(const char* restrict, const char* restrict, va_list)
  *                  on error.
  */
 int vfscanf_unlocked(FILE* restrict, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `snscanf`,
@@ -1058,7 +1058,7 @@ int vfscanf_unlocked(FILE* restrict, const char* restrict, va_list)
  *                  on error.
  */
 int vsnscanf(const char* restrict, size_t, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3))));
 
 /**
  * This function is identical to `sscanf`,
@@ -1076,7 +1076,7 @@ int vsnscanf(const char* restrict, size_t, const char* restrict, va_list)
  *                  on error.
  */
 int vdscanf(int, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
 #endif
 
 
@@ -1093,7 +1093,7 @@ int vdscanf(int, const char* restrict, va_list)
  *                  on error.
  */
 int wscanf(const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
 
 /**
  * This function is identical to `fscanf`,
@@ -1109,7 +1109,7 @@ int wscanf(const wchar_t* restrict, ...)
  *                  on error.
  */
 int fwscanf(FILE* restrict, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `sscanf`,
@@ -1125,7 +1125,7 @@ int fwscanf(FILE* restrict, const wchar_t* restrict, ...)
  *                  on error.
  */
 int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -1144,7 +1144,7 @@ int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
  *                  on error.
  */
 int fwscanf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `snscanf`,
@@ -1163,7 +1163,7 @@ int fwscanf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  *                  on error.
  */
 int snwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3))));
 
 /**
  * This function is identical to `dscanf`,
@@ -1181,7 +1181,7 @@ int snwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  *                  on error.
  */
 int dwscanf(int, const wchar_t* restrict, ...)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
 #endif
 
 
@@ -1198,7 +1198,7 @@ int dwscanf(int, const wchar_t* restrict, ...)
  *                  on error.
  */
 int vwscanf(const wchar_t* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
 
 /**
  * This function is identical to `fwscanf`,
@@ -1214,7 +1214,7 @@ int vwscanf(const wchar_t* restrict, va_list)
  *                  on error.
  */
 int vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `swscanf`,
@@ -1230,7 +1230,7 @@ int vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
  *                  on error.
  */
 int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -1249,7 +1249,7 @@ int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
  *                  on error.
  */
 int vfwscanf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `snwscanf`,
@@ -1268,7 +1268,7 @@ int vfwscanf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  *                  on error.
  */
 int vsnwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3))));
 
 /**
  * This function is identical to `swscanf`,
@@ -1286,7 +1286,7 @@ int vsnwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  *                  on error.
  */
 int vdwscanf(int, const wchar_t* restrict, va_list)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
 #endif
 
 
@@ -1297,21 +1297,21 @@ int vdwscanf(int, const wchar_t* restrict, va_list)
  */
 int __isoc99_scanf(const char* restrict, ...)
   __deprecated("Use 'scanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), format(slibc_scanf, 1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __format__(__slibc_scanf__, 1, 2))));
 
 /**
  * This function is identical to `fscanf`.
  */
 int __isoc99_fscanf(FILE* restrict, const char* restrict, ...)
   __deprecated("Use 'fscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
 
 /**
  * This function is identical to `sscanf`.
  */
 int __isoc99_sscanf(const char* restrict, const char* restrict, ...)
   __deprecated("Use 'sscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2), format(slibc_scanf, 2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
 
 
 /**
@@ -1319,21 +1319,21 @@ int __isoc99_sscanf(const char* restrict, const char* restrict, ...)
  */
 int __isoc99_vscanf(const char* restrict, va_list)
   __deprecated("Use 'vscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
 
 /**
  * This function is identical to `vfscanf`.
  */
 int __isoc99_vfscanf(FILE* restrict, const char* restrict, va_list)
   __deprecated("Use 'vfscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `vsscanf`.
  */
 int __isoc99_vsscanf(const char* restrict, const char* restrict, va_list)
   __deprecated("Use 'vsscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 
 /**
@@ -1341,21 +1341,21 @@ int __isoc99_vsscanf(const char* restrict, const char* restrict, va_list)
  */
 int __isoc99_wscanf(const wchar_t* restrict, ...)
   __deprecated("Use 'wscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
 
 /**
  * This function is identical to `fwscanf`.
  */
 int __isoc99_fwscanf(FILE* restrict, const wchar_t* restrict, ...)
   __deprecated("Use 'fwscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `swscanf`.
  */
 int __isoc99_swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
   __deprecated("Use 'swscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 
 /**
@@ -1363,21 +1363,21 @@ int __isoc99_swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
  */
 int __isoc99_vwscanf(const wchar_t* restrict, va_list)
   __deprecated("Use 'vwscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
 
 /**
  * This function is identical to `vfwscanf`.
  */
 int __isoc99_vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
   __deprecated("Use 'vfwscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 
 /**
  * This function is identical to `vswscanf`.
  */
 int __isoc99_vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
   __deprecated("Use 'vswscanf' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
 #endif
 
 

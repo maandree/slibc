@@ -61,7 +61,7 @@
  * @return          A description of the error.
  */
 char* strerror(int)
-  __GCC_ONLY(__attribute__((returns_nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __warn_unused_result__)));
 #endif
 
 #if _POSIX_C_SOURCE >= 200809L
@@ -82,7 +82,7 @@ char* strerror(int)
  * @return          A description of the error.
  */
 char* strerror_l(int, locale_t)
-  __GCC_ONLY(__attribute__((warn_unused_result))); /* TODO attributes */
+  __GCC_ONLY(__attribute__((__warn_unused_result__))); /* TODO attributes */
 #endif
 
 
@@ -141,7 +141,7 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
  * @return       The number of bytes before the first NUL byte.
  */
 size_t strlen(const char*)
-  __GCC_ONLY(__attribute__((nonnull, warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__, __pure__)));
 
 #if defined(__POSIX_SOURCE) || defined(__POSIX_C_SOURCE) || \
     defined(__XOPEN_SOURCE) || defined(__GNU_SOURCE) || \
@@ -156,7 +156,7 @@ size_t strlen(const char*)
  *                  `maxlen` if no NUL byte was found.
  */
 size_t strnlen(const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 #endif
 
 
@@ -265,7 +265,7 @@ void* memcmove(void*, const void*, int, size_t);
  * @return           `whither` is returned.
  */
 char* strcpy(char* restrict, const char* restrict)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 /**
  * Copy a memory segment to another, non-overlapping, segment,
@@ -276,7 +276,7 @@ char* strcpy(char* restrict, const char* restrict)
  * @return           `whither + strlen(whence)` is returned.
  */
 char* stpcpy(char* restrict, const char* restrict)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -296,7 +296,7 @@ char* stpcpy(char* restrict, const char* restrict)
  *                   character.
  */
 char* strccpy(char* restrict, const char* restrict, int)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 /**
  * Copy a memory segment to another, non-overlapping, segment,
@@ -315,7 +315,7 @@ char* strccpy(char* restrict, const char* restrict, int)
  *                   character.
  */
 char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 #endif
 
 /**
@@ -333,7 +333,7 @@ char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
  * @return           `whither` is returned.
  */
 char* strncpy(char* restrict, const char* restrict, size_t)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 #if defined(__GNU_SOURCE)
 /**
@@ -354,7 +354,7 @@ char* strncpy(char* restrict, const char* restrict, size_t)
  *                   excluding NUL bytes, is returned.
  */
 char* stpncpy(char* restrict, const char* restrict, size_t)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 # if defined(__SLIBC_SOURCE)
 /**
@@ -381,7 +381,7 @@ char* stpncpy(char* restrict, const char* restrict, size_t)
  *                   character.
  */
 char* strcncpy(char* restrict, const char* restrict, int, size_t)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 /**
  * Copy a memory segment to another, non-overlapping, segment,
@@ -407,7 +407,7 @@ char* strcncpy(char* restrict, const char* restrict, int, size_t)
  *                   character.
  */
 char* strstrncpy(char* restrict, const char* restrict, const char* restrict, size_t)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 # endif
 #endif
 
@@ -423,7 +423,7 @@ char* strstrncpy(char* restrict, const char* restrict, const char* restrict, siz
  * @return           `whither` is returned.
  */
 char* strmove(char*, const char*)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
@@ -436,7 +436,7 @@ char* strmove(char*, const char*)
  * @return           `whither + strlen(whence)` is returned.
  */
 char* stpmove(char*, const char*)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
@@ -455,7 +455,7 @@ char* stpmove(char*, const char*)
  *                   character.
  */
 char* strcmove(char*, const char*, int)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
@@ -474,7 +474,7 @@ char* strcmove(char*, const char*, int)
  *                   character.
  */
 char* strstrmove(char*, const char*, const char* restrict)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
@@ -491,7 +491,7 @@ char* strstrmove(char*, const char*, const char* restrict)
  * @return           `whither` is returned.
  */
 char* strnmove(char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 # if defined(__GNU_SOURCE)
 /**
@@ -513,7 +513,7 @@ char* strnmove(char*, const char*, size_t)
  *                   excluding NUL bytes, is returned.
  */
 char* stpnmove(char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((returns_nonnull, nonnull)));
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
@@ -539,7 +539,7 @@ char* stpnmove(char*, const char*, size_t)
  *                   character.
  */
 char* strcnmove(char*, const char*, int, size_t)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
@@ -565,7 +565,7 @@ char* strcnmove(char*, const char*, int, size_t)
  *                   character.
  */
 char* strstrnmove(char*, const char*, const char* restrict, size_t)
-  __GCC_ONLY(__attribute__((nonnull(1, 2))));
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 # endif
 #endif
 
@@ -580,7 +580,7 @@ char* strstrnmove(char*, const char*, const char* restrict, size_t)
  * @return           `whither` is returned.
  */
 char* strcat(char* restrict, const char* restrict)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 /* stpcat does not exsits because use of it would be very inefficient. */
 
@@ -601,7 +601,7 @@ char* strcat(char* restrict, const char* restrict)
  * @return           `whither` is returned.
  */
 char* strncat(char* restrict, const char* restrict, size_t)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 /* stpncat does not exsits because use of it would be very inefficient. */
 
@@ -616,7 +616,7 @@ char* strncat(char* restrict, const char* restrict, size_t)
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
  */
 char* strdup(const char*)
-  __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
 
 #if defined(__GNU_SOURCE)
 /**
@@ -634,7 +634,7 @@ char* strdup(const char*)
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
  */
 char* strndup(const char*, size_t)
-  __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -651,7 +651,7 @@ char* strndup(const char*, size_t)
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
  */
 void* memdup(const void*, size_t)
-  __GCC_ONLY(__attribute__((malloc, nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
 #endif
 
 #if defined (__GNUC__)
@@ -730,7 +730,7 @@ void* memdup(const void*, size_t)
  *                see the specifications for `a` and `b`.
  */
 int memcmp(const void*, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -746,7 +746,7 @@ int memcmp(const void*, const void*, size_t)
  *                see the specifications for `a` and `b`.
  */
 int memcasecmp(const void*, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 #endif
 
 /**
@@ -758,7 +758,7 @@ int memcasecmp(const void*, const void*, size_t)
  *             see the specifications for `a` and `b`.
  */
 int strcmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Compare two strings alphabetically in a case sensitive manner.
@@ -770,12 +770,12 @@ int strcmp(const char*, const char*)
  *                  see the specifications for `a` and `b`.
  */
 int strncmp(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 
 #if defined(__GNU_SOURCE)
 int strverscmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 /* TODO document and implement strverscmp */
 #endif
 
@@ -790,7 +790,7 @@ int strverscmp(const char*, const char*)
  *                   `NULL` if none were found.
  */
 void* memchr(const void*, int, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 #ifdef __CONST_CORRECT
 # define memchr(...)  (__const_correct(memchr, __VA_ARGS__))
 #endif
@@ -808,7 +808,7 @@ void* memchr(const void*, int, size_t)
  * @return           Pointer to the first occurrence of `c`.
  */
 void* rawmemchr(const void*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __returns_nonnull__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define rawmemchr(...)  (__const_correct(rawmemchr, __VA_ARGS__))
 # endif
@@ -828,7 +828,7 @@ void* rawmemchr(const void*, int)
  *                   `NULL` if none were found.
  */
 void* memrchr(const void*, int, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 #ifdef __CONST_CORRECT
 # define memrchr(...)  (__const_correct(memrchr, __VA_ARGS__))
 #endif
@@ -847,7 +847,7 @@ void* memrchr(const void*, int, size_t)
  *                  `NULL` if none were found.
  */
 char* strchr(const char*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define strchr(...)  (__const_correct(strchr, __VA_ARGS__))
 #endif
@@ -868,7 +868,7 @@ char* strchr(const char*, int)
  *                  if none were found.
  */
 char* strchrnul(const char*, int)
-   __GCC_ONLY(__attribute__((warn_unused_result, returns_nonnull, nonnull, pure)));
+   __GCC_ONLY(__attribute__((__warn_unused_result__, __returns_nonnull__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strchrnul(...)  (__const_correct(strchrnul, __VA_ARGS__))
 # endif
@@ -889,7 +889,7 @@ char* strchrnul(const char*, int)
  *                  `NULL` if none were found.
  */
 char* strrchr(const char*, int)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define strrchr(...)  (__const_correct(strrchr, __VA_ARGS__))
 #endif
@@ -905,7 +905,7 @@ char* strrchr(const char*, int)
  *                    substring, `NULL` if not found.
  */
 char* strstr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define strstr(...)  (__const_correct(strstr, __VA_ARGS__))
 #endif
@@ -920,7 +920,7 @@ char* strstr(const char*, const char*)
  *                    substring, `NULL` if not found.
  */
 char* strcasestr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define strcasestr(...)  (__const_correct(strcasestr, __VA_ARGS__))
 #endif
@@ -940,7 +940,7 @@ char* strcasestr(const char*, const char*)
  *                    substring, `NULL` if not found.
  */
 char* strnstr(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strnstr(...)  (__const_correct(strnstr, __VA_ARGS__))
 # endif
@@ -958,7 +958,7 @@ char* strnstr(const char*, const char*, size_t)
  *                    substring, `NULL` if not found.
  */
 char* strncasestr(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strncasestr(...)  (__const_correct(strncasestr, __VA_ARGS__))
 # endif
@@ -975,7 +975,7 @@ char* strncasestr(const char*, const char*, size_t)
  * @return            Pointer to the first occurrence of the substring.
  */
 char* rawstrstr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __returns_nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define rawstrstr(...)  (__const_correct(rawstrstr, __VA_ARGS__))
 # endif
@@ -992,7 +992,7 @@ char* rawstrstr(const char*, const char*)
  * @return            Pointer to the first occurrence of the substring.
  */
 char* rawstrcasestr(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, returns_nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __returns_nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define rawstrcasestr(...)  (__const_correct(rawstrcasestr, __VA_ARGS__))
 # endif
@@ -1012,7 +1012,7 @@ char* rawstrcasestr(const char*, const char*)
  *                           the substring, `NULL` if not found.
  */
 void* memcasemem(const void*, size_t, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define memcasemem(...)  (__const_correct(memcasemem, __VA_ARGS__))
 # endif
@@ -1029,7 +1029,7 @@ void* memcasemem(const void*, size_t, const void*, size_t)
  *                   `desired`, `NULL` otherwise.
  */
 char* strstarts(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strstarts(...)  (__const_correct(strstarts, __VA_ARGS__))
 # endif
@@ -1046,7 +1046,7 @@ char* strstarts(const char*, const char*)
  *                   `string` ends with `desired`, `NULL` otherwise.
  */
 char* strends(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strends(...)  (__const_correct(strends, __VA_ARGS__))
 # endif
@@ -1063,7 +1063,7 @@ char* strends(const char*, const char*)
  *                   `desired`, `NULL` otherwise.
  */
 char* strcasestarts(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strcasestarts(...)  (__const_correct(strcasestarts, __VA_ARGS__))
 # endif
@@ -1080,7 +1080,7 @@ char* strcasestarts(const char*, const char*)
  *                   `string` ends with `desired`, `NULL` otherwise.
  */
 char* strcaseends(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define strcaseends(...)  (__const_correct(strcaseends, __VA_ARGS__))
 # endif
@@ -1102,7 +1102,7 @@ char* strcaseends(const char*, const char*)
  *                           the substring, `NULL` if not found.
  */
 void* memmem(const void*, size_t, const void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 # ifdef __CONST_CORRECT
 #  define memmem(...)  (__const_correct(memmem, __VA_ARGS__))
 # endif
@@ -1122,7 +1122,7 @@ void* memmem(const void*, size_t, const void*, size_t)
  * @return           The length of the substring.
  */
 size_t strspn(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Returns length of the initial substring
@@ -1134,7 +1134,7 @@ size_t strspn(const char*, const char*)
  * @return           The length of the substring.
  */
 size_t strcspn(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * This function works like `strcspn`,
@@ -1149,7 +1149,7 @@ size_t strcspn(const char*, const char*)
  *                   `NULL` is returned if none is found.
  */
 char* strpbrk(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define strpbrk(...)  (__const_correct(strpbrk, __VA_ARGS__))
 #endif
@@ -1171,7 +1171,7 @@ char* strpbrk(const char*, const char*)
  *                      are no more tokens.
  */
 char* strtok(char* restrict, const char* restrict)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
 
 /**
  * Tokenise a string.
@@ -1193,7 +1193,7 @@ char* strtok(char* restrict, const char* restrict)
  *                      are no more tokens.
  */
 char* strtok_r(char* restrict, const char* restrict, char** restrict)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(2, 3))));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2, 3))));
 
 /**
  * Tokenise a string.
@@ -1211,7 +1211,7 @@ char* strtok_r(char* restrict, const char* restrict, char** restrict)
  *                      are no more tokens.
  */
 char* strsep(char** restrict, const char* restrict)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));
 
 
 #if defined(__GNU_SOURCE) && !defined(basename)
@@ -1228,7 +1228,7 @@ char* strsep(char** restrict, const char* restrict)
  *                    so it must not freed or edited.
  */
 char* __gnu_basename(const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 # define basename  __gnu_basename
 /* It does not look like it is possible to solve the const-correctness problem here. */
 #endif

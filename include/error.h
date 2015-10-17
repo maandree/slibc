@@ -45,7 +45,7 @@
  * @param  args    Formatting-arguments for `format`.
  */
 void error(int, int, const char*, ...)
-  __GCC_ONLY(__attribute__((format(slibc_printf, 3, 4))));
+  __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 3, 4))));
 
 /**
  * Variant of `error` that uses `va_list` instead of variadic arguments.
@@ -82,7 +82,7 @@ void verror(int, int, const char*, va_list);
  * @param  args      Formatting-arguments for `format`.
  */
 void error_at_line(int, int, const char*, unsigned int, const char*, ...)
-  __GCC_ONLY(__attribute__((format(slibc_printf, 5, 6))));
+  __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 5, 6))));
 
 /**
  * Variant of `verror` that prints the filename and the line

@@ -85,7 +85,7 @@ void secure_free(void*);
  *                  invoked instead.
  */
 size_t allocsize(void*)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /**
  * Variant of `realloc` that overrides newly allocated space
@@ -100,7 +100,7 @@ size_t allocsize(void*)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* crealloc(void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /**
  * This function behaves exactly like `realloc`, except it is
@@ -113,7 +113,7 @@ void* crealloc(void*, size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* fast_realloc(void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /**
  * This function behaves exactly like `crealloc`, except it
@@ -126,7 +126,7 @@ void* fast_realloc(void*, size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* secure_realloc(void*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /**
  * This function behaves exactly like `realloc`,
@@ -151,7 +151,7 @@ void* secure_realloc(void*, size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* custom_realloc(void*, size_t, int, int, int)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /**
  * This function is similar to `realloc`, however it
@@ -177,7 +177,7 @@ void* custom_realloc(void*, size_t, int, int, int)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* extalloc(void*, size_t, enum extalloc_mode)
-  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
 
 /**
  * This function behaves exactly like `fast_realloc`, except:
@@ -193,10 +193,10 @@ void* extalloc(void*, size_t, enum extalloc_mode)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* naive_realloc(void*, size_t) /* sic! we limit ourself to ASCII */
-  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
 
 /**
- * This function behaves exactly like `__attribute__`, except
+ * This function behaves exactly like `naive_realloc`, except
  * it will return `NULL` with `errno` set to zero, if it is
  * not possible to perform the shrink or growth without creating
  * new pointer.
@@ -209,7 +209,7 @@ void* naive_realloc(void*, size_t) /* sic! we limit ourself to ASCII */
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
-  __GCC_ONLY(__attribute__((nonnull, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
 
 
 /**

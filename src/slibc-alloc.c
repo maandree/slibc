@@ -277,7 +277,7 @@ void* naive_realloc(void* ptr, size_t size)
 
 
 /**
- * This function behaves exactly like `__attribute__`, except
+ * This function behaves exactly like `naive_realloc`, except
  * it will return `NULL` with `errno` set to zero, if it is
  * not possible to perform the shrink or growth without creating
  * new pointer.

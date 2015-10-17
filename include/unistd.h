@@ -102,7 +102,7 @@
  *                  the data segment to overlap another segment.
  */
 int brk(void*) /* TODO implement brk */
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /**
  * Set and get the current high end of the calling
@@ -137,7 +137,7 @@ int brk(void*) /* TODO implement brk */
  *                  the data segment to overlap another segment.
  */
 void* sbrk(ptrdiff_t) /* TODO implement sbrk */
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 
 
@@ -165,7 +165,7 @@ int isatty(int);
  * @throws        Any error specified for execve(2).
  */
 int execl(const char*, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0), nonnull(1))));
+  __GCC_ONLY(__attribute__((__sentinel__(0), __nonnull__(1))));
 
 /**
  * Replace the current process image with a new process image.
@@ -186,7 +186,7 @@ int execl(const char*, ... /*, NULL */)
  * @throws        Any error specified for execve(2).
  */
 int execlp(const char*, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0), nonnull(1))));
+  __GCC_ONLY(__attribute__((__sentinel__(0), __nonnull__(1))));
 
 /**
  * Replace the current process image with a new process image.
@@ -207,7 +207,7 @@ int execlp(const char*, ... /*, NULL */)
  * @throws        Any error specified for execve(2).
  */
 int execle(const char*, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
+  __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(1))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -235,7 +235,7 @@ int execle(const char*, ... /*, NULL, char* const[] */)
  * @throws        Any error specified for execve(2).
  */
 int execlpe(const char*, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(1))));
+  __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(1))));
 #endif
 
 /**
@@ -257,7 +257,7 @@ int execlpe(const char*, ... /*, NULL, char* const[] */)
  * @throws        Any error specified for execve(2).
  */
 int execv(const char*, char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+  __GCC_ONLY(__attribute__((__nonnull__(1))));
 
 /**
  * Replace the current process image with a new process image.
@@ -282,7 +282,7 @@ int execv(const char*, char* const[])
  * @throws        Any error specified for execve(2).
  */
 int execvp(const char*, char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+  __GCC_ONLY(__attribute__((__nonnull__(1))));
 
 /**
  * Replace the current process image with a new process image.
@@ -307,7 +307,7 @@ int execvp(const char*, char* const[])
  * @throws        Any error specified for execve(2).
  */
 int execve(const char*, char* const[], char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+  __GCC_ONLY(__attribute__((__nonnull__(1))));
 
 #if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
@@ -339,7 +339,7 @@ int execve(const char*, char* const[], char* const[])
  * @throws        Any error specified for execve(2).
  */
 int execvpe(const char*, char* const[], char* const[])
-  __GCC_ONLY(__attribute__((nonnull(1))));
+  __GCC_ONLY(__attribute__((__nonnull__(1))));
 #endif
 
 
@@ -374,7 +374,7 @@ int execvpe(const char*, char* const[], char* const[])
  * @throws         Any error specified for execveat(2).
  */
 int execlat(int, const char*, ... /*, NULL, int */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(2))));
+  __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(2))));
 
 /**
  * Replace the current process image with a new process image.
@@ -410,7 +410,7 @@ int execlat(int, const char*, ... /*, NULL, int */)
  * @throws         Any error specified for execveat(2).
  */
 int execlpat(int, const char*, ... /*, NULL, int */)
-  __GCC_ONLY(__attribute__((sentinel(1), nonnull(2))));
+  __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(2))));
 
 /**
  * Replace the current process image with a new process image.
@@ -446,7 +446,7 @@ int execlpat(int, const char*, ... /*, NULL, int */)
  * @throws         Any error specified for execveat(2).
  */
 int execleat(int, const char*, ... /*, NULL, char* const[], int */)
-  __GCC_ONLY(__attribute__((sentinel(2), nonnull(2))));
+  __GCC_ONLY(__attribute__((__sentinel__(2), __nonnull__(2))));
 
 /**
  * Replace the current process image with a new process image.
@@ -486,7 +486,7 @@ int execleat(int, const char*, ... /*, NULL, char* const[], int */)
  * @throws         Any error specified for execveat(2).
  */
 int execlpeat(int, const char*, ... /*, NULL, char* const[], int */)
-  __GCC_ONLY(__attribute__((sentinel(2), nonnull(2))));
+  __GCC_ONLY(__attribute__((__sentinel__(2), __nonnull__(2))));
 
 /**
  * Replace the current process image with a new process image.
@@ -522,7 +522,7 @@ int execlpeat(int, const char*, ... /*, NULL, char* const[], int */)
  * @throws         Any error specified for execveat(2).
  */
 int execvat(int, const char*, char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+  __GCC_ONLY(__attribute__((__nonnull__(2))));
 
 /**
  * Replace the current process image with a new process image.
@@ -562,7 +562,7 @@ int execvat(int, const char*, char* const[], int)
  * @throws         Any error specified for execveat(2).
  */
 int execvpat(int, const char*, char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+  __GCC_ONLY(__attribute__((__nonnull__(2))));
 #endif
 
 /**
@@ -601,7 +601,7 @@ int execvpat(int, const char*, char* const[], int)
  * @throws         Any error specified for execveat(2).
  */
 int execveat(int, const char*, char* const[], char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+  __GCC_ONLY(__attribute__((__nonnull__(2))));
 
 #if defined(__SLIBC_SOURCE)
 /**
@@ -646,7 +646,7 @@ int execveat(int, const char*, char* const[], char* const[], int)
  * @throws         Any error specified for execveat(2).
  */
 int execvpeat(int, const char*, char* const[], char* const[], int)
-  __GCC_ONLY(__attribute__((nonnull(2))));
+  __GCC_ONLY(__attribute__((__nonnull__(2))));
 #endif
 
 
@@ -668,7 +668,7 @@ int execvpeat(int, const char*, char* const[], char* const[], int)
  * @throws       Any error specified for execve(2).
  */
 int fexecl(int, ... /*, NULL */)
-  __GCC_ONLY(__attribute__((sentinel(0))));
+  __GCC_ONLY(__attribute__((__sentinel__(0))));
 
 /**
  * Replace the current process image with a new process image.
@@ -691,7 +691,7 @@ int fexecl(int, ... /*, NULL */)
  * @throws        Any error specified for execve(2).
  */
 int fexecle(int, ... /*, NULL, char* const[] */)
-  __GCC_ONLY(__attribute__((sentinel(1))));
+  __GCC_ONLY(__attribute__((__sentinel__(1))));
 
 /**
  * Replace the current process image with a new process image.

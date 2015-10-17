@@ -41,7 +41,7 @@
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* malloc(size_t)
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 
 /**
  * Variant of `malloc` that clears the allocation with zeroes.
@@ -61,7 +61,7 @@ void* malloc(size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* calloc(size_t, size_t)
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 
 #if !defined(__PORTABLE)
 /**
@@ -85,7 +85,7 @@ void* calloc(size_t, size_t)
  */
 void* zalloc(size_t)
   __warning("'zalloc' is klibc extension, use 'calloc(1, n)' instead of 'zalloc(n)'.")
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 #endif
 
 /**
@@ -109,7 +109,7 @@ void* zalloc(size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* realloc(void*, size_t)
-   __GCC_ONLY(__attribute__((warn_unused_result)))
+   __GCC_ONLY(__attribute__((__warn_unused_result__)))
    __slibc_warning("Use 'fast_realloc', 'secure_realloc' or 'crealloc' instead.");
 
 /**
@@ -169,7 +169,7 @@ void* memalign(size_t, size_t)
 # ifdef __C11__
    __deprecated("'memalign' has be deprecated by 'aligned_alloc' in C11.")
 # endif
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 #endif
 
 /**
@@ -190,7 +190,7 @@ void* memalign(size_t, size_t)
  * @throws  EINVAL  If `boundary` is not a power-of-two multiple of `sizeof(void*)`.
  */
 int posix_memalign(void**, size_t, size_t)
-  __GCC_ONLY(__attribute__((nonnull)));
+  __GCC_ONLY(__attribute__((__nonnull__)));
 
 #if !defined(__PORTABLE)
 /**
@@ -210,7 +210,7 @@ int posix_memalign(void**, size_t, size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* valloc(size_t)
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)))
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)))
   __deprecated("'valloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
 #endif
 
@@ -231,7 +231,7 @@ void* valloc(size_t)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 void* pvalloc(size_t)
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)))
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)))
   __deprecated("'pvalloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
 #endif
 
@@ -260,7 +260,7 @@ void* pvalloc(size_t)
  * @throws  EINVAL  If `boundary` is not a power of two.
  */
 void* aligned_alloc(size_t, size_t)
-  __GCC_ONLY(__attribute__((malloc, warn_unused_result)));
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 #endif
 
 
@@ -275,7 +275,7 @@ void* aligned_alloc(size_t, size_t)
  * @return           The size of the memory segment, 0 if `segment` is `NULL`.
  */
 size_t malloc_usable_size(void*)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 #endif
 
 /* TODO add mallopt, M_TRIME_THRESHOLD, M_TOP_PAD, M_MMAP_THRESHOLD, and M_MMAP_MAX */

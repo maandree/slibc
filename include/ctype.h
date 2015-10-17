@@ -41,7 +41,7 @@
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
  */
 int (isalnum)(int)  /* [0x30, 0x39], [0x41, 0x5A], [0x61, 0x7A] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #if defined (__GNUC__)
 # define isalnum(c)  \
   ({ int __c = (c); (isalpha(__c) || isdigit(__c)); })
@@ -56,7 +56,7 @@ int (isalnum)(int)  /* [0x30, 0x39], [0x41, 0x5A], [0x61, 0x7A] */
  *             ['A', 'Z'] or ['a', 'z'].
  */
 int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define isalpha(c)  (islower(tolower(c)))
 
 
@@ -71,7 +71,7 @@ int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
  * @return     Whether the character is a ' ' or a '\t'.
  */
 int (isblank)(int) /* ' ', '\t' */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 # if defined(__GNUC__)
 #  define isblank(c)  \
   ({ int __c = (c); ((__c == ' ') || (__c == '\t')); })
@@ -88,7 +88,7 @@ int (isblank)(int) /* ' ', '\t' */
  *             or is 0x7F.
  */
 int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #if defined(__GNUC__)
 # define iscntrl(c)  \
   ({ int __c = (c); (((unsigned)__c < ' ') || (__c == 0x7F)); })
@@ -102,7 +102,7 @@ int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
  * @return     Whether the character is in ['0', '9'].
  */
 int (isdigit)(int)  /* [0x30, 0x39] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define isdigit(c)  (int)((unsigned)((c) - '0') < 10)
 
 
@@ -114,7 +114,7 @@ int (isdigit)(int)  /* [0x30, 0x39] */
  *             than ' ', but is not 0x7F.
  */
 int (isgraph)(int)  /* [0x21, 0x7E] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define isgraph(c)  (int)((unsigned)(c - 0x21) < 0x5E)
 
 
@@ -126,7 +126,7 @@ int (isgraph)(int)  /* [0x21, 0x7E] */
  * @return     Whether the character is in ['a', 'z'].
  */
 int (islower)(int)  /* [0x61, 0x7A] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define islower(c)  (int)((unsigned)((c) - 'a') < 26)
 
 
@@ -139,7 +139,7 @@ int (islower)(int)  /* [0x61, 0x7A] */
  *             as great as ' ', but is not 0x7F.
  */
 int (isprint)(int)  /* [0x20, 0x7E] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define isprint(c)  (int)((unsigned)(c - 0x20) < 0x5F)
 
 
@@ -151,8 +151,8 @@ int (isprint)(int)  /* [0x20, 0x7E] */
  * @param   c  The character.
  * @return     Whether the character is a punctuation.
  */
-int (ispunct)(int)  /* isprint && !isalnum && !isspace) */
-  __GCC_ONLY(__attribute__((const)));
+int (ispunct)(int)  /* isprint && !isalnum && !isspace */
+  __GCC_ONLY(__attribute__((__const__)));
 #if defined (__GNUC__)
 # define ispunk(c)  \
   ({ int __c = (c); (isprint(__c) && !isalnum(__c) && !isspace(__c)); })
@@ -167,7 +167,7 @@ int (ispunct)(int)  /* isprint && !isalnum && !isspace) */
  *             '\n', '\r', '\t', or '\v'.
  */
 int (isspace)(int)  /* 0x20, [0x09, 0x0D] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #if defined (__GNUC__)
 # define isspace(c)  \
   ({ int __c = (c); ((__c == ' ') || ((unsigned)(__c - '\t') < 5)); })
@@ -182,7 +182,7 @@ int (isspace)(int)  /* 0x20, [0x09, 0x0D] */
  * @return     Whether the character is in ['A', 'Z'].
  */
 int (isupper)(int)  /* [0x41, 0x5A] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define isupper(c)  (int)((unsigned)((c) - 'A') < 26)
 
 
@@ -196,7 +196,7 @@ int (isupper)(int)  /* [0x41, 0x5A] */
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
  */
 int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #if defined (__GNUC__)
 # define isxdigit(c)  \
   ({ int __c = (c); (isdigit(__c) && (tolower(__c) - 'a' < 6)); })
@@ -219,7 +219,7 @@ int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
  *             character already is in lowercase.
  */
 int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define tolower(c)  (int)((unsigned)(c) | 0x20)
 
 /**
@@ -237,7 +237,7 @@ int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
  *             character already is in lowercase.
  */
 int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define toupper(c)  (int)((unsigned)(c) & (unsigned)~0x20)
 
 
@@ -249,7 +249,7 @@ int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
  * @return     Whether the character is an ASCII character.
  */
 int (isascii)(int)  /* [0x00, 0x7E] */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #define isascii(c)  (int)((unsigned)(c) < 0x7F)
 
 /**
@@ -263,7 +263,7 @@ int (isascii)(int)  /* [0x00, 0x7E] */
  */
 int (toascii)(int)
   __warning("Using 'toascii' is, generally, unwise.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #if defined(_SLIBC_SUPPRESS_WARNINGS)
 # define toascii(c)  (int)((unsigned)(c) & 0x7F)
 #endif
@@ -274,7 +274,7 @@ int (toascii)(int)
  */
 int _tolower(int)
   __deprecated("Use 'tolower' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * This function is identical to `tolower`.
@@ -282,7 +282,7 @@ int _tolower(int)
  */
 int _toupper(int)
   __deprecated("Use 'toupper' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 
 
@@ -297,7 +297,7 @@ int _toupper(int)
  */
 int isalnum_l(int, locale_t)
   __warning("This function is dangerous, use 'iswalnum_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is an alphabetical character.
@@ -308,7 +308,7 @@ int isalnum_l(int, locale_t)
  */
 int isalpha_l(int, locale_t)
   __warning("This function is dangerous, use 'iswalpha_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 #if defined(__GNU_SOURCE)
 /**
@@ -323,7 +323,7 @@ int isalpha_l(int, locale_t)
  */
 int isblank_l(int, locale_t)
   __warning("This function is dangerous, use 'iswblank_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 #endif
 
 /**
@@ -336,7 +336,7 @@ int isblank_l(int, locale_t)
  */
 int iscntrl_l(int, locale_t)
   __warning("This function is dangerous, use 'iswcntrl_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is a decimal digit.
@@ -347,7 +347,7 @@ int iscntrl_l(int, locale_t)
  */
 int isdigit_l(int, locale_t)
   __warning("This function is dangerous, use 'iswdigit_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is has a printable glyph.
@@ -358,7 +358,7 @@ int isdigit_l(int, locale_t)
  */
 int isgraph_l(int, locale_t)
   __warning("This function is dangerous, use 'iswgraph_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is a lowercase
@@ -370,7 +370,7 @@ int isgraph_l(int, locale_t)
  */
 int islower_l(int, locale_t)
   __warning("This function is dangerous, use 'iswlower_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is has a printable glyph
@@ -383,7 +383,7 @@ int islower_l(int, locale_t)
  */
 int isprint_l(int, locale_t)
   __warning("This function is dangerous, use 'iswprint_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is has a punctuation,
@@ -396,7 +396,7 @@ int isprint_l(int, locale_t)
  */
 int ispunct_l(int, locale_t)
   __warning("This function is dangerous, use 'iswpunct_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is a whitespace character.
@@ -408,7 +408,7 @@ int ispunct_l(int, locale_t)
  */
 int isspace_l(int, locale_t)
   __warning("This function is dangerous, use 'iswspace_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is an uppercase
@@ -420,7 +420,7 @@ int isspace_l(int, locale_t)
  */
 int isupper_l(int, locale_t)
   __warning("This function is dangerous, use 'iswupper_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is an ASCII
@@ -434,7 +434,7 @@ int isupper_l(int, locale_t)
  */
 int isxdigit_l(int, locale_t)
   __warning("This function is dangerous, use 'iswxdigit_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Check whether a character is an ASCII character.
@@ -445,7 +445,7 @@ int isxdigit_l(int, locale_t)
  */
 int isascii_l(int, locale_t)
   __warning("This function is dangerous, use 'isascii_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Remove the 8:th bit from a character.
@@ -459,7 +459,7 @@ int isascii_l(int, locale_t)
  */
 int toascii_l(int, locale_t)
   __warning("This function is dangerous, use 'towascii_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Convert a uppercase ASCII character to
@@ -479,7 +479,7 @@ int toascii_l(int, locale_t)
  */
 int tolower_l(int, locale_t)
   __warning("This function is dangerous, use 'iswlower_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Convert a lowercase ASCII character to
@@ -499,7 +499,7 @@ int tolower_l(int, locale_t)
  */
 int toupper_l(int, locale_t)
   __warning("This function is dangerous, use 'iswupper_l' instead.")
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 
 

@@ -100,7 +100,7 @@
  *                     `NULL` if unknown (C99 is required.)
  */
 __noreturn void __assert_fail(const char*, int, const char*, int, const char*)
-  __GCC_ONLY(__attribute__((nonnull(3, 5))));
+  __GCC_ONLY(__attribute__((__nonnull__(3, 5))));
 
 
 

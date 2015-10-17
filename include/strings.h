@@ -65,7 +65,7 @@ void bcopy(const void*, void*, size_t)
  */
 int bcmp(const void*, const void*, size_t)
   __deprecated("Use 'memcmp' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
 
 
 /**
@@ -79,7 +79,7 @@ int bcmp(const void*, const void*, size_t)
  *             see the specifications for `a` and `b`.
  */
 int strcasecmp(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Compare two strings alphabetically in a case insensitive manner.
@@ -93,7 +93,7 @@ int strcasecmp(const char*, const char*)
  *                  see the specifications for `a` and `b`.
  */
 int strncasecmp(const char*, const char*, size_t)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 
 /**
@@ -108,7 +108,7 @@ int strncasecmp(const char*, const char*, size_t)
  *                  see the specifications for `a` and `b`.
  */
 int strcasecmp_l(const char*, const char*, locale_t) /* TODO */
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Compare two strings alphabetically in a case insensitive manner.
@@ -123,7 +123,7 @@ int strcasecmp_l(const char*, const char*, locale_t) /* TODO */
  *                  see the specifications for `a` and `b`.
  */
 int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 
 /**
@@ -133,7 +133,7 @@ int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
  */
 char* index(const char*, int)
   __deprecated("Use 'strchr' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define index(...)  (__const_correct(index, __VA_ARGS__))
 #endif
@@ -145,7 +145,7 @@ char* index(const char*, int)
  */
 char* rindex(const char*, int)
   __deprecated("Use 'strrchr' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #ifdef __CONST_CORRECT
 # define rindex(...)  (__const_correct(rindex, __VA_ARGS__))
 #endif
@@ -158,7 +158,7 @@ char* rindex(const char*, int)
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffs(int)
-  __GCC_ONLY(__attribute__((warn_unused_result, const)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __const__)));
 
 /**
  * Find the first set bit in an integer.
@@ -167,7 +167,7 @@ int ffs(int)
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffsl(long)
-  __GCC_ONLY(__attribute__((warn_unused_result, const)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __const__)));
 
 /**
  * Find the first set bit in an integer.
@@ -176,7 +176,7 @@ int ffsl(long)
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffsll(long long)
-  __GCC_ONLY(__attribute__((warn_unused_result, const)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __const__)));
 
 
 

@@ -41,7 +41,7 @@
  * @param  ...     Formatting-arguments.
  */
 void warn(const char*, ...)
-  __GCC_ONLY(__attribute__((format(slibc_printf, 1, 2))));
+  __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 1, 2))));
 
 /**
  * Print a warning to stderr, followed by a description
@@ -64,7 +64,7 @@ void vwarn(const char*, va_list);
  * @param  ...     Formatting-arguments.
  */
 void warnx(const char*, ...)
-  __GCC_ONLY(__attribute__((format(slibc_printf, 1, 2))));
+  __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 1, 2))));
 
 /**
  * Print a warning to stderr, but do not print a
@@ -88,7 +88,7 @@ void vwarnx(const char*, va_list);
  * @param  ...     Formatting-arguments.
  */
 __noreturn void err(int, const char*, ...)
-  __GCC_ONLY(__attribute__((format(slibc_printf, 2, 3))));
+  __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 2, 3))));
 
 /**
  * Print an error message to stderr, followed by a
@@ -113,7 +113,7 @@ __noreturn void verr(int, const char*, va_list);
  * @param  ...     Formatting-arguments.
  */
 __noreturn void errx(int, const char*, ...)
-  __GCC_ONLY(__attribute__((format(slibc_printf, 2, 3))));
+  __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 2, 3))));
 
 /**
  * Print an error message to stderr, but do not print a

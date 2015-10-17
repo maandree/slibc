@@ -199,7 +199,7 @@
  * Helper function to keep track of the line of origin, in a
  * thread-safe manner, without requiring new revisions of C.
  */
-int* __slibc_error_line(void) __GCC_ONLY(__attribute__((const))); /* TODO not implemented */
+int* __slibc_error_line(void) __GCC_ONLY(__attribute__((__const__))); /* TODO not implemented */
 
 /**
  * Print a description of an error, and where the error occurred.
@@ -222,7 +222,7 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((const))); /* TODO not im
  * @param  ...           Formatting-arguments for `format`.
  */
 void slibc_perror(const char*, const char*, int, const char*, int*, const char*, const char*, ...)
-  __GCC_ONLY(__attribute__((nonnull(2, 4), format(slibc_printf, 7, 8))));
+  __GCC_ONLY(__attribute__((__nonnull__(2, 4), __format__(__slibc_printf__, 7, 8))));
 
 
 

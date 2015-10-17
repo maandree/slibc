@@ -39,7 +39,7 @@
  *                    so it must not freed or edited.
  */
 char* __xpg_basename(char*)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 #define basename  __xpg_basename
 
 /**
@@ -53,7 +53,7 @@ char* __xpg_basename(char*)
  *                    must not freed or edited.
  */
 char* dirname(char*)
-  __GCC_ONLY(__attribute__((warn_unused_result)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 
 

@@ -149,7 +149,7 @@ typedef ssize_t (* generic_wprintf_ext_func_t)(const wchar_t*, intmax_t*, size_t
  */
 int generic_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
 		   size_t, int, size_t* restrict, int, void*, const char*, ...)
-  __GCC_ONLY(__attribute__((nonnull(5, 8), format(slibc_printf, 8, 9), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(5, 8), __format__(__slibc_printf__, 8, 9), __warn_unused_result__)));
 
 /**
  * Variant of `generic_printf` that uses `va_list`
@@ -180,7 +180,7 @@ int generic_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
  */
 int vgeneric_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
 		    size_t, int, size_t* restrict, int, void*, const char*, va_list)
-  __GCC_ONLY(__attribute__((nonnull(5, 8), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(5, 8), __warn_unused_result__)));
 
 /**
  * Variant of `generic_printf` uses `wchar_t` instead of `char`;
@@ -211,7 +211,7 @@ int vgeneric_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
  */
 int generic_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
 		    size_t, int, size_t* restrict, int, void*, const wchar_t*, ...)
-  __GCC_ONLY(__attribute__((nonnull(5, 8), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(5, 8), __warn_unused_result__)));
 
 /**
  * Variant of `generic_wprintf` that uses `va_list`
@@ -243,7 +243,7 @@ int generic_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
  */
 int vgeneric_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
 		     size_t, int, size_t* restrict, int, void*, const wchar_t*, va_list)
-  __GCC_ONLY(__attribute__((nonnull(5, 8), warn_unused_result)));
+  __GCC_ONLY(__attribute__((__nonnull__(5, 8), __warn_unused_result__)));
 
 
 

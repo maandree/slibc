@@ -49,7 +49,7 @@
  * and supported on all revisions of C.
  */
 volatile int* __errno(void) /* TODO not implemented */
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 
 /**

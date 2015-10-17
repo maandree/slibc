@@ -49,7 +49,7 @@
  * the process exits before the function returns.
  */
 #if !defined(__C11__) && defined(__GNUC__)
-# define __noreturn  __attribute__((noreturn))
+# define __noreturn  __attribute__((__noreturn__))
 #elif defined(__C11__)
 # define __noreturn  _Noreturn
 #else
@@ -83,7 +83,7 @@
  * function is deprecated, or functions to use instead.
  */
 #if !defined(_SLIBC_SUPPRESS_WARNINGS)
-# define __deprecated(msg)  __GCC_ONLY(__attribute__((deprecated(msg))))
+# define __deprecated(msg)  __GCC_ONLY(__attribute__((__deprecated__(msg))))
 #else
 # define __deprecated(msg)  /* ignore */
 #endif
@@ -93,7 +93,7 @@
  * Warn if a function, variable or type is used.
  */
 #if !defined(_SLIBC_SUPPRESS_WARNINGS)
-# define __warning(msg)        __GCC_ONLY(__attribute__((warning(msg))))
+# define __warning(msg)        __GCC_ONLY(__attribute__((__warning__(msg))))
 # define __slibc_warning(msg)  __SLIBC_ONLY(__warning(msg))
 #else
 # define __warning(msg)        /* ignore */
@@ -113,19 +113,64 @@
 #endif
 
 
+
 /**
  * Format for the `format` GCC function attribute,
  * for `*printf` functions.
  */
-#ifndef slibc_printf
-# define slibc_printf  printf /* TODO write GCC extension */
+#ifdef slibc_printf
+# undef slibc_printf
+#endif
+#if defined(__SLIB_SOURCE) && defined(__GNUC__)
+# define __slibc_printf__  __gnu_printf__ /* TODO write GCC extension */
+#elif defined(__GNU_SOURCE) && defined(__GNUC__)
+# define __slibc_printf__  __gnu_printf__
+#else
+# define __slibc_printf__  __printf__
 #endif
 
 /**
  * Format for the `format` GCC function attribute,
  * for `*scanf` functions.
  */
-#ifndef slibc_scanf
-# define slibc_scanf  scanf /* TODO write GCC extension */
+#ifdef slibc_scanf
+# undef slibc_scanf
+#endif
+#if defined(__SLIB_SOURCE) && defined(__GNUC__)
+# define __slibc_scanf__  __gnu_scanf__ /* TODO write GCC extension */
+#elif defined(__GNU_SOURCE) && defined(__GNUC__)
+# define __slibc_scanf__  __gnu_scanf__
+#else
+# define __slibc_scanf__  __scanf__
+#endif
+
+/**
+ * Format for the `format` GCC function attribute,
+ * for `strftime`.
+ */
+#ifdef slibc_strftime
+# undef slibc_strftime
+#endif
+#if defined(__SLIB_SOURCE) && defined(__GNUC__)
+# define __slibc_strftime__  __gnu_strftime__ /* TODO write GCC extension */
+#elif defined(__GNU_SOURCE) && defined(__GNUC__)
+# define __slibc_strftime__  __gnu_strftime__
+#else
+# define __slibc_strftime__  __strftime__
+#endif
+
+/**
+ * Format for the `format` GCC function attribute,
+ * for `strfmon`.
+ */
+#ifdef slibc_strfmon
+# undef slibc_strfmon
+#endif
+#if defined(__SLIB_SOURCE) && defined(__GNUC__)
+# define __slibc_strfmon__  __strfmon__ /* TODO write GCC extension */
+#elif defined(__GNU_SOURCE) && defined(__GNUC__)
+# define __slibc_strfmon__  __strfmon__
+#else
+# define __slibc_strfmon__  __strfmon__
 #endif
 

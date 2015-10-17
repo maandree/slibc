@@ -66,7 +66,7 @@
  *                       the remainder in `.rem`.
  */
 div_t div(int, int)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Perform an integer division and return
@@ -78,7 +78,7 @@ div_t div(int, int)
  *                       the remainder in `.rem`.
  */
 ldiv_t ldiv(long, long)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Perform an integer division and return
@@ -90,7 +90,7 @@ ldiv_t ldiv(long, long)
  *                       the remainder in `.rem`.
  */
 lldiv_t lldiv(long long, long long)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 
 /**
@@ -105,7 +105,7 @@ lldiv_t lldiv(long long, long long)
  * @return         The absolute value of the integer.
  */
 int abs(int)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Return the absolute value of an integer.
@@ -119,7 +119,7 @@ int abs(int)
  * @return         The absolute value of the integer.
  */
 long int labs(long int)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 /**
  * Return the absolute value of an integer.
@@ -133,7 +133,7 @@ long int labs(long int)
  * @return         The absolute value of the integer.
  */
 long long int llabs(long long int)
-  __GCC_ONLY(__attribute__((const)));
+  __GCC_ONLY(__attribute__((__const__)));
 
 
 #if !defined(__PORTABLE)
@@ -153,7 +153,7 @@ long long int llabs(long long int)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 char* abspath(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), malloc)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __malloc__)));
 
 /**
  * Get the relative path of a file.
@@ -172,7 +172,7 @@ char* abspath(const char*, const char*)
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
 char* relpath(const char*, const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull(1), malloc)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __malloc__)));
 #endif
 
 
@@ -190,7 +190,7 @@ char* relpath(const char*, const char*)
  * @return          The number encoded by the string.
  */
 double atof(const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Convert a string to an integer,
@@ -206,7 +206,7 @@ double atof(const char*)
  * @return          The integer encoded by the string.
  */
 int atoi(const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Convert a string to an integer,
@@ -222,7 +222,7 @@ int atoi(const char*)
  * @return          The integer encoded by the string.
  */
 long int atol(const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 /**
  * Convert a string to an integer,
@@ -238,7 +238,7 @@ long int atol(const char*)
  * @return          The integer encoded by the string.
  */
 long long int atoll(const char*)
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 
 #if !defined(__PORTABLE)
 /**
@@ -248,7 +248,7 @@ long long int atoll(const char*)
  */
 long long int atoq(const char*)
   __deprecated("'atoq' is obsolete and not portable, use 'atoll' instead.")
-  __GCC_ONLY(__attribute__((warn_unused_result, nonnull, pure)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
 #endif
 
 
