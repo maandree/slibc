@@ -31,7 +31,7 @@ There are three important segments.
 When a process exec:s this segment is allocated.
 It contains instructions, static constants, and
 literals.
-@item BSS segment
+@item @sc{BSS} segment
 When a process exec:s this segment is allocated.
 It contains all global and static variables that are
 initialised to zero or lacks explicit initialisation.
@@ -40,7 +40,7 @@ segment.
 @item data segment
 When a process exec:s this segment is allocated.
 It is filled all global and static variables that
-are not covered by the BSS segment.
+are not covered by the @sc{BSS} segment.
 This segment's lower end is fixed, and its upper end
 is unfixed; it can be resized. Any part of the segment
 that is a result of it being resized, is referred to
@@ -62,9 +62,9 @@ in mind this cannot be assumed practice, and that
 it is in fact different between systems.} layout is
 have the text segment (as other fixed segments) start
 at 0, and end at some positive address. The text
-segment is then followed by the BSS segment, and the
-data segment. The stack segment however, grows from
-the highest address (@math{-1} on two's
+segment is then followed by the @sc{BSS} segment, and
+the data segment. The stack segment however, grows
+from the highest address (@math{-1} on two's
 complement-machines) downwards. The process cannot
 allocate any more memory when the allocation would
 require the data segment to be grown to such an
@@ -78,12 +78,12 @@ called global variables@footnote{Even if that are
 declared with @code{static}. In this context,
 @code{static} is only use to hide object from
 other translation units.}. These are stored either
-in the BSS segment or in the data segment, depending
+in the @sc{BSS} segment or in the data segment, depending
 on their initialisation. Pointer are stored as
 numerical values, and the content is stored in the
 text segment. Arrays however are not stored, but
 their content is. In the data segment (or in the
-BSS segment if the elements are zeroes.) These
+@sc{BSS} segment if the elements are zeroes.) These
 allocations are known as @i{static allocations}.
 @item
 Variables that are declared inside functions, with
