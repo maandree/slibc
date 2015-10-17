@@ -251,6 +251,7 @@ violation, also known as segmentation fault.} signal.
 @menu
 * The alloca function::                       Dynamically allocate automatically freed memory.
 * Basic memory allocation::                   Basic functions for dynamic memory allocation.
+* Aligned memory allocation::                 Dynamic memory allocation with alignment.
 * Resizing memory allocations::               How to resize memory allocations.
 * Efficient stack-based allocations::         Improving the performance using constrained allocation methods.
 * Resizing the data segment::                 How to change the size of the heap.
@@ -476,9 +477,16 @@ function @code{free}.
 @code{malloc_usable_size(malloc(n))} returns
 @code{n} (and allocates memory in the process.)
 
-This function is a GNU extension and requires
+This function is a @sc{GNU} extension and requires
 @code{_GNU_SOURCE}.
 @end table
+
+
+
+@node Aligned memory allocation
+@section Aligned memory allocation
+
+TODO
 
 
 
