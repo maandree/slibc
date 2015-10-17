@@ -266,6 +266,7 @@ violation, also known as segmentation fault.} signal.
 @cpindex Automatic allocations
 @cpindex Stack-allocations
 @fnindex alloca
+@hfindex alloca.h
 The function @code{void* alloca(size_t n)} appears
 on multiple systems: 32V, @sc{PWB}, @sc{PWB}.2,
 3@sc{BSD}, 4@sc{BSD}, and @sc{GNU}. It has been
@@ -274,7 +275,8 @@ feature-test macros, despite not being standardised
 (for instance, it does not appear in @sc{POSIX}).
 This function is however not portable, and will not
 be made available if @code{_PORTABLE_SOURCE} or
-@code{_LIBRARY_HEADER} is defined.
+@code{_LIBRARY_HEADER} is defined. @code{alloca}
+is defined in the header file @file{<alloca.h>}.
 
 @code{void* alloca(size_t n)} is similar to the
 function @code{malloc}. It allocates a contiguous
