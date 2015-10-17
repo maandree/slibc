@@ -1,17 +1,31 @@
 @node Memory allocation
 @chapter Memory allocation
 
+@cpindex Memory allocation
+@cpindex Allocate memory
 The ability to allocate memory of on at compile-time
 unknown amount is an important feature for most
 programs.
 
+@cpindex Virtual address space
+@cpindex Virtual memory-address
+@cpindex Memory, virtual address space
+@cpindex @sc{RAM}
+@cpindex Swap space
 On modern operating systems, processes do not have
 direct access to the memory. Only the operating system
 kernel does. Instead, the process have virtual
-memory address, that the kernel maps to either,
-real @sc{RAM} memory, swap space (disc backed),
-file segments, or zeroes.
+memory-addresses, that the kernel maps to either,
+real @sc{RAM}, swap space (disc backed), file segments,
+or zeroes.
 
+@cpindex Forks
+@cpindex Exec:s
+@cpindex Process image
+@cpindex Memory sharing, private memory
+@cpindex Private memory sharing
+@cpindex Memory deduplication
+@cpindex Deduplication memory
 Memory for a process is either allocated programmatically,
 or when the process forks (is created) or exec:s
 (changes process image.) The operating system kernel is
@@ -23,21 +37,47 @@ memory content diverges. It is also possible to allocate
 memory in such a way that processes can share it. so that
 updates from one process influences the other processes.
 
+@cpindex Virtual address space segments
+@cpindex Memory segments
+@cpindex Segments, virtual address space
 A process' virtual address space is divided into segments.
 There are three important segments.
 
 @table @i
 @item text segment
+@cpindex Segment, text
+@cpindex Text segment
+@cpindex @code{.text}
+@cpindex Instructions
+@cpindex Static constants
+@cpindex Constants, static
+@cpindex Literals
+@cpindex Strings, literals
 When a process exec:s this segment is allocated.
 It contains instructions, static constants, and
 literals.
 @item BSS segment
+@cpindex Segment, @sc{BSS}
+@cpindex @sc{BSS} segment
+@cpindex @code{.bss}
+@cpindex Block Started by Symbol
+@cpindex Uninitialised variables
+@cpindex Zero variables
+@cpindex Global variables
+@cpindex Static variables
 When a process exec:s this segment is allocated.
 It contains all global and static variables that are
 initialised to zero or lacks explicit initialisation.
 On some systems this segment is merged into the data
-segment.
+segment. @sc{BSS} is an acronym: `Block Started by Symbol'.
 @item data segment
+@cpindex Segment, data
+@cpindex Data segment
+@cpindex @code{.data}
+@cpindex Heap
+@cpindex Memory, heap
+@cpindex Global variables
+@cpindex Static variables
 When a process exec:s this segment is allocated.
 It is filled all global and static variables that
 are not covered by the @sc{BSS} segment.
@@ -46,6 +86,11 @@ is unfixed; it can be resized. Any part of the segment
 that is a result of it being resized, is referred to
 as the heap.
 @item stack segment
+@cpindex Segment, stack
+@cpindex Stack segment
+@cpindex Memory, stack
+@cpindex Call-stack
+@cpindex Automatic variables
 This segment contains a@footnote{Program stack's can
 created programmtically, hence `a' rather than `the'.}
 program stack. A program stack contains information
@@ -73,6 +118,8 @@ extent that it would overlap with the stack segment.
 In C there are multiple ways to allocate memory.
 @itemize @bullet{}
 @item
+@cpindex Global variables
+@cpindex Static allocations
 Variables that are declared outside functions are
 called global variables@footnote{Even if that are
 declared with @code{static}. In this context,
@@ -86,6 +133,9 @@ their content is. In the data segment (or in the
 @sc{BSS} segment if the elements are zeroes.) These
 allocations are known as @i{static allocations}.
 @item
+@cpindex @code{static}
+@cpindex Static variables
+@cpindex Static allocations
 Variables that are declared inside functions, with
 @code{static}, are stored just like global variables.
 These are called static variables, and remain unchanged
@@ -93,6 +143,11 @@ between function calls, and only change in statements
 other than the declaration statement. These allocations
 are known as @i{static allocations}.
 @item
+@cpindex @code{auto}
+@cpindex Local variables
+@cpindex Automatic variables
+@cpindex Automatic allocations
+@cpindex Stack-allocations
 Variables that are declared inside functions (these
 are known as local variables), without @code{static},
 but with @code{auto}, are called automatic variables.
@@ -105,10 +160,14 @@ add @code{register}. These allocations are known as
 @i{automatic allocations}@footnote{Known in some other
 programming languages as stack-allocations.}.
 @item
+@cpindex @code{register}
+@cpindex Register variables
 Variables that are declared with @code{register}
 are not stored in any segment. They lack addresses
 and stored as CPU registers.
 @item
+@cpindex Dynamic allocation
+@cpindex Heap-allocation
 Using system calls, a heap can be created, where
 new allocations are stored. These are often allocated
 with the function @code{malloc}, and are known as
@@ -116,10 +175,15 @@ with the function @code{malloc}, and are known as
 programming languages as heap-allocations.}.
 @end itemize
 
+@cpindex Dynamic allocation
+@cpindex Automatic allocations
+@cpindex Stack-allocations
 Some compilers, including @sc{GCC}, provide two
 additional ways to allocate memory.
 @table @asis
 @item @i{Variable-length arrays}
+@cpindex Variable-length arrays
+@cpindex Arrays, variable-length
 A simple example of variable-length arrays, available
 with some compilers, is
 @example
@@ -146,6 +210,7 @@ void function(size_t n)
 @end example
 
 @item @code{alloca}
+@fnindex alloca
 @code{alloca} is a special function that is implement
 by the compiler. It increases the stack and returns
 a pointer to the beginning of the new part of the stack.
