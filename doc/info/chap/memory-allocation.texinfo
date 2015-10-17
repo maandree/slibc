@@ -1,0 +1,169 @@
+@node Memory allocation
+@chapter Memory allocation
+
+The ability to allocate memory of on at compile-time
+unknown amount is an important feature for most
+programs.
+
+On modern operating systems, processes do not have
+direct access to the memory. Only the operating system
+kernel does. Instead, the process have virtual
+memory address, that the kernel maps to either,
+real @sc{RAM} memory, swap space (disc backed),
+file segments, or zeroes.
+
+Memory for a process is either allocated programmatically,
+or when the process forks (is created) or exec:s
+(changes process image.) The operating system kernel is
+typically configured to share a much memory between processes
+as possible. For example, and a process forks, they will
+share their memory rather than duplicate the memory, and
+the kernel will only remap the memory when the processs'
+memory content diverges. It is also possible to allocate
+memory in such a way that processes can share it. so that
+updates from one process influences the other processes.
+
+A process' virtual address space is divided into segments.
+There are three important segments.
+
+@table @i
+@item text segment
+When a process exec:s this segment is allocated.
+It contains instructions, static constants, and
+literals.
+@item BSS segment
+When a process exec:s this segment is allocated.
+It contains all global and static variables that are
+initialised to zero or lacks explicit initialisation.
+On some systems this segment is merged into the data
+segment.
+@item data segment
+When a process exec:s this segment is allocated.
+It is filled all global and static variables that
+are not covered by the BSS segment.
+This segment's lower end is fixed, and its upper end
+is unfixed; it can be resized. Any part of the segment
+that is a result of it being resized, is referred to
+as the heap.
+@item stack segment
+This segment contains a@footnote{Program stack's can
+created programmtically, hence `a' rather than `the'.}
+program stack. A program stack contains information
+required to return after a function call, and automatic
+variables. Depending on the platform and the function
+it may also contain arguments passed in function calls
+and return values. It grows as the stack grows, but
+it does not shrink as the stack shrinks.
+@end table
+
+The layout of the segments is machine dependent and
+operating system. However, a common@footnote{Keeping
+in mind this cannot be assumed practice, and that
+it is in fact different between systems.} layout is
+have the text segment (as other fixed segments) start
+at 0, and end at some positive address. The text
+segment is then followed by the BSS segment, and the
+data segment. The stack segment however, grows from
+the highest address (@math{-1} on two's
+complement-machines) downwards. The process cannot
+allocate any more memory when the allocation would
+require the data segment to be grown to such an
+extent that it would overlap with the stack segment.
+
+In C there are multiple ways to allocate memory.
+@itemize @bullet{}
+@item
+Variables that are declared outside functions are
+called global variables@footnote{Even if that are
+declared with @code{static}. In this context,
+@code{static} is only use to hide object from
+other translation units.}. These are stored either
+in the BSS segment or in the data segment, depending
+on their initialisation. Pointer are stored as
+numerical values, and the content is stored in the
+text segment. Arrays however are not stored, but
+their content is. In the data segment (or in the
+BSS segment if the elements are zeroes.) These
+allocations are known as @i{static allocations}.
+@item
+Variables that are declared inside functions, with
+@code{static}, are stored just like global variables.
+These are called static variables, and remain unchanged
+between function calls, and only change in statements
+other than the declaration statement. These allocations
+are known as @i{static allocations}.
+@item
+Variables that are declared inside functions (these
+are known as local variables), without @code{static},
+but with @code{auto}, are called automatic variables.
+These are stored in the stack segment, and are
+deallocated when the function returns. Local variables
+that are declared with neither @code{static},
+@code{auto}, or @code{register} are often though of
+as automatic; however, the compiler may choose to
+add @code{register}. These allocations are known as
+@i{automatic allocations}@footnote{Known in some other
+programming languages as stack-allocations.}.
+@item
+Variables that are declared with @code{register}
+are not stored in any segment. They lack addresses
+and stored as CPU registers.
+@item
+Using system calls, a heap can be created, where
+new allocations are stored. These are often allocated
+with the function @code{malloc}, and are known as
+@i{dynamic allocations}@footnote{Known in some other
+programming languages as heap-allocations.}.
+@end itemize
+
+Some compilers, including @sc{GCC}, provide two
+additional ways to allocate memory.
+@table @asis
+@item @i{Variable-length arrays}
+A simple example of variable-length arrays, available
+with some compilers, is
+@example
+void function(size_t n)
+@{
+  int array[n];
+  /* ... */
+@}
+@end example
+Variable-length arrays have a special property:
+they may be deallocated before the function returns.
+In fact, they are returned once the variable becomes
+invisible, this causes the follow example to work
+without every exhausting the memory.
+@example
+void function(size_t n)
+@{
+  for (;;)
+    @{
+      int array[n];
+      /* ... */
+    @}
+@}
+@end example
+
+@item @code{alloca}
+@code{alloca} is a special function that is implement
+by the compiler. It increases the stack and returns
+a pointer to the beginning of the new part of the stack.
+It is similar to variable-length arrays, however the
+allocation is not deallocated before the function returns.
+This causes the follow example to eventually exhaust
+the memory.
+@example
+void function(size_t n)
+@{
+  for (;;)
+    @{
+      int pointer* = alloca(n);
+      /* ... */
+    @}
+@}
+@end example
+@end table
+
+Both of these allocation-methods are both automatic
+and dynamic.
