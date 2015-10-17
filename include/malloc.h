@@ -149,7 +149,6 @@ void cfree(void*, ...)
 #endif
 
 
-#if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Variant of `malloc` that returns an address with a
  * specified alignment.
@@ -174,13 +173,12 @@ void cfree(void*, ...)
  * @throws  EINVAL  If `boundary` is not a power of two.
  */
 void* memalign(size_t, size_t)
-# ifdef __C11__
+#ifdef __C11__
    __deprecated("'memalign' has be deprecated by 'aligned_alloc' in C11.")
-# endif
-  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 #endif
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 
-#if (_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)
+#if (__POSIX_C_SOURCE >= 200112L) || (__XOPEN_SOURCE >= 600)
 /**
  * `posix_memalign(p, b, n)` is equivalent to
  * `(*p = memalign(b, n), *p ? 0 : errno)`, except
@@ -202,7 +200,7 @@ int posix_memalign(void**, size_t, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
 #endif
 
-#if defined(_BSD_SOURCE) || defined(_XOPEN_SOURCE_EXTENDED) || defined(__SLIBC_SOURCE)
+#if defined(__BSD_SOURCE) || defined(__XOPEN_SOURCE_EXTENDED) || defined(__SLIBC_SOURCE)
 /**
  * `valloc(n)` is equivalent to `memalign(sysconf(_SC_PAGESIZE), n)`.
  * 
@@ -224,7 +222,6 @@ void* valloc(size_t)
   __deprecated("'valloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
 #endif
 
-#if defined(__GNU_SOURCE)
 /**
  * This function works like `valloc`, except the allocation size,
  * including auxiliary space, is rounded up to the next multiple
@@ -243,7 +240,6 @@ void* valloc(size_t)
 void* pvalloc(size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)))
   __deprecated("'pvalloc' is deprecated, use 'memalign' or 'posix_memalign' instead.");
-#endif
 
 #if defined(__C11__) || defined(__BUILDING_SLIBC)
 /**
