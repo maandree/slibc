@@ -167,3 +167,56 @@ void function(size_t n)
 
 Both of these allocation-methods are both automatic
 and dynamic.
+
+
+@menu
+* The alloca function::                       Dynamically allocate automatically freed memory.
+* Basic memory allocation::                   Basic functions for dynamic memory allocation.
+* Resizing memory allocations::               How to resize memory allocations.
+* Efficient stack-based allocations::         Improving the performance using constrained allocation methods.
+* Resizing the data segment::                 How to change the size of the heap.
+* Memory locking::                            How to prevent pages from being swapped out.
+@end menu
+
+
+
+@node The alloca function
+@section The @code{alloca} function
+
+TODO
+
+
+
+@node Basic memory allocation
+@section Basic memory allocation
+
+TODO
+
+
+
+@node Resizing memory allocations
+@section Resizing memory allocations
+
+TODO
+
+
+
+@node Efficient stack-based allocations
+@section Efficient stack-based allocations
+
+TODO
+
+
+
+@node Resizing the data segment
+@section Resizing the data segment
+
+TODO
+
+
+
+@node Memory locking
+@section Memory locking
+
+TODO
+
