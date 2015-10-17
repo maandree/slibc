@@ -305,6 +305,10 @@ tries to access memory that could not be allocated,
 or, depending on the kernel's configuration, before
 it returns.
 
+On typical kernels and kernel configurations,
+@code{alloca} and @code{malloc} will handle memory
+exhaustion identically.
+
 Undefined behaviour may be invoked if @code{alloca}
 is called within a function call. The behaviour
 depends on the machine, the compiler, and
@@ -313,6 +317,21 @@ optimisations. You should avoid code similar to
 #define strdupa(string)  \
   strcpy(alloca((strlen(string) + 1) * sizeof(char)), string)
 @end example
+
+@code{alloca} has its restricts --- limited lifetime,
+cannot be explicitly deallocated, not growable, and
+not shrinkable ---  but it can also be advantageous
+because:
+@itemize
+@item
+Results in cleaner code because it is deallocated
+automatically.
+@item
+It does not waste any space on metainformation
+required for bookkeeping.
+@item
+Uses a faster memory allocation mechanism.
+@end itemize
 
 
 
