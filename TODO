@@ -27,7 +27,5 @@ LOW PRIORITY:
     _GNU_SOURCE, system-dependant
 
 
-alloc functions without bookkeeping
-
 crt0 with cpu cycle count printing
 
