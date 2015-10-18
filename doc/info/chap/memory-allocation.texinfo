@@ -659,6 +659,25 @@ It is unspecified how the function works. The
 implemention in @code{slibc} will allocate a bit
 of extra memory and shift the returned pointer
 so that it is aligned.
+
+A recommended practice, to align pointers is:
+@example
+p = aligned_alloc(sizeof(*p), n)
+@end example
+
+@tpindex max_align_t
+@sc{ISO}@tie{}C11 defines the auxiliary data
+type @code{max_align_t} which has a size
+the guaranteed to be a power-of-two (possibly
+1) multiple of the size of any intrinsic data
+type defined by the C standard. Its size it
+hence suitable for the aligment of any pointer
+to such data type. It can thus be a good idea
+to try replacing @code{malloc} with the macro
+@example
+#define malloc(n)  \
+  aligned_alloc(sizeof(max_align_t), n)
+@end example
 @end table
 
 
