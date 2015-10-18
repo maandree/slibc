@@ -246,7 +246,7 @@ int asprintf(char** restrict, const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int asprintfa(buffer, format, ...)					\
+#define asprintfa(buffer, format, ...)					\
   ({									\
     ssize_t __size;							\
     int __r;								\
@@ -254,7 +254,7 @@ int asprintfa(buffer, format, ...)					\
     if (*buffer = NULL, __size += 1, __r >= 0)				\
       *buffer = __builtin_alloca((size_t)__size * sizeof(char)),	\
 	__r = sprintf(*buffer, format, ##__VA_ARGS__);			\
-    __r;						\
+    __r;							\
   })
 # endif
 
@@ -693,7 +693,7 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  */
-int aswprintfa(buffer, format, ...)						\
+#define aswprintfa(buffer, format, ...)						\
   ({										\
     ssize_t __size;								\
     int __r;									\
