@@ -710,7 +710,7 @@ This function resizes a memory allocation,
 and if necessary creates a new allocation.
 
 @code{realloc}'s behaviour depends on the
-arguments pass:
+arguments passed:
 @table @asis
 @item @code{ptr == NULL}
 The behaviour is identical to that of @code{malloc}.
