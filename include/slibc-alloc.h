@@ -345,13 +345,13 @@ void* falloc(void*, size_t*, size_t, size_t, size_t, enum falloc_mode);
  * This macro calls `fast_free` and then sets the pointer to `NULL`,
  * so that another attempt to free the segment will not crash the process.
  */
-#define  FAST_FREE(segment)  (fast_free(segment), (segment) = NULL);
+#define  FAST_FREE(segment)  (fast_free(segment), (void)((segment) = NULL));
 
 /**
  * This macro calls `secure_free` and then sets the pointer to `NULL`,
  * so that another attempt to free the segment will not crash the process.
  */
-#define  SECURE_FREE(segment)  (secure_free(segment), (segment) = NULL);
+#define  SECURE_FREE(segment)  (secure_free(segment), (void)((segment) = NULL));
 
 
 
