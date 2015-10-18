@@ -466,7 +466,7 @@ a variadic function, and ignores all but the first
 argument.
 
 @item size_t malloc_usable_size(void* ptr)
-@fnindex malloc_usable_sizew
+@fnindex malloc_usable_size
 @cpindex Retrieve allocation size
 @cpindex Allocation size, retrieve
 This function returns the number of usable bytes
@@ -486,7 +486,180 @@ This function is a @sc{GNU} extension and requires
 @node Aligned memory allocation
 @section Aligned memory allocation
 
-TODO
+@cpindex Memory alignment
+@cpindex Pointer alignment
+@cpindex Aligned pointers
+@hfindex stdlib.h
+@hfindex malloc.h
+The library provides dynamic memory allocation
+methods that returns pointers with specified
+aligments. This can improve performance, but
+can waste some memory.
+
+@table @code
+@item void* memalign(size_t boundary, size_t size)
+@fnindex memalign
+This function is similar to @code{malloc},
+but it has an extra parameter as its first
+parameter: the alignment of the return pointer.
+If @code{boundary} is not a power of two,
+@code{NULL} is returned and @code{errno} is
+set to @code{EINVAL}.
+
+This function is declared in the header file
+@file{<malloc.h>}, you should however include
+it via @file{<stdlib.h>} for portability.
+It was deprecated by @sc{ISO}@tie{}C11, and
+@code{aligned_alloc} was recommended.
+
+It is unspecified how the function works. The
+implemention in @code{slibc} will allocate a bit
+of extra memory and shift the returned pointer
+so that it is aligned.
+
+As an extension, derived from @sc{GNU}, the
+allocated memory can be deallocate (with
+@code{free},) or reallocated. Note however, if
+it is reallocated with @code{realloc}, it is
+unspecified whether the pointer is guaranteed
+to be aligned if a new pointer is returned.
+In @code{slibc}, the alignment may be lost.
+This behaviour has been chosen because aligned
+memory allocation is uncommon in practice.
+
+@item int posix_memalign(void** ptrptr, size_t boundary, size_t size)
+@fnindex posix_memalign
+This function is similar to @code{malloc},
+but it has two extra parameters as its first
+parameters:
+@table @code
+@item ptrptr
+Output parameter for the pointer. Instead
+of return a pointer, it is stored to
+@code{*ptrptr} upon successful completion.
+@item boundary
+The alignment of the return pointer.
+@end table
+
+Additionally, the function returns zero
+upon successful completion, or on error,
+an @code{errno}-error code, rather than
+setting the value of @code{errno}. Like
+@code{malloc}, it can fail due to memory
+exhaustion. In this can, @code{ENOMEM} is
+returned. But it can also fails, and
+returns @code{EINVAL}, if @code{boundary}
+is not a multiple of @code{sizeof(void*)},
+or if @code{boundary / sizeof(void*)} is
+not a power of two.
+
+This function is declared in the header file
+@file{<malloc.h>}, you should however include
+it via @file{<stdlib.h>} for portability.
+It is only available if
+@code{(_POSIX_C_SOURCE >= 200112L) || (_XOPEN_SOURCE >= 600)}.
+
+It is unspecified how the function works. The
+implemention in @code{slibc} will allocate a bit
+of extra memory and shift the returned pointer
+so that it is aligned.
+
+As an extension, derived from @sc{GNU}, the
+allocated memory can be deallocate (with
+@code{free},) or reallocated. Note however, if
+it is reallocated with @code{realloc}, it is
+unspecified whether the pointer is guaranteed
+to be aligned if a new pointer is returned.
+In @code{slibc}, the alignment may be lost.
+This behaviour has been chosen because aligned
+memory allocation is uncommon in practice.
+
+@code{posix_memalign(&p, b, n)} is equivalent to
+@code{(p = memalign(b, n))? 0: errno}, except
+@code{posix_memalign} fails if its second argument
+is not a multiple of @code{sizeof(void*)}, and
+@code{errno} is unspecified.
+
+@item void* valloc(size_t size)
+@fnindex valloc
+This function is similar to @code{memalign}.
+@code{valloc(n)} is equivalent to
+@code{memalign(sysconf(_SC_PAGESIZE), n)};
+the alignment is the memory page size.
+
+This function is declared in the header file
+@file{<malloc.h>}, you should however include
+it via @file{<stdlib.h>} for portability.
+It is only available if either of @code{_BSD_SOURCE},
+@code{_XOPEN_SOURCE_EXTENDED}, or @code{__SLIBC_SOURCE}
+is defined. It has been deprecated, and it is
+recommended to use @code{memalign} or
+@code{posix_memalign} instead.
+
+It is unspecified how the function works. The
+implemention in @code{slibc} will allocate a bit
+of extra memory and shift the returned pointer
+so that it is aligned.
+
+As an extension, derived from @sc{GNU}, the
+allocated memory can be deallocate (with
+@code{free},) or reallocated. Note however, if
+it is reallocated with @code{realloc}, it is
+unspecified whether the pointer is guaranteed
+to be aligned if a new pointer is returned.
+In @code{slibc}, the alignment may be lost.
+This behaviour has been chosen because aligned
+memory allocation is uncommon in practice.
+
+@item void* pvalloc(size_t size)
+@fnindex pvalloc
+This function is almost identical to
+@code{valloc}, but @code{size} is rounded
+up to the next multiple of the page size,
+cause it allocate only whole pages, except
+that the @code{slibc} implementation, like
+the @sc{GNU} implementation, allocates
+extra memory before the returned pointer
+for bookkeeping.
+
+This function is declared in the header file
+@file{<malloc.h>}, you should however include
+it via @file{<stdlib.h>} for portability.
+It has been deprecated, and it is recommended
+to use @code{memalign} or @code{posix_memalign}
+instead.
+
+It is unspecified how the function works. The
+implemention in @code{slibc} will allocate a bit
+of extra memory and shift the returned pointer
+so that it is aligned.
+
+As an extension, derived from @sc{GNU}, the
+allocated memory can be deallocate (with
+@code{free},) or reallocated. Note however, if
+it is reallocated with @code{realloc}, it is
+unspecified whether the pointer is guaranteed
+to be aligned if a new pointer is returned.
+In @code{slibc}, the alignment may be lost.
+This behaviour has been chosen because aligned
+memory allocation is uncommon in practice.
+
+@item void* aligned_alloc(size_t boundary, size_t size)
+@fnindex aligned_alloc
+This function is identical to @code{memalign},
+except it the memory can be deallocated in
+all C standard library implementations.
+
+This function is declared in the header file
+@file{<malloc.h>}, you should however include
+it via @file{<stdlib.h>} for portability.
+It was added by @sc{ISO}@tie{}C11.
+
+It is unspecified how the function works. The
+implemention in @code{slibc} will allocate a bit
+of extra memory and shift the returned pointer
+so that it is aligned.
+@end table
 
 
 
