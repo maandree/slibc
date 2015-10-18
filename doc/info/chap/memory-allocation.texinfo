@@ -389,6 +389,18 @@ You do not need to write
 int* ten_integers = (int*)malloc(10 * sizeof(int));
 @end example
 
+@tpindex max_align_t
+@sc{ISO}@tie{}C11 defines the auxiliary data
+type @code{max_align_t} which has a size
+the guaranteed to be a power-of-two (possibly
+1) multiple of the size of any intrinsic data
+type defined by the C standard. Its size a
+suitable aligment for any pointer type.
+@code{malloc}, even before C11, uses its size
+for the aligment of all pointers it returns.
+@code{malloc(n)} is hence equivalent to
+@code{aligned_alloc(sizeof(max_align_t), n)}.
+
 @item void* calloc(size_t count, size_t size)
 @fnindex calloc
 @cpindex Memory allocation without uninitialisation
@@ -663,20 +675,6 @@ so that it is aligned.
 A recommended practice, to align pointers is:
 @example
 p = aligned_alloc(sizeof(*p), n)
-@end example
-
-@tpindex max_align_t
-@sc{ISO}@tie{}C11 defines the auxiliary data
-type @code{max_align_t} which has a size
-the guaranteed to be a power-of-two (possibly
-1) multiple of the size of any intrinsic data
-type defined by the C standard. Its size it
-hence suitable for the aligment of any pointer
-to such data type. It can thus be a good idea
-to try replacing @code{malloc} with the macro
-@example
-#define malloc(n)  \
-  aligned_alloc(sizeof(max_align_t), n)
 @end example
 @end table
 
