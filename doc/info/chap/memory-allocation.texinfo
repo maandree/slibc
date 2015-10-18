@@ -399,7 +399,9 @@ suitable aligment for any pointer type.
 @code{malloc}, even before C11, uses its size
 for the aligment of all pointers it returns.
 @code{malloc(n)} is hence equivalent to
-@code{aligned_alloc(sizeof(max_align_t), n)}.
+@code{memalign(sizeof(max_align_t), n)}. If
+you want the pointer to be unaligned, call
+@code{memalign(1, n)}.
 
 @item void* calloc(size_t count, size_t size)
 @fnindex calloc
