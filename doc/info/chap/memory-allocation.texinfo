@@ -495,7 +495,7 @@ This function is a @sc{GNU} extension and requires
 @code{_GNU_SOURCE}.
 @end table
 
-@hfindex{slibc-alloc.h}
+@hfindex slibc-alloc.h
 @command{slibc} provides a number of additional
 methods for memory management. These are defined
 in the header file @file{<slibc-alloc.h>}. They
@@ -736,8 +736,65 @@ p = aligned_alloc(sizeof(*p), n)
 @end table
 
 
-@c TODO @item void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode mode)
-@c @fnindex rememalign
+@hfindex slibc-alloc.h
+@command{slibc} provides a number of additional
+methods for memory management. These are defined
+in the header file @file{<slibc-alloc.h>}. They
+are available even if @code{_SLIBC_SOURCE} is not
+defined, but it is required that neither
+@code{_PORTABLE_SOURCE} nor @code{_LIBRARY_HEADER}
+is defined.
+
+@table @code
+@item void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode mode)
+@fnindex rememalign
+@tpindex rememalign_mode
+@tpindex enum rememalign_mode
+@cpindex Reallocating memory
+@cpindex Memory, reallocation
+@cpindex Resizing memory allocations
+@cpindex Memory, resize allocations
+This function is similar to @code{realloc}, however its 
+behaviour and pointer alignment can be tuned.
+
+The pointer's alignment is specified by the parameter
+@code{boundary}. It must be a power of two, lest the
+function fail with @code{errno} set to @code{EINVAL}.
+@code{boundary} is not validated before it is necessary,
+that is, it will only be validated if a new allocation
+is created.
+
+The function's behaviour is tuned with the @code{mode}
+paarameter. It may be any combination of
+@table @code
+@item REMEMALIGN_CLEAR
+If the allocation shrunk, the disowned memory is cleared.
+If @code{ptr} is deallocated, it will be cleared.
+@item REMEMALIGN_INIT
+If the allocation growed, the newly available memory
+is zero-initialised. If @code{REMEMALIGN_MEMCPY} is not
+used but a new allocation was created, the entire
+allocation is zero-initialised.
+@item REMEMALIGN_MEMCPY
+If a new allocation is created, and @code{ptr} is not
+@code{NULL}, the data from the old allocation is copied
+over to the new allocation.
+@end table
+
+If @code{mode} contains any other set bit that those
+set by @code{REMEMALIGN_CLEAR}, @code{REMEMALIGN_INIT},
+or @code{REMEMALIGN_MEMCPY}, the function fails with
+@code{errno} set to @code{EINVAL}.
+
+Upon successful completion, @code{errno} is set to zero
+if @code{NULL} is returned.
+
+@item void* naive_realloc(void* ptr, size_t boundary, size_t size)
+This function is discussed in @ref{Resizing memory allocations}.
+
+@item void* falloc(void* ptr, size_t* ptrshift, size_t boundary, size_t old_size, size_t new_size, enum falloc_mode mode)
+This function is discussed in @ref{Resizing memory allocations}.
+@end table
 
 
 
@@ -756,7 +813,7 @@ it simplifies to the program code.
 
 @table @code
 @item void* realloc(void* ptr, size_t size)
-@hfindex stdilb.h
+@hfindex stdlib.h
 @hfindex malloc.h
 @sc{ANSI}@tie{}C defines this function to be
 defined in the header file @file{<stdlib.h>},
@@ -824,7 +881,7 @@ is returned, and thus, the behaviour is also
 identical to that of @code{free}.
 @end table
 
-@hfindex{slibc-alloc.h}
+@hfindex slibc-alloc.h
 @command{slibc} provides a number of additional
 methods for memory management. These are defined
 in the header file @file{<slibc-alloc.h>}. They
@@ -887,23 +944,149 @@ not be cleared.
 
 @item void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
 @fnindex extalloc
-TODO
+@tpindex extalloc_mode
+@tpindex enum extalloc_mode
+This function is similar to @code{realloc}, but if it
+creates a new allocation, data is not copied over from
+the old allocation to the new allocation. If it is
+necessary to create a new allocation, @code{errno} is
+set to zero and @code{NULL} is returned, unless
+@code{mode & EXTALLOC_MALLOC}. This funtion will not
+initialise new memory, additionally, it will only clear
+old memory --- disowned, or the old allocation --- if
+@code{mode & EXTALLOC_CLEAR}. @code{EXTALLOC_MALLOC}
+and @code{EXTALLOC_CLEAR} can be combined freely.
 
 @item void* naive_realloc(void* ptr, size_t boundary, size_t size)
 @fnindex naive_realloc
-TODO
+This is a naïve bare-bones version of @code{realloc},
+intended to be used to implement @code{realloc}-functions.
+It behaviour is identical to that if @code{fast_realloc},
+with a new exceptions:
+@itemize @bullet{}
+@item
+Its behaviour is undefined if @code{ptr} is @code{NULL}.
+@item
+Its behaviour is undefined if @code{size} equals the old
+allocation size.
+@item
+Its behaviour is undefined if @code{size} is zero.
+@item
+It will never free @code{ptr}.
+@item
+The alignment of new pointers can be specified.
+If and only if, a new allocation is created, the
+returned pointer's alignment will be @code{boundary}.
+@end itemize
 
 @item void* naive_extalloc(void* ptr, size_t size)
 @fnindex naive_extalloc
-TODO
+This is a naïve bare-bones version of @code{extalloc},
+intended to be used to implement @code{extalloc}-functions.
+This fucntion is identical to that of @code{naive_realloc},
+except it will return @code{NULL} with @code{errno} set to
+zero, if it is not possible to perform the shrink or grow
+without creating new pointer.
 
 @item void* falloc(void* ptr, size_t* ptrshift, size_t boundary, size_t old_size, size_t new_size, enum falloc_mode mode)
 @fnindex falloc
+@tpindex falloc_mode
+@tpindex enum falloc_mode
 @cpindex Memory alignment
 @cpindex Pointer alignment
 @cpindex Aligned pointers
-TODO
+This function is similar to @code{realloc}, but it does
+not do internal bookkeeping. It can allocates, deallocates,
+or reallocates memory. The created allocation may not be
+inspected, deallocated, or reallocated with any other
+function than this function. @code{falloc} can be used to
+minimise the memory footprint.
 
+This function has six parameters:
+@table @code
+@item void* ptr
+The old pointer, @code{NULL} if a new shall be created.
+@item size_t* ptrshift
+Pointer that is used to keep track of the pointer's
+shift for alignment. @code{NULL} if the shift shall not
+be tracked. If this is the case, @code{falloc} cannot
+be used to reallocate or deallocate an allocation,
+unless the pointer is unaligned (@code{alignment} is
+zero or one).
+@item size_t boundary
+The aligment of both the new and old pointer, zero 
+or one if it should not be aligned.
+@item size_t old_size
+The old allocation size, zero if a new shall be created.
+@item size_t new_size
+The new allocation size, zero if it shall be freed.
+@item enum falloc_mode mode
+Any combination of
+@table @code
+@item FALLOC_CLEAR
+If the allocation shrunk, the disowned memory is cleared.
+If @code{ptr} is deallocated, it will be cleared.
+@item FALLOC_INIT
+If the allocation growed, the newly available memory
+is zero-initialised. If @code{FALLOC_MEMCPY} is not
+used but a new allocation was created, the entire
+allocation is zero-initialised.
+@item FALLOC_MEMCPY
+If a new allocation is created, and @code{ptr} is not
+@code{NULL}, the data from the old allocation is copied
+over to the new allocation.
+@end table
+@end table
+
+The function will return the old pointer if it has been
+shrunk or grown, a new pointer if a new allocation was
+required (the allocation is deallocated and @code{ptr}
+has become an invalid pointer,) @code{NULL}, with
+@code{errno} set to zero, if the @code{ptr} is deallocated
+and no new allocation was created (@code{new_size} is zero),
+or if @code{new_size} and @code{old_size} is zero and
+@code{ptr} is @code{NULL}, or @code{NULL} with errno set
+to describe the error on failure.
+
+On error, @code{errno} is set to either @code{EINVAL},
+if the input arguments invalid, or @code{ENOMEM} if the
+process could not allocate the requested memory.
+
+If @code{new_size} is zero and @code{ptr} is @code{NULL},
+nothing happens, but @code{errno} is set to zero and
+@code{NULL} is returned.
+
+If @code{new_size} is non-zero, @code{old_size} is zero,
+and @code{ptr} is not @code{NULL} or if @code{new_size}
+and @code{old_size} is non-zero, and @code{ptr} is
+@code{NULL}, @code{errno} is set to @code{EINVAL} and
+@code{NULL} is returned.
+
+If @code{new_size} and @code{old_size} is zero and
+@code{ptr} is not @code{NULL}, @code{errno} is set to
+@code{EINVAL} and @code{NULL} is returned.
+
+If @code{new_size} is zero, @code{old_size} is non-zero,
+and @code{ptr} is not @code{NULL}, @code{ptr} is deallocated,
+and @code{NULL} is returned with @code{errno} set to zero.
+The memory cleared before it is deallocated if
+@code{mode & FALLOC_CLEAR}.
+
+If @code{new_size} is non-zero, @code{old_size} is zero,
+and @code{ptr} is @code{NULL}, a new allocation is created
+of @code{new_size} bytes. It will be zero-initialised if
+@code{mode & FALLOC_INIT}.
+
+If @code{new_size} and @code{old_size} is non-zero and
+@code{ptr} is not @code{NULL}, @code{ptr} is reallocated.
+if the allocation is shrunk, the disowned area is cleared
+if @code{mode & FALLOC_CLEAR}. Newly available memory is
+zero-initialised if @code{mode & FALLOC_INIT}. If a new
+allocation is required, the data from the old allocation
+is only copied over to the new allocation if
+@code{mode & FALLOC_MEMCPY}. If
+@code{(mode & FALLOC_INIT) && !(mode & FALLOC_MEMCPY)},
+the entire allocation will be cleared.
 @end table
 
 
