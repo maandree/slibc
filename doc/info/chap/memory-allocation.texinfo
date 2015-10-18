@@ -768,14 +768,17 @@ The function's behaviour is tuned with the @code{mode}
 paarameter. It may be any combination of
 @table @code
 @item REMEMALIGN_CLEAR
+@lvindex REMEMALIGN_CLEAR
 If the allocation shrunk, the disowned memory is cleared.
 If @code{ptr} is deallocated, it will be cleared.
 @item REMEMALIGN_INIT
+@lvindex REMEMALIGN_INIT
 If the allocation growed, the newly available memory
 is zero-initialised. If @code{REMEMALIGN_MEMCPY} is not
 used but a new allocation was created, the entire
 allocation is zero-initialised.
 @item REMEMALIGN_MEMCPY
+@lvindex REMEMALIGN_MEMCPY
 If a new allocation is created, and @code{ptr} is not
 @code{NULL}, the data from the old allocation is copied
 over to the new allocation.
@@ -946,6 +949,8 @@ not be cleared.
 @fnindex extalloc
 @tpindex extalloc_mode
 @tpindex enum extalloc_mode
+@lvindex EXTALLOC_MALLOC
+@lvindex EXTALLOC_CLEAR
 This function is similar to @code{realloc}, but if it
 creates a new allocation, data is not copied over from
 the old allocation to the new allocation. If it is
@@ -1024,14 +1029,17 @@ The new allocation size, zero if it shall be freed.
 Any combination of
 @table @code
 @item FALLOC_CLEAR
+@lvindex FALLOC_CLEAR
 If the allocation shrunk, the disowned memory is cleared.
 If @code{ptr} is deallocated, it will be cleared.
 @item FALLOC_INIT
+@lvindex FALLOC_INIT
 If the allocation growed, the newly available memory
 is zero-initialised. If @code{FALLOC_MEMCPY} is not
 used but a new allocation was created, the entire
 allocation is zero-initialised.
 @item FALLOC_MEMCPY
+@lvindex FALLOC_MEMCPY
 If a new allocation is created, and @code{ptr} is not
 @code{NULL}, the data from the old allocation is copied
 over to the new allocation.
