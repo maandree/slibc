@@ -29,7 +29,7 @@
 
 /**
  * Configurations for `extalloc`.
- * There are independent of each other, and
+ * They are independent of each other, and
  * multiple can be selected by using bitwise or
  * between them.
  */
@@ -50,7 +50,7 @@ enum extalloc_mode
 
 /**
  * Configurations for `rememalign`.
- * There are independent of each other, and
+ * They are independent of each other, and
  * multiple can be selected by using bitwise or
  * between them.
  */
@@ -71,6 +71,33 @@ enum rememalign_mode
      * from the old allocation over to the new allocation.
      */
     REMEMALIGN_MEMCPY = 4,
+    
+  };
+
+
+/**
+ * Configurations for `falloc`.
+ * They are independent of each other, and
+ * multiple can be selected by using bitwise or
+ * between them.
+ */
+enum falloc_mode
+  {
+    /**
+     * Clear disowned memory.
+     */
+    FALLOC_CLEAR = 1,
+    
+    /**
+     * Initialise new memory.
+     */
+    FALLOC_INIT = 2,
+    
+    /**
+     * If a new allocation is created, copy the data
+     * from the old allocation over to the new allocation.
+     */
+    FALLOC_MEMCPY = 4,
     
   };
 
@@ -262,6 +289,56 @@ void* naive_realloc(void*, size_t, size_t) /* sic! we limit ourself to ASCII */
  */
 void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
+
+/**
+ * Allocates, deallocates, or reallocates memory without
+ * bookkeeping. The created allocation may not be inspecifed,
+ * deallocated or reallocated with any other function than
+ * this function.
+ * 
+ * If `new_size` is zero and `ptr` is `NULL`,
+ *   nothing happens, but errno is set zero and `NULL` is returned.
+ * If `new_size` is zero and `ptr` is not `NULL`,
+ *   `ptr` is deallocated, errno is set zero, and `NULL` is returned.
+ *   `ptr`'s content will be clear if `old_size` is not zero
+ *   and `mode & FALLOC_CLEAR`, but if `old_size` is zero and
+ *   and `mode & FALLOC_CLEAR`, `errno` is set to `EINVAL`.
+ * If `new_size` is not zero, and `ptr` is not `NULL`,
+ *   `ptr` is reallocated. If `mode & FALLOC_CLEAR` the old allocation
+ *   is cleared if a new allocation is created, or if the allocation
+ *   is shrinked, the disowned area is cleared. However, if `old_size`
+ *   is zero an `mode & FALLOC_CLEAR` errno is set to `EINVAL` and
+ *   `NULL` is returned. If a new allocation is created, the first
+ *   `old_size` bytes is copied from the old allocation into the new
+ *   allocation. If `mode & FALLOC_INIT`, all newly available space
+ *   will be initialised with zeroes.
+ * If neither `new_size` nor `new_size` is zero, and `ptr` is `NULL`,
+ *   `errno` is set to `EINVAL` and `NULL` is returned.
+ * Otherwise (if `new_size` is non-zero, `old_size` is zero, and
+ *   `ptr` is `NULL ), a new allocation is created.
+ * 
+ * @param   ptr        The old pointer, `NULL` if a new shall be created.
+ * @param   ptrshift   Pointer that is used to keep track of the pointers
+ *                     shift for alignment. `NULL` if the shift shall not
+ *                     be tracked. If this is the case, `falloc` cannot
+ *                     be used to reallocate or deallocate an allocation,
+ *                     unless the pointer is unaligned (`alignment <= 0`).
+ * @param   alignment  The aligment of both the new and old pointer, zero
+ *                     or one if it should not be aligned.
+ * @param   old_size   The old allocation size, zero if a new shall be created.
+ * @param   new_size   The new allocation size, zero if it shall be freed.
+ * @param   mode       `FALLOC_CLEAR`, `FALLOC_INIT` or `FALLOC_MEMCPY`, or
+ *                     both or neither.
+ * @return             The new pointer, or the old pointer if it was reallocated
+ *                     without creating a new allocation. `NULL` is returned
+ *                     if `new_size` (errno is set to zero) is zero, or on error
+ *                     (errno is set to describe the error.)
+ * 
+ * @throws  0       `new_size` is zero.
+ * @throws  EINVAL  The arguments are invalid.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* falloc(void*, size_t*, size_t, size_t, size_t, enum falloc_mode);
 
 
 /**

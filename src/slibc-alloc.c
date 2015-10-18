@@ -18,6 +18,7 @@
 #include <slibc-alloc.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
 #include <strings.h>
 #include <errno.h>
 /* TODO #include <sys/mman.h> */
@@ -376,5 +377,133 @@ void* naive_extalloc(void* ptr, size_t size)
   /* TODO implement naive_extalloc */
   return errno = 0, NULL;
   (void) ptr, (void) size;
+}
+
+
+
+/**
+ * Allocates, deallocates, or reallocates memory without
+ * bookkeeping. The created allocation may not be inspecifed,
+ * deallocated or reallocated with any other function than
+ * this function.
+ * 
+ * If `new_size` is zero and `ptr` is `NULL`,
+ *   nothing happens, but `errno` is set to zero and `NULL`
+ *   is returned.
+ * If `new_size` is non-zero, `old_size` is zero, and `ptr`
+ *   is not `NULL` or if `new_size` and `old_size` is non-zero,
+ *   and `ptr` is `NULL`, `errno` is set to `EINVAL` and `NULL`
+ *   is returned.
+ * If `new_size` and `old_size` is zero and `ptr` is not `NULL`,
+ *   `errno` is set to `EINVAL` and `NULL` is returned.
+ * If `new_size` is zero, `old_size` is non-zero, and `ptr`
+ *   is not `NULL`, `ptr` is deallocated, and `NULL` is returned
+ *   with `errno` set to zero. The memory cleared before it is
+ *   deallocated if `mode & FALLOC_CLEAR`.
+ * If `new_size` is non-zero, `old_size` is zero, and `ptr` is
+ *   `NULL`, a new allocation is created of `new_size` bytes.
+ *   It will be zero-initialised if `mode & FALLOC_INIT`.
+ * If `new_size` and `old_size` is non-zero and `ptr` is not
+ *   `NULL`, `ptr` is reallocated. if the allocation is shrunk,
+ *   the disowned area is cleared if `mode & FALLOC_CLEAR`.
+ *   Newly available memory is zero-initialised if
+ *   `mode & FALLOC_INIT`. If a new allocation is required,
+ *   the data from the old allocation is only copied over to
+ *   the new allocation if `mode & FALLOC_MEMCPY`. If
+ *   `(mode & FALLOC_INIT) && !(mode & FALLOC_MEMCPY)`, the
+ *   entire allocation will be cleared.
+ * 
+ * @param   ptr        The old pointer, `NULL` if a new shall be created.
+ * @param   ptrshift   Pointer that is used to keep track of the pointers
+ *                     shift for alignment. `NULL` if the shift shall not
+ *                     be tracked. If this is the case, `falloc` cannot
+ *                     be used to reallocate or deallocate an allocation,
+ *                     unless the pointer is unaligned (`alignment <= 0`).
+ * @param   alignment  The aligment of both the new and old pointer, zero
+ *                     or one if it should not be aligned.
+ * @param   old_size   The old allocation size, zero if a new shall be created.
+ * @param   new_size   The new allocation size, zero if it shall be freed.
+ * @param   mode       `FALLOC_CLEAR`, `FALLOC_INIT` or `FALLOC_MEMCPY`, or
+ *                     both or neither.
+ * @return             The new pointer, or the old pointer if it was reallocated
+ *                     without creating a new allocation. `NULL` is returned
+ *                     if `new_size` (errno is set to zero) is zero, or on error
+ *                     (errno is set to describe the error.)
+ * 
+ * @throws  0       `new_size` is zero.
+ * @throws  EINVAL  The arguments are invalid.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* falloc(void* ptr, size_t* ptrshift, size_t alignment,
+	     size_t old_size, size_t new_size, enum falloc_mode mode)
+{
+  void* new_ptr = NULL;
+  size_t shift = 0;
+  
+  if (mode & (enum falloc_mode)~(FALLOC_CLEAR | FALLOC_INIT | FALLOC_MEMCPY))
+    return errno = EINVAL, NULL;
+  
+  alignment = alignment ? alignment : 1;
+  
+  if (new_size && old_size && ptr)
+    {
+      shift = ptrshift == NULL ? *ptrshift : 0;
+      if ((alignment > 1) && (ptrshift == NULL))
+	return errno = EINVAL, NULL;
+      if ((mode & FALLOC_CLEAR) && (old_size > new_size))
+	explicit_bzero(ptr + new_size, old_size - new_size);
+      new_ptr = falloc_extalloc(ptr - shift, old_size + shift, new_size + shift);
+      if ((new_ptr == NULL) && (errno == 0))
+	{
+	  new_ptr = falloc_malloc(new_size + alignment - 1);
+	  if (new_ptr != NULL)
+	    {
+	      if ((size_t)new_ptr % alignment)
+		shift = alignment - ((size_t)new_ptr % alignment);
+	      if (ptrshift != NULL)
+		*ptrshift = shift;
+	      new_ptr = (void*)((char*)new_ptr + shift);
+	      if (mode & FALLOC_MEMCPY)
+		memcpy(new_ptr, ptr, old_size);
+	    }
+	}
+    }
+  else if (new_size && (old_size || ptr))
+    return errno = EINVAL, NULL;
+  else if (new_size)
+    new_ptr = falloc_malloc(new_size);
+  else if (old_size && ptr)
+    {
+      shift = ptrshift == NULL ? *ptrshift : 0;
+      if ((alignment > 1) && (ptrshift == NULL))
+	return errno = EINVAL, NULL;
+      if (mode & FALLOC_CLEAR)
+	explicit_bzero(ptr, old_size);
+      falloc_free(ptr - shift);
+      return errno = 0, NULL;
+    }
+  else if (old_size || !ptr)
+    return errno = 0, NULL;
+  else
+    return errno = EINVAL, NULL;
+  
+  if (new_ptr != NULL)
+    {
+      if ((new_ptr != ptr) && (ptr != NULL))
+	{
+	  if (mode & FALLOC_CLEAR)
+	    explicit_bzero(ptr, old_size);
+	  falloc_free(ptr - shift);
+	}
+      if (mode & FALLOC_INIT)
+	{
+	  if (!(mode & FALLOC_MEMCPY))
+	    old_size = 0;
+	  if (new_size > old_size)
+	    bzero(new_ptr + old_size, new_size - old_size);
+	}
+    }
+  
+  return errno = 0, new_ptr;
 }
 
