@@ -118,7 +118,7 @@ void* zalloc(size_t)
  */
 void* realloc(void*, size_t)
    __GCC_ONLY(__attribute__((__warn_unused_result__)))
-   __slibc_warning("Use 'fast_realloc', 'secure_realloc' or 'crealloc' instead.");
+   __slibc_warning("Use 'fast_realloc', 'secure_realloc', or 'crealloc' instead.");
 
 /**
  * Free a memory allocation.
