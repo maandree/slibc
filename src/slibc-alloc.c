@@ -281,6 +281,9 @@ void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode m
   size_t old_size;
   void* new_ptr;
   
+  if ((enum rememalign_mode)(conf_clear | conf_init | conf_memcpy) != mode)
+    return errno = EINVAL, NULL;
+  
   if (size == 0)
     return secure_free(ptr), NULL;
   
