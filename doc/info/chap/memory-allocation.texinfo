@@ -584,7 +584,7 @@ is not a multiple of @code{sizeof(void*)}, and
 @fnindex valloc
 This function is similar to @code{memalign}.
 @code{valloc(n)} is equivalent to
-@code{memalign(sysconf(_SC_PAGESIZE), n)};
+@code{memalign@-(sysconf(_SC_PAGESIZE), n)};
 the alignment is the memory page size.
 
 This function is declared in the header file
