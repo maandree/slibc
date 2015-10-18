@@ -17,6 +17,7 @@
  */
 #include <slibc-alloc.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <strings.h>
 #include <errno.h>
 /* TODO #include <sys/mman.h> */
@@ -117,7 +118,7 @@ size_t allocsize(void* segment)
   if (CLEAR_OLD ? (old_size > size) : 0)				\
     explicit_bzero(((char*)ptr) + size, old_size - size);		\
 									\
-  new_ptr = naive_realloc(ptr, size);					\
+  new_ptr = naive_realloc(ptr, sizeof(max_align_t), size);		\
   if (new_ptr != ptr)							\
     {									\
       if (new_ptr == NULL)						\
@@ -243,7 +244,9 @@ void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
   if (clear ? (old_size > size) : 0)
     explicit_bzero(((char*)ptr) + size, old_size - size);
   
-  new_ptr = ((mode & EXTALLOC_MALLOC) ? naive_realloc : naive_extalloc)(ptr, size);
+  new_ptr = (mode & EXTALLOC_MALLOC)
+	     ? naive_realloc(ptr, sizeof(max_align_t), size)
+	     : naive_extalloc(ptr, size);
   if ((new_ptr != ptr) && (new_ptr != NULL))
     {
       if (clear)
@@ -256,22 +259,90 @@ void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
 
 
 /**
+ * This function is similar to `realloc`, however its
+ * behaviour and pointer alignment can be tuned.
+ * 
+ * @param   ptr       The old allocation, see `realloc` for more details.
+ * @param   boundary  The alignment.
+ * @param   size      The new allocation size, see `realloc` for more details.
+ * @param   mode      `REMEMALIGN_CLEAR`, `REMEMALIGN_INIT` or
+ *                    `REMEMALIGN_MEMCPY`, or both or neither.
+ * @return            The new allocation, see `realloc` for more details.
+ * 
+ * @throws  0       `errno` is set to zero success if `NULL` is returned.
+ * @throws  EINVAL  `mode` is invalid, or `boundary` is not a power of two.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode mode)
+{
+  int conf_clear  = mode & REMEMALIGN_CLEAR;
+  int conf_init   = mode & REMEMALIGN_INIT;
+  int conf_memcpy = mode & REMEMALIGN_MEMCPY;
+  size_t old_size;
+  void* new_ptr;
+  
+  if (size == 0)
+    return secure_free(ptr), NULL;
+  
+  if (ptr == NULL)
+    {
+      new_ptr = memalign(boundary, size);
+      if ((new_ptr != NULL) && conf_init)
+	bzero(new_ptr, size);
+      return new_ptr;
+    }
+  
+  old_size = allocsize(ptr);
+  if (old_size == size)
+    return ptr;
+  
+  if (conf_clear ? (old_size > size) : 0)
+    explicit_bzero(((char*)ptr) + size, old_size - size);
+  
+  if (conf_memcpy)
+    new_ptr = naive_realloc(ptr, boundary, size);
+  else
+    {
+      new_ptr = naive_extalloc(ptr, size);
+      if ((new_ptr == NULL) && (errno == 0))
+	new_ptr = memalign(boundary, size);
+    }
+  if (new_ptr != ptr)
+    {
+      if (new_ptr == NULL)
+	return NULL;
+      if (conf_clear)
+	explicit_bzero(PURE_ALLOC(ptr), PURE_SIZE(ptr));
+      fast_free(ptr);
+    }
+  
+  if (conf_init ? (old_size < size) : 0)
+    explicit_bzero(((char*)new_ptr) + old_size, size - old_size);
+  
+  return new_ptr;
+}
+
+
+/**
  * This function behaves exactly like `fast_realloc`, except:
  * - Its behaviour is undefined if `ptr` is `NULL`.
  * - Its behaviour is undefined if `size` equals the old allocation size.
  * - Its behaviour is undefined if `size` is zero.
  * - It will never free `ptr`.
+ * - The alignment of new pointers can be specified.
  * 
- * @param   ptr   The old allocation, see `realloc` for more details.
- * @param   size  The new allocation size, see `realloc` for more details.
- * @return        The new allocation, see `realloc` for more details.
+ * @param   ptr       The old allocation, see `realloc` for more details.
+ * @param   boundary  The alignment.
+ * @param   size      The new allocation size, see `realloc` for more details.
+ * @return            The new allocation, see `realloc` for more details.
  * 
+ * @throws  EINVAL  `boundary` is not a power of two.
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-void* naive_realloc(void* ptr, size_t size)
+void* naive_realloc(void* ptr, size_t boundary, size_t size)
 {
   /* TODO implementation of naive_realloc with reallocation */
-  return malloc(size);
+  return memalign(boundary, size);
   (void) ptr;
 }
 

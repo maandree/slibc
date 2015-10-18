@@ -27,7 +27,6 @@ LOW PRIORITY:
     _GNU_SOURCE, system-dependant
 
 
-realloc &c with alignment
 alloc functions without bookkeeping
 
 crt0 with cpu cycle count printing

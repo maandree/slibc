@@ -44,6 +44,34 @@ enum extalloc_mode
      * Create new allocation with `malloc` if necessary.
      */
     EXTALLOC_MALLOC = 2,
+    
+  };
+
+
+/**
+ * Configurations for `rememalign`.
+ * There are independent of each other, and
+ * multiple can be selected by using bitwise or
+ * between them.
+ */
+enum rememalign_mode
+  {
+    /**
+     * Clear disowned memory.
+     */
+    REMEMALIGN_CLEAR = 1,
+    
+    /**
+     * Initialise new memory.
+     */
+    REMEMALIGN_INIT = 2,
+    
+    /**
+     * If a new allocation is created, copy the data
+     * from the old allocation over to the new allocation.
+     */
+    REMEMALIGN_MEMCPY = 4,
+    
   };
 
 
@@ -180,19 +208,39 @@ void* extalloc(void*, size_t, enum extalloc_mode)
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
 
 /**
+ * This function is similar to `realloc`, however its
+ * behaviour and pointer alignment can be tuned.
+ * 
+ * @param   ptr       The old allocation, see `realloc` for more details.
+ * @param   boundary  The alignment.
+ * @param   size      The new allocation size, see `realloc` for more details.
+ * @param   mode      `REMEMALIGN_CLEAR`, `REMEMALIGN_INIT` or
+ *                    `REMEMALIGN_MEMCPY`, or both or neither.
+ * @return            The new allocation, see `realloc` for more details.
+ * 
+ * @throws  0       `errno` is set to zero success if `NULL` is returned.
+ * @throws  EINVAL  `mode` is invalid, or `boundary` is not a power of two.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* rememalign(void*, size_t, size_t, enum rememalign_mode)
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
+
+/**
  * This function behaves exactly like `fast_realloc`, except:
  * - Its behaviour is undefined if `ptr` is `NULL`.
  * - Its behaviour is undefined if `size` equals the old allocation size.
  * - Its behaviour is undefined if `size` is zero.
  * - It will never free `ptr`.
+ * - The alignment of new pointers can be specified.
  * 
- * @param   ptr   The old allocation, see `realloc` for more details.
- * @param   size  The new allocation size, see `realloc` for more details.
- * @return        The new allocation, see `realloc` for more details.
+ * @param   ptr       The old allocation, see `realloc` for more details.
+ * @param   boundary  The alignment.
+ * @param   size      The new allocation size, see `realloc` for more details.
+ * @return            The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-void* naive_realloc(void*, size_t) /* sic! we limit ourself to ASCII */
+void* naive_realloc(void*, size_t, size_t) /* sic! we limit ourself to ASCII */
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
 
 /**
