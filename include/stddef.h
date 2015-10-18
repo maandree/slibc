@@ -82,7 +82,7 @@
 #define __NEED_ptrdiff_t
 #define __NEED_wchar_t
 #define __NEED_size_t
-#if defined(__C11__)
+#if defined(__C11__) || defined(__BUILDING_SLIBC)
 # define __NEED_max_align_t
 #endif
 

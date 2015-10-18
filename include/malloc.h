@@ -37,6 +37,8 @@
 /**
  * Create a new memory allocation on the heap.
  * The allocation will not be initialised.
+ * The returned pointer has an alignment usable
+ * for any compiler-independent intrinsic data type.
  * 
  * @param   size  The size of the allocation.
  * @return        Pointer to the beginning of the new allocation.
@@ -99,7 +101,9 @@ void* zalloc(size_t)
 /**
  * Variant of `malloc` that extends, or shrinks, an existing allocation,
  * if beneficial and possible, or creates a new allocation with the new
- * size, copies the data, and frees the old allocation.
+ * size, copies the data, and frees the old allocation. The returned
+ * pointer has an alignment usable for any compiler-independent intrinsic
+ * data type, if a new pointer is returned.
  * 
  * On error, `ptr` is not freed.
  * 

@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdlib.h>
+#include <stddef.h>
 #include <slibc-alloc.h>
 #include <strings.h>
 /* TODO #include <sys/mman.h> */
@@ -34,6 +35,7 @@
 /**
  * Create a new memory allocation on the heap.
  * The allocation will not be initialised.
+ * The returned pointer is unaligned.
  * 
  * @param   size  The size of the allocation.
  * @return        Pointer to the beginning of the new allocation.
@@ -45,7 +47,7 @@
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-void* malloc(size_t size)
+static void* unaligned_malloc(size_t size)
 {
   char* ptr;
   size_t full_size;
@@ -61,6 +63,28 @@ void* malloc(size_t size)
   ((size_t*)ptr)[0] = size;
   ((size_t*)ptr)[1] = 0;
   return ptr + 2 * sizeof(size_t);
+}
+
+
+/**
+ * Create a new memory allocation on the heap.
+ * The allocation will not be initialised.
+ * The returned pointer has an alignment usable
+ * for any compiler-independent intrinsic data type.
+ * 
+ * @param   size  The size of the allocation.
+ * @return        Pointer to the beginning of the new allocation.
+ *                If `size` is zero, this function will either return
+ *                `NULL` (that is what this implement does) or return
+ *                a unique pointer that can later be freed with `free`.
+ *                `NULL` is returned on error, and `errno` is set to
+ *                indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* malloc(size_t size)
+{
+  return memalign(sizeof(max_align_t), size);
 }
 
 
@@ -125,7 +149,9 @@ void* zalloc(size_t size)
 /**
  * Variant of `malloc` that extends, or shrinks, an existing allocation,
  * if beneficial and possible, or creates a new allocation with the new
- * size, copies the data, and frees the old allocation.
+ * size, copies the data, and frees the old allocation. The returned
+ * pointer has an alignment usable for any compiler-independent intrinsic
+ * data type, if a new pointer is returned.
  * 
  * On error, `ptr` is not freed.
  * 
@@ -216,7 +242,7 @@ void* memalign(size_t boundary, size_t size)
   if (__builtin_uaddl_overflow(boundary - 1, size, &full_size))
     return errno = ENOMEM, NULL;
   
-  ptr = malloc(full_size);
+  ptr = unaligned_malloc(full_size);
   if (ptr == NULL)
     return NULL;
   
