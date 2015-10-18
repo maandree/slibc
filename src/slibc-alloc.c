@@ -262,8 +262,12 @@ void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
  * This function is similar to `realloc`, however its
  * behaviour and pointer alignment can be tuned.
  * 
+ * This function cannot be used to force realignment,
+ * the aligment is applied when it is necessary to
+ * create a new allocation.
+ * 
  * @param   ptr       The old allocation, see `realloc` for more details.
- * @param   boundary  The alignment.
+ * @param   boundary  The alignment, not checked before necessary.
  * @param   size      The new allocation size, see `realloc` for more details.
  * @param   mode      `REMEMALIGN_CLEAR`, `REMEMALIGN_INIT` or
  *                    `REMEMALIGN_MEMCPY`, or both or neither.
@@ -334,8 +338,12 @@ void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode m
  * - It will never free `ptr`.
  * - The alignment of new pointers can be specified.
  * 
+ * This function cannot be used to force realignment,
+ * the aligment is applied when it is necessary to
+ * create a new allocation.
+ * 
  * @param   ptr       The old allocation, see `realloc` for more details.
- * @param   boundary  The alignment.
+ * @param   boundary  The alignment, not checked before necessary.
  * @param   size      The new allocation size, see `realloc` for more details.
  * @return            The new allocation, see `realloc` for more details.
  * 
