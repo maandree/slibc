@@ -495,6 +495,61 @@ This function is a @sc{GNU} extension and requires
 @code{_GNU_SOURCE}.
 @end table
 
+@hfindex{slibc-alloc.h}
+@command{slibc} provides a number of additional
+methods for memory management. These are defined
+in the header file @file{<slibc-alloc.h>}. They
+are available even if @code{_SLIBC_SOURCE} is not
+defined, but it is required that neither
+@code{_PORTABLE_SOURCE} nor @code{_LIBRARY_HEADER}
+is defined.
+
+@table @code
+@item void fast_free(void* ptr)
+@fnindex fast_free
+@cpindex Deallocate memory
+@cpindex Memory, deallocation
+This function is similar to @code{free}, but it
+is guaranteed not to clear the memory. However,
+the operating system kernel may still clear the
+memory.
+
+@item void secure_free(void* ptr)
+@fnindex secure_free
+@cpindex Deallocate memory
+@cpindex Memory, deallocation
+This function is similar to @code{free}, but it
+is guaranteed that the memory is clear.
+
+@item void FAST_FREE(void* ptr)
+@fnindex FAST_FREE
+@cpindex Deallocate memory
+@cpindex Memory, deallocation
+This clears deallocates a pointer with
+@code{fast_free}, and sets @code{ptr} to
+@code{NULL}.
+
+@item void SECURE_FREE(void* ptr)
+@fnindex SECURE_FREE
+@cpindex Deallocate memory
+@cpindex Memory, deallocation
+This clears deallocates a pointer with
+@code{secure_free}, and sets @code{ptr} to
+@code{NULL}.
+
+@item size_t allocsize(void* ptr)
+@fnindex allocsize
+@cpindex Retrieve allocation size
+@cpindex Allocation size, retrieve
+This function returns the number of usable bytes
+for a pointer. If @code{ptr} is @code{NULL}, zero
+is returned. It has the same restrictions as the
+function @code{free}.
+
+@code{allocsize(malloc(n))} returns @code{n}
+(and allocates memory in the process.)
+@end table
+
 
 
 @node Aligned memory allocation
@@ -681,6 +736,10 @@ p = aligned_alloc(sizeof(*p), n)
 @end table
 
 
+@c TODO @item void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode mode)
+@c @fnindex rememalign
+
+
 
 @node Resizing memory allocations
 @section Resizing memory allocations
@@ -763,6 +822,87 @@ can be passed to @code{free}, is returned. In
 the @command{slibc} implementation, @code{NULL}
 is returned, and thus, the behaviour is also
 identical to that of @code{free}.
+@end table
+
+@hfindex{slibc-alloc.h}
+@command{slibc} provides a number of additional
+methods for memory management. These are defined
+in the header file @file{<slibc-alloc.h>}. They
+are available even if @code{_SLIBC_SOURCE} is not
+defined, but it is required that neither
+@code{_PORTABLE_SOURCE} nor @code{_LIBRARY_HEADER}
+is defined.
+
+@table @code
+@item void* crealloc(void* ptr, size_t size)
+@fnindex crealloc
+This function is similar to @code{realloc},
+but it clears the disowned area when the allocation
+shrinks, clears the old allocation when a new
+allocation is created, and zero-initialises the
+newly available memory when the allocation has
+grown.
+
+@item void* fast_realloc(void* ptr, size_t size)
+@fnindex fast_realloc
+This function is similar to @code{realloc},
+but it does not clear the disowned area when the
+allocation shrinks, it does not clears the old
+allocation when a new allocation is created,
+and does not  zero-initialise the newly available
+memory when the allocation has grown. The
+operating system kernel may still clear the
+disowned memory area or the old allocation.
+
+
+@item void* secure_realloc(void* ptr, size_t size)
+@fnindex secure_realloc
+This function is similar to @code{realloc},
+but it clears the disowned area when the allocation
+shrinks, clears the old allocation when a new
+allocation is created, but does not zero-initialise
+the newly available memory when the allocation has
+grown.
+
+@item void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int clear_free)
+@fnindex custom_realloc
+This function is similar to @code{realloc}, but
+@itemize @bullet{}
+@item
+if @code{clear_old} is non-zero, the disowned area
+of the allocation is clear, if the allocation has
+shrunk,
+@item
+if @code{clear_new} is non-zero, the newly available
+memory is not zero-initialised, if the allocation has
+grown, and
+@item
+if @code{clear_free} is non-zero, the old allocation
+is cleared, if a new allocation is created.
+@end itemize
+The operating system kernel may still clear the
+disowned memory area or the old allocation, if
+the parameters specifies that the memory should
+not be cleared.
+
+@item void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
+@fnindex extalloc
+TODO
+
+@item void* naive_realloc(void* ptr, size_t boundary, size_t size)
+@fnindex naive_realloc
+TODO
+
+@item void* naive_extalloc(void* ptr, size_t size)
+@fnindex naive_extalloc
+TODO
+
+@item void* falloc(void* ptr, size_t* ptrshift, size_t boundary, size_t old_size, size_t new_size, enum falloc_mode mode)
+@fnindex falloc
+@cpindex Memory alignment
+@cpindex Pointer alignment
+@cpindex Aligned pointers
+TODO
 
 @end table
 
