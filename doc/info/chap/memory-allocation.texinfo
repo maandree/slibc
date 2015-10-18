@@ -617,10 +617,10 @@ This function is almost identical to
 @code{valloc}, but @code{size} is rounded
 up to the next multiple of the page size,
 cause it allocate only whole pages, except
-that the @code{slibc} implementation, like
-the @sc{GNU} implementation, allocates
-extra memory before the returned pointer
-for bookkeeping.
+that the @code{slibc} implementation, among
+other implementations, allocates extra memory
+before the returned pointer for bookkeeping
+and pointer shifting for alignment.
 
 This function is declared in the header file
 @file{<malloc.h>}, you should however include
