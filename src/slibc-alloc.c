@@ -383,8 +383,8 @@ void* naive_extalloc(void* ptr, size_t size)
 
 /**
  * Allocates, deallocates, or reallocates memory without
- * bookkeeping. The created allocation may not be inspecifed,
- * deallocated or reallocated with any other function than
+ * bookkeeping. The created allocation may not be inspected,
+ * deallocated, or reallocated with any other function than
  * this function.
  * 
  * If `new_size` is zero and `ptr` is `NULL`,
@@ -414,11 +414,11 @@ void* naive_extalloc(void* ptr, size_t size)
  *   entire allocation will be cleared.
  * 
  * @param   ptr        The old pointer, `NULL` if a new shall be created.
- * @param   ptrshift   Pointer that is used to keep track of the pointers
+ * @param   ptrshift   Pointer that is used to keep track of the pointer's
  *                     shift for alignment. `NULL` if the shift shall not
  *                     be tracked. If this is the case, `falloc` cannot
  *                     be used to reallocate or deallocate an allocation,
- *                     unless the pointer is unaligned (`alignment <= 0`).
+ *                     unless the pointer is unaligned (`alignment <= 1`).
  * @param   alignment  The aligment of both the new and old pointer, zero
  *                     or one if it should not be aligned.
  * @param   old_size   The old allocation size, zero if a new shall be created.
