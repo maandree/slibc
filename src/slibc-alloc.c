@@ -362,7 +362,7 @@ void* naive_realloc(void* ptr, size_t boundary, size_t size)
 /**
  * This function behaves exactly like `naive_realloc`, except
  * it will return `NULL` with `errno` set to zero, if it is
- * not possible to perform the shrink or growth without creating
+ * not possible to perform the shrink or grow without creating
  * new pointer.
  * 
  * @param   ptr   The old allocation, see `realloc` for more details.
