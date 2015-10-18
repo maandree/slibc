@@ -297,25 +297,30 @@ void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
  * this function.
  * 
  * If `new_size` is zero and `ptr` is `NULL`,
- *   nothing happens, but errno is set zero and `NULL` is returned.
- * If `new_size` is zero and `ptr` is not `NULL`,
- *   `ptr` is deallocated, errno is set zero, and `NULL` is returned.
- *   `ptr`'s content will be clear if `old_size` is not zero
- *   and `mode & FALLOC_CLEAR`, but if `old_size` is zero and
- *   and `mode & FALLOC_CLEAR`, `errno` is set to `EINVAL`.
- * If `new_size` is not zero, and `ptr` is not `NULL`,
- *   `ptr` is reallocated. If `mode & FALLOC_CLEAR` the old allocation
- *   is cleared if a new allocation is created, or if the allocation
- *   is shrinked, the disowned area is cleared. However, if `old_size`
- *   is zero an `mode & FALLOC_CLEAR` errno is set to `EINVAL` and
- *   `NULL` is returned. If a new allocation is created, the first
- *   `old_size` bytes is copied from the old allocation into the new
- *   allocation. If `mode & FALLOC_INIT`, all newly available space
- *   will be initialised with zeroes.
- * If neither `new_size` nor `new_size` is zero, and `ptr` is `NULL`,
+ *   nothing happens, but `errno` is set to zero and `NULL`
+ *   is returned.
+ * If `new_size` is non-zero, `old_size` is zero, and `ptr`
+ *   is not `NULL` or if `new_size` and `old_size` is non-zero,
+ *   and `ptr` is `NULL`, `errno` is set to `EINVAL` and `NULL`
+ *   is returned.
+ * If `new_size` and `old_size` is zero and `ptr` is not `NULL`,
  *   `errno` is set to `EINVAL` and `NULL` is returned.
- * Otherwise (if `new_size` is non-zero, `old_size` is zero, and
- *   `ptr` is `NULL ), a new allocation is created.
+ * If `new_size` is zero, `old_size` is non-zero, and `ptr`
+ *   is not `NULL`, `ptr` is deallocated, and `NULL` is returned
+ *   with `errno` set to zero. The memory cleared before it is
+ *   deallocated if `mode & FALLOC_CLEAR`.
+ * If `new_size` is non-zero, `old_size` is zero, and `ptr` is
+ *   `NULL`, a new allocation is created of `new_size` bytes.
+ *   It will be zero-initialised if `mode & FALLOC_INIT`.
+ * If `new_size` and `old_size` is non-zero and `ptr` is not
+ *   `NULL`, `ptr` is reallocated. if the allocation is shrunk,
+ *   the disowned area is cleared if `mode & FALLOC_CLEAR`.
+ *   Newly available memory is zero-initialised if
+ *   `mode & FALLOC_INIT`. If a new allocation is required,
+ *   the data from the old allocation is only copied over to
+ *   the new allocation if `mode & FALLOC_MEMCPY`. If
+ *   `(mode & FALLOC_INIT) && !(mode & FALLOC_MEMCPY)`, the
+ *   entire allocation will be cleared.
  * 
  * @param   ptr        The old pointer, `NULL` if a new shall be created.
  * @param   ptrshift   Pointer that is used to keep track of the pointers
