@@ -241,7 +241,7 @@ void* extalloc(void*, size_t, enum extalloc_mode)
  * @param   ptr       The old allocation, see `realloc` for more details.
  * @param   boundary  The alignment, not checked before necessary.
  * @param   size      The new allocation size, see `realloc` for more details.
- * @param   mode      `REMEMALIGN_CLEAR`, `REMEMALIGN_INIT` or
+ * @param   mode      `REMEMALIGN_CLEAR`, `REMEMALIGN_INIT`, or
  *                    `REMEMALIGN_MEMCPY`, or both or neither.
  * @return            The new allocation, see `realloc` for more details.
  * 
@@ -332,7 +332,7 @@ void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
  *                     or one if it should not be aligned.
  * @param   old_size   The old allocation size, zero if a new shall be created.
  * @param   new_size   The new allocation size, zero if it shall be freed.
- * @param   mode       `FALLOC_CLEAR`, `FALLOC_INIT` or `FALLOC_MEMCPY`, or
+ * @param   mode       `FALLOC_CLEAR`, `FALLOC_INIT`, or `FALLOC_MEMCPY`, or
  *                     both or neither.
  * @return             The new pointer, or the old pointer if it was reallocated
  *                     without creating a new allocation. `NULL` is returned
