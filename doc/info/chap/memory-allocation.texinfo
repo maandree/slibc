@@ -371,9 +371,9 @@ exhaustion,) @code{NULL} is returned and @code{errno}
 is set to @code{ENOMEM}.
 
 It is implementation defined whether this function
-returns @code{NULL} or a unique pointer if
-@code{size} is zero. In @code{slibc}, @code{NULL}
-is returned.
+returns @code{NULL} or a unique pointer, that can
+be passed to @code{free}, if @code{size} is zero.
+In @code{slibc}, @code{NULL} is returned.
 
 The allocation be grown or shrinked at any time.
 See @ref{Resizing memory allocations}.
@@ -685,7 +685,86 @@ to try replacing @code{malloc} with the macro
 @node Resizing memory allocations
 @section Resizing memory allocations
 
-TODO
+@cpindex Reallocating memory
+@cpindex Memory, reallocation
+@cpindex Resizing memory allocations
+@cpindex Memory, resize allocations
+Since @sc{ANSI}@tie{}C, it has been possible
+to resize memory allocations. In true C fashion
+this should be avoided, and linked lists should
+be used instead. However, this is useful because
+it simplifies to the program code.
+
+@table @code
+@item void* realloc(void* ptr, size_t size)
+@hfindex stdilb.h
+@hfindex malloc.h
+@sc{ANSI}@tie{}C defines this function to be
+defined in the header file @file{<stdlib.h>},
+although some implementations, including
+@code{slibc} defines it in the non-standard
+header file @file{<malloc.h>} which is included
+by @file{<stdlib.h>}.
+
+This function resizes a memory allocation,
+and if necessary creates a new allocation.
+
+@code{realloc}'s behaviour depends on the
+arguments pass:
+@table @asis
+@item @code{ptr == NULL}
+The behaviour is identical to that of @code{malloc}.
+@item @code{ptr != NULL && size == 0}
+The behaviour is identical to that of @code{free},
+and @code{NULL} is returned, 
+@item Otherwise
+The allocation created by the function call that
+return @code{ptr} will be resized so that its
+usable area is @code{size} bytes. It up to the
+implemention to select whether the reallocation
+is necessary. @command{slibc} will always resize
+unless the @code{size} equals the old size.
+However, if a reallocation is impossible,
+the function will use @code{malloc} to create
+a new allocation, copy the data from the old
+to the new allocation, and then deallocate
+the old allocation.
+
+The function will return @code{ptr} if a
+reallocation was possible, a unique pointer
+a new allocation was required, or @code{NULL}
+on error. On @code{NULL}, @code{errno} will
+be set to @code{ENOMEM} (there was a memory
+exhaustion,) and @code{ptr} is untouched.
+
+An appropriate way to use @code{realloc} is
+@example
+void* p;
+size_t psize, new_size;
+/* ... */
+@{
+  void* old = p;
+  p = realloc(p, new_size);
+  if (p == NULL)
+    @{
+      p = old;
+      goto fail; /* @w{@xtext{Where @xcode{p} is cleaned up.}} */
+    @}
+  psize = new_size;
+@}
+@end example
+@end table
+
+Note that if @code{ptr == NULL && size == 0},
+the behaviour is identical to that of @code{malloc},
+not @code{free}. It is implemention defined,
+whether @code{NULL} or a unique pointer, that
+can be passed to @code{free}, is returned. In
+the @command{slibc} implementation, @code{NULL}
+is returned, and thus, the behaviour is also
+identical to that of @code{free}.
+
+@end table
 
 
 
