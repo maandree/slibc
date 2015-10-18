@@ -30,3 +30,5 @@ LOW PRIORITY:
 realloc &c with alignment
 alloc functions without bookkeeping
 
+crt0 with cpu cycle count printing
+
