@@ -28,4 +28,6 @@ LOW PRIORITY:
 
 
 crt0 with cpu cycle count printing
+BUFSIZ configurable by environment variable
+Rate limitation of I/O-functions configured by environment variables
 
