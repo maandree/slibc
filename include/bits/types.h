@@ -23,6 +23,9 @@
 
 
 #include <bits/intconf.h>
+/* TODO [u]int(|_least|_fast)$N_t are compiler-dependent and may even
+ *      be compiler-flag-dependent. Some CPP-magic is required to
+ *      figure there exact underlaying intrinsic type and existence. */
 
 
 /* Ensure that dependencies for type are defined. */

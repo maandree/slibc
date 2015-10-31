@@ -15,5 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifndef _MEMORY_H
+#define _MEMORY_H
 #include <string.h>
+
+
+#if !defined(_SLIBC_SUPPRESS_WARNINGS)
+# warning "Please include <string.h> instead of <memory.h>."
+#endif
+
+
+#endif
 

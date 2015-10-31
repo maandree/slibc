@@ -63,33 +63,94 @@ intmax_t imaxabs(intmax_t)
 
 /* Printing and scanning code affixes. */
 
+/**
+ * Length modifier affix for printing an `int8_t` or an `uint8_t`.
+ * For internal use, not libc-portable.
+ */
 #define __PRI8  ""
+
+/**
+ * Length modifier affix for scanning an `int8_t` or an `uint8_t`.
+ * For internal use, not libc-portable.
+ */
 #define __SCN8  "hh"
 
+
+/**
+ * Length modifier affix for printing an `int16_t` or an `uint16_t`.
+ * For internal use, not libc-portable.
+ */
 #define __PRI16  ""
+
+/**
+ * Length modifier affix for scanning an `int16_t` or an `uint16_t`.
+ * For internal use, not libc-portable.
+ */
 #define __SCN16  "h"
 
+
 #if __INT_BIT == 32
+/**
+ * Length modifier affix for printing an `int32_t` or an `uint32_t`.
+ * For internal use, not libc-portable.
+ */
 # define __PRI32  ""
+
+/**
+ * Length modifier affix for scanning an `int32_t` or an `uint32_t`.
+ * For internal use, not libc-portable.
+ */
 # define __SCN32  ""
 #else
 # define __PRI32  "l"
 # define __SCN32  "l"
 #endif
 
+
 #if __LONG_BIT == 64
+/**
+ * Length modifier affix for printing an `int64_t` or an `uint64_t`.
+ * For internal use, not libc-portable.
+ */
 # define __PRI64  "l"
+
+/**
+ * Length modifier affix for scanning an `int64_t` or an `uint64_t`.
+ * For internal use, not libc-portable.
+ */
 # define __SCN64  "l"
 #else
 # define __PRI64  "ll"
 # define __SCN64  "ll"
 #endif
 
+
+/**
+ * Length modifier affix for printing an `intmax_t` or an `uintmax_t`.
+ * For internal use, not libc-portable.
+ */
 #define __PRIMAX  "j"
+
+/**
+ * Length modifier affix for scanning an `intmax_t` or an `uintmax_t`.
+ * For internal use, not libc-portable.
+ */
 #define __SCNMAX  "j"
 
+
 #if __PTR_BIT == 8
+/**
+ * Length modifier affix for printing an `intptr_t`, an `uintptr_t`,
+ * a `ptrdiff_t`, an `uptrdiff_t`, an `ssize_t, or a `size_t`.
+ * For internal use, not libc-portable.
+ */
 # define __PRIPTR  __PRI8
+
+/**
+ * Length modifier affix for scanning an `intptr_t`, an `uintptr_t`,
+ * a `ptrdiff_t`, an `uptrdiff_t`, an `ssize_t, or a `size_t`.
+ * For internal use, not libc-portable.
+ */
 # define __SCNPTR  __SCN8
 #elif __PTR_BIT == 16
 # define __PRIPTR  __PRI16

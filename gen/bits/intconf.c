@@ -21,7 +21,18 @@
 
 
 
+/**
+ * Used to determine the signness of `char`.
+ */
 volatile char nul = 0;
+
+/**
+ * Used to determine the signness of `wchar_t`.
+ * 
+ * Note that `wchar_t` is set implicitly by the
+ * help of the compiler so that our libc does
+ * not taint the result.
+ */
 volatile typeof(L'\0') wnul = 0;
 
 
@@ -35,6 +46,15 @@ volatile typeof(L'\0') wnul = 0;
  */
 
 
+/**
+ * Measure the performance of a intrinsic integer type,
+ * and if it is faster than the previous candidate (or
+ * is the first candidate,) store it as the, yet, most
+ * performant candidate.
+ * 
+ * @param  VAR  A volatile register variable of the
+ *              type that shall be tested.
+ */
 #define FAST_TEST(VAR)  \
   n = 0, *VAR##p = 0; \
   if (clock_gettime(CLOCK_THREAD_CPUTIME_ID, &start)) \
@@ -65,10 +85,26 @@ volatile typeof(L'\0') wnul = 0;
   last = this
 
 
+/**
+ * Determine whether the performance of `typeof(VAR)` should be determined,
+ * when finding the most performant, compatiable intrinsic type of a `int_fastN_t`.
+ * 
+ * @param   VAR  An variable of the type (or the type itself) that is a candidate.
+ * @return       Determine whether the type shall be tested.
+ */
 #define TEST(VAR)  (this = 8 * (int)sizeof(VAR), ((this >= bits) && (this > last)))
+
 #if defined(__GNUC__)
 __attribute__((optimize("-O0")))
 #endif
+/**
+ * Find the (in general) fastest intrinsic integer type,
+ * that has at least a specified number of bits.
+ * 
+ * @param   bits  The minimum number of bits the type may have.
+ * @return        The number of bits the most performance
+ *                compatible integer type has.
+ */
 static int fast(int bits)
 {
   int last = 0, this = 0, best = 0, n, m;
@@ -103,11 +139,26 @@ static int fast(int bits)
 #undef TEST
 
 
+/**
+ * @param   argc  The number of command line arguments, should
+ *                be either 1 (print integer width information)
+ *                or 2 (otherwise).
+ * @param   argv  Command line arguments, if `argc == 2`, `argv[2]`
+ *                is interpreted as follows:
+ *                - "fast8"         Print the number of bits in `int_fast8_t`  and `uint_fast8_t`.
+ *                - "fast16"        Print the number of bits in `int_fast16_t` and `uint_fast16_t`.
+ *                - "fast32"        Print the number of bits in `int_fast32_t` and `uint_fast32_t`.
+ *                - "fast64"        Print the number of bits in `int_fast64_t` and `uint_fast64_t`.
+ *                - "char-signed"   Print 1 if `char`    is signed, and `0` if it is unsigned.
+ *                - "wchar-signed"  Print 1 if `wchar_t` is signed, and `0` if it is unsigned.
+ * @return        0 on success, 1 on error (including printing error.)
+ */
 int main(int argc, char* argv[])
 {
   int r = 0;
   if (argc < 2)
     {
+      /* Print the number of bits in the intrinsic integers types. */
       r |= printf("CHAR_BIT %zu\n",      8 * sizeof(char));
       r |= printf("SHORT_BIT %zu\n",     8 * sizeof(short int));
       r |= printf("INT_BIT %zu\n",       8 * sizeof(int));
@@ -116,6 +167,7 @@ int main(int argc, char* argv[])
       r |= printf("PTR_BIT %zu\n",       8 * sizeof(void*));
       r |= printf("WCHAR_BIT %zu\n",     8 * sizeof(L'\0'));
       
+      /* Print the intrinsic type for specific numbers of bits. */
       r |= printf("INT%zu %s\n", 8 * sizeof(char), "char");
       r |= printf("INT%zu %s\n", 8 * sizeof(short int), "short int");
       r |= printf("INT%zu %s\n", 8 * sizeof(int), "int");

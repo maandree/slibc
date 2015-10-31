@@ -25,17 +25,67 @@
 #endif
 
 
+/* These defitions were added in C95 to make it easier incase
+ * your keyboard layout does not have these characters.
+ * Interestingly, all other ASCII punctuation was not considered.
+ * Also, if you really need this, using the terminal must be
+ * a pain in the ass for you. */
 
+
+
+/**
+ * Alias for logical and (&&).
+ */
 #define and     &&
+
+/**
+ * Alias for bitwise and assignement (&=).
+ */
 #define and_eq  &=
+
+/**
+ * Alias for bitwise and (&).
+ */
 #define bitand  &
+
+/**
+ * Alias for bitwise inclusive or (|).
+ */
 #define bitor   |
+
+/**
+ * Alias for bitwise complement (~).
+ */
 #define compl   ~
+
+/**
+ * Alias for logical complement (!).
+ */
 #define not     !
+
+/**
+ * Alias for inequality comparer (!=).
+ */
 #define not_eq  !=
+
+/**
+ * Alias for logical inclusive (||).
+ */
 #define or      ||
+
+/**
+ * Alias for bitwise inclusive or assignment (|=).
+ */
 #define or_eq   |=
+
+/**
+ * Alias for bitwise exclusive or (^).
+ */
 #define xor     ^
+
+/**
+ * Alias for bitwise exclusive or assignment (^=).
+ */
 #define xor_eq  ^=
 
 

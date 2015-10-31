@@ -25,8 +25,31 @@
 
 
 
+/**
+ * Get the alignment-shift of a pointer.
+ * 
+ * @param   p:void*  The pointer.
+ * @return  :size_t  The number of bytes added for alignment.
+ *                   This excludes the information this macro
+ *                   reads, and the storage of the allocation-size.
+ */
 #define __ALIGN(p)      (*(size_t*)(((char*)(p)) - sizeof(size_t)))
+
+/**
+ * Get the allocated pointer from a returned pointer.
+ * 
+ * @param   p:void*  The pointer returned by a `malloc`-family function.
+ * @return           The pointer allocated by a `malloc`-family function.
+ */
 #define PURE_ALLOC(p)   (((char*)(p)) - (__ALIGN(p) + 2 * sizeof(size_t)))
+
+/**
+ * Get the real allocation is of a pointer, including
+ * the size of the metadata storage and the alignment-padding.
+ * 
+ * @param   p:void*  The pointer.
+ * @return  :size_t  The real allocation size of the pointer.
+ */
 #define PURE_SIZE(p)    (*(size_t*)PURE_ALLOC(p) + 2 * sizeof(size_t))
 
 

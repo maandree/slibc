@@ -268,6 +268,12 @@ int _toupper(int c)
 
 
 
+/**
+ * Create a variant, with specifiable locale,
+ * of one of the functions.
+ * 
+ * @param  The name of the function without the `_l`-suffix.
+ */
 #define CTYPE_LOCALE(F)			\
   int F##_l(int c, locale_t locale)	\
   {					\

@@ -72,6 +72,8 @@
 
 
 
+/* The definitions above shall be redefined at any time this header file
+ * is included. The definitions below are static, and thus guarded. */
 #ifndef _ASSERT_H
 #define _ASSERT_H
 

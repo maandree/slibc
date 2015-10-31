@@ -30,6 +30,16 @@
 /* The Knuth–Morris–Pratt algorithm. */
 
 
+/**
+ * Test whether to characters are equal.
+ * Case-sensitivity depends on `CASE` being defined.
+ * 
+ * @param   a  One of the characters.
+ * @param   b  The other character.
+ * @return     1 if `a` and `b` or equal, 0 otherwise.
+ *             The comparison is case-insensitive if
+ *             `CASE` is defined.
+ */
 #if !defined(CASE)
 # define CHREQ(a, b)  (a == b)
 #elif !defined(WIDE)
@@ -42,6 +52,8 @@
 /* TODO add support for RIGHT */
 
 
+/* The implementation of the algorithm, read
+ * elsewhere for documentation/explanation. */
 {
   ssize_t* next_map = alloca((needle_length + 1) * sizeof(ssize_t));
   ssize_t hay, ned, skp;
