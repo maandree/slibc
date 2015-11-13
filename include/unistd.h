@@ -744,3 +744,11 @@ int fexecve(int, char* const[], char* const[]);
 
 #endif
 
+/*
+  TODO readn, writen, preadn, pwriten
+  readn: read that can only return with a short read on error
+  writen: write that can only return with a short write on error
+  preadn: pread that can only return with a short read on error
+  pwriten: pwrite that can only return with a short write on error
+*/
+
