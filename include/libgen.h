@@ -55,6 +55,27 @@ char* __xpg_basename(char*)
 char* dirname(char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
+#if defined(__SLIBC_SOURCE)
+/**
+ * Removes all trailing slashes (that is not the first character
+ * in the filename,) all '.' directory components, and when possible
+ * using only lexical analysis, resolves '..' directory components.
+ * 
+ * '..' directory components that should resolve up beyond '/',
+ * are removed. Note that this can in fact mean that the resulting
+ * path is not the same file if the processes is `chroot`:ed.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   filename  The filename, may be edited by this function.
+ * @return            The dirname, it is either `filename` or,
+ *                    if `filename` is `NULL` or does no contain a
+ *                    non-trailing slash, a statically allocationed
+ *                    string, so it must not freed or edited.
+ */
+char* cleanname(char*)
+#endif
+
 
 
 #endif

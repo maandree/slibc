@@ -103,3 +103,84 @@ char* dirname(char* filename)
   return *last_slash = 0, filename;
 }
 
+
+/**
+ * Removes all trailing slashes (that is not the first character
+ * in the filename,), all duplicate slashes, all '.' directory
+ * components, and when possible using only lexical analysis,
+ * resolves '..' directory components.
+ * 
+ * '..' directory components that should resolve up beyond '/',
+ * are removed. Note that this can in fact mean that the resulting
+ * path is not the same file if the processes is `chroot`:ed.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   filename  The filename, may be edited by this function.
+ * @return            The dirname, it is either `filename` or,
+ *                    if `filename` is `NULL` or does no contain a
+ *                    non-trailing slash, a statically allocationed
+ *                    string, so it must not freed or edited.
+ */
+char* cleanname(char* filename)
+{
+  size_t parts = 0;
+  int start;
+  char* w;
+  char* r;
+  
+  if ((filename == NULL) || (!*filename))
+    return ".";
+  
+  /* Remove unnecessary slashes and '.' directory components. */
+  for (w = r = filename, start = 1; *r; r++)
+    if (*r == '/')
+      {
+	if ((w == filename) || (w[-1] != '/'))
+	  *w++ = '/';
+	start = 1;
+      }
+    else if (start && (r[0] == '.') && ((r[1] == '/') || (r[1] == 0)))
+      r += (r[1] == '/');
+    else
+      *w++ = *r, start = 0;
+  if ((w > filename + 1) && (w[-1] == '/'))
+    *--w = 0;
+  if (w == filename)
+    *w++ = '.';
+  *w = 0;
+  
+  /* Resolve '..' directory components. */
+  for (w = r = filename, start = 1; *r; r++)
+    if (*r == '/')
+      *w++ = '/', start = 1, parts++;
+    else if (start && (r[0] == '.') && (r[1] == '.') && ((r[2] == '/') || (r[2] == 0)))
+      {
+	if (parts == 0)
+	  {
+	    *w++ = '.', *w++ = '.';
+	    if (r[2])
+	      *w++ = '/';
+	    r += 1 + (r[2] == '/');
+	    continue;
+	  }
+	r += 1 + (r[2] == '/');
+	parts -= *filename != '/';
+	if (w > filename + 1)
+	  {
+	    *--w = 0;
+	    while (w[-1] != '/')
+	      *--w = 0;
+	  }
+      }
+    else
+      *w++ = *r, start = 0;
+  if ((w > filename + 1) && (w[-1] == '/'))
+    *--w = 0;
+  if (!*filename)
+    w = filename, *w++ = '/';
+  *w = 0;
+  
+  return filename;
+}
+
