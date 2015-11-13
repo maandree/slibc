@@ -37,6 +37,8 @@
  */
 char* (strstr)(const char* haystack, const char* needle)
 {
+  if (*needle && !(needle[1]))
+    return (strchr)(haystack, *needle);
   return (memmem)(haystack, strlen(haystack), needle, strlen(needle));
 }
 

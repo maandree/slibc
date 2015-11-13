@@ -33,6 +33,8 @@
  */
 wchar_t* (wcswcs)(const wchar_t* haystack, const wchar_t* needle)
 {
+  if (*needle && !(needle[1]))
+    return (wcschr)(haystack, *needle);
   return (wcsstr)(haystack, needle);
 }
 
