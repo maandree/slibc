@@ -186,6 +186,12 @@ int sprintf(char* restrict, const char* restrict, ...)
 int snprintf(char* restrict, size_t, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
 
+/* TODO plan9: char* seprintf(char* start, char* end, const char* restrict format, ...)
+            ~= start + snprintf(start, end - start, format, ...)
+   TODO plan9: char* smprintf(const char* restrict format, ...)
+            ~= asprintf(&r, format, ...), r;
+ */
+
 #if defined(__GNU_SOURCE)
 /**
  * This function is identical to `sprintf`,
@@ -440,6 +446,12 @@ int vsprintf(char* restrict, const char* restrict, va_list)
 int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(3))));
 
+/* TODO plan9: char* vseprintf(char* start, char* end, const char* restrict format, va_list args)
+            ~= start + vsnprintf(start, end - start, format, args)
+   TODO plan9: char* vsmprintf(const char* restrict format, va_list args)
+            ~= vasprintf(&r, format, args), r;
+ */
+
 #if defined(__GNU_SOURCE)
 /**
  * This function is identical to `asprintf`,
@@ -632,6 +644,12 @@ int dwprintf(int, const wchar_t* restrict, ...)
  */
 int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(3))));
+
+/* TODO plan9 derived: char* sewprintf(wchar_t* start, wchar_t* end, const wchar_t* restrict format, ...)
+                    ~= start + swprintf(start, end - start, format, ...)
+   TODO plan9 derived: char* smwprintf(const wchar_t* restrict format, ...)
+                    ~= aswprintf(&r, format, ...), r;
+ */
 
 # if defined(__GNU_SOURCE) && defined(__SLIBC_SOURCE)
 /**
@@ -868,6 +886,12 @@ int vdwprintf(int, const wchar_t* restrict, va_list)
  */
 int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(3))));
+
+/* TODO plan9 derived: char* vsewprintf(wchar_t* start, wchar_t* end, const wchar_t* restrict format, va_list args)
+                    ~= start + vswprintf(start, end - start, format, args)
+   TODO plan9 derived: char* vsmwprintf(const wchar_t* restrict format, va_list args)
+                    ~= vaswprintf(&r, format, args), r;
+ */
 
 # if defined(__GNU_SOURCE) && defined(__SLIBC_SOURCE)
 /**
