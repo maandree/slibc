@@ -24,8 +24,10 @@
 
 
 #define __NEED_mode_t
-#define __NEED_intmax_t
-#define __NEED_uintmax_t
+#ifdef __C99__
+# define __NEED_intmax_t
+# define __NEED_uintmax_t
+#endif
 
 #include <bits/types.h>
 
@@ -168,6 +170,7 @@ char* humansize(const char* buffer, size_t size, enum humansize_mode mode, int d
 int machinesize(size_t* restrict size, char* string, enum machinesize_mode mode);
 
 
+#ifdef __C99__
 int humandur(intmax_t restrict sec, long int nsec, const char* comma, const char* format);
 
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
@@ -177,6 +180,7 @@ int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 int machineint(intmax_t* restrict r, const char* restrict str);
 
 int machineuint(uintmax_t* restrict r, const char* restrict str);
+#endif
 
 int machinefloat(long double* restrict r, const char* restrict str,
 		 const char* restrict space, const char* restrict comma);
