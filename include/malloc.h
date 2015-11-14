@@ -77,6 +77,10 @@ void* calloc(size_t, size_t)
 /**
  * Variant of `malloc` that conditionally clears the allocation with zeroes.
  * 
+ * `mallocz(size, clear)` is equivalent to
+ *  both `(clear ? zalloc : malloc)(size)`
+ *  and `(clear ? calloc(1, size) : malloc(size))`.
+ * 
  * This is a Plan 9 from Bell Labs extension.
  * 
  * @param   size   The size of the allocation.
