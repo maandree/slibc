@@ -88,16 +88,25 @@ enum humansize_mode
   {
     /**
      * 'k' is 1000.
+     * 
+     * Cannot be combined with `HUMANSIZE_IEC`
+     * or `HUMANSIZE_IEC_EXPLICIT`.
      */
     HUMANSIZE_SI = 1,
     
     /**
      * 'K' is 1024.
+     * 
+     * Cannot be combined with `HUMANSIZE_SI`
+     * or `HUMANSIZE_IEC_EXPLICIT`.
      */
     HUMANSIZE_IEC = 2,
     
     /**
      * 'Ki' is 1024.
+     * 
+     * Cannot be combined with `HUMANSIZE_SI`
+     * or `HUMANSIZE_IEC`.
      */
     HUMANSIZE_IEC_EXPLICIT = 4,
     
