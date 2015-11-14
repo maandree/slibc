@@ -56,6 +56,9 @@
 #ifdef __SUS_SOURCE
 # undef __SUS_SOURCE
 #endif
+#ifdef __PLAN9_SOURCE
+# undef __PLAN9_SOURCE
+#endif
 #ifdef __GNU_SOURCE
 # undef __GNU_SOURCE
 #endif
@@ -94,6 +97,9 @@
  * is not defined.
  */
 #if !defined(__PORTABLE)
+# if defined(_PLAN9_SOURCE)
+#  define __PLAN9_SOURCE  _PLAN9_SOURCE
+# endif
 # if defined(_GNU_SOURCE)
 #  define __GNU_SOURCE  _GNU_SOURCE
 # endif

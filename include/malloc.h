@@ -73,6 +73,27 @@ void* malloc(size_t)
 void* calloc(size_t, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 
+#if defined(__PLAN9_SOURCE)
+/**
+ * Variant of `malloc` that conditionally clears the allocation with zeroes.
+ * 
+ * This is a Plan 9 from Bell Labs extension.
+ * 
+ * @param   size   The size of the allocation.
+ * @param   clear  Clear the allocation unless this value is zero.
+ * @return         Pointer to the beginning of the new allocation.
+ *                 If `size` is zero, this function will either return
+ *                 `NULL` (that is what this implement does) or return
+ *                 a unique pointer that can later be freed with `free`.
+ *                 `NULL` is returned on error, and `errno` is set to
+ *                 indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* mallocz(size_t, int)
+  __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
+#endif
+
 #if !defined(__PORTABLE)
 /**
  * Variant of `malloc` that clears the allocation with zeroes.

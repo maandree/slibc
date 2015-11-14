@@ -122,6 +122,31 @@ void* calloc(size_t elem_count, size_t elem_size)
 
 
 /**
+ * Variant of `malloc` that conditionally clears the allocation with zeroes.
+ * 
+ * This is a Plan 9 from Bell Labs extension.
+ * 
+ * @param   size   The size of the allocation.
+ * @param   clear  Clear the allocation unless this value is zero.
+ * @return         Pointer to the beginning of the new allocation.
+ *                 If `size` is zero, this function will either return
+ *                 `NULL` (that is what this implement does) or return
+ *                 a unique pointer that can later be freed with `free`.
+ *                 `NULL` is returned on error, and `errno` is set to
+ *                 indicate the error.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+void* mallocz(size_t size, int clear)
+{
+  void* ptr = memalign(sizeof(max_align_t), size);
+  if ((ptr != NULL) && clear)
+    explicit_bzero(ptr, size);
+  return ptr;
+}
+
+
+/**
  * Variant of `malloc` that clears the allocation with zeroes.
  * 
  * `zalloc(n)` is equivalent to `calloc(1, n)`, or equivalently,

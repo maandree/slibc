@@ -398,6 +398,12 @@ or @sc{SVID}@. To override this, define
 @code{_GNU_SOURCE} does not automatically
 define @code{_BSD_SOURCE} or @code{_SVID_SOURCE}@.
 
+@item _PLAN9_SOURCE
+@cpindex Plan 9 from Bell Labs
+@lvindex _PLAN9_SOURCE
+Enables extensions from Plan 9 from Bell Labs
+C standard library.
+
 @end table
 @c TODO: _LARGEFILE_SUPPORT
 @c TODO: _LARGEFILE64_SUPPORT
