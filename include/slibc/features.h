@@ -29,6 +29,17 @@
 
 
 /**
+ * Update existance of `__const_correct*` macros
+ */
+#ifdef __CONST_CORRECT
+# undef __CONST_CORRECT
+# undef __const_correct
+# undef __const_correct2
+# undef __const_correct2p
+#endif
+
+
+/**
  * Macro for any function with at least 2 arguments,
  * that shall return with `const` qualifier if and only
  * if the first argument is `const`-qualifier.
@@ -48,10 +59,6 @@
  * @param   ...       The rest of the arguments.
  * @return            The result casted to the same type as `first`.
  */
-#ifdef __CONST_CORRECT
-# undef __CONST_CORRECT
-# undef __const_correct
-#endif
 #if defined(__GNUC__) && defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
 # define __CONST_CORRECT
 # define __const_correct(function, first, ...) \
@@ -79,6 +86,83 @@
 /* Note, string literals are compiler-dependent. Does not work too well in GCC. */
 /* Note, __VA_ARGS__ requires, C99, therefore we need __CONST_CORRECT, rather
  * than using a fall back. */
+
+
+/**
+ * Macro for any function with at least 3 arguments,
+ * that shall return with `const` qualifier if and only
+ * if the second argument is `const`-qualifier.
+ * 
+ * Other qualifiers could be dropped.
+ * 
+ * @param   function  The name of the function.
+ * @param   first     The first argument.
+ * @param   second    The second argument.
+ * @param   ...       The rest of the arguments.
+ * @return            The result casted to the same type as `second`.
+ */
+#if defined(__GNUC__) && defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define __CONST_CORRECT
+# define __const_correct2(function, first, second, ...) \
+  (_Generic(&(second), \
+            const wchar_t(*)[]: (const wchar_t*)function(first, second, __VA_ARGS__), \
+            const char(*)[]:    (const char*)   function(first, second, __VA_ARGS__), \
+            const void**:       (const void*)   function(first, second, __VA_ARGS__), \
+            void**:                             function(first, second, __VA_ARGS__), \
+            default:       (__typeof__(&*first))function(first, second, __VA_ARGS__)))
+#elif defined(__GNUC__)
+# define __CONST_CORRECT
+# define __const_correct2(function, first, second, ...) \
+  ((__typeof__(&*second))function(first, second, __VA_ARGS__))
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define __CONST_CORRECT
+# define __const_correct2(function, first, second, ...) \
+  (_Generic(&(second), \
+            const wchar_t(*)[]: (const wchar_t*)function(first, second, __VA_ARGS__), \
+            const char(*)[]:    (const char*)   function(first, second, __VA_ARGS__), \
+            const wchar_t**:    (const wchar_t*)function(first, second, __VA_ARGS__), \
+            const char**:       (const char*)   function(first, second, __VA_ARGS__), \
+            const void**:       (const void*)   function(first, second, __VA_ARGS__), \
+            default:                            function(first, second, __VA_ARGS__)))
+#endif
+
+
+/**
+ * Macro for any function with precisely 2 arguments,
+ * that shall return with `const` qualifier if and only
+ * if the second argument is `const`-qualifier.
+ * 
+ * Other qualifiers could be dropped.
+ * 
+ * @param   function  The name of the function.
+ * @param   first     The first argument.
+ * @param   second    The second argument.
+ * @return            The result casted to the same type as `second`.
+ */
+#if defined(__GNUC__) && defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define __CONST_CORRECT
+# define __const_correct2p(function, first, second) \
+  (_Generic(&(second), \
+            const wchar_t(*)[]: (const wchar_t*)function(first, second), \
+            const char(*)[]:    (const char*)   function(first, second), \
+            const void**:       (const void*)   function(first, second), \
+            void**:                             function(first, second), \
+            default:       (__typeof__(&*first))function(first, second)))
+#elif defined(__GNUC__)
+# define __CONST_CORRECT
+# define __const_correct2p(function, first, second) \
+  ((__typeof__(&*second))function(first, second))
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+# define __CONST_CORRECT
+# define __const_correct2p(function, first, second) \
+  (_Generic(&(second), \
+            const wchar_t(*)[]: (const wchar_t*)function(first, second), \
+            const char(*)[]:    (const char*)   function(first, second), \
+            const wchar_t**:    (const wchar_t*)function(first, second), \
+            const char**:       (const char*)   function(first, second), \
+            const void**:       (const void*)   function(first, second), \
+            default:                            function(first, second)))
+#endif
 
 
 

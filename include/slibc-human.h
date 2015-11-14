@@ -160,12 +160,12 @@ enum machinesize_mode
 
 
 
-char* humanmode(const char* restrict buffer, mode_t mode);
+char* humanmode(char* restrict buffer, mode_t mode);
 
 mode_t machinemode(const char* restrict str, mode_t mode, mode_t mask);
 
 
-char* humansize(const char* restrict buffer, size_t size, enum humansize_mode mode, int detail);
+char* humansize(char* restrict buffer, size_t size, enum humansize_mode mode, int detail);
 
 int machinesize(size_t* restrict size, const char* restrict string, enum machinesize_mode mode);
 
@@ -177,13 +177,22 @@ int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict comma);
 
 
-int machineint(intmax_t* restrict r, const char* restrict str);
+char* machineint(intmax_t* restrict r, const char* restrict str);
+# ifdef __CONST_CORRECT
+#  define machineint(...)  (__const_correct_2p(machineint, __VA_ARGS__))
+# endif
 
-int machineuint(uintmax_t* restrict r, const char* restrict str);
+char* machineuint(uintmax_t* restrict r, const char* restrict str);
+# ifdef __CONST_CORRECT
+#  define machineuint(...)  (__const_correct_2p(machineuint, __VA_ARGS__))
+# endif
 #endif
 
 int machinefloat(long double* restrict r, const char* restrict str,
 		 const char* restrict space, const char* restrict comma);
+#ifdef __CONST_CORRECT
+# define machinefloat(...)  (__const_correct_2(machinefloat, __VA_ARGS__))
+#endif
 
 
 /**
