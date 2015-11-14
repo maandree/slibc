@@ -37,11 +37,11 @@
  * @throws  EINVAL  If `quote` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-char* escape(const char* str, char quote)
+char* escape(const char* restrict str, char quote)
 {
-  char* r;
-  char* w;
-  char* rc;
+  const char* restrict r;
+  char* restrict w;
+  char* restrict rc;
   size_t extra = 1, len, size;
   unsigned char c;
   

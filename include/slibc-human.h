@@ -160,18 +160,18 @@ enum machinesize_mode
 
 
 
-char* humanmode(const char* buffer, mode_t mode);
+char* humanmode(const char* restrict buffer, mode_t mode);
 
-mode_t machinemode(const char* str, mode_t mode, mode_t mask);
+mode_t machinemode(const char* restrict str, mode_t mode, mode_t mask);
 
 
-char* humansize(const char* buffer, size_t size, enum humansize_mode mode, int detail);
+char* humansize(const char* restrict buffer, size_t size, enum humansize_mode mode, int detail);
 
-int machinesize(size_t* restrict size, char* string, enum machinesize_mode mode);
+int machinesize(size_t* restrict size, const char* restrict string, enum machinesize_mode mode);
 
 
 #ifdef __C99__
-int humandur(intmax_t restrict sec, long int nsec, const char* comma, const char* format);
+int humandur(intmax_t sec, long int nsec, const char* restrict comma, const char* restrict format);
 
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict comma);
@@ -229,7 +229,7 @@ char* unescape(char*, enum unescape_mode);
  * @throws  EINVAL  If `quote` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-char* escape(const char*)
+char* escape(const char* restrict)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 
 
