@@ -33,6 +33,101 @@
 
 
 
+enum machinemode_mode
+  {
+    /**
+     * Return in the format where 0750
+     * resolves to 'rwxr-x---'.
+     * 
+     * If used in combination with `MACHINEMODE_MASK`,
+     * 0750 resolves to 'u=rwx,g=r-x,o=---'.
+     */
+    MACHINEMODE_STAT = 1,
+    
+    /**
+     * Return in the format where 0750
+     * resolves to 'u=rwx,g=rx,o='.
+     * 
+     * If used in combination with `MACHINEMODE_STAT`,
+     * 0750 resolves to 'u=rwx,g=r-x,o=---'.
+     */
+    MACHINEMODE_MASK = 2,
+  };
+
+
+enum humansize_mode
+  {
+    /**
+     * 'k' is 1000.
+     * 
+     * Cannot be combined with `HUMANSIZE_IEC`
+     * or `HUMANSIZE_IEC_EXPLICIT`.
+     */
+    HUMANSIZE_SI = 1,
+    
+    /**
+     * 'K' is 1024.
+     * 
+     * Cannot be combined with `HUMANSIZE_SI`
+     * or `HUMANSIZE_IEC_EXPLICIT`.
+     */
+    HUMANSIZE_IEC = 2,
+    
+    /**
+     * 'Ki' is 1024.
+     * 
+     * Cannot be combined with `HUMANSIZE_SI`
+     * or `HUMANSIZE_IEC`.
+     */
+    HUMANSIZE_IEC_EXPLICIT = 4,
+    
+    
+    /**
+     * 'B' is only included if there is no prefix.
+     */
+    HUMANSIZE_PREFIX_ONLY = 8,
+    
+    
+    /**
+     * Print size exactly if `detail` is 0,
+     * otherwise use the highest `detail` prefixes.
+     * 
+     * For example `detail == 0` may yeild '3TB 2MB 1KB',
+     * and `detail == 3` may yeild '3TB 2MB' for the same size.
+     */
+    HUMANSIZE_EXACT = 16,
+    
+    /**
+     * Similar to `HUMANSIZE_EXACT` with `detail == 1`,
+     * but the value will include `detail` digits.
+     * `detail` < 0 is allowed, 
+     */
+    HUMANSIZE_ROUND = 32,
+  };
+
+
+enum machinesize_mode
+  {
+    /**
+     * 'k' and 'K' is 1000.
+     * 
+     * If `MACHINESIZE_IEC` is also used,
+     * 1000-base is used if 'B' is explicitly
+     * included, otherwise 1024-base is used.
+     */
+    MACHINESIZE_SI = 1,
+    
+    /**
+     * 'k' and 'K' is 1024.
+     * 
+     * If `MACHINESIZE_SI` is also used,
+     * 1000-base is used if 'B' is explicitly
+     * included, otherwise 1024-base is used.
+     */
+    MACHINESIZE_IEC = 2,
+  };
+
+
 /**
  * Ways to handled unrecognised escapes,
  * and other configurations.
@@ -86,83 +181,10 @@ enum unescape_mode
   };
 
 
-enum humansize_mode
-  {
-    /**
-     * 'k' is 1000.
-     * 
-     * Cannot be combined with `HUMANSIZE_IEC`
-     * or `HUMANSIZE_IEC_EXPLICIT`.
-     */
-    HUMANSIZE_SI = 1,
-    
-    /**
-     * 'K' is 1024.
-     * 
-     * Cannot be combined with `HUMANSIZE_SI`
-     * or `HUMANSIZE_IEC_EXPLICIT`.
-     */
-    HUMANSIZE_IEC = 2,
-    
-    /**
-     * 'Ki' is 1024.
-     * 
-     * Cannot be combined with `HUMANSIZE_SI`
-     * or `HUMANSIZE_IEC`.
-     */
-    HUMANSIZE_IEC_EXPLICIT = 4,
-    
-    
-    /**
-     * 'B' is only included if there is no prefix.
-     */
-    HUMANSIZE_PREFIX_ONLY = 8,
-    
-    
-    /**
-     * Print size exactly if `detail` is 0,
-     * otherwise use the highest `detail` prefixes.
-     * 
-     * For example `detail == 0` may yeild '3TB 2MB 1KB',
-     * and `detail == 3` may yeild '3TB 2MB' for the same size.
-     */
-    HUMANSIZE_EXACT = 16,
-    
-    /**
-     * Similar to `HUMANSIZE_EXACT` with `detail == 1`,
-     * but the value will include `detail` digits.
-     * `detail` < 0 is allowed, 
-     */
-    HUMANSIZE_ROUND = 32,
-  }
 
+char* humanmode(char* restrict buffer, mode_t perm, enum machinemode_mode mode);
 
-enum machinesize_mode
-  {
-    /**
-     * 'k' and 'K' is 1000.
-     * 
-     * If `MACHINESIZE_IEC` is also used,
-     * 1000-base is used if 'B' is explicitly
-     * included, otherwise 1024-base is used.
-     */
-    MACHINESIZE_SI = 1,
-    
-    /**
-     * 'k' and 'K' is 1024.
-     * 
-     * If `MACHINESIZE_SI` is also used,
-     * 1000-base is used if 'B' is explicitly
-     * included, otherwise 1024-base is used.
-     */
-    MACHINESIZE_IEC = 2,
-  }
-
-
-
-char* humanmode(char* restrict buffer, mode_t mode);
-
-mode_t machinemode(const char* restrict str, mode_t mode, mode_t mask);
+int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str);
 
 
 char* humansize(char* restrict buffer, size_t size, enum humansize_mode mode, int detail);
