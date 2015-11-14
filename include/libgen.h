@@ -64,6 +64,10 @@ char* dirname(char*)
  * '..' directory components that should resolve up beyond '/',
  * are removed. Note that this can in fact mean that the resulting
  * path is not the same file if the processes is `chroot`:ed.
+ * Additionally, and more important, there is no consideration for
+ * symbolic links. For example, '/a/b/c/..' resolves to '/a/b',
+ * but if any of the directors are symbolic links, the real path
+ * is not necessarily '/a/b'.
  * 
  * This is a slibc extension.
  * 
