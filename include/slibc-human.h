@@ -79,8 +79,8 @@ enum unescape_mode
      * '\0' resolves to the byte sequence
      * 192 128 (0xC0 0x80).
      * 
-     * If not used, '\&' is handled as an
-     * unsupported escape.
+     * If not used, '\0' resolves to a
+     * 0 byte (termination).
      */
     UNESCAPE_MOD_UTF8 = 16,
   };
