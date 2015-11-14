@@ -31,6 +31,11 @@
 /* } */
 
 
+/**
+ * Implementation of `malloc`.
+ */
+#define MALLOC(size)  memalign(sizeof(max_align_t), size)
+
 
 /**
  * Create a new memory allocation on the heap.
@@ -84,7 +89,7 @@ static void* unaligned_malloc(size_t size)
  */
 void* malloc(size_t size)
 {
-  return memalign(sizeof(max_align_t), size);
+  return MALLOC(size);
 }
 
 
@@ -113,7 +118,7 @@ void* calloc(size_t elem_count, size_t elem_size)
   if (__builtin_umull_overflow(elem_count, elem_size, &size))
     return errno = ENOMEM, NULL;
   
-  ptr = malloc(size);
+  ptr = MALLOC(size);
   if (ptr != NULL)
     explicit_bzero(ptr, size);
   
@@ -139,7 +144,7 @@ void* calloc(size_t elem_count, size_t elem_size)
  */
 void* mallocz(size_t size, int clear)
 {
-  void* ptr = memalign(sizeof(max_align_t), size);
+  void* ptr = MALLOC(size);
   if ((ptr != NULL) && clear)
     explicit_bzero(ptr, size);
   return ptr;
@@ -167,7 +172,10 @@ void* mallocz(size_t size, int clear)
  */
 void* zalloc(size_t size)
 {
-  return calloc(1, size);
+  void* ptr = MALLOC(size);
+  if (ptr != NULL)
+    explicit_bzero(ptr, size);
+  return ptr;
 }
 
 
