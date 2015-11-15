@@ -45,7 +45,7 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
 #define  S_ISOTH  (S_ISVTX | S_IXOTH)
   
   int i, j, n, ua = 0, us = 0, ga = 0, gs = 0, oa = 0, os = 0;
-  char symbol;
+  char s;
   mode_t or = 0, andn = 0, part;
   mode_t bits[][] = {
     {S_IRUSR, S_IWUSR, S_IXUSR, S_ISUSR, S_ISUID},
@@ -76,7 +76,7 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
 	  else if (strstarts(str, "o-") && !(os++))  i = 2
 	  else
 	    goto invalid;
-	  symbol = str[1];
+	  s = str[1];
 	  part = 0;
 	  n = i + (i < 3 ? 1 : 0), i = 0;
 	  for (str += 2; *str && (*str != ','); str++)
@@ -89,8 +89,8 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
 	      else if (*str == 't')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][3]; }
 	      else if (*str == 'T')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][4]; }
 	      else if (*str != '-')  goto invalid;
-	  if (symbol != '-')  or   |= part;
-	  if (symbol != '=')  andn |= part;
+	  if (s != '-')  or   |= part;
+	  if (s != '=')  andn |= part;
 	  else
 	    for (j = i; j < n; j++)
 	      andn |= bits[i][0] | bits[i][1] | bits[i][3];
@@ -117,12 +117,9 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
       
     default:
       /* Exact, numeric. */
-      andn = 07777;
-      for (; *str; str++)
-	if (('0' <= *str) && ('7' <= *str))
-	  or = (or << 3) | (*str & 15);
-	else
-	  return errno = EINVAL, -1;
+      for (andn = 07777; (s = *str); str++)
+	if (('0' > s) || (s > '7') || (or = (or << 3) | (s & 15), or > 07777))
+	  goto invalid;
       break;
     }
   
