@@ -86,6 +86,8 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
 	      else if (*str == 'x')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][2]; }
 	      else if (*str == 's')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][3]; }
 	      else if (*str == 'S')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][4]; }
+	      else if (*str == 't')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][3]; }
+	      else if (*str == 'T')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][4]; }
 	      else if (*str != '-')  goto invalid;
 	  if (symbol != '-')  or   |= part;
 	  if (symbol != '=')  andn |= part;
@@ -108,6 +110,8 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
 	  else if (*str == 'x')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][2]; }
 	  else if (*str == 's')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][3]; }
 	  else if (*str == 'S')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][4]; }
+	  else if (*str == 't')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][3]; }
+	  else if (*str == 'T')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][4]; }
 	  else if (*str != '-')  goto invalid;
       break;
       
