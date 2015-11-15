@@ -18,6 +18,7 @@
 #include <slib-human.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 
 
