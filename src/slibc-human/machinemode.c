@@ -40,22 +40,23 @@
  */
 int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str)
 {
-#define  S_ISUSR        (S_ISUID | S_IXUSR)
-#define  S_ISGRP        (S_ISGID | S_IXGRO)
-#define  S_ISOTH        (S_ISVTX | S_IXOTH)
+#define  S_ISUSR  (S_ISUID | S_IXUSR)
+#define  S_ISGRP  (S_ISGID | S_IXGRO)
+#define  S_ISOTH  (S_ISVTX | S_IXOTH)
 
-#define  TEST_(S, T, V)   (strstarts(str, S) && !(T & (v = V)))
-#define  TEST(S, T)       (TEST_(S"+", T, 1) || TEST_(S"-", T, 2) || TEST_(S"=", T, 3))
-#define  TESTV(T)         (TEST(#T, T) ? (T = v) : 0)
+#define  TEST_(S, T, V)  (strstarts(str, S) && !(T & (v = V)))
+#define  TEST(S, T)      (TEST_(S"+", T, 1) || TEST_(S"-", T, 2) || TEST_(S"=", T, 3))
+#define  TESTV(T)        (TEST(#T, T) ? (T = v) : 0)
 
-#define  BITS(var)  \
-  if      (*str == 'r')  { if (var & bits[i][0])  goto invalid;  else  var |= bits[i][0]; }  \
-  else if (*str == 'w')  { if (var & bits[i][1])  goto invalid;  else  var |= bits[i][1]; }  \
-  else if (*str == 'x')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][2]; }  \
-  else if (*str == 's')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][3]; }  \
-  else if (*str == 'S')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][4]; }  \
-  else if (*str == 't')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][3]; }  \
-  else if (*str == 'T')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][4]; }  \
+#define  BITS_(V, T, S)  if (V & bits[i][T])  goto invalid;  else  var |= bits[i][S]
+#define  BITS(V)  \
+  if      (*str == 'r')  { BITS_(V, 0, 0); }  \
+  else if (*str == 'w')  { BITS_(V, 1, 1); }  \
+  else if (*str == 'x')  { BITS_(V, 3, 2); }  \
+  else if (*str == 's')  { BITS_(V, 3, 3); }  \
+  else if (*str == 't')  { BITS_(V, 3, 3); }  \
+  else if (*str == 'S')  { BITS_(V, 3, 4); }  \
+  else if (*str == 'T')  { BITS_(V, 3, 4); }  \
   else if (*str != '-')  goto invalid
   
   int i, j, n, u = 0, g = 0, o = 0, v;
