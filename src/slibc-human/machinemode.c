@@ -40,11 +40,25 @@
  */
 int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str)
 {
-#define  S_ISUSR  (S_ISUID | S_IXUSR)
-#define  S_ISGRP  (S_ISGID | S_IXGRO)
-#define  S_ISOTH  (S_ISVTX | S_IXOTH)
+#define  S_ISUSR        (S_ISUID | S_IXUSR)
+#define  S_ISGRP        (S_ISGID | S_IXGRO)
+#define  S_ISOTH        (S_ISVTX | S_IXOTH)
+
+#define  TEST_(S, T, V)   (strstarts(str, S) && !(T & (v = V)))
+#define  TEST(S, T)       (TEST_(S"+", T, 1) || TEST_(S"-", T, 2) || TEST_(S"=", T, 3))
+#define  TESTV(T)         (TEST(#T, T) ? (T = v) : 0)
+
+#define  BITS(var)  \
+  if      (*str == 'r')  { if (var & bits[i][0])  goto invalid;  else  var |= bits[i][0]; }  \
+  else if (*str == 'w')  { if (var & bits[i][1])  goto invalid;  else  var |= bits[i][1]; }  \
+  else if (*str == 'x')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][2]; }  \
+  else if (*str == 's')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][3]; }  \
+  else if (*str == 'S')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][4]; }  \
+  else if (*str == 't')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][3]; }  \
+  else if (*str == 'T')  { if (var & bits[i][3])  goto invalid;  else  var |= bits[i][4]; }  \
+  else if (*str != '-')  goto invalid
   
-  int i, j, n, ua = 0, us = 0, ga = 0, gs = 0, oa = 0, os = 0;
+  int i, j, n, u = 0, g = 0, o = 0, v;
   char s;
   mode_t or = 0, andn = 0, part;
   mode_t bits[][] = {
@@ -55,64 +69,39 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
   
   switch (*str)
     {
-    case 'a':
-    case 'u':
-    case 'g':
-    case 'o':
+    case '\0':
+      goto invalid;
+      
+    case 'a': case 'u': case 'g': case 'o':
       /* Partial, symbolic. */
-      for (;;)
+      for (; *str; str++)
 	{
-	  if (strstarts(str, "a=") && !(ua++ || us++ || ga++ || gs++ || oa++ || os++))  i = 3;
-	  else if (strstarts(str, "a+") && !(ua++ || ga++ || oa++))  i = 3;
-	  else if (strstarts(str, "a-") && !(us++ || gs++ || os++))  i = 3;
-	  else if (strstarts(str, "u=") && !(ua++ || us++))  i = 0;
-	  else if (strstarts(str, "u+") && !(ua++))  i = 0;
-	  else if (strstarts(str, "u-") && !(us++))  i = 0;
-	  else if (strstarts(str, "g=") && !(ga++ || gs++))  i = 1;
-	  else if (strstarts(str, "g+") && !(ga++))  i = 1;
-	  else if (strstarts(str, "g-") && !(gs++))  i = 1;
-	  else if (strstarts(str, "o=") && !(oa++ || os++))  i = 2
-	  else if (strstarts(str, "o+") && !(oa++))  i = 2
-	  else if (strstarts(str, "o-") && !(os++))  i = 2
+	  if (TEST("a", u|g|o))  i = 3, u |= v, g |= v, o |= v;
+	  else if (TESTV(u))     i = 0;
+	  else if (TESTV(g))     i = 1;
+	  else if (TESTV(o))     i = 2;
 	  else
 	    goto invalid;
-	  s = str[1];
-	  part = 0;
-	  n = i + (i < 3 ? 1 : 0), i = 0;
-	  for (str += 2; *str && (*str != ','); str++)
+	  if (n < 3)  n = i + 1;
+	  else        n = i, i = 0;
+	  s = str[1], str += 2;
+	  for (part = 0; *str && (*str != ','); str++)
 	    for (j = i; j < n; j++)
-	      if      (*str == 'r')  { if (part & bits[i][0])  goto invalid;  else  part |= bits[i][0]; }
-	      else if (*str == 'w')  { if (part & bits[i][1])  goto invalid;  else  part |= bits[i][1]; }
-	      else if (*str == 'x')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][2]; }
-	      else if (*str == 's')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][3]; }
-	      else if (*str == 'S')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][4]; }
-	      else if (*str == 't')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][3]; }
-	      else if (*str == 'T')  { if (part & bits[i][3])  goto invalid;  else  part |= bits[i][4]; }
-	      else if (*str != '-')  goto invalid;
+	      BITS(part);
 	  if (s != '-')  or   |= part;
 	  if (s != '=')  andn |= part;
 	  else
 	    for (j = i; j < n; j++)
 	      andn |= bits[i][0] | bits[i][1] | bits[i][3];
-	  if (!*str++)
-	    break;
 	}
       break;
       
-    case 'r':
-    case '-':
+    case 'r': case 'w': case 'x': case '-':
+    case 's': case 'S': case 't': case 'T':
       /* Exact, symbolic. */
-      andn = 07777;
-      for (i = 0; i < 3; i++)
+      for (andn = 07777, i = 0; i < 3; i++)
 	for (j = 0; j < 3; j++, str++)
-	  if      (*str == 'r')  { if (or & bits[i][0])  goto invalid;  else  or |= bits[i][0]; }
-	  else if (*str == 'w')  { if (or & bits[i][1])  goto invalid;  else  or |= bits[i][1]; }
-	  else if (*str == 'x')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][2]; }
-	  else if (*str == 's')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][3]; }
-	  else if (*str == 'S')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][4]; }
-	  else if (*str == 't')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][3]; }
-	  else if (*str == 'T')  { if (or & bits[i][3])  goto invalid;  else  or |= bits[i][4]; }
-	  else if (*str != '-')  goto invalid;
+	  BITS(or);
       break;
       
     default:
