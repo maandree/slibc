@@ -201,7 +201,23 @@ enum unescape_mode
  */
 char* humanmode(char* restrict, mode_t, enum humanmode_mode);
 
-int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str);
+/**
+ * Parses a human representation of file permissions, and updates to file permissions.
+ * 
+ * Assuming the current file permissions is `value`, and neither
+ * `mode` nor `mask` is `NULL`, the new permissions should be
+ * `value & ~*mask | *mode`. The new mode (includes file type) should
+ * be `value & ~*mask | *mode & 07777`.
+ * 
+ * @param   mode  Output parameter for the bits to set, may be `NULL`.
+ * @param   mask  Output parameter for the bits to update, may be `NULL`.
+ * @param   str   The file permission to parse, must not include file type or be `NULL`.
+ * @return        Zero on success, -1 on error.
+ * 
+ * @throws  EINVAL  If `str` is not parseable.
+ */
+int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
+  __GCC_ONLY(__attributes__((__nonnull__(3))));
 
 
 char* humansize(char* restrict buffer, size_t size, enum humansize_mode mode, int detail);
