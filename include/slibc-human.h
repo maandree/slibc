@@ -97,6 +97,8 @@ enum humansize_mode
      * 
      * For example `detail == 0` may yeild '3TB 2MB 1KB',
      * and `detail == 3` may yeild '3TB 2MB' for the same size.
+     * 
+     * Cannot be combined with `HUMANSIZE_ROUND`.
      */
     HUMANSIZE_EXACT = 16,
     
@@ -104,6 +106,8 @@ enum humansize_mode
      * Similar to `HUMANSIZE_EXACT` with `detail == 1`,
      * but the value will include `detail` digits.
      * `detail` < 0 is allowed, 
+     * 
+     * Cannot be combined with `HUMANSIZE_EXACT`.
      */
     HUMANSIZE_ROUND = 32,
   };
