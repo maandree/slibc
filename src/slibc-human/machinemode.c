@@ -48,7 +48,7 @@ int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restri
 #define  TEST(S, T)      (TEST_(S"+", T, 1) || TEST_(S"-", T, 2) || TEST_(S"=", T, 3))
 #define  TESTV(T)        (TEST(#T, T) ? (T = v) : 0)
 
-#define  BITS_(V, T, S)  if (V & bits[i][T])  goto invalid;  else  var |= bits[i][S]
+#define  BITS_(V, T, S)  if (V & bits[i][T])  goto invalid;  else  V |= bits[i][S]
 #define  BITS(V)  \
   if      (*str == 'r')  { BITS_(V, 0, 0); }  \
   else if (*str == 'w')  { BITS_(V, 1, 1); }  \
