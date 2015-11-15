@@ -33,7 +33,10 @@
 
 
 
-enum machinemode_mode
+/**
+ * Representation settings for file permissions.
+ */
+enum humanmode_mode
   {
     /**
      * Return in the format where 0750
@@ -182,7 +185,21 @@ enum unescape_mode
 
 
 
-char* humanmode(char* restrict buffer, mode_t perm, enum machinemode_mode mode);
+/**
+ * Convert file permission from machine representation to human representation.
+ * 
+ * @param   buffer  Sufficiently large buffer for the output, or `NULL`.
+ *                  18 characters is always sufficient, regardless of `mode`.
+ * @param   perm    Machine representation of the permissions, will be masked with 07777.
+ * @param   mode    Representation style, 0 for default.
+ * @return          Human representation of the file permissions, `NULL` on error.
+ *                  On success, the caller is responsible for deallocating the
+ *                  returned pointer, if and only if `buffer` is `NULL`.
+ * 
+ * @throws  EINVAL  If `mode` is invalid.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+char* humanmode(char* restrict, mode_t, enum humanmode_mode);
 
 int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str);
 
