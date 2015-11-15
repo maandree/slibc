@@ -38,17 +38,17 @@
  */
 char* humanmode(char* restrict buffer, mode_t perm, enum humanmode_mode mode)
 {
-  mode_t perm_ = perm | (mode != MACHINEMODE_MASK ? 07777 : 0);
-  int name = mode & MACHINEMODE_MASK;
+  mode_t perm_ = perm | (mode != HUMANMODE_MASK ? 07777 : 0);
+  int name = mode & HUMANMODE_MASK;
   char* w;
   
   if (mode & ~3)
     return errno = EINVAL, NULL;
   if (!mode)
-    mode = MACHINEMODE_STAT;
+    mode = HUMANMODE_STAT;
   
   if (buffer == NULL)
-    buffer = malloc((mode == MACHINEMODE_STAT ? 10 : 18) * sizeof(char));
+    buffer = malloc((mode == HUMANMODE_STAT ? 10 : 18) * sizeof(char));
   if (buffer == NULL)
     return NULL;
   w = buffer;

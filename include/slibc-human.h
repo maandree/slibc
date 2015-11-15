@@ -42,19 +42,19 @@ enum humanmode_mode
      * Return in the format where 0750
      * resolves to 'rwxr-x---'.
      * 
-     * If used in combination with `MACHINEMODE_MASK`,
+     * If used in combination with `HUMANMODE_MASK`,
      * 0750 resolves to 'u=rwx,g=r-x,o=---'.
      */
-    MACHINEMODE_STAT = 1,
+    HUMANMODE_STAT = 1,
     
     /**
      * Return in the format where 0750
      * resolves to 'u=rwx,g=rx,o='.
      * 
-     * If used in combination with `MACHINEMODE_STAT`,
+     * If used in combination with `HUMANMODE_STAT`,
      * 0750 resolves to 'u=rwx,g=r-x,o=---'.
      */
-    MACHINEMODE_MASK = 2,
+    HUMANMODE_MASK = 2,
   };
 
 
