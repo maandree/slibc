@@ -128,12 +128,16 @@ char* dirname(char* filename)
  */
 char* cleanname(char* filename)
 {
+#define SLASH(c)       (((c) == '/') || !(c))
+#define UNSLASH_END()  if ((w > filename + 1) && (w[-1] == '/'))  *--w = 0
+#define DOTS(n)        ((r[0] == '.') && (r[n - 1] == '.') && SLASH(r[n]))
+  
   size_t parts = 0;
   int start;
   char* w;
   char* r;
   
-  if ((filename == NULL) || (!*filename))
+  if ((filename == NULL) || !*filename)
     return ".";
   
   /* Remove unnecessary slashes and '.' directory components. */
@@ -144,12 +148,11 @@ char* cleanname(char* filename)
 	  *w++ = '/';
 	start = 1;
       }
-    else if (start && (r[0] == '.') && ((r[1] == '/') || (r[1] == 0)))
-      r += (r[1] == '/');
+    else if (start && DOTS(1))
+      r += r[1] ? 1 : 0;
     else
       *w++ = *r, start = 0;
-  if ((w > filename + 1) && (w[-1] == '/'))
-    *--w = 0;
+  UNSLASH_END();
   if (w == filename)
     *w++ = '.';
   *w = 0;
@@ -158,29 +161,21 @@ char* cleanname(char* filename)
   for (w = r = filename, start = 1; *r; r++)
     if (*r == '/')
       *w++ = '/', start = 1, parts++;
-    else if (start && (r[0] == '.') && (r[1] == '.') && ((r[2] == '/') || (r[2] == 0)))
+    else if (start && DOTS(2))
       {
-	if (parts == 0)
-	  {
-	    *w++ = '.', *w++ = '.';
-	    if (r[2])
-	      *w++ = '/';
-	    r += 1 + (r[2] == '/');
-	    continue;
-	  }
-	r += 1 + (r[2] == '/');
-	parts -= *filename != '/';
+	if (!parts)
+	  w = stpcpy(w, r[2] ? "../" : "..");
+	r += r[2] ? 2 : 1;
+	if (!parts)
+	  continue;
+	parts -= (*filename != '/');
 	if (w > filename + 1)
-	  {
-	    *--w = 0;
-	    while (w[-1] != '/')
-	      *--w = 0;
-	  }
+	  do  *--w = 0;
+	  while (w[-1] != '/');
       }
     else
       *w++ = *r, start = 0;
-  if ((w > filename + 1) && (w[-1] == '/'))
-    *--w = 0;
+  UNSLASH_END();
   if (!*filename)
     w = filename, *w++ = '/';
   *w = 0;
