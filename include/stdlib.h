@@ -61,7 +61,8 @@
  * both the quotient and the remainder.
  * 
  * @param   numerator    The numerator.
- * @param   denominator  The denominator.
+ * @param   denominator  The denominator, must not be 0 lest
+ *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
@@ -73,7 +74,8 @@ div_t div(int, int)
  * both the quotient and the remainder.
  * 
  * @param   numerator    The numerator.
- * @param   denominator  The denominator.
+ * @param   denominator  The denominator, must not be 0 lest
+ *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
@@ -85,7 +87,8 @@ ldiv_t ldiv(long, long)
  * both the quotient and the remainder.
  * 
  * @param   numerator    The numerator.
- * @param   denominator  The denominator.
+ * @param   denominator  The denominator, must not be 0 lest
+ *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
