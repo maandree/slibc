@@ -454,7 +454,7 @@ memory, which should be deallocated to avoid
 memory leaks.
 @end table
 
-@file{<malloc.h>} also includes three unportable
+@file{<malloc.h>} also includes four unportable
 functions.
 @table @code
 @item void* zalloc(size_t size)
@@ -466,6 +466,18 @@ does not overflow, @code{calloc(a, b)} is identical
 to @code{zalloc(a * b)}. @code{zalloc} is a
 @command{klibc} extension.
 
+@item void* mallocz(size_t size, int clear)
+@fnindex mallocz
+This function is similar to @code{malloc}. However,
+it has one second parameter. If the second parameter
+is non-zero, the allocated memory will be initialised.
+
+@code{mallocz(size, clear)} is identical to
+@code{(clear ? zalloc : malloc)(size)}.
+
+This function is a Plan 9 from Bell Labs extension
+and requires @code{_PLAN9_SOURCE}.
+
 @item void cfree(void* ptr, ...)
 @fnindex cfree
 This function is an obsolete function provided
@@ -473,7 +485,7 @@ by a number of C standard library implementations.
 It has been replaced by @code{free}. @code{cfree}
 is identical to @code{free}.
 
-Different implementions @command{libc}, defined
+Different implementions of @command{libc}, defined
 @code{cfree} with different numbers of parameters,
 therefore @code{slibc} declares @code{cfree} as
 a variadic function, and ignores all but the first
