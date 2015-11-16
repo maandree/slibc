@@ -115,7 +115,7 @@ void* calloc(size_t elem_count, size_t elem_size)
   void* ptr;
   size_t size;
   
-  MEM_OVERFLOW(umull, elem_count, elem_size, &size));
+  MEM_OVERFLOW(umull, elem_count, elem_size, &size);
   ptr = MALLOC(size);
   if (ptr != NULL)
     explicit_bzero(ptr, size);
