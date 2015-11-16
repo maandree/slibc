@@ -19,6 +19,7 @@
 #include <stddef.h>
 #include <errno.h>
 #include <string.h>
+#include "escapes.h"
 
 
 
@@ -50,12 +51,37 @@
  */
 char* unescape(char* str, enum unescape_mode mode)
 {
+#define RANGE(a, c, z)  (((a) <= (c)) && ((c) <= (z)))
+#define CxC0(s, m)  (*w++ = (char)((m) | (v >> (s))))
+#define Cx80(s)     (*w++ = (char)(0x80 | ((v >> (s)) & 0x3F)))
+#define PARSE_HEX(v, C)				      \
+  do {						      \
+    char c = (C);				      \
+    if      (RANGE('0', c, '9'))  c -= '0';	      \
+    else if (RANGE('a', c, 'f'))  c -= 'a', c += 10;  \
+    else if (RANGE('A', c, 'F'))  c -= 'A', c += 10;  \
+    else					      \
+      goto fail_u;				      \
+    v = (v << 4) | (unsigned long int)c;	      \
+    if (v > 0x10FFFFUL)				      \
+      goto fail_u;				      \
+  } while (0)
+#define NEXT_OCTAL(v)  if (RANGE('0', r[1], '7'))  v = (v << 3) | (r[1] - '0'), r++;
+#define UNRECOGNISED(c, action)                                     \
+  if      (        mode & UNESCAPE_EINVAL)     goto invalid;        \
+  else if ((c) && (mode & UNESCAPE_VERBATIM))  action;              \
+  else if ((c) && (mode & UNESCAPE_IGNORE))    *w++ = '\\', action
+#define ASCII()  \
+  ((v == 0) && (mode & UNESCAPE_MOD_UTF8)) ? (*w++ = (char)0xC0, *w++ = (char)0x80) : \
+  (v < 0x80)                               ? (*w++ = (char)v, 1)                    : 0
+  
+  int i, n;
   unsigned long int v;
   char* w;
   char* r;
   
   if (str == NULL)  return errno = 0, NULL;
-  if (mode & ~31)   return errno = EINVAL, NULL;
+  if (mode & ~31)   goto invalid;
   if (mod == 0)     mode |= UNESCAPE_EINVAL | UNESCAPE_MOD_UTF8;
   switch (mode & 7)
     {
@@ -66,7 +92,7 @@ char* unescape(char* str, enum unescape_mode mode)
     case 4:
       break;
     default:
-      return errno = EINVAL, NULL;
+      goto invalid;
     }
   
   for (w = r = str; *r; r++)
@@ -76,45 +102,24 @@ char* unescape(char* str, enum unescape_mode mode)
       switch (*++r)
 	{
 	case '\0':
-	  if (mode & UNESCAPE_EINVAL)
-	    return errno = EINVAL, NULL;
-	  else if (mode & UNESCAPE_IGNORE)
-	    *w++ = '\\';
-	  break;
-	  
-	case '\'':
-	case '"':
-	case '$':
-	case '?':
-	case '\\':
-	case '/':
-	  *w++ = *r;
+	  UNRECOGNISED(1, (void)0);
 	  break;
 	  
 	case '&':
-	  if      (mode & UNESCAPE_AMPERSAND)  *w++ = (char)255;
-	  else if (mode & UNESCAPE_EINVAL)     return errno = EINVAL, NULL;
-	  else if (mode & UNESCAPE_VERBATIM)   *w++ = '&';
-	  else if (mode & UNESCAPE_IGNORE)     *w++ = '\\', *w++ = '&';
+	  if   (mode & UNESCAPE_AMPERSAND)  *w++ = (char)255;
+	  else UNRECOGNISED(*r, *w++ = '&');
 	  break;
 	  
-	case 'a':  *w++ = '\a';  break;
-	case 'b':  *w++ = '\b';  break;
-	case 'e':  *w++ = 033;   break;
-	case 'f':  *w++ = '\f';  break;
-	case 'n':  *w++ = '\n';  break;
-	case 'r':  *w++ = '\r';  break;
-	case 't':  *w++ = '\t';  break;
-	case 's':  *w++ = ' ';   break;
-	case 'v':  *w++ = '\v';  break;
+#define X(e, c)  case e:  *w++ = c;  break;
+	LIST_BIJECTIVE_ESCAPES
+#undef X
+	case 's':  *w++ = ' ';  break;
 	  
 	case '^':
-	  if (('@' <= r[1]) && (r[1] <= '_'))      *w++ = *++r - '@';
-	  else if (mode & UNESCAPE_EINVAL)         return errno = EINVAL, NULL;
-	  else if (r[1])
+	  if (RANGE('@', r[1], '_'))  *w++ = *++r - '@';
+	  else
 	    {
-	      if      (mode & UNESCAPE_VERBATIM)   *w++ = '^';
-	      else if (mode & UNESCAPE_IGNORE)     *w++ = '\\', *w++ = '^';
+	      UNRECOGNISED(r[1], *w++ = '^');
 	      if (r[1])
 		*w++ = *++r;
 	    }
@@ -125,24 +130,10 @@ char* unescape(char* str, enum unescape_mode mode)
 	case 'x':
 	  v = 0;
 	  if ((r[0] == 'u') && (r[1] == '{'))
-	    {
-	      for (i = 2; r[i] != '}'; i++)
-		{
-		  c = r[i];
-		  if      (('0' <= c) || (c <= '9'))  c -= '0';
-		  else if (('a' <= c) || (c <= 'f'))  c -= 'a', c += 10;
-		  else if (('A' <= c) || (c <= 'F'))  c -= 'A', c += 10;
-		  else
-		    goto fail_u;
-		  v = (v << 4) | (unsigned long int)c;
-		  if (v > 0x10FFFFUL)
-		    goto fail_u;
-		}
-	    }
+	    for (i = 2; r[i] != '}'; i++)
+	      PARSE_HEX(v, r[i]);
 	  else
 	    {
-	      int i, n;
-	      char c;
 	      switch (*r)
 		{
 		case 'U':  n = 8;  break;
@@ -150,98 +141,37 @@ char* unescape(char* str, enum unescape_mode mode)
 		case 'x':  n = 2;  break;
 		}
 	      for (i = 1; i <= n; i++)
-		{
-		  c = r[i];
-		  if      (('0' <= c) || (c <= '9'))  c -= '0';
-		  else if (('a' <= c) || (c <= 'f'))  c -= 'a', c += 10;
-		  else if (('A' <= c) || (c <= 'F'))  c -= 'A', c += 10;
-		  else
-		    goto fail_u;
-		  v = (v << 4) | (unsigned long int)c;
-		  if (v > 0x10FFFFUL)
-		    goto fail_u;
-		}
+		PARSE_HEX(v, r[i]);
 	    }
 	  goto done_u;
 	fail_u:
-	  if      (mode & UNESCAPE_EINVAL)     return errno = EINVAL, NULL;
-	  else if (mode & UNESCAPE_VERBATIM)   r--;
-	  else if (mode & UNESCAPE_IGNORE)     *w++ = '\\', r--;
-	done_u:;
-	  if ((v == 0) && (mode & UNESCAPE_MOD_UTF8))
-	    *w++ = (char)0xC0, *w++ = (char)0x80;
-	  else if (v < 0x80)
-	    *w++ = (char)v;
-	  else if (v < (1L << 11))
-	    *w++ = (char)(0xC0 | (v >> 6)),
-	      *w++ = (char)(0x80 | (v & 0x3F));
-	  else if (v < (1L << 16))
-	    *w++ = (char)(0xE0 | (v >> 12)),
-	      *w++ = (char)(0x80 | ((v >> 6) & 0x3F)),
-	      *w++ = (char)(0x80 | (v & 0x3F));
-	  else
-	    *w++ = (char)(0xF0 | (v >> 18)),
-	      *w++ = (char)(0x80 | ((v >> 12) & 0x3F)),
-	      *w++ = (char)(0x80 | ((v >> 6) & 0x3F)),
-	      *w++ = (char)(0x80 | (v & 0x3F));
+	  UNRECOGNISED(r--);
+	done_u:
+	  if (ASCII());
+	  else if (v < (1L << 11))  CxC0(6,  0xC0), Cx80(0);
+	  else if (v < (1L << 16))  CxC0(12, 0xE0), Cx80(6),  Cx80(0);
+	  else                      CxC0(18, 0xF0), Cx80(12), Cx80(0), Cx80(0);
 	  break;
 	  
 	default:
-	  if (('0' <= *r) && (*r <= '7'))
+	  if (RANGE('0', *r, '7'))
 	    {
 	      int v = *r - '0';
-	      if (('0' <= r[1]) && (r[1] <= '7'))
-		v = (v << 3) | (r[1] - '0'), r++;
-	      if (('0' <= r[1]) && (r[1] <= '7'))
-		v = (v << 3) | (r[1] - '0'), r++;
-	      if ((v == 0) && (mode & UNESCAPE_MOD_UTF8))
-		*w++ = (char)0xC0, *w++ = (char)0x80;
-	      else if (v < 0x80)
-		*w++ = (char)v;
-	      else
-		*w++ = (char)(0xC0 | (v >> 6)),
-		  *w++ = (char)(0x80 | (v & 3F));
+	      NEXT_OCTAL(v);
+	      NEXT_OCTAL(v);
+	      if   (ASCII());
+	      else CxC0(6, 0xC0), Cx80(0);
 	    }
-	  else if (strstarts(r, "NUL"))        *w++ =  0, r += 2;
-	  else if (strstarts(r, "SOH"))        *w++ =  1, r += 2;
-	  else if (strstarts(r, "STX"))        *w++ =  2, r += 2;
-	  else if (strstarts(r, "ETX"))        *w++ =  3, r += 2;
-	  else if (strstarts(r, "EOT"))        *w++ =  4, r += 2;
-	  else if (strstarts(r, "ENQ"))        *w++ =  5, r += 2;
-	  else if (strstarts(r, "ACK"))        *w++ =  6, r += 2;
-	  else if (strstarts(r, "BEL"))        *w++ =  7, r += 2;
-	  else if (strstarts(r, "BS"))         *w++ =  8, r += 1;
-	  else if (strstarts(r, "HT"))         *w++ =  9, r += 1;
-	  else if (strstarts(r, "LF"))         *w++ = 10, r += 1;
-	  else if (strstarts(r, "VT"))         *w++ = 11, r += 1;
-	  else if (strstarts(r, "FF"))         *w++ = 12, r += 1;
-	  else if (strstarts(r, "CR"))         *w++ = 13, r += 1;
-	  else if (strstarts(r, "SO"))         *w++ = 14, r += 1;
-	  else if (strstarts(r, "SI"))         *w++ = 15, r += 1;
-	  else if (strstarts(r, "DLE"))        *w++ = 16, r += 2;
-	  else if (strstarts(r, "DC1"))        *w++ = 17, r += 2;
-	  else if (strstarts(r, "DC2"))        *w++ = 18, r += 2;
-	  else if (strstarts(r, "DC3"))        *w++ = 19, r += 2;
-	  else if (strstarts(r, "DC4"))        *w++ = 20, r += 2;
-	  else if (strstarts(r, "NAK"))        *w++ = 21, r += 2;
-	  else if (strstarts(r, "SYN"))        *w++ = 22, r += 2;
-	  else if (strstarts(r, "ETB"))        *w++ = 23, r += 2;
-	  else if (strstarts(r, "CAN"))        *w++ = 24, r += 2;
-	  else if (strstarts(r, "EM"))         *w++ = 25, r += 1;
-	  else if (strstarts(r, "SUB"))        *w++ = 26, r += 2;
-	  else if (strstarts(r, "ESC"))        *w++ = 27, r += 2;
-	  else if (strstarts(r, "FS"))         *w++ = 28, r += 1;
-	  else if (strstarts(r, "GS"))         *w++ = 29, r += 1;
-	  else if (strstarts(r, "RS"))         *w++ = 30, r += 1;
-	  else if (strstarts(r, "US"))         *w++ = 31, r += 1;
-	  else if (strstarts(r, "SP"))         *w++ = 32, r += 1;
-	  else if (strstarts(r, "DEL"))        *w++ = 0x7F, r += 2;
-	  else if (mode & UNESCAPE_EINVAL)     return errno = EINVAL, NULL;
-	  else if (mode & UNESCAPE_VERBATIM)   r--;
-	  else if (mode & UNESCAPE_IGNORE)     *w++ = '\\', r--;
+	  else if (strchr("'\"$?\\/", *r))  *w++ = *r;
+#define X(e, i)  else if (strstarts(r, e) ? (*w++ = i, r += sizeof(e) / sizeof(char) - 2, 1) : 0);
+	  LIST_ASCII_NAMES
+#undef X
+	  else  UNRECOGNISED(r--);
 	  break;
 	}
   
   return *w = 0, w;
+ invalid:
+  return errno = EINVAL, NULL;
 }
 

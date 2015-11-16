@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include "escapes.h"
 
 
 
@@ -39,10 +40,13 @@
  */
 char* escape(const char* restrict str, char quote)
 {
+#define OCTAL(s)   (*w++ = '0' + ((c >> (s)) & 7))
+#define MODNUL(s)  (((unsigned)((s)[0]) == 0xC0) && ((unsigned)((s)[1]) == 0x80))
+  
   const char* restrict r;
   char* restrict w;
   char* restrict rc;
-  size_t extra = 1, len, size;
+  size_t extra = 0, len, size;
   unsigned char c;
   
   if (str == NULL)
@@ -58,67 +62,44 @@ char* escape(const char* restrict str, char quote)
       return errno = EINVAL, NULL;
     }
   
-  for (r = str; *r; r++)
-    switch (*r)
+  for (r = str; (c = *r); r++)
+    switch (c)
       {
-      case '\a':
-      case '\b':
-      case '\e':
-      case '\f':
-      case '\n':
-      case '\r':
-      case '\t':
-      case '\v':
-      case '\\':
-	extra += 1;
-	break;
-      case 0x7F:
-	extra += 3;
-	break;
+#define X(E, C)  case C:
+      LIST_BIJECTIVE_ESCAPES
+#undef X
+	                      extra += 1;  break;
+      case 0x7F:              extra += 3;  break;
       default:
-	if (*r == quote)
-	  extra += 1;
-	else if (*r < ' ')
-	  extra += 3;
+	if      (c == quote)  extra += 1;
+	else if (c < ' ')     extra += 3;
 	break;
       }
   
-  if (extra == 1)
+  if (!extra++)
     return strdup(str);
   
-  len = strlen(str);
-  if (__builtin_uaddl_overflow(len, extra, &size))
+  len = strlen(str) * sizeof(char);
+  if (__builtin_uaddl_overflow(len, extra * sizeof(char), &size))
     return errno = ENOMEM, NULL;
   
-  w = rc = malloc(size * sizeof(char));
-  if (w == NULL)
+  w = rc = malloc(size);
+  if (rc == NULL)
     return NULL;
   
   for (r = str; (c = *r); r++)
     switch (c)
       {
-      case '\a':  *w++ = '\\', *w++ = 'a';   break;
-      case '\b':  *w++ = '\\', *w++ = 'b';   break;
-      case 033:   *w++ = '\\', *w++ = 'e';   break;
-      case '\f':  *w++ = '\\', *w++ = 'f';   break;
-      case '\n':  *w++ = '\\', *w++ = 'n';   break;
-      case '\r':  *w++ = '\\', *w++ = 'r';   break;
-      case '\t':  *w++ = '\\', *w++ = 't';   break;
-      case '\v':  *w++ = '\\', *w++ = 'v';   break;
-      case '\\':  *w++ = '\\', *w++ = '\\';  break;
-      case 0x7F:  *w++ = '\\', *w++ = '1', *w++ = '7', *w++ = '7';  break;
+#define X(E, C)  case C:  *w++ = '\\', *w++ = E;  break;
+      LIST_BIJECTIVE_ESCAPES
+#undef X
+      case 0x7F:  w = stpcpy(w, "\\177");  break;
       default:
-	if (((unsigned int)c == 0xC0) && ((unsigned int)(r[1]) == 0x80))
-	  *w++ = '\\', *w++ = '0', r++;
-	else if (c == quote)
-	  *w++ = '\\', *w++ = quote;
-	else if (c < ' ')
-	  *w++ = '\\',
-	    *w++ = '0' + (c >> 6),
-	    *w++ = '0' + ((c >> 3) & 7),
-	    *w++ = '0' + (c & 7);
-	else
-	  *w++ = c;
+	*w++ = '\\';
+	if      (MODNUL(r))   *w++ = '0', r++;
+	else if (c == quote)  *w++ = quote;
+	else if (c < ' ')     OCTAL(6), OCTAL(3), OCTAL(0);
+	else                  w[-1] = c;
 	break;
       }
   
