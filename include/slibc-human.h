@@ -231,22 +231,27 @@ int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
 /**
  * Convert a file size of file offset from machine representation to human representation.
  * 
- * @param   buffer   A buffer than shall be used if it is sufficiently large.
- * @param   bufsize  The allocation size of `buffer`.
- *                   Must be 0 if and only if `buffer` is `NULL`.
- * @param   size     The value to convert.
- * @param   mode     Representation style, 0 for default.
- * @param   detail   See documentation for the select value on `mode`.
- * @param   point    The symbol to use for decimal points. `NULL` or empty for default.
- * @return           Human representation of the file size/offset, `NULL` on error.
- *                   On success, the caller is responsible for deallocating the
- *                   returned pointer, if and only if it is not `buffer`.
+ * @param   buffer        A buffer than shall be used if it is sufficiently large.
+ * @param   bufsize       The allocation size of `buffer`.
+ *                        Must be 0 if and only if `buffer` is `NULL`.
+ * @param   size          The value to convert.
+ * @param   mode          Representation style, 0 for default.
+ * @param   detail        See documentation for the select value on `mode`.
+ * @param   point         The symbol to use for decimal points. `NULL` or empty for default.
+ * @param   intraspacing  Spacing between values and units. `NULL` or empty for none.
+ *                        This value should depend on language and context. For English
+ *                        this value should be "" or "-", but in for example Swedish it
+ *                        should always be " ". Hence this value is a string rather than
+ *                        a booleanic integer.
+ * @return                Human representation of the file size/offset, `NULL` on error.
+ *                        On success, the caller is responsible for deallocating the
+ *                        returned pointer, if and only if it is not `buffer`.
  * 
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  EINVAL  If `mode & HUMANSIZE_EXACT` and `detail < 0`.
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* restrict)
+char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
@@ -254,7 +259,8 @@ int machinesize(size_t* restrict size, const char* restrict str, enum machinesiz
 
 
 #ifdef __C99__
-int humandur(intmax_t sec, long int nsec, const char* restrict point, const char* restrict format);
+int humandur(intmax_t sec, long int nsec, const char* restrict point, const char* restrict format,
+	     const char* restrict intraspacing, const char* restrict interspacing);
 
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict point);

@@ -18,6 +18,7 @@
 #include <slib-human.h>
 #include <stdlib.h>
 #include <string.h>
+#include <alloca.h>
 #include <errno.h>
 
 
@@ -25,34 +26,45 @@
 /**
  * Convert a file size of file offset from machine representation to human representation.
  * 
- * @param   buffer   A buffer than shall be used if it is sufficiently large.
- * @param   bufsize  The allocation size of `buffer`.
- *                   Must be 0 if and only if `buffer` is `NULL`.
- * @param   size     The value to convert.
- * @param   mode     Representation style, 0 for default.
- * @param   detail   See documentation for the select value on `mode`.
- * @param   point    The symbol to use for decimal points. `NULL` or empty for default.
- * @return           Human representation of the file size/offset, `NULL` on error.
- *                   On success, the caller is responsible for deallocating the
- *                   returned pointer, if and only if it is not `buffer`.
+ * @param   buffer        A buffer than shall be used if it is sufficiently large.
+ * @param   bufsize       The allocation size of `buffer`.
+ *                        Must be 0 if and only if `buffer` is `NULL`.
+ * @param   size          The value to convert.
+ * @param   mode          Representation style, 0 for default.
+ * @param   detail        See documentation for the select value on `mode`.
+ * @param   point         The symbol to use for decimal points. `NULL` or empty for default.
+ * @param   intraspacing  Spacing between values and units. `NULL` or empty for none.
+ *                        This value should depend on language and context. For English
+ *                        this value should be "" or "-", but in for example Swedish it
+ *                        should always be " ". Hence this value is a string rather than
+ *                        a booleanic integer.
+ * @return                Human representation of the file size/offset, `NULL` on error.
+ *                        On success, the caller is responsible for deallocating the
+ *                        returned pointer, if and only if it is not `buffer`.
  * 
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-char* humansize(char* buffer, size_t bufsize, size_t size,
-		enum humansize_mode mode, int detail, const char* restrict point)
+char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode mode,
+		int detail, const char* restrict point, const char* restrict intraspacing)
 {
+#if (__LONG_LONG_BIT > 90) && (((__LONG_LONG_BIT - 90) * 3 + 7) / 8 + 3 > 7)
+# define BUFFER_SIZE  (((__LONG_LONG_BIT - 90) * 3 + 7) / 8 + 3)
+#else
+# define BUFFER_SIZE  7
+#endif
+  
   char prefixes[] = { '\0', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y' };
   size_t values[sizeof(prefixes) / sizeof(*prefixes)] = { 0 };
   size_t div, i, n = 0, words = 0;
   char* p;
   char* new = NULL;
-#if (__LONG_LONG_BIT > 90) && (((__LONG_LONG_BIT - 90) * 3 + 7) / 8 + 3 > 7)
-  char buf[((__LONG_LONG_BIT - 90) * 3 + 7) / 8 + 3];
-#else
-  char buf[7];
-#endif
+  char* buf;
   int m, saved_errno;
+  
+  if (intraspacing == NULL)
+    intraspacing = "";
+  buf = alloca((BUFFER_SIZE + strlen(intraspacing)) * sizeof(char));
   
   switch (mode & 7)
     {
@@ -84,7 +96,7 @@ char* humansize(char* buffer, size_t bufsize, size_t size,
 	{
 	  if (!(values[i] || (!i && !n)))
 	    break;
-	  if (m = sprintf(buf, "%zu", values[i]), m < 0)
+	  if (m = sprintf(buf, "%zu%s", values[i], intraspacing), m < 0)
 	    goto fail;
 	  if (i == 0)
 	    buf[m++] = 'B';
@@ -165,6 +177,11 @@ char* humansize(char* buffer, size_t bufsize, size_t size,
 	      }
 	  }
       }
+      if (*intraspacing)
+	{
+	  memcpy(buffer + n, intraspacing, strlen(intraspacing) * sizeof(char));
+	  m += strlen(intraspacing);
+	}
       if (i == 0)
 	buffer[n++] = 'B';
       else
