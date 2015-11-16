@@ -257,24 +257,29 @@ char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* res
 		const char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
+/* TODO machinesize */
 int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
 		const char* restrict space, const char* restrict point);
 
 
 #ifdef __C99__
+/* TODO humandur */
 int humandur(intmax_t sec, long int nsec, const char* restrict point, const char* restrict format,
 	     const char* restrict intraspacing, const char* restrict interspacing);
 
+/* TODO machinedur */
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict point);
 
 
+/* TODO machineint */
 char* machineint(intmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
 #  define machineint(...)  (__const_correct_2p(machineint, __VA_ARGS__))
 # endif
 
+/* TODO machineuint */
 char* machineuint(uintmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
@@ -282,6 +287,7 @@ char* machineuint(uintmax_t* restrict r, const char* restrict str)
 # endif
 #endif
 
+/* TODO machinefloat */
 int machinefloat(long double* restrict r, const char* restrict str,
 		 const char* restrict space, const char* restrict comma);
 #ifdef __CONST_CORRECT
