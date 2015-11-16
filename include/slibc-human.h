@@ -232,12 +232,12 @@ int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
  * Convert a file size of file offset from machine representation to human representation.
  * 
  * @param   buffer   A buffer than shall be used if it is sufficiently large.
- * @parma   bufsize  The allocation size of `buffer`.
+ * @param   bufsize  The allocation size of `buffer`.
  *                   Must be 0 if and only if `buffer` is `NULL`.
  * @param   size     The value to convert.
  * @param   mode     Representation style, 0 for default.
  * @param   detail   See documentation for the select value on `mode`.
- * @parma   point    The symbol to use for decimal points. `NULL` or empty for default.
+ * @param   point    The symbol to use for decimal points. `NULL` or empty for default.
  * @return           Human representation of the file size/offset, `NULL` on error.
  *                   On success, the caller is responsible for deallocating the
  *                   returned pointer, if and only if it is not `buffer`.
