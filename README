@@ -29,7 +29,7 @@ Macro definitions:
 	                               cannot fully utilise _PORTABLE_SOURCE.
 
 
-slibc provides some slib-specific extensions that
+slibc provides some slibc-specific extensions that
 do not require _SLIBC_SOURCE. (They are however
 disabled if _PORTABLE_SOURCE is defined.) These
 extensions are defined in header files whose

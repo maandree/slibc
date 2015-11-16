@@ -524,12 +524,12 @@ variable is global and shared by all threads.
 In @code{slibc}, functions defined in @file{<err.h>}
 use functions defined in @file{<error.h>}.
 
-@hfindex slib-error.h
-@code{slibc} adds the header file @file{<slib-error.h>}.
+@hfindex slibc-error.h
+@code{slibc} adds the header file @file{<slibc-error.h>}.
 It includes @file{<errno.h>}. It does not require
 the @code{_SLIBC_SOURCE} is defined, but it does
 require that neither @code{_PORTABLE_SOURCE} nor
-@code{_LIBRARY_HEADER}@. @file{<slib-error.h>} also
+@code{_LIBRARY_HEADER}@. @file{<slibc-error.h>} also
 uses C preprocessors directives added by the
 @sc{ISO}@tie{}C99 standard. Additionally, the
 C language extensions @code{(@{ @})} and @code{typeof}.
