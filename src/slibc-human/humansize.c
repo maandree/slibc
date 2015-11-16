@@ -38,6 +38,8 @@
  *                        this value should be "" or "-", but in for example Swedish it
  *                        should always be " ". Hence this value is a string rather than
  *                        a booleanic integer.
+ * @param   interspacing  Spacing between value–unit-pairs. `NULL` for default (" ").
+ *                        This value should depend on language and context.
  * @return                Human representation of the file size/offset, `NULL` on error.
  *                        On success, the caller is responsible for deallocating the
  *                        returned pointer, if and only if it is not `buffer`.
@@ -45,8 +47,8 @@
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
  */
-char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode mode,
-		int detail, const char* restrict point, const char* restrict intraspacing)
+char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode mode, int detail,
+		const char* restrict point, const char* restrict intraspacing, const char* restrict interspacing)
 {
 #if (__LONG_LONG_BIT > 90) && (((__LONG_LONG_BIT - 90) * 3 + 7) / 8 + 3 > 7)
 # define BUFFER_SIZE  (((__LONG_LONG_BIT - 90) * 3 + 7) / 8 + 3)
@@ -65,6 +67,9 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
   if (intraspacing == NULL)
     intraspacing = "";
   buf = alloca((BUFFER_SIZE + strlen(intraspacing)) * sizeof(char));
+  
+  if (interspacing == NULL)
+    interspacing = " ";
   
   switch (mode & 7)
     {
@@ -96,6 +101,11 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
 	{
 	  if (!(values[i] || (!i && !n)))
 	    break;
+	  if (i != words)
+	    {
+	      memcpy(buffer + n, interspacing, strlen(interspacing) * sizeof(char));
+	      n += strlen(interspacing);
+	    }
 	  if (m = sprintf(buf, "%zu%s", values[i], intraspacing), m < 0)
 	    goto fail;
 	  if (i == 0)
@@ -108,7 +118,8 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
 	    }
 	  if (n + (size_t)m > bufsize / sizeof(char))
 	    {
-	      new = malloc(bufsize = 8 * detail * sizeof(char));
+	      bufsize = 7 * detail + strlen(interspacing) * (detail - 1) + 1;
+	      new = malloc(bufsize *= sizeof(char));
 	      if (new == NULL)
 		goto fail;
 	      memcpy(new, buffer, n * sizeof(char));
@@ -116,9 +127,8 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
 	    }
 	  memcpy(buffer + n, buf, (size_t)m * sizeof(char));
 	  n += (size_t)m;
-	  buffer[n++] = ' ';
 	}
-      buffer[n - 1] = 0;
+      buffer[n] = 0;
       break;
       
     case 0:
