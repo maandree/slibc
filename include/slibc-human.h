@@ -224,16 +224,18 @@ int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
   __GCC_ONLY(__attributes__((__nonnull__(3))));
 
 
-char* humansize(char* restrict buffer, size_t size, enum humansize_mode mode, int detail);
+char* humansize(char* restrict buffer, size_t size, enum humansize_mode mode, int detail,
+		const char* restrict point);
 
-int machinesize(size_t* restrict size, const char* restrict string, enum machinesize_mode mode);
+int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
+		const char* restrict space, const char* restrict point);
 
 
 #ifdef __C99__
-int humandur(intmax_t sec, long int nsec, const char* restrict comma, const char* restrict format);
+int humandur(intmax_t sec, long int nsec, const char* restrict point, const char* restrict format);
 
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
-	       const char* restrict space, const char* restrict comma);
+	       const char* restrict space, const char* restrict point);
 
 
 char* machineint(intmax_t* restrict r, const char* restrict str);
