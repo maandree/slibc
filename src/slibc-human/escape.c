@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <slib-human.h>
+#include <slibc/internals.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
@@ -80,8 +81,7 @@ char* escape(const char* restrict str, char quote)
     return strdup(str);
   
   len = strlen(str) * sizeof(char);
-  if (__builtin_uaddl_overflow(len, extra * sizeof(char), &size))
-    return errno = ENOMEM, NULL;
+  MEM_OVERFLOW(uaddl, len, extra * sizeof(char), &size);
   
   w = rc = malloc(size);
   if (rc == NULL)

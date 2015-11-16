@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdlib.h>
+#include <slibc/internals.h>
 #include <stddef.h>
 #include <slibc-alloc.h>
 #include <strings.h>
@@ -59,8 +60,7 @@ static void* unaligned_malloc(size_t size)
   
   if (size == 0)
     return NULL;
-  if (__builtin_uaddl_overflow(2 * sizeof(size_t), size, &full_size))
-    return errno = ENOMEM, NULL;
+  MEM_OVERFLOW(uaddl, 2 * sizeof(size_t), size, &full_size);
   
   ptr = mmap(NULL, full_size, (PROT_READ | PROT_WRITE),
 	     (MAP_PRIVATE | MAP_ANONYMOUS), -1, 0);
@@ -115,9 +115,7 @@ void* calloc(size_t elem_count, size_t elem_size)
   void* ptr;
   size_t size;
   
-  if (__builtin_umull_overflow(elem_count, elem_size, &size))
-    return errno = ENOMEM, NULL;
-  
+  MEM_OVERFLOW(umull, elem_count, elem_size, &size));
   ptr = MALLOC(size);
   if (ptr != NULL)
     explicit_bzero(ptr, size);
@@ -276,8 +274,7 @@ void* memalign(size_t boundary, size_t size)
   if (!boundary || (__builtin_ffsl((long int)boundary) != boundary))
     /* `size_t` mat not be wider than `long int`. */
     return errno = EINVAL, NULL;
-  if (__builtin_uaddl_overflow(boundary - 1, size, &full_size))
-    return errno = ENOMEM, NULL;
+  MEM_OVERFLOW(uaddl, boundary - 1, size, &full_size);
   
   ptr = unaligned_malloc(full_size);
   if (ptr == NULL)
@@ -367,9 +364,7 @@ void* pvalloc(size_t size)
   if (full_size % boundary != 0)
       rounding = boundary - (full_size % boundary);
   
-  if (__builtin_uaddl_overflow(size, rounding, &full_size))
-    return errno = ENOMEM, NULL;
-  
+  MEM_OVERFLOW(uaddl, size, rounding, &full_size);
   return memalign(boundary, full_size);
 }
 

@@ -18,8 +18,23 @@
 #ifndef _SLIBC_INTERNALS_H
 #define _SLIBC_INTERNALS_H
 
+#include <errno.h>
+
+
 
 #define _(msg)  msg
+
+
+#define OVERFLOW(op, a, b, res, errnum, failrc)	 \
+  do						 \
+    if (__builtin_##op##_overflow(a, b, res))	 \
+      return errno = (errnum), (failrc);	 \
+  while (0) 
+
+
+#define MEM_OVERFLOW(op, a, b, res)  \
+  OVERFLOW(op, a, b, res, ENOMEM, NULL)
+
 
 
 #endif
