@@ -578,11 +578,11 @@ A more scalable example:
     if (FAILABLE_CALL(call_and_check)) \
       goto fail; \
   @} while (0)
-/* @w{@xtext{`@xcode{try}` or simply `@xcode{t}` may be even better.}} */
+/* @w{@xrm{}`@xtt{}try@xrm{}` or simply `@xtt{}t@xrm{}` may be even better.@xtt{}} */
 
 #define fail_unless (call_and_check)  \
   fail_if(!(call_and_check))
-/* @w{@xtext{`@xcode{f}` may be even better.}} */
+/* @w{@xrm{}`@xtt{}f@xrm{}` may be even better.@xtt{}} */
 
 int my_function(void)
 @{
@@ -590,7 +590,7 @@ int my_function(void)
   void* array;
   /* ... */
   fail_if (!(array = malloc(n)));
-  /* @w{@xtext{or perhaps, @xcode{fail_unless (array = malloc(n));}}} */
+  /* @w{@xrm{}or perhaps, `@xtt{}fail_unless (array = malloc(n));@xrm{}`@xtt{}} */
   /* ... */
   return 0;
 
@@ -629,7 +629,7 @@ int my_function(void)
       if (FAILURE_CHECK(r < 0, 1))
         @{
           if (errno != EINTR)
-            /* @w{@xtext{Or @xcode{FAILURE_CHECK(errno != EINTR, 3)}.}} */
+            /* @w{@xrm{}Or `@xtt{}FAILURE_CHECK(errno != EINTR, 3)@xrm{}`.@xtt{}} */
             goto fail;
           continue;
         @}

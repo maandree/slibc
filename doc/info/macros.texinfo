@@ -10,24 +10,22 @@
 @end ifnottex
 
 @iftex
-@macro xcode{a}
-@code{\a\}
+@macro xrm{}
+@rm{}
 @end macro
 @end iftex
 @ifnottex
-@macro xcode{a}
-\a\
+@macro xrm{}
 @end macro
 @end ifnottex
 
 @iftex
-@macro xtext{a}
-@rm{}\a\@tt{}
+@macro xtt{}
+@tt{}
 @end macro
 @end iftex
 @ifnottex
-@macro xtext{a}
-\a\
+@macro xtt{}
 @end macro
 @end ifnottex
 

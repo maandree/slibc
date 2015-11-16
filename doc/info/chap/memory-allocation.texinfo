@@ -867,7 +867,7 @@ size_t psize, new_size;
   if (p == NULL)
     @{
       p = old;
-      goto fail; /* @w{@xtext{Where @xcode{p} is cleaned up.}} */
+      goto fail; /* @w{@xrm{}Where `@xtt{}p@xrm{}` is cleaned up.@xtt{}} */
     @}
   psize = new_size;
 @}
