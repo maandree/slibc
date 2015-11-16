@@ -117,6 +117,10 @@ enum humansize_mode
   };
 
 
+/**
+ * Settings for treating ambiguous file size
+ * and file offset representations when parsing.
+ */
 enum machinesize_mode
   {
     /**
