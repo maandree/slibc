@@ -58,6 +58,10 @@ enum humanmode_mode
   };
 
 
+/**
+ * Representation settings for converting
+ * sizes to human-readable format.
+ */
 enum humansize_mode
   {
     /**
@@ -224,8 +228,26 @@ int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
   __GCC_ONLY(__attributes__((__nonnull__(3))));
 
 
-char* humansize(char* restrict buffer, size_t size, enum humansize_mode mode, int detail,
-		const char* restrict point);
+/**
+ * Convert a file size of file offset from machine representation to human representation.
+ * 
+ * @param   buffer   A buffer than shall be used if it is sufficiently large.
+ * @parma   bufsize  The allocation size of `buffer`.
+ *                   Must be 0 if and only if `buffer` is `NULL`.
+ * @param   size     The value to convert.
+ * @param   mode     Representation style, 0 for default.
+ * @param   detail   See documentation for the select value on `mode`.
+ * @parma   point    The symbol to use for decimal points. `NULL` or empty for default.
+ * @return           Human representation of the file size/offset, `NULL` on error.
+ *                   On success, the caller is responsible for deallocating the
+ *                   returned pointer, if and only if it is not `buffer`.
+ * 
+ * @throws  EINVAL  If `mode` is invalid.
+ * @throws  EINVAL  If `mode & HUMANSIZE_EXACT` and `detail < 0`.
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* restrict)
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
 		const char* restrict space, const char* restrict point);
@@ -238,12 +260,14 @@ int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict point);
 
 
-char* machineint(intmax_t* restrict r, const char* restrict str);
+char* machineint(intmax_t* restrict r, const char* restrict str)
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
 #  define machineint(...)  (__const_correct_2p(machineint, __VA_ARGS__))
 # endif
 
-char* machineuint(uintmax_t* restrict r, const char* restrict str);
+char* machineuint(uintmax_t* restrict r, const char* restrict str)
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
 #  define machineuint(...)  (__const_correct_2p(machineuint, __VA_ARGS__))
 # endif
