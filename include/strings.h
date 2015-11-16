@@ -58,7 +58,7 @@ void explicit_bzero(void*, size_t);
  * @param  size     The number of bytes to copy.
  */
 void bcopy(const void*, void*, size_t)
-  __deprecated("Use 'memmove', or similar function, instead, but be aware of reordered paramters.");
+  __deprecated("Use 'memmove', or similar function, instead, but be aware of reordered parameters.");
 
 /**
  * This function is identical to `memcmp`.
