@@ -82,7 +82,7 @@ char* unescape(char* str, enum unescape_mode mode)
   
   if (str == NULL)  return errno = 0, NULL;
   if (mode & ~31)   goto invalid;
-  if (mod == 0)     mode |= UNESCAPE_EINVAL | UNESCAPE_MOD_UTF8;
+  if (mode == 0)    mode |= UNESCAPE_MOD_UTF8;
   switch (mode & 7)
     {
     case 0:
@@ -156,7 +156,7 @@ char* unescape(char* str, enum unescape_mode mode)
 	default:
 	  if (RANGE('0', *r, '7'))
 	    {
-	      int v = *r - '0';
+	      v = *r - '0';
 	      NEXT_OCTAL(v);
 	      NEXT_OCTAL(v);
 	      if   (ASCII());
@@ -166,7 +166,7 @@ char* unescape(char* str, enum unescape_mode mode)
 #define X(e, i)  else if (strstarts(r, e) ? (*w++ = i, r += sizeof(e) / sizeof(char) - 2, 1) : 0);
 	  LIST_ASCII_NAMES
 #undef X
-	  else  UNRECOGNISED(r--);
+	  else  UNRECOGNISED(*r, r--);
 	  break;
 	}
   
