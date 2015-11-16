@@ -23,6 +23,204 @@
 
 
 
+#define SPRINTF(...)   do  if (m =  sprintf(__VA_ARGS__), m < 0)  goto fail;  while (0)
+#define SNPRINTF(...)  do  if (m = snprintf(__VA_ARGS__), m < 0)  goto fail;  while (0)
+#define ADD_PREFIX(prefix, buffer, n)				   \
+  do								   \
+    if (prefix == 0)						   \
+      buffer[n++] = 'B';					   \
+    else							   \
+      {								   \
+	buffer[n++] = prefixes[prefix];				   \
+	if (mode & HUMANSIZE_IEC_EXPLICIT)     buffer[n++] = 'i';  \
+	if (!(mode & HUMANSIZE_PREFIX_ONLY))   buffer[n++] = 'B';  \
+      }								   \
+  while (0)
+
+
+
+/**
+ * Convert a file size of file offset from machine representation to human representation.
+ * The representation is exact.
+ * 
+ * @param   buffer        A buffer than shall be used if it is sufficiently large.
+ * @param   bufsize       The allocation size of `buffer`.
+ *                        Must be 0 if and only if `buffer` is `NULL`.
+ * @param   mode          Representation style, 0 for default.
+ * @param   detail        See documentation for the select value on `mode`.
+ * @param   intraspacing  Spacing between values and units. `NULL` or empty for none.
+ *                        This value should depend on language and context. For English
+ *                        this value should be "" or "-", but in for example Swedish it
+ *                        should always be " ". Hence this value is a string rather than
+ *                        a booleanic integer.
+ * @param   interspacing  Spacing between value–unit-pairs. `NULL` for default (" ").
+ *                        This value should depend on language and context.
+ * @param   prefixes      Prefix characters (including prefixless.)
+ * @param   values        Values for prefixes.
+ * @param   buf           Create intermediate write buffer.
+ * @return                Human representation of the file size/offset, `NULL` on error.
+ *                        On success, the caller is responsible for deallocating the
+ *                        returned pointer, if and only if it is not `buffer`.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+static char* humansize_exact(char* buffer, size_t bufsize, enum humansize_mode mode, int detail,
+			     const char* restrict intraspacing, const char* restrict interspacing, size_t words,
+			     const char* restrict prefixes, const size_t* restrict values, char* restrict buf)
+{
+  size_t i, n = 0;
+  char* new = NULL;
+  int m, saved_errno;
+  
+  if (detail == 0)
+    detail = 999;
+  
+  for (i = words; (i-- > 0) && detail--;)
+    {
+      /* Check non-zero only word. */
+      if (!(values[i] || (!i && !n)))
+	continue;
+      
+      /* Add interspacing. */
+      if (i != words)
+	{
+	  memcpy(buffer + n, interspacing, strlen(interspacing) * sizeof(char));
+	  n += strlen(interspacing);
+	}
+      
+      /* Construct word (and intraspacing). */
+      SPRINTF(buf, "%zu%s", values[i], intraspacing);
+      ADD_PREFIX(i, buf, m);
+      
+      /* Ensure the buffer is large enougth. */
+      if (n + (size_t)m > bufsize / sizeof(char))
+	{
+	  bufsize = 7 * detail + strlen(interspacing) * (detail - 1) + 1;
+	  new = malloc(bufsize *= sizeof(char));
+	  if (new == NULL)
+	    goto fail;
+	  memcpy(new, buffer, n * sizeof(char));
+	  buffer = new;
+	}
+      
+      /* Append word. */
+      memcpy(buffer + n, buf, (size_t)m * sizeof(char));
+      n += (size_t)m;
+    }
+  
+  return buffer[n] = 0, buffer;
+ fail:
+  saved_errno = errno;
+  free(new);
+  return errno = saved_errno, NULL;
+}
+
+
+/**
+ * Convert a file size of file offset from machine representation to human representation.
+ * The representation is rounded.
+ * 
+ * @param   buffer        A buffer than shall be used if it is sufficiently large.
+ * @param   bufsize       The allocation size of `buffer`.
+ *                        Must be 0 if and only if `buffer` is `NULL`.
+ * @param   mode          Representation style, 0 for default.
+ * @param   detail        See documentation for the select value on `mode`.
+ * @param   point         The symbol to use for decimal points. `NULL` or empty for default.
+ * @param   intraspacing  Spacing between values and units. `NULL` or empty for none.
+ *                        This value should depend on language and context. For English
+ *                        this value should be "" or "-", but in for example Swedish it
+ *                        should always be " ". Hence this value is a string rather than
+ *                        a booleanic integer.
+ * @param   interspacing  Spacing between value–unit-pairs. `NULL` for default (" ").
+ *                        This value should depend on language and context.
+ * @param   prefixes      Prefix characters (including prefixless.)
+ * @param   values        Values for prefixes.
+ * @param   buf           Create intermediate write buffer.
+ * @param   div           K-multiple (1000 for SI, 1024 for IEC.)
+ * @return                Human representation of the file size/offset, `NULL` on error.
+ *                        On success, the caller is responsible for deallocating the
+ *                        returned pointer, if and only if it is not `buffer`.
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+static char* humansize_round(char* buffer, size_t bufsize, enum humansize_mode mode, int detail,
+			     const char* restrict point, const char* restrict intraspacing,
+			     const char* restrict interspacing, size_t words, const char* restrict prefixes,
+			     const size_t* restrict values, char* restrict buf, size_t div)
+{
+  double total = 0, dividend = 1;
+  size_t prefix = words - 1, i, n, det;
+  char* p;
+  char c;
+  int m, saved_errno;
+  
+  /* Get single-unit value. */
+  while (words--)
+    total += ((double)values[words]) / dividend, dividend *= (double)div;
+  
+  /* Ensure the buffer is large enougth. */
+  SNPRINTF(NULL, 0, "%.*lf%\zn", (detail < 0 ? 0 : detail), (double)total, (ssize_t*)&n);
+  if (n + strlen(point) + 3 - (detail < 0 ? 0 : 1) > bufsize / sizeof(char))
+    {
+      bufsize = n + strlen(point) + 3 - (detail < 0 ? 0 : 1);
+      new = malloc(bufsize *= sizeof(char));
+      if (new == NULL)
+	goto fail;
+      buffer = new;
+    }
+  
+  /* Construct string. */
+  SPRINTF(buffer, "%.*lf", (detail < 0 ? 0 : detail), (double)total);
+  
+  /* Replace decimal point sign. */
+  if ((p = strchr(buffer, '.')))
+    {
+      if (detail <= 0)
+	n = (size_t)(p - buffer);
+      else
+	{
+	  memmove(p + strlen(point), p + 1, (n - 1 - (size_t)(p - buffer)) * sizeof(char));
+	  memcpy(p, point, strlen(point) * sizeof(char));
+	}
+    }
+  
+  /* Round value if detail < 0. */
+  if ((detail < 0) && (n > 1))
+    {
+      det = (size_t)-detail;
+      if (det >= n)
+	det = n - 1;
+      c = buffer[n - detail];
+      for (i = n - detail; i < n; i++)
+	buffer[i] = '0';
+      if (c >= '5')
+	{
+	  buffer[n] = 0;
+	  i = (size_t)atoll(buffer);
+	  div = 10;
+	  while (det--)
+	    div *= 10;
+	  i += div;
+	  SPRINTF(buffer, "%zu%\zn", i, (ssize_t*)&n);
+	}
+    }
+  
+  /* Add prefix (and intraspacing). */
+  if (*intraspacing)
+    {
+      memcpy(buffer + n, intraspacing, strlen(intraspacing) * sizeof(char));
+      n += strlen(intraspacing);
+    }
+  ADD_PREFIX(prefix, buffer, n);
+  
+  return buffer[n] = 0, buffer;
+ fail:
+  saved_errno = errno;
+  free(new);
+  return errno = saved_errno, NULL;
+}
+
+
 /**
  * Convert a file size of file offset from machine representation to human representation.
  * 
@@ -58,19 +256,18 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
   
   char prefixes[] = { '\0', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y' };
   size_t values[sizeof(prefixes) / sizeof(*prefixes)] = { 0 };
-  size_t div, i, n = 0, words = 0;
-  char* p;
-  char* new = NULL;
+  size_t div, i, words = 0;
   char* buf;
-  int m, saved_errno;
   
-  if (intraspacing == NULL)
-    intraspacing = "";
+  /* Default parameters. */
+  if (intraspacing == NULL)  intraspacing = "";
+  if (interspacing == NULL)  interspacing = " ";
+  if (!point || !*point)     point = ".";
+  
+  /* Create intermediate write buffer. */
   buf = alloca((BUFFER_SIZE + strlen(intraspacing)) * sizeof(char));
   
-  if (interspacing == NULL)
-    interspacing = " ";
-  
+  /* Get K-multiple and case of the kilo-prefix. */
   switch (mode & 7)
     {
     case 0:
@@ -88,131 +285,30 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
       goto invalid;
     }
   
+  /* Get value on prefixes. */
   for (i = 0; size && (i < sizeof(values) / sizeof(*values)); i++)
     values[i] = size % div, size /= div, words++;
   words = words ? words : 1;
   
+  /* Construct string. */
   switch (mode & 48)
     {
     case HUMANSIZE_EXACT:
-      if (detail < 0)   goto invalid;
-      if (detail == 0)  detail = 999;
-      for (i = words; (i-- > 0) && detail--;)
-	{
-	  if (!(values[i] || (!i && !n)))
-	    break;
-	  if (i != words)
-	    {
-	      memcpy(buffer + n, interspacing, strlen(interspacing) * sizeof(char));
-	      n += strlen(interspacing);
-	    }
-	  if (m = sprintf(buf, "%zu%s", values[i], intraspacing), m < 0)
-	    goto fail;
-	  if (i == 0)
-	    buf[m++] = 'B';
-	  else
-	    {
-	      buf[m++] = prefixes[i];
-	      if (mode & HUMANSIZE_IEC_EXPLICIT)     buf[m++] = 'i';
-	      if (!(mode & HUMANSIZE_PREFIX_ONLY))   buf[m++] = 'B';
-	    }
-	  if (n + (size_t)m > bufsize / sizeof(char))
-	    {
-	      bufsize = 7 * detail + strlen(interspacing) * (detail - 1) + 1;
-	      new = malloc(bufsize *= sizeof(char));
-	      if (new == NULL)
-		goto fail;
-	      memcpy(new, buffer, n * sizeof(char));
-	      buffer = new;
-	    }
-	  memcpy(buffer + n, buf, (size_t)m * sizeof(char));
-	  n += (size_t)m;
-	}
-      buffer[n] = 0;
-      break;
+      if (detail < 0)
+	goto invalid;
+      return humansize_exact(buffer, bufsize, mode, detail, intraspacing,
+			     interspacing, words, prefixes, values, buf);
       
     case 0:
     case HUMANSIZE_ROUND:
-      if (!point || !*point)
-	point = ".";
-      i = words - 1;
-      {
-	double total = 0, dividend = 1;
-	while (words--)
-	  total += ((double)values[words]) / dividend, dividend *= (double)div;
-	m = snprintf(NULL, 0, "%.*lf%\zn", (detail < 0 ? 0 : detail), (double)total, (ssize_t*)&n);
-	if (m < 0)
-	  goto fail;
-	if (n + strlen(point) + 3 - (detail < 0 ? 0 : 1) > bufsize / sizeof(char))
-	  {
-	    bufsize = (size_t)m + strlen(point) + 3 - (detail < 0 ? 0 : 1);
-	    new = malloc(bufsize * sizeof(char));
-	    if (new == NULL)
-		goto fail;
-	    buffer = new;
-	  }
-	m = sprintf(buffer, "%.*lf", (detail < 0 ? 0 : detail), (double)total);
-	if (m < 0)
-	  goto fail;
-	if ((p = strchr(buffer, '.')))
-	  {
-	    if (detail <= 0)
-	      n = (size_t)(p - buffer);
-	    else
-	      {
-		memmove(p + strlen(point), p + 1, (n - 1 - (size_t)(p - buffer)) * sizeof(char));
-		memcpy(p, point, strlen(point) * sizeof(char));
-	      }
-	  }
-	if ((detail < 0) && (n > 1))
-	  {
-	    char c;
-	    size_t det = (size_t)-detail;
-	    if (det >= n)
-	      det = n - 1;
-	    c = buffer[n - detail];
-	    for (i = n - detail; i < n; i++)
-	      buffer[i] = '0';
-	    if (c >= '5')
-	      {
-		buffer[n] = 0;
-		i = (size_t)atoll(buffer);
-		div = 10;
-		while (det--)
-		  div *= 10;
-		i += div;
-		m = sprintf(buffer, "%zu%\zn", i, (ssize_t*)&n);
-		if (m < 0)
-		  goto fail;
-	      }
-	  }
-      }
-      if (*intraspacing)
-	{
-	  memcpy(buffer + n, intraspacing, strlen(intraspacing) * sizeof(char));
-	  m += strlen(intraspacing);
-	}
-      if (i == 0)
-	buffer[n++] = 'B';
-      else
-	{
-	  buffer[n++] = prefixes[i];
-	  if (mode & HUMANSIZE_IEC_EXPLICIT)     buffer[n++] = 'i';
-	  if (!(mode & HUMANSIZE_PREFIX_ONLY))   buffer[n++] = 'B';
-	}
-      buffer[n] = 0;
-      break;
+      return humansize_round(buffer, bufsize, mode, detail, point, intraspacing,
+			     interspacing, words, prefixes, values, buf, div);
       
     default:
       goto invalid;
     }
   
-  return buffer;
  invalid:
   return errno = EINVAL, NULL;
- fail:
-  saved_errno = errno;
-  free(new);
-  return errno = saved_errno, NULL;
 }
 
