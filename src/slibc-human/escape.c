@@ -108,7 +108,7 @@ char* escape(const char* restrict str, char quote)
       case '\\':  *w++ = '\\', *w++ = '\\';  break;
       case 0x7F:  *w++ = '\\', *w++ = '1', *w++ = '7', *w++ = '7';  break;
       default:
-	if ((unsigned int)c == 0xC0) && ((unsigned int)(r[1]) == 0x80)
+	if (((unsigned int)c == 0xC0) && ((unsigned int)(r[1]) == 0x80))
 	  *w++ = '\\', *w++ = '0', r++;
 	else if (c == quote)
 	  *w++ = '\\', *w++ = quote;
