@@ -20,17 +20,21 @@
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Compare two strings alphabetically in a case sensitive manner.
  * 
- * This is a slibc extension added for completeness.
+ * This is a GNU-compliant slibc extension.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   a       A negative value is returned if this is the lesser.
+ * @param   b       A positive value is returned if this is the lesser.
+ * @param   length  The maximum number of characters to compare.
+ * @return          Zero is returned if `a` and `b` are equal, otherwise,
+ *                  see the specifications for `a` and `b`.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+int wcsncmp(const wchar_t* a, const wchar_t* b, size_t length)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  size_t n = wcsnlen(a, length);
+  size_t m = wcsnlen(b, length);
+  int r = wmemcmp(a, b, (n < m ? n : m));
+  return r ? r : n == m ? 0 : n < m ? -1 : +1;
 }
 

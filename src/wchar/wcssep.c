@@ -22,35 +22,32 @@
 /**
  * Tokenise a string.
  * 
- * @param   string      The string to tokenise on the first,
- *                      `NULL` on subsequent calls.
+ * This is a slibc extension.
+ * 
+ * @param   string      Pointer to the string to tokenise on the first call,
+ *                      will be updated to keep track of the state.
  *                      All characters found in `delimiters` will
  *                      be overriden with NUL characters.
  * @param   delimiters  Delimiting characters.
- * @param   state       Pointer to a `char*` that the function
- *                      can use to keep track of its state.
- *                      It is reasonable to make it point to `NULL`
- *                      on the first call.
- * @return              The next non-empty string that does not
- *                      contain a byte from `delimiters`. The
+ * @return              The next, possibly empty, string that does
+ *                      not contain a byte from `delimiters`. The
  *                      returned string will be as long as possible.
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
  */
-wchar_t* wcstok(wchar_t* restrict string, const wchar_t* restrict delimiters,
-		wchar_t** restrict state)
+wchar_t* wcssep(wchar_t** restrict string, const wchar_t* restrict delimiters)
 {
-  wchar_t* r;
-  if (string == NULL)
-    *state = string;
-  for (;;)
-    {
-      r = wcssep(state, delimiters);
-      if (r == NULL)
-	return NULL;
-      if (*r)
-	return r;
-    }
+  wchar_t* r = *string;
+  wchar_t* next;
+  if (r == NULL)
+    return NULL;
+  
+  next = wcspbrk(r, delimiters);
+  if (next != NULL)
+    *next++ = 0;
+  *string = next;
+  
+  return r;
 }
 

@@ -20,17 +20,22 @@
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Check whether a string starts with a specific string.
+ * This check is case sensitive.
  * 
- * This is a slibc extension added for completeness.
+ * This is a slibc extension.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* (wcsstarts)(const wchar_t* string, const wchar_t* desired)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  size_t n = wcslen(string);
+  size_t m = wcslen(desired);
+  if (n < m)
+    return NULL;
+  return wmemcmp(string, desired, m) ? NULL : string;
 }
 

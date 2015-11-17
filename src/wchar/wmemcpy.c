@@ -35,19 +35,3 @@ wchar_t* wmemcpy(wchar_t* restrict whither, const wchar_t* restrict whence, size
   return r;
 }
 
-
-/**
- * Copy a memory segment to another, non-overlapping, segment.
- * 
- * This is a GNU extension.
- * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @param   size     The number of wide characters to copy.
- * @return           `whither + size` is returned.
- */
-wchar_t* wmempcpy(wchar_t* restrict whither, const wchar_t* restrict whence, size_t size)
-{
-  return wmemcpy(whither, whence, size) + size;
-}
-

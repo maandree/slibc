@@ -18,19 +18,31 @@
 #include <wchar.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Returns length of the initial substring
+ * that consists entirely of the complement
+ * of a set of specified wide characters.
  * 
- * This is a slibc extension added for completeness.
- * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   string   The string.
+ * @param   stopset  Characters disallowed in the substring.
+ * @return           The length of the substring.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+size_t wcscspn(const wchar_t* string, const wchar_t* stopset)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  size_t i, end = wcslen(string);
+  wchar_t* s;
+  wchar_t c;
+  while ((c = *stopset++))
+    for (i = 0, s = string; *s && (i < end); i++, s++)
+      if (*s == c)
+	{
+	  end = (size_t)(s - string);
+	  break;
+	}
+  return end;
 }
 

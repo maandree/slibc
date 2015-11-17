@@ -15,10 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <string.h>
+#include <wchar.h>
 #include <unistd.h>
 #include <alloca.h>
-#include <ctype.h>
+/* TODO #include <wctype.h> */
+
 
 
 # pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
@@ -39,16 +40,15 @@
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-void* (memcasemem)(const void* __haystack, size_t haystack_length,
-		   const void* __needle, size_t needle_length)
+wchar_t* (wmemcasemem)(const wchar_t* haystack, size_t haystack_length,
+		       const wchar_t* needle, size_t needle_length)
 {
-  const char* haystack = __haystack;
-  const char* needle = __needle;
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !(memcasecmp)(haystack, needle, haystack_length) ? haystack : NULL;
+    return !wmemcasecmp(haystack, needle, haystack_length) ? haystack : NULL;
+#define WIDE
 #define CASE
-#include "substring.h"
+#include "../string/substring.h"
 }
 

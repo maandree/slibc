@@ -20,17 +20,18 @@
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Finds the first occurrence of a substring.
+ * This search is case insensitive.
  * 
- * This is a slibc extension added for completeness.
+ * This is a slibc extension.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* (wcscasestr)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  return (wmemcasemem)(haystack, wcslen(haystack), needle, wcslen(needle));
 }
 

@@ -21,16 +21,27 @@
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * but stop if a specific byte is encountered.
  * 
  * This is a slibc extension added for completeness.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   c        The character to stop at if encountered.
+ * @param   size     The maximum number of wide characters to copy.
+ * @return           `NULL` if `c` was not encountered, otherwise
+ *                   the possition of `c` translated to `whither`,
+ *                   that is, the address of `whither` plus the
+ *                   number of copied characters; the address of
+ *                   one character passed the last written character.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* wmemcmove(wchar_t* whither, const wchar_t* whence, wchar_t c, size_t size)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  wchar_t* stop = (wmemchr)(whence, c, size);
+  wchar_t* r = NULL;
+  if (stop != NULL)
+    size = (size_t)(stop - whence), r = whither + size;
+  wmemmove(whither, whence, size);
+  return r;
 }
 

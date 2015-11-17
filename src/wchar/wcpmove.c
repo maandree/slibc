@@ -27,10 +27,10 @@
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @return           `whither + wcslen(whence)` is returned.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* wcpmove(wchar_t* whither, const wchar_t* whence)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  return wmempmove(whither, whence, wcslen(whence) + 1) - 1;
 }
 

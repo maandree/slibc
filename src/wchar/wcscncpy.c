@@ -21,27 +21,35 @@
 
 /**
  * Copy a memory segment to another, non-overlapping, segment,
- * but stop if a specific byte is encountered.
+ * stop when a NUL wide character or a specified wide character
+ * is encountered.
  * 
  * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @param   c        The character to stop at if encountered.
- * @param   size     The maximum number of wide characters to copy.
+ * @param   c        The stop character.
+ * @param   maxlen   The maximum number of wide characters to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL character will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL characters
+ *                   until this amount of characters have been written.
  * @return           `NULL` if `c` was not encountered, otherwise
- *                   the possition of `c` translated to `whither`,
+ *                   the position of `c` translated to `whither`,
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
- *                   one character passed the last written character.
+ *                   one character passed the last written non-NUL
+ *                   character.
  */
-wchar_t* wmemccpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchar_t c, size_t size)
+wchar_t* wcscncpy(wchar_t* restrict whither, const wchar_t* restrict whence, wchar_t c, size_t maxlen)
 {
-  wchar_t* stop = (wmemchr)(whence, c, size);
-  wchar_t* r = NULL;
-  if (stop != NULL)
-    size = (size_t)(stop - whence), r = whither + size;
-  wmemcpy(whither, whence, size);
+  const wchar_t* stop = wmemchr(whence, c, maxlen);
+  size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
+  wchar_t* r = stop == NULL ? NULL : (whither + n);
+  wmemcpy(whither, whence, n);
+  wmemset(whither, 0, maxlen - n);
   return r;
 }
 

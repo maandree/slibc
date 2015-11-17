@@ -18,19 +18,25 @@
 #include <wchar.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * This function works like `strcspn`,
+ * except it returns the pointer to the
+ * location of the first found non-matching
+ * wide character.
  * 
- * This is a slibc extension added for completeness.
- * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   string   The string.
+ * @param   stopset  Bytes disallowed in the substring.
+ * @return           A pointer to the first occurrence in
+ *                   `string` of a character found in `stopset`.
+ *                   `NULL` is returned if none is found.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* (wcspbrk)(const wchar_t* string, const wchar_t* stopset)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  string += wcscspn(string, stopset);
+  return *string ? string : NULL;
 }
 

@@ -20,17 +20,17 @@
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
+ * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character is encountered.
  * 
- * This is a slibc extension added for completeness.
+ * This is a GNU-compliant slibc extension.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @return           `whither + wcslen(whence)` is returned.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* wcpcpy(wchar_t* restrict whither, const wchar_t* restrict whence)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  return wmempcpy(whither, whence, wcslen(whence) + 1) - 1;
 }
 

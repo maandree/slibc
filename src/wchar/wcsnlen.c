@@ -20,17 +20,17 @@
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * `wchar_t` version of `strnlen`.
  * 
- * This is a slibc extension added for completeness.
- * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   str     The string.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          The number of `wchar_t`:s before the
+ *                  first NUL character. `maxlen` if no
+ *                  NUL character was found.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+size_t wcsnlen(const wchar_t* str, size_t maxlen)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  const wchar_t* end = wmemchr(str, 0, maxlen);
+  return end == NULL ? maxlen : (size_t)(end - str);
 }
 

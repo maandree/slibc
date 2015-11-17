@@ -18,19 +18,31 @@
 #include <wchar.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Find the first occurrence of a wide character in a
+ * string, or if there is no such character, the end of
+ * the string.
  * 
- * This is a slibc extension added for completeness.
+ * This is a GNU-compliant slibc extension.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  Pointer to the terminating NUL character
+ *                  if none were found.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* (wcschrnul)(const wchar_t* string, wchar_t c)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  for (;; string++)
+    if (*string == c)
+      return string;
+    else if (!*string)
+      return string;
 }
 

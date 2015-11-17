@@ -23,15 +23,21 @@
  * Concatenate a string to the end of another string.
  * The resulting strings must not overlap with the appended string.
  * 
- * The use of this function is often a bad idea.
+ * The use of this function is often a really bad idea.
  * 
  * @param   whither  The string to extend.
  * @param   whence   The string to append.
+ * @param   maxlen   The maximum number of wide characters to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL character will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL characters
+ *                   until this amount of characters have been written.
  * @return           `whither` is returned.
  */
-wchar_t* wcscat(wchar_t* restrict whither, const wchar_t* restrict whence)
+wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size_t maxlen)
 {
-  wcscpy(whither + wcslen(whither), whence);
+  wcsncpy(whither + wcslen(whither), whence, maxlen);
   return whither;
 }
 

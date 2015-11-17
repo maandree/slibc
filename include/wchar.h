@@ -177,7 +177,6 @@ wchar_t* wmemccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t);
  *                   one character passed the last written character.
  */
 wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
-#endif
 
 /**
  * Override a NUL character-terminated memory segment
@@ -191,6 +190,7 @@ wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
  */
 wchar_t* wcsset(wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
+#endif
 
 /**
  * Copy a memory segment to another, non-overlapping, segment,

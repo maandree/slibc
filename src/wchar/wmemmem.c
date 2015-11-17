@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <string.h>
+#include <wchar.h>
 #include <unistd.h>
 #include <alloca.h>
-#include <ctype.h>
+
 
 
 # pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
@@ -27,10 +27,11 @@
 
 /**
  * Finds the first occurrence of a substring.
- * This search is case insensitive.
+ * This search is case sensitive.
  * 
- * This is a slibc extension added because it was useful
- * in implementing slibc itself.
+ * This is a slibc extension added for completeness,
+ * and because it was it was useful in implementing
+ * slibc itself.
  * 
  * @param   haystack         The string to search.
  * @param   haystack_length  The number of character to search.
@@ -39,16 +40,14 @@
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
  */
-void* (memcasemem)(const void* __haystack, size_t haystack_length,
-		   const void* __needle, size_t needle_length)
+wchar_t* (wmemmem)(const wchar_t* haystack, size_t haystack_length,
+		   const wchar_t* needle, size_t needle_length)
 {
-  const char* haystack = __haystack;
-  const char* needle = __needle;
   if (haystack_length < needle_length)
     return NULL;
   if (haystack_length == needle_length)
-    return !(memcasecmp)(haystack, needle, haystack_length) ? haystack : NULL;
-#define CASE
-#include "substring.h"
+    return !wmemcmp(haystack, needle, haystack_length) ? haystack : NULL;
+#define WIDE
+#include "../string/substring.h"
 }
 

@@ -16,21 +16,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
+#include <stdint.h>
 
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
+ * It must already be known that such a substring exists.
  * 
- * This is a slibc extension added for completeness.
+ * This is a slibc extension.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @return            Pointer to the first occurrence of the substring.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* (rawwcsstr)(const wchar_t* haystack, const wchar_t* needle)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  return (wmemmem)(haystack, SIZE_MAX, needle, wcslen(needle));
 }
 

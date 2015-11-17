@@ -16,21 +16,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <wchar.h>
+#include <stdlib.h>
 
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment,
- * stop when a NUL wide character is encountered.
+ * Duplicate a memory segment.
  * 
  * This is a slibc extension added for completeness.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   segment  The memory segment to duplicate.
+ * @param   size     The size of the memory segment.
+ * @return           The new segment. `NULL` is returned on error
+ *                   and `errno` is set to indicate the error.
+ * 
+ * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
  */
-wchar_t* wcsmove(wchar_t* whither, const wchar_t* whence)
+wchar_t* wmemdup(const wchar_t* segment, size_t size)
 {
-  return wmemmove(whither, whence, wcslen(whence) + 1);
+  wchar_t* r = malloc(size * sizeof(wchar_t));
+  return r == NULL ? NULL : wmemcpy(r, segment, size);
 }
 
