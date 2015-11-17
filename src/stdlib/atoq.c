@@ -16,41 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdlib.h>
-#include <ctype.h>
 
 
 
 /**
- * Convert a string to an integer,
- * without checking for errors.
+ * This function is identical to `atoll`.
  * 
- * The string may being with an arbitrary number
- * of whitespace characters. Convertion will end
- * when a character is encountered that is not a
- * decimal digit, and is not an absolutely leading
- * '-' or '+'.
- * 
- * @param   string  The string to convert.
- * @return          The integer encoded by the string.
+ * This is a Linux libc extension.
  */
-int atoi(const char* string)
+long long int atoq(const char* string)
 {
-  int rc = 0;
-  int neg = 0;
-  
-  while (isspace(*string))
-    string++;
-  
-  switch (*string)
-    {
-    case '-': neg = 1;
-    case '+': string++;
-    default:  break;
-    }
-  
-  while (isdigit(*string))
-    rc = rc * 10 - (*string++ & 15);
-  
-  return neg ? rc : -rc;
+  return atoll(string);
 }
 

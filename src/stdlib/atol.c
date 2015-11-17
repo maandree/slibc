@@ -33,9 +33,9 @@
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
  */
-int atoi(const char* string)
+long int atol(const char* string)
 {
-  int rc = 0;
+  long int rc = 0;
   int neg = 0;
   
   while (isspace(*string))
