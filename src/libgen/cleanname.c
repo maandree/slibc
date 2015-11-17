@@ -15,93 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <string.h>
 #include <libgen.h>
+#include <string.h>
 #include <stddef.h>
 
-
-# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
-
-
-
-/**
- * Get the basename of a filename.
- * 
- * This is a GNU extension, include <libgen.h>
- * to override it with the XPG-compliant implementation.
- * 
- * @param   filename  The filename.
- * @return            The basename, it is either a substring
- *                    of `filename` or, if `filename` is `NULL`
- *                    or is empty, a statically allocationed string,
- *                    so it must not freed or edited.
- */
-char* __gnu_basename(const char* filename)
-{
-  char* r = filename;
-  char last = '/';
-  if (filename == NULL)
-    return ".";
-  while (*filename)
-    {
-      if ((*filename != '/') && (last == '/'))
-	r = filename;
-      last = *filename++;
-    }
-  return r;
-}
-
-
-/**
- * Get the basename of a filename, remove
- * trailing slashes.
- * 
- * @param   filename  The filename, may be edited by this function.
- * @return            The basename, it is either a substring
- *                    of `filename` or, if `filename` is `NULL`
- *                    or is empty, a statically allocationed string,
- *                    so it must not freed or edited.
- */
-char* __xpg_basename(char* filename)
-{
-  char* r = __gnu_basename(filename);
-  char* p;
-  if (strcmp(r, "."))
-    for (p = r + 1; *p; p++)
-      if (*p == '/')
-	*p = 0;
-  return r;
-}
-
-
-/**
- * Get the dirname of a filename.
- * 
- * @param   filename  The filename, may be edited by this function.
- * @return            The dirname, it is either a substring
- *                    of `filename` or, if `filename` is `NULL`
- *                    or does no contain a non-trailing slash,
- *                    a statically allocationed string, so it
- *                    must not freed or edited.
- */
-char* dirname(char* filename)
-{
-  int have_nonslash = 0;
-  char* last_slash = NULL;
-  char c, d;
-  if ((filename == NULL) || (!*filename))
-    return ".";
-  for (; (c = *filename); filename++)
-    {
-      d = filename[1];
-      have_nonslash |= c - '/';
-      if ((c == '/') && d && (d != '/'))
-	last_slash = filename;
-    }
-  if (!have_nonslash)      return "/";
-  if (last_slash == NULL)  return ".";
-  return *last_slash = 0, filename;
-}
 
 
 /**
