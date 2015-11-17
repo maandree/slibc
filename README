@@ -12,8 +12,6 @@ Macro definitions:
 	_SLIBC_SOURCE             -- Enable slibc extensions. These extensions
 	                               are usually extensions introduced in other
 	                               C libraries, but are considered good extensions.
-	_GNU_SOURCE               -- Enable glibc extensions (GNU extensions.)
-	_BSD_SOURCE               -- Enable BSD extensions.
 	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning and other warnings, this is
 	                               primarily intended to be used when compiling slibc.
 	_PORTABLE_SOURCE          -- Unconditionally disable all non-POSIX extensions, and
@@ -27,6 +25,8 @@ Macro definitions:
 	                               this instead of _PORTABLE_SOURCE in library
 	                               header files, otherwise the user of the library
 	                               cannot fully utilise _PORTABLE_SOURCE.
+
+	See info manual for all definitions.
 
 
 slibc provides some slibc-specific extensions that
