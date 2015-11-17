@@ -21,12 +21,12 @@
 
 
 /**
- * This function is identical to `strchr`.
+ * This function is identical to `strrchr`.
  * 
  * This is a deprecated BSD extension.
  */
-char* (index)(const char* string, int c)
+char* (rindex)(const char* string, int c)
 {
-  return (strchr)(string, c);
+  return (strrchr)(string, c);
 }
 
