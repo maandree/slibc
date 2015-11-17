@@ -140,7 +140,7 @@ least, the right to undefined them may be removed.
 @cpindex @code{_Noreturn}
 @tpindex noreturn
 @tpindex _Noreturn
-A few, such as @code{exit}, functions never return,
+A few functions, such as @code{exit}, never return,
 and cannot fail. The @sc{ISO}@tie{}C11 standard added a
 function qualifier that lets you specify that a
 functon never returns, that is, the process exits
