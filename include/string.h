@@ -254,6 +254,19 @@ void* memccpy(void* restrict, const void* restrict, int, size_t);
  *                   one character passed the last written character.
  */
 void* memcmove(void*, const void*, int, size_t);
+
+/**
+ * Override a NUL byte-terminated memory segment
+ * with a repeated character.
+ * 
+ * This is a slibc extension.
+ * 
+ * @param   str  The beginning of the memory segment.
+ * @param   c    The character (8 bits wide.)
+ * @return       `str` is returned.
+ */
+char* strset(char* str, int c);
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 #endif
 
 /**
