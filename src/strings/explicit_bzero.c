@@ -21,13 +21,23 @@
 
 
 /**
+ * `memset`, except calls to it cannot be removed by the compiler.
+ */
+void* (*volatile __slibc_explicit_memset)(void*, int, size_t) = memset;
+
+
+
+/**
  * Override a memory segment with zeroes.
+ * 
+ * Unlike `bzero` and `memset`, calls to this function
+ * cannot be removed, as an optimisation, by the compiler.
  * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
  */
-void bzero(void* segment, size_t size)
+void explicit_bzero(void* segment, size_t size)
 {
-  memset(segment, 0, size);
+  __slibc_explicit_memset(segment, 0, size);
 }
 
