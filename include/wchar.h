@@ -180,6 +180,19 @@ wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
 #endif
 
 /**
+ * Override a NUL character-terminated memory segment
+ * with a repeated wide character.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   str  The beginning of the memory segment.
+ * @param   c    The wide character.
+ * @return       `str` is returned.
+ */
+wchar_t* wcsset(wchar_t*, wchar_t)
+  __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
+
+/**
  * Copy a memory segment to another, non-overlapping, segment,
  * stop when a NUL wide character is encountered.
  * 
