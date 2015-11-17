@@ -30,7 +30,7 @@
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-int abs(int value)
+int (abs)(int value)
 {
   return value < 0 ? -value : value;
 }

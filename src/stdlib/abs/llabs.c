@@ -30,7 +30,7 @@
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-long long int llabs(long long int value)
+long long int (llabs)(long long int value)
 {
   return value < 0 ? -value : value;
 }

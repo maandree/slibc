@@ -107,8 +107,9 @@ lldiv_t lldiv(long long, long long)
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-int abs(int)
+int (abs)(int)
   __GCC_ONLY(__attribute__((__const__)));
+#define abs(value)  ((int)value < 0 ? -(int)value : (int)value)
 
 /**
  * Return the absolute value of an integer.
@@ -121,8 +122,9 @@ int abs(int)
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-long int labs(long int)
+long int (labs)(long int)
   __GCC_ONLY(__attribute__((__const__)));
+#define labs(value)  ((long int)value < 0 ? -(long int)value : (long int)value)
 
 /**
  * Return the absolute value of an integer.
@@ -135,8 +137,9 @@ long int labs(long int)
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-long long int llabs(long long int)
+long long int (llabs)(long long int)
   __GCC_ONLY(__attribute__((__const__)));
+#define llabs(value)  ((long long int)value < 0 ? -(long long int)value : (long long int)value)
 
 
 #if !defined(__PORTABLE)

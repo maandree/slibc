@@ -57,8 +57,9 @@ imaxdiv_t imaxdiv(intmax_t, intmax_t)
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-intmax_t imaxabs(intmax_t)
+intmax_t (imaxabs)(intmax_t)
   __GCC_ONLY(__attribute__((__const__)));
+#define imaxabs(value)  ((intmax_t)value < 0 ? -(intmax_t)value : (intmax_t)value)
 
 
 

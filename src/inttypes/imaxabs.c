@@ -30,7 +30,7 @@
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */
-intmax_t imaxabs(intmax_t value)
+intmax_t (imaxabs)(intmax_t value)
 {
   return value < 0 ? -value : value;
 }
