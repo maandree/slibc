@@ -20,25 +20,17 @@
 
 
 /**
- * Returns length of the initial substring
- * that consists entirely of a set of specified
- * bytes.
+ * Variant of `strlen` that only inspects the
+ * beginning of a string.
  * 
- * @param   string   The string.
- * @param   skipset  Bytes allowed in the substring.
- * @return           The length of the substring.
+ * @param   str     The string.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          The number of bytes before, the first NUL byte.
+ *                  `maxlen` if no NUL byte was found.
  */
-size_t strspn(const char* string, const char* skipset)
+size_t strnlen(const char* str, size_t maxlen)
 {
-  char set[256];
-  char c;
-  const char* s = string;
-  memset(set, 0, 256);
-  while ((c = *skipset++))
-    set[(size_t)c] = 1;
-  while ((c = *s++))
-    if (set[(size_t)c])
-      break;
-  return (size_t)(s - 1 - string);
+  const char* end = memchr(str, 0, maxlen);
+  return end == NULL ? maxlen : (size_t)(end - str);
 }
 

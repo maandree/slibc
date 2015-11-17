@@ -20,8 +20,10 @@
 
 
 /**
- * Copy a memory segment to another, non-overlapping, segment,
+ * Copy a memory segment to another, possibly overlapping, segment,
  * but stop if a specific byte is encountered.
+ * 
+ * This is a slibc extension added for completeness.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
@@ -33,13 +35,13 @@
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
  */
-void* (memccpy)(void* restrict whither, const void* restrict whence, int c, size_t size)
+void* (memcmove)(void* whither, const void* whence, int c, size_t size)
 {
   char* stop = (memchr)(whence, c, size);
   void* r = NULL;
   if (stop != NULL)
     size = (size_t)(stop - (const char*)whence), r = whither + size;
-  memcpy(whither, whence, size);
+  memmove(whither, whence, size);
   return r;
 }
 

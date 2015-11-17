@@ -22,23 +22,30 @@
 /**
  * Tokenise a string.
  * 
- * @param   string      The string to tokenise on the first,
- *                      `NULL` on subsequent calls.
+ * @param   string      Pointer to the string to tokenise on the first call,
+ *                      will be updated to keep track of the state.
  *                      All bytes found in `delimiters` will
  *                      be overriden with NUL bytes.
  * @param   delimiters  Delimiting bytes (not characters).
- * @return              The next non-empty string that does not
- *                      contain a byte from `delimiters`. The
+ * @return              The next, possibly empty, string that does
+ *                      not contain a byte from `delimiters`. The
  *                      returned string will be as long as possible.
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
  */
-char* strtok(char* restrict string, const char* restrict delimiters)
+char* strsep(char** restrict string, const char* restrict delimiters)
 {
-  static char* state = NULL;
-  if (string == NULL)
-    state = NULL;
-  return strtok_r(string, delimiters, &state);
+  char* r = *string;
+  char* next;
+  if (r == NULL)
+    return NULL;
+  
+  next = strpbrk(r, delimiters);
+  if (next != NULL)
+    *next++ = 0;
+  *string = next;
+  
+  return r;
 }
 

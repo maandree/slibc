@@ -16,29 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
+#include <stdlib.h>
 
 
 
 /**
- * Returns length of the initial substring
- * that consists entirely of a set of specified
- * bytes.
+ * Duplicate a string.
  * 
- * @param   string   The string.
- * @param   skipset  Bytes allowed in the substring.
- * @return           The length of the substring.
+ * This is a GNU extension.
+ * 
+ * @param   string  The string to duplicate.
+ * @param   maxlen  Truncate the string to this length, if it is longer.
+ *                  A NUL byte is guaranteed to always be written
+ *                  upon successful completion.
+ * @return          The new string. `NULL` is returned on error
+ *                  and `errno` is set to indicate the error.
+ * 
+ * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
  */
-size_t strspn(const char* string, const char* skipset)
+char* strndup(const char* string, size_t maxlen)
 {
-  char set[256];
-  char c;
-  const char* s = string;
-  memset(set, 0, 256);
-  while ((c = *skipset++))
-    set[(size_t)c] = 1;
-  while ((c = *s++))
-    if (set[(size_t)c])
-      break;
-  return (size_t)(s - 1 - string);
+  size_t n = strnlen(string, maxlen) + 1;
+  char* r = malloc(n * sizeof(char));
+  return r == NULL ? NULL : memcpy(r, string, n * sizeof(char));
 }
 

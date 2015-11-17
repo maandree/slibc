@@ -20,25 +20,25 @@
 
 
 /**
- * Returns length of the initial substring
- * that consists entirely of a set of specified
- * bytes.
+ * Return a textual representation of an error code.
+ * This error code must from `errno`.
  * 
- * @param   string   The string.
- * @param   skipset  Bytes allowed in the substring.
- * @return           The length of the substring.
+ * POSIX specifies `errno` may only be set on failure,
+ * and reserves no return value to indicate such.
+ * You should therefore, set `errno` to zero before calling
+ * this function, and inspect `errno` when it returns.
+ * 
+ * The returned value must not be modified or freed.
+ * 
+ * @param   errnum  The error code.
+ * @param   locale  The locale, must be a valid locale and not
+ *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
+ * @return          A description of the error.
  */
-size_t strspn(const char* string, const char* skipset)
+char* strerror_l(int errnum, locale_t locale)
 {
-  char set[256];
-  char c;
-  const char* s = string;
-  memset(set, 0, 256);
-  while ((c = *skipset++))
-    set[(size_t)c] = 1;
-  while ((c = *s++))
-    if (set[(size_t)c])
-      break;
-  return (size_t)(s - 1 - string);
+  /* TODO implement strerror_l */
+  return strerror(errnum);
+  (void) locale;
 }
 

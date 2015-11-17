@@ -35,26 +35,3 @@ char* strcat(char* restrict whither, const char* restrict whence)
   return whither;
 }
 
-
-/**
- * Concatenate a string to the end of another string.
- * The resulting strings must not overlap with the appended string.
- * 
- * The use of this function is often a really bad idea.
- * 
- * @param   whither  The string to extend.
- * @param   whence   The string to append.
- * @param   maxlen   The maximum number of bytes to copy.
- *                   NOTE that if the resulting string at least this
- *                   long, no NUL byte will be written to `whither'.
- *                   On the otherhand, if the resultnig string is
- *                   shorter, `whither` will be filled with NUL bytes
- *                   until this amount of bytes have been written.
- * @return           `whither` is returned.
- */
-char* strncat(char* restrict whither, const char* restrict whence, size_t maxlen)
-{
-  strncpy(whither + strlen(whither), whence, maxlen);
-  return whither;
-}
-

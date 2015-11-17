@@ -18,9 +18,6 @@
 #include <string.h>
 
 
-# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
-
-
 
 /**
  * Returns the number of bytes in a NUL-terminated
@@ -31,24 +28,8 @@
  */
 size_t strlen(const char* str)
 {
-  char* s = str;
+  const char* s = str;
   while (*str++);
   return (size_t)(s - 1 - str);
-}
-
-
-/**
- * Variant of `strlen` that only inspects the
- * beginning of s string.
- * 
- * @param   str     The string.
- * @param   maxlen  The number of bytes to inspect, at most.
- * @return          The number of bytes before, the first NUL byte.
- *                  `maxlen` if no NUL byte was found.
- */
-size_t strnlen(const char* str, size_t maxlen)
-{
-  const char* end = memchr(str, 0, maxlen);
-  return end == NULL ? maxlen : (size_t)(end - str);
 }
 

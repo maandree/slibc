@@ -24,13 +24,24 @@
  * stop when a NUL byte is encountered.
  * 
  * This is a slibc extension added for completeness.
+ * It is only available if GNU extensions are available.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @return           `whither` is returned.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
+ * @return           `whither` plus the number of written bytes,
+ *                   excluding NUL bytes, is returned.
  */
-char* strmove(char* whither, const char* whence)
+char* stpnmove(char* whither, const char* whence, size_t maxlen)
 {
-  return memmove(whither, whence, strlen(whence) + 1);
+  size_t n = strnlen(whence, maxlen);
+  memmove(whither, whence, n);
+  memset(whither, 0, maxlen - n);
+  return whither + n;
 }
 

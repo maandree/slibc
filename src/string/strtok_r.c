@@ -27,6 +27,10 @@
  *                      All bytes found in `delimiters` will
  *                      be overriden with NUL bytes.
  * @param   delimiters  Delimiting bytes (not characters).
+ * @param   state       Pointer to a `char*` that the function
+ *                      can use to keep track of its state.
+ *                      It is reasonable to make it point to `NULL`
+ *                      on the first call.
  * @return              The next non-empty string that does not
  *                      contain a byte from `delimiters`. The
  *                      returned string will be as long as possible.
@@ -34,11 +38,19 @@
  *                      the end of the string, and there therefore
  *                      are no more tokens.
  */
-char* strtok(char* restrict string, const char* restrict delimiters)
+char* strtok_r(char* restrict string, const char* restrict delimiters,
+	       char** restrict state)
 {
-  static char* state = NULL;
+  char* r;
   if (string == NULL)
-    state = NULL;
-  return strtok_r(string, delimiters, &state);
+    *state = string;
+  for (;;)
+    {
+      r = strsep(state, delimiters);
+      if (r == NULL)
+	return NULL;
+      if (*r)
+	return r;
+    }
 }
 

@@ -21,23 +21,23 @@
 
 /**
  * Returns length of the initial substring
- * that consists entirely of a set of specified
- * bytes.
+ * that consists entirely of the complement
+ * of a set of specified bytes.
  * 
  * @param   string   The string.
- * @param   skipset  Bytes allowed in the substring.
+ * @param   stopset  Bytes disallowed in the substring.
  * @return           The length of the substring.
  */
-size_t strspn(const char* string, const char* skipset)
+size_t strcspn(const char* string, const char* stopset)
 {
   char set[256];
   char c;
   const char* s = string;
   memset(set, 0, 256);
-  while ((c = *skipset++))
+  while ((c = *stopset++))
     set[(size_t)c] = 1;
   while ((c = *s++))
-    if (set[(size_t)c])
+    if (!set[(size_t)c])
       break;
   return (size_t)(s - 1 - string);
 }

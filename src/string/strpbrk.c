@@ -20,25 +20,28 @@
 
 
 /**
- * Returns length of the initial substring
- * that consists entirely of a set of specified
- * bytes.
+ * This function works like `strcspn`,
+ * except it returns the pointer to the
+ * location of the first found non-matching
+ * byte.
  * 
  * @param   string   The string.
- * @param   skipset  Bytes allowed in the substring.
- * @return           The length of the substring.
+ * @param   stopset  Bytes disallowed in the substring.
+ * @return           A pointer to the first occurrence in
+ *                   `string` of a byte found in `stopset`.
+ *                   `NULL` is returned if none is found.
  */
-size_t strspn(const char* string, const char* skipset)
+char* (strpbrk)(const char* string, const char* stopset)
 {
   char set[256];
   char c;
   const char* s = string;
   memset(set, 0, 256);
-  while ((c = *skipset++))
+  while ((c = *stopset++))
     set[(size_t)c] = 1;
   while ((c = *s++))
-    if (set[(size_t)c])
+    if (!set[(size_t)c])
       break;
-  return (size_t)(s - 1 - string);
+  return c ? (s - 1) : NULL;
 }
 

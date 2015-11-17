@@ -20,26 +20,28 @@
 
 
 /**
- * Copy a memory segment to another, non-overlapping, segment,
- * but stop if a specific byte is encountered.
+ * Copy a memory segment to another, possibly overlapping, segment,
+ * stop when a NUL byte or a specified substring is encountered.
+ * 
+ * This is a slibc extension added for completeness.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @param   c        The byte to stop at if encountered.
- * @param   size     The maximum number of bytes to copy.
- * @return           `NULL` if `c` was not encountered, otherwise
- *                   the possition of `c` translated to `whither`,
+ * @param   str      The substring, ignored if `NULL`.
+ * @return           `NULL` if `str` was not encountered, otherwise
+ *                   the position of `str` translated to `whither`,
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
- *                   one character passed the last written character.
+ *                   one character passed the last written non-NUL
+ *                   character.
  */
-void* (memccpy)(void* restrict whither, const void* restrict whence, int c, size_t size)
+char* strstrmove(char* whither, const char* whence, const char* restrict str)
 {
-  char* stop = (memchr)(whence, c, size);
-  void* r = NULL;
-  if (stop != NULL)
-    size = (size_t)(stop - (const char*)whence), r = whither + size;
-  memcpy(whither, whence, size);
+  const char* stop = str == NULL ? NULL : strstr(whence, str);
+  size_t n = stop == NULL ? strlen(whence) : (size_t)(stop - whence);
+  char* r = stop == NULL ? NULL : (whither + n);
+  memmove(whither, whence, n);
+  whither[n] = 0;
   return r;
 }
 

@@ -16,29 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
+#include <errno.h>
 
 
 
 /**
- * Return a textual representation of an error code.
- * This error code must from `errno`.
+ * Reenterant variant of `strerror`.
  * 
- * This implementation of `strerror` cannot fail. however
- * POSIX specifies that it can fail, any may only set `errno`
- * if it does fail. You should therefore, set `errno` to
- * zero before calling this function, and inspect `errno`
- * when it returns, as there is no reserved return value
- * that indicates and error.
- * 
- * The returned value must not be modified or freed.
- * 
- * As a slibc-specific modification, this function is MT-Safe.
+ * This is a GNU-specific extension. However the name
+ * is not part of the GNU specification, `strerror_r` should
+ * be used. It is defined to this function unless
+ * `(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && !_GNU_SOURCE`.
+ * However it is not defined if _SLIBC_SOURCE is defined.
  * 
  * @param   errnum  The error code.
- * @return          A description of the error.
+ * @param   buf     Buffer where the description shall be stored.
+ * @param   buflen  The allocation size of `buf`.
+ * @return          `buf` on success, `NULL` on error. On error, `errno`
+ *                  is set to indicate the error.
+ * 
+ * @throws  ERANGE  `buf` was too small to store the description.
  */
-char* strerror(int errnum)
+char* __gnu_strerror_r(int errnum, char* buf, size_t buflen)
 {
-  return strerror_l(errnum, 0 /* TODO CURRENT_LOCALE, not defined */);
+  errno = __xsi_strerror_r(errnum, buf, buflen);
+  return errno ? NULL : buf;
 }
 

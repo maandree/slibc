@@ -20,25 +20,23 @@
 
 
 /**
- * Returns length of the initial substring
- * that consists entirely of a set of specified
- * bytes.
+ * Compare two memory segments alphabetically in a case sensitive manner.
  * 
- * @param   string   The string.
- * @param   skipset  Bytes allowed in the substring.
- * @return           The length of the substring.
+ * @param   a     A negative value is returned if this is the lesser.
+ * @param   b     A positive value is returned if this is the lesser.
+ * @param   size  The size of the segments.
+ * @return        Zero is returned if `a` and `b` are equal, otherwise,
+ *                see the specifications for `a` and `b`.
  */
-size_t strspn(const char* string, const char* skipset)
+int memcmp(const void* a, const void* b, size_t size)
 {
-  char set[256];
-  char c;
-  const char* s = string;
-  memset(set, 0, 256);
-  while ((c = *skipset++))
-    set[(size_t)c] = 1;
-  while ((c = *s++))
-    if (set[(size_t)c])
-      break;
-  return (size_t)(s - 1 - string);
+  const signed char* s1 = a;
+  const signed char* s2 = b;
+  while (size--)
+    if (*s1 == *s2)
+      s1++, s2++;
+    else
+      return (int)(*s1 - *s2);
+  return 0;
 }
 

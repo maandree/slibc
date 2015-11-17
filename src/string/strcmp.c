@@ -16,61 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
-#include <strings.h>
-#include <stdint.h>
-#include <ctype.h>
 
-
-
-/**
- * Compare two memory segments alphabetically in a case sensitive manner.
- * 
- * @param   a     A negative value is returned if this is the lesser.
- * @param   b     A positive value is returned if this is the lesser.
- * @param   size  The size of the segments.
- * @return        Zero is returned if `a` and `b` are equal, otherwise,
- *                see the specifications for `a` and `b`.
- */
-int memcmp(const void* a, const void* b, size_t size)
-{
-  const signed char* s1 = a;
-  const signed char* s2 = b;
-  while (size--)
-    if (*s1 == *s2)
-      s1++, s2++;
-    else
-      return (int)(*s1 - *s2);
-  return 0;
-}
-
-
-/**
- * Compare two memory segments alphabetically in a case insensitive manner.
- * 
- * This is a slibc extension added because it was useful
- * in implementing slibc itself.
- * 
- * @param   a     A negative value is returned if this is the lesser.
- * @param   b     A positive value is returned if this is the lesser.
- * @param   size  The size of the segments.
- * @return        Zero is returned if `a` and `b` are equal, otherwise,
- *                see the specifications for `a` and `b`.
- */
-int memcasecmp(const void* a, const void* b, size_t size)
-{
-  const signed char* s1 = a;
-  const signed char* s2 = b;
-  int c1, c2;
-  for (; size--; s1++, s2++)
-    if (*s1 != *s2)
-      {
-	c1 = isalpha(*s1) ? tolower(*s1) : (int)*s1;
-	c2 = isalpha(*s2) ? tolower(*s2) : (int)*s2;
-	if ((c1 -= c2))
-	  return c1;
-      }
-  return 0;
-}
 
 
 /**
@@ -86,68 +32,5 @@ int strcmp(const char* a, const char* b)
   size_t n = strlen(a);
   size_t m = strlen(b);
   return memcmp(a, b, (n < m ? n : m) + 1);
-}
-
-
-/**
- * Compare two strings alphabetically in a case insensitive manner.
- * Be aware, only ASCII characters are case insensitive, non-ASCII
- * characters are case sensitive.
- * 
- * @param   a  A negative value is returned if this is the lesser.
- * @param   b  A positive value is returned if this is the lesser.
- * @return     Zero is returned if `a` and `b` are equal, otherwise,
- *             see the specifications for `a` and `b`.
- */
-int strcasecmp(const char* a, const char* b)
-{
-  return strncasecmp(a, b, SIZE_MAX);
-}
-
-
-/**
- * Compare two strings alphabetically in a case sensitive manner.
- * 
- * @param   a       A negative value is returned if this is the lesser.
- * @param   b       A positive value is returned if this is the lesser.
- * @param   length  The maximum number of characters to compare.
- * @return          Zero is returned if `a` and `b` are equal, otherwise,
- *                  see the specifications for `a` and `b`.
- */
-int strncmp(const char* a, const char* b, size_t length)
-{
-  size_t n = strnlen(a, length);
-  size_t m = strnlen(b, length);
-  int r = memcmp(a, b, (n < m ? n : m));
-  return r ? r : n == m ? 0 : n < m ? -1 : +1;
-}
-
-
-/**
- * Compare two strings alphabetically in a case insensitive manner.
- * Be aware, only ASCII characters are case insensitive, non-ASCII
- * characters are case sensitive.
- * 
- * @param   a       A negative value is returned if this is the lesser.
- * @param   b       A positive value is returned if this is the lesser.
- * @param   length  The maximum number of characters to compare.
- * @return          Zero is returned if `a` and `b` are equal, otherwise,
- *                  see the specifications for `a` and `b`.
- */
-int strncasecmp(const char* a, const char* b, size_t length)
-{
-  int c1, c2;
-  for (; length--; a++, b++)
-    if (*a != *b)
-      {
-	c1 = isalpha(*a) ? tolower(*a) : (int)*a;
-	c2 = isalpha(*b) ? tolower(*b) : (int)*b;
-	if ((c1 -= c2))
-	  return c1;
-      }
-    else if (!*a && !*b)  return 0;
-    else if (!*a)         return -1;
-    else if (!*b)         return +1;
-  return 0;
 }
 

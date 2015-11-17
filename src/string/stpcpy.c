@@ -21,25 +21,14 @@
 
 /**
  * Copy a memory segment to another, non-overlapping, segment,
- * but stop if a specific byte is encountered.
+ * stop when a NUL byte is encountered.
  * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
- * @param   c        The byte to stop at if encountered.
- * @param   size     The maximum number of bytes to copy.
- * @return           `NULL` if `c` was not encountered, otherwise
- *                   the possition of `c` translated to `whither`,
- *                   that is, the address of `whither` plus the
- *                   number of copied characters; the address of
- *                   one character passed the last written character.
+ * @return           `whither + strlen(whence)` is returned.
  */
-void* (memccpy)(void* restrict whither, const void* restrict whence, int c, size_t size)
+char* stpcpy(char* restrict whither, const char* restrict whence)
 {
-  char* stop = (memchr)(whence, c, size);
-  void* r = NULL;
-  if (stop != NULL)
-    size = (size_t)(stop - (const char*)whence), r = whither + size;
-  memcpy(whither, whence, size);
-  return r;
+  return mempcpy(whither, whence, strlen(whence) + 1) - 1;
 }
 

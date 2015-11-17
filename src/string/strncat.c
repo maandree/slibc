@@ -20,23 +20,24 @@
 
 
 /**
- * Copy a memory segment to another, possibly overlapping, segment.
+ * Concatenate a string to the end of another string.
+ * The resulting strings must not overlap with the appended string.
  * 
- * @param   whither  The destination memory segment.
- * @param   whence   The source memory segment.
- * @param   size     The number of bytes to copy.
+ * The use of this function is often a really bad idea.
+ * 
+ * @param   whither  The string to extend.
+ * @param   whence   The string to append.
+ * @param   maxlen   The maximum number of bytes to copy.
+ *                   NOTE that if the resulting string at least this
+ *                   long, no NUL byte will be written to `whither'.
+ *                   On the otherhand, if the resultnig string is
+ *                   shorter, `whither` will be filled with NUL bytes
+ *                   until this amount of bytes have been written.
  * @return           `whither` is returned.
  */
-void* memmove(void* whither, const void* whence, size_t size)
+char* strncat(char* restrict whither, const char* restrict whence, size_t maxlen)
 {
-  char* d = whither;
-  const char* s = whence;
-  if ((size_t)(d - s) < size)
-    while (size--)
-      d[size] = s[size];
-  else
-    while (size--)
-      *d++ = *s++;
+  strncpy(whither + strlen(whither), whence, maxlen);
   return whither;
 }
 

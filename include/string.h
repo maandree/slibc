@@ -148,7 +148,7 @@ size_t strlen(const char*)
     defined(__BSD_SOURCE)
 /**
  * Variant of `strlen` that only inspects the
- * beginning of s string.
+ * beginning of a string.
  * 
  * @param   str     The string.
  * @param   maxlen  The number of bytes to inspect, at most.
