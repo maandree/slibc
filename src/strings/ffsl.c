@@ -24,8 +24,8 @@
  * @param   i  The integer
  * @return     The value of the least significant set bit, zero if none.
  */
-int ffs(int i)
+int ffsl(long i)
 {
-  return __builtin_ffs(i);
+  return __builtin_ffsl(i);
 }
 
