@@ -403,6 +403,51 @@ void* naive_extalloc(void* ptr, size_t size)
 }
 
 
+/**
+ * Reallocation procedure for `falloc`.
+ * 
+ * @param   ptr        The old pointer.
+ * @param   ptrshift   Pointer that is used to keep track of the pointer's
+ *                     shift for alignment.
+ * @param   alignment  The aligment of both the new and old pointer.
+ * @param   old_size   The old allocation size.
+ * @param   new_size   The new allocation size.
+ * @param   mode       `FALLOC_CLEAR`, `FALLOC_INIT`, or `FALLOC_MEMCPY`, or
+ *                     both or neither.
+ * @return             The new pointer, or the old pointer if it was reallocated
+ *                     without creating a new allocation. `NULL` is returned
+ *                     on error (errno is set to describe the error.)
+ * 
+ * @throws  ENOMEM  The process cannot allocate more memory.
+ */
+__GCC_ONLY(__attribute__((nonnull)))
+static inline void* falloc_realloc(void* ptr, size_t* ptrshift, size_t alignment,
+				   size_t old_size, size_t new_size, enum falloc_mode mode)
+{
+  void* new_ptr = NULL;
+  size_t shift = *ptrshift;
+  
+  if ((mode & FALLOC_CLEAR) && (old_size > new_size))
+    explicit_bzero(ptr + new_size, old_size - new_size);
+  
+  new_ptr = falloc_extalloc(ptr - shift, old_size + shift, new_size + shift);
+  if ((new_ptr == NULL) && (errno == 0))
+    {
+      new_ptr = falloc_malloc(new_size + alignment - 1);
+      if (new_ptr != NULL)
+	{
+	  if ((size_t)new_ptr % alignment)
+	    shift = alignment - ((size_t)new_ptr % alignment);
+	  *ptrshift = shift;
+	  new_ptr = (void*)((char*)new_ptr + shift);
+	  if (mode & FALLOC_MEMCPY)
+	    memcpy(new_ptr, ptr, old_size);
+	}
+    }
+  
+  return new_ptr;
+}
+
 
 /**
  * Allocates, deallocates, or reallocates memory without
@@ -460,55 +505,27 @@ void* naive_extalloc(void* ptr, size_t size)
 void* falloc(void* ptr, size_t* ptrshift, size_t alignment,
 	     size_t old_size, size_t new_size, enum falloc_mode mode)
 {
+  /* TODO implement falloc_malloc, falloc_free, and falloc_extalloc */
+  
+  size_t shift = 0, _ptrshift = 0;
   void* new_ptr = NULL;
-  size_t shift = 0;
   
   if (mode & (enum falloc_mode)~(FALLOC_CLEAR | FALLOC_INIT | FALLOC_MEMCPY))
-    return errno = EINVAL, NULL;
-  
-  alignment = alignment ? alignment : 1;
+    goto invalid;
   
   if (new_size && old_size && ptr)
     {
-      shift = ptrshift == NULL ? *ptrshift : 0;
-      if ((alignment > 1) && (ptrshift == NULL))
-	return errno = EINVAL, NULL;
-      if ((mode & FALLOC_CLEAR) && (old_size > new_size))
-	explicit_bzero(ptr + new_size, old_size - new_size);
-      new_ptr = falloc_extalloc(ptr - shift, old_size + shift, new_size + shift);
-      if ((new_ptr == NULL) && (errno == 0))
-	{
-	  new_ptr = falloc_malloc(new_size + alignment - 1);
-	  if (new_ptr != NULL)
-	    {
-	      if ((size_t)new_ptr % alignment)
-		shift = alignment - ((size_t)new_ptr % alignment);
-	      if (ptrshift != NULL)
-		*ptrshift = shift;
-	      new_ptr = (void*)((char*)new_ptr + shift);
-	      if (mode & FALLOC_MEMCPY)
-		memcpy(new_ptr, ptr, old_size);
-	    }
-	}
+      if ((alignment > 1) && !ptrshift)    goto invalid;
+      new_ptr = falloc_realloc(ptr, ptrshift ? ptrshift : &_ptrshift,
+			       alignment ? alignment : 1,
+			       old_size, new_size, mode, &shift);
+      shift = ptrshift ? *ptrshift : _ptrshift;
     }
-  else if (new_size && (old_size || ptr))
-    return errno = EINVAL, NULL;
-  else if (new_size)
-    new_ptr = falloc_malloc(new_size);
-  else if (old_size && ptr)
-    {
-      shift = ptrshift == NULL ? *ptrshift : 0;
-      if ((alignment > 1) && (ptrshift == NULL))
-	return errno = EINVAL, NULL;
-      if (mode & FALLOC_CLEAR)
-	explicit_bzero(ptr, old_size);
-      falloc_free(ptr - shift);
-      return errno = 0, NULL;
-    }
-  else if (old_size || !ptr)
-    return errno = 0, NULL;
-  else
-    return errno = EINVAL, NULL;
+  else if (new_size && (old_size || ptr))  goto invalid;
+  else if (new_size)                       new_ptr = falloc_malloc(new_size);
+  else if (old_size && ptr)                goto deallocate;
+  else if (old_size || !ptr)               goto return_null;
+  else                                     goto invalid;
   
   if (new_ptr != NULL)
     {
@@ -528,5 +545,18 @@ void* falloc(void* ptr, size_t* ptrshift, size_t alignment,
     }
   
   return errno = 0, new_ptr;
+  
+ deallocate:
+  shift = ptrshift == NULL ? *ptrshift : 0;
+  if ((alignment > 1) && (ptrshift == NULL))
+    goto invalid;
+  if (mode & FALLOC_CLEAR)
+    explicit_bzero(ptr, old_size);
+  falloc_free(ptr - shift);
+ return_null:
+  return errno = 0, NULL;
+  
+ invalid:
+  return errno = EINVAL, NULL;
 }
 
