@@ -493,6 +493,8 @@ char* strstrmove(char*, const char*, const char* restrict)
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL byte is encountered.
  * 
+ * This is a slibc extension added for completeness.
+ * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @param   maxlen   The maximum number of bytes to copy.

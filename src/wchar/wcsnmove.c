@@ -23,6 +23,8 @@
  * Copy a memory segment to another, possibly overlapping, segment,
  * stop when a NUL wide character is encountered.
  * 
+ * This is a slibc extension added for completeness.
+ * 
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @param   maxlen   The maximum number of wide characters to copy.
