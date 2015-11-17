@@ -23,24 +23,24 @@
 
 
 /**
- * Find the first occurrence of a byte in a string.
+ * Find the last occurrence of a byte in a memory segment.
  * 
- * `s = strchr(s, 0)` is a faster alternative to
- * `s = s + strlen(s)`.
+ * For improved performace, use this function instead
+ * of `strrchr` if you already know the length of the
+ * string.
  * 
- * @param   string  The string to search.
- *                  The terminating NUL character is
- *                  considered a part of the string.
- * @param   c       The sought after character.
- * @return          Pointer to the first occurrence of `c`,
- *                  `NULL` if none were found.
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @param   size     The size of the memory segment.
+ * @return           Pointer to the last occurrence of `c`,
+ *                   `NULL` if none were found.
  */
-char* (strchr)(const char* string, int c)
+void* (memrchr)(const void* segment, int c, size_t size)
 {
-  for (;;)
-    if (*string == c)
-      return string;
-    else if (!*string++)
-      return NULL;
+  char* s = segment;
+  while (size--)
+    if (s[size] == c)
+      return s + size;
+  return NULL;
 }
 

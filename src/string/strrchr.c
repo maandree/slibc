@@ -23,24 +23,26 @@
 
 
 /**
- * Find the first occurrence of a byte in a string.
+ * Find the last occurrence of a byte in a string.
  * 
- * `s = strchr(s, 0)` is a faster alternative to
- * `s = s + strlen(s)`.
+ * For improved performace, use `memrchr` instead of
+ * this function if you already know the length of the
+ * string.
  * 
  * @param   string  The string to search.
  *                  The terminating NUL character is
  *                  considered a part of the string.
  * @param   c       The sought after character.
- * @return          Pointer to the first occurrence of `c`,
+ * @return          Pointer to the last occurrence of `c`,
  *                  `NULL` if none were found.
  */
-char* (strchr)(const char* string, int c)
+char* (strrchr)(const char* string, int c)
 {
+  char* r = NULL;
   for (;;)
     if (*string == c)
-      return string;
+      r = string;
     else if (!*string++)
-      return NULL;
+      return c ? r : (string - 1);
 }
 

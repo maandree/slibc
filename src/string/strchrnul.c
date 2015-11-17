@@ -23,24 +23,25 @@
 
 
 /**
- * Find the first occurrence of a byte in a string.
+ * Find the first occurrence of a byte in a string, or
+ * if there is no such byte, the end of the string.
  * 
- * `s = strchr(s, 0)` is a faster alternative to
- * `s = s + strlen(s)`.
+ * This is a GNU-compliant slibc extension.
  * 
  * @param   string  The string to search.
  *                  The terminating NUL character is
  *                  considered a part of the string.
  * @param   c       The sought after character.
  * @return          Pointer to the first occurrence of `c`,
- *                  `NULL` if none were found.
+ *                  Pointer to the terminating NUL character
+ *                  if none were found.
  */
-char* (strchr)(const char* string, int c)
+char* (strchrnul)(const char* string, int c)
 {
-  for (;;)
+  for (;; string++)
     if (*string == c)
       return string;
-    else if (!*string++)
-      return NULL;
+    else if (!*string)
+      return string;
 }
 

@@ -18,29 +18,24 @@
 #include <string.h>
 
 
-# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
-
-
 
 /**
- * Find the first occurrence of a byte in a string.
+ * Check whether a string starts with a specific string.
+ * This check is case sensitive.
  * 
- * `s = strchr(s, 0)` is a faster alternative to
- * `s = s + strlen(s)`.
+ * This is a slibc extension.
  * 
- * @param   string  The string to search.
- *                  The terminating NUL character is
- *                  considered a part of the string.
- * @param   c       The sought after character.
- * @return          Pointer to the first occurrence of `c`,
- *                  `NULL` if none were found.
+ * @param   string   The string to inspect.
+ * @param   desired  The desired beginning of the string.
+ * @return           `string` if `string` begins with
+ *                   `desired`, `NULL` otherwise.
  */
-char* (strchr)(const char* string, int c)
+char* (strstarts)(const char* string, const char* desired)
 {
-  for (;;)
-    if (*string == c)
-      return string;
-    else if (!*string++)
-      return NULL;
+  size_t n = strlen(string);
+  size_t m = strlen(desired);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string, desired, m) ? NULL : string;
 }
 

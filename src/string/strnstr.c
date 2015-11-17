@@ -18,29 +18,22 @@
 #include <string.h>
 
 
-# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
-
-
 
 /**
- * Find the first occurrence of a byte in a string.
+ * Finds the first occurrence of a substring.
+ * This search is case sensitive.
  * 
- * `s = strchr(s, 0)` is a faster alternative to
- * `s = s + strlen(s)`.
+ * This is a slibc extension added for because it was useful
+ * in implementing slibc itself.
  * 
- * @param   string  The string to search.
- *                  The terminating NUL character is
- *                  considered a part of the string.
- * @param   c       The sought after character.
- * @return          Pointer to the first occurrence of `c`,
- *                  `NULL` if none were found.
+ * @param   haystack  The string to search.
+ * @param   needle    The sought after substring.
+ * @param   maxlen    The maximum number of character to search.
+ * @return            Pointer to the first occurrence of the
+ *                    substring, `NULL` if not found.
  */
-char* (strchr)(const char* string, int c)
+char* (strnstr)(const char* haystack, const char* needle, size_t maxlen)
 {
-  for (;;)
-    if (*string == c)
-      return string;
-    else if (!*string++)
-      return NULL;
+  return (memmem)(haystack, strnlen(haystack, maxlen), needle, strlen(needle));
 }
 
