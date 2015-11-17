@@ -32,38 +32,6 @@
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
  */
-div_t div(int numerator, int denominator)
-{
-  return (div_t){ numerator / denominator, numerator % denominator };
-}
-
-
-/**
- * Perform an integer division and return
- * both the quotient and the remainder.
- * 
- * @param   numerator    The numerator.
- * @param   denominator  The denominator, must not be 0 lest
- *                       the process will be killed by SIGFPE.
- * @return               The quotient in `.quot`, and
- *                       the remainder in `.rem`.
- */
-ldiv_t ldiv(long numerator, long denominator)
-{
-  return (ldiv_t){ numerator / denominator, numerator % denominator };
-}
-
-
-/**
- * Perform an integer division and return
- * both the quotient and the remainder.
- * 
- * @param   numerator    The numerator.
- * @param   denominator  The denominator, must not be 0 lest
- *                       the process will be killed by SIGFPE.
- * @return               The quotient in `.quot`, and
- *                       the remainder in `.rem`.
- */
 lldiv_t lldiv(long long numerator, long long denominator)
 {
   return (lldiv_t){ numerator / denominator, numerator % denominator };
