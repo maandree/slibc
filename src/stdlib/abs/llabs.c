@@ -22,40 +22,6 @@
 /**
  * Return the absolute value of an integer.
  * 
- * Be aware, if the value is `INT_MIN` and
- * `-INT_MAX != -INT_MIN`, the result will
- * overflow, and `INT_MIN` will (probably)
- * be returned.
- * 
- * @param   value  The integer.
- * @return         The absolute value of the integer.
- */
-int abs(int value)
-{
-  return value < 0 ? -value : value;
-}
-
-
-/**
- * Return the absolute value of an integer.
- * 
- * Be aware, if the value is `LONG_MIN` and
- * `-LONG_MAX != -LONG_MIN`, the result will
- * overflow, and `LONG_MIN` will (probably)
- * be returned.
- * 
- * @param   value  The integer.
- * @return         The absolute value of the integer.
- */
-long int labs(long int value)
-{
-  return value < 0 ? -value : value;
-}
-
-
-/**
- * Return the absolute value of an integer.
- * 
  * Be aware, if the value is `LLONG_MIN` and
  * `-LLONG_MAX != -LLONG_MIN`, the result will
  * overflow, and `LLONG_MIN` will (probably)
