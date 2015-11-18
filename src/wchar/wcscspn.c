@@ -33,11 +33,11 @@
  */
 size_t wcscspn(const wchar_t* string, const wchar_t* stopset)
 {
-  size_t i, end = wcslen(string);
+  size_t i;
   wchar_t* s;
   wchar_t c;
   while ((c = *stopset++))
-    for (i = 0, s = string; *s && (i < end); i++, s++)
+    for (s = string; *s; s++)
       if (*s == c)
 	{
 	  end = (size_t)(s - string);
