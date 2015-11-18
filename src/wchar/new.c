@@ -334,3 +334,25 @@ wchar_t* (wcsnprcbrk)(const wchar_t* string, const wchar_t* skipset, size_t maxl
   return found ? string : NULL;
 }
 
+wchar_t* wmemmemmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str,
+		     size_t strsize, size_t size) /* slibc: completeness */
+{
+  wchar_t* stop = (wmemmem)(whence, size, str, strsize);
+  wchar_t* r = NULL;
+  if (stop != NULL)
+    size = (size_t)(stop - whence), r = whither + size;
+  wmemmove(whither, whence, size);
+  return r;
+}
+
+char* wmemmemcpy(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str,
+		 size_t strsize, size_t size) /* slibc: completeness */
+{
+  wchar_t* stop = (wmemmem)(whence, size, str, strsize);
+  wchar_t* r = NULL;
+  if (stop != NULL)
+    size = (size_t)(stop - whence), r = whither + size;
+  wmemcpy(whither, whence, size);
+  return r;
+}
+

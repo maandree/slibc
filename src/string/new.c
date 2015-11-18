@@ -416,3 +416,25 @@ char* (strnprcbrk)(const char* string, const char* skipset, size_t maxlen) /* sl
   return r;
 }
 
+char* memmemmove(char* whither, const char* whence, const char* restrict str,
+		 size_t strsize, size_t size) /* slibc: completeness */
+{
+  char* stop = (memmem)(whence, size, str, strsize);
+  void* r = NULL;
+  if (stop != NULL)
+    size = (size_t)(stop - (const char*)whence), r = whither + size;
+  memmove(whither, whence, size);
+  return r;
+}
+
+char* memmemcpy(void* whither, const void* whence, const char* restrict str,
+		size_t strsize, size_t size) /* slibc: completeness */
+{
+  char* stop = (memmem)(whence, size, str, strsize);
+  void* r = NULL;
+  if (stop != NULL)
+    size = (size_t)(stop - (const char*)whence), r = whither + size;
+  memcpy(whither, whence, size);
+  return r;
+}
+
