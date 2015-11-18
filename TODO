@@ -25,6 +25,17 @@ __attribute__((malloc)), to append a string or character.
 LOW PRIORITY:
   debugging support  (16 p435)
     _GNU_SOURCE, system-dependant
+  void* extalloca(void* p, size_t extent) :: extend alloca-allocation
+    requires that nothing has been allocated to the stack since p.
+    difficult to implement as a function.
+    as a macro:
+      ({ void* q = alloca(extent); (long int)q < (long int)p ? q : p; })
+  void* dealloca(size_t amount)
+    deallocate the last amount bytes allocated to the stack
+  void* zalloca(size_t size)
+    difficult to implement as a function.
+    as a macro:
+      ({ void* p = alloca(size); memset(p, 0, size); })
 
 
 crt0 with cpu cycle count printing
