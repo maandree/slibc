@@ -103,7 +103,7 @@ void* mallocz(size_t, int)
  * Variant of `malloc` that clears the allocation with zeroes.
  * 
  * `zalloc(n)` is equivalent to `calloc(1, n)`, or equivalently,
- * `calloc(n, m)` is equivalent to `zalloc(n * m)` assumming `n * m`
+ * `calloc(n, m)` is equivalent to `zalloc(n * m)` assuming `n * m`
  * does not overflow (in which case `calloc(n, m)` returns `ENOMEM`.)
  * 
  * This is a klibc extension.

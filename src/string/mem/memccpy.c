@@ -28,7 +28,7 @@
  * @param   c        The byte to stop at if encountered.
  * @param   size     The maximum number of bytes to copy.
  * @return           `NULL` if `c` was not encountered, otherwise
- *                   the possition of `c` translated to `whither`,
+ *                   the position of `c` translated to `whither`,
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
