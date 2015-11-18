@@ -36,4 +36,3 @@ int strncmp(const char* a, const char* b, size_t length)
   return r ? r : n == m ? 0 : n < m ? -1 : +1;
 }
 
-
