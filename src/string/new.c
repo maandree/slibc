@@ -438,3 +438,220 @@ char* memmemcpy(void* whither, const void* whence, const char* restrict str,
   return r;
 }
 
+void* (memcasestarts)(const void* string, const void* desired, size_t size) /* slibc: completeness */
+{
+  return (memcasecmp)(string, desired, size) ? NULL : string;
+}
+
+char* (strncasestarts)(const char* string, const char* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strnlen(string, maxlen);
+  size_t m = strnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcasecmp)(string, desired, m) ? NULL : string;
+}
+
+void* (memcaseends)(const void* string, size_t string_size, const void* desired, size_t desired_size) /* slibc: completeness */
+{
+  return (memcasecmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+char* (strncaseends)(const char* string, const char* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strnlen(string, maxlen);
+  size_t m = strnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+void* (memstarts)(const void* string, const void* desired, size_t size) /* slibc */
+{
+  return (memcmp)(string, desired, size) ? NULL : string;
+}
+
+char* (strnstarts)(const char* string, const char* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strnlen(string, maxlen);
+  size_t m = strnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string, desired, m) ? NULL : string;
+}
+
+void* (memends)(const void* string, size_t string_size, const void* desired, size_t desired_size) /* slibc: completeness */
+{
+  return (memcmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+char* (strnends)(const char* string, const char* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strnlen(string, maxlen);
+  size_t m = strnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+int memccasecmp(const void* a, const void* b, size_t size, int stop) /* slibc: completeness */
+{
+  const signed char* s1 = a;
+  const signed char* s2 = b;
+  int c1, c2;
+  for (; c1 = (int)*s1++, c2 = (int)*s2++, (c1 != stop) && (c2 != stop) && size; size--)
+    if (c1 != c2)
+      {
+	c1 = isalpha(c1) ? tolower(c1) : c1;
+	c2 = isalpha(c2) ? tolower(c2) : c2;
+	if ((c1 -= c2))
+	  return c1;
+      }
+  if (c1 == stop)  c1 = 0;
+  if (c2 == stop)  c2 = 0;
+  return size ? (c1 - c2) : 0;
+}
+
+int memccmp(const void* a, const void* b, size_t size, int stop) /* slibc: completeness */
+{
+  const signed char* s1 = a;
+  const signed char* s2 = b;
+  int c1, c2;
+  for (; c1 = (int)*s1++, c2 = (int)*s2++, (c1 != stop) && (c2 != stop) && size; size--)
+    if (c1 != c2)
+      return c1 - c2;
+  if (c1 == stop)  c1 = 0;
+  if (c2 == stop)  c2 = 0;
+  return size ? (c1 - c2) : 0;
+}
+
+int strccasecmp(const char* a, const char* b, int stop) /* slibc: completeness */
+{
+  return strcncasecmp(a, b, stop, SIZE_MAX);
+}
+
+int strccmp(const char* a, const char* b, int stop) /* slibc */
+{
+  size_t n = strclen(a, stop);
+  size_t m = strclen(b, stop);
+  return memcmp(a, b, (n < m ? n : m) + 1);
+}
+
+int strcncasecmp(const char* a, const char* b, int stop, size_t length) /* slibc: completeness */
+{
+  size_t n = strcnlen(a, stop, length);
+  size_t m = strcnlen(b, stop, length);
+  int r = memcasecmp(a, b, (n < m ? n : m));
+  return r ? r : n == m ? 0 : n < m ? -1 : +1;
+}
+
+int strcncmp(const char* a, const char* b, int stop, size_t length) /* slibc: completeness */
+{
+  size_t n = strcnlen(a, stop, length);
+  size_t m = strcnlen(b, stop, length);
+  int r = memcmp(a, b, (n < m ? n : m));
+  return r ? r : n == m ? 0 : n < m ? -1 : +1;
+}
+
+void* (memccasestarts)(const void* string, const void* desired, size_t size, int stop) /* slibc: completeness */
+{
+  return (memccasecmp)(string, desired, size, stop) ? NULL : string;
+}
+
+void* (memcstarts)(const void* string, const void* desired, size_t size, int stop) /* slibc: completeness */
+{
+  return (memccmp)(string, desired, size, stop) ? NULL : string;
+}
+
+char* (strccasestarts)(const char* string, const char* desired, int stop) /* slibc: completeness */
+{
+  size_t n = strclen(string, stop);
+  size_t m = strclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (memcasecmp)(string, desired, m) ? NULL : string;
+}
+
+char* (strcstarts)(const char* string, const char* desired, int stop) /* slibc: completeness */
+{
+  size_t n = strclen(string, stop);
+  size_t m = strclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string, desired, m) ? NULL : string;
+}
+
+char* (strcncasestarts)(const char* string, const char* desired, int stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strcnlen(string, stop, maxlen);
+  size_t m = strcnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcasecmp)(string, desired, m) ? NULL : string;
+}
+
+char* (strcnstarts)(const char* string, const char* desired, int stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strcnlen(string, stop, maxlen);
+  size_t m = strcnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string, desired, m) ? NULL : string;
+}
+
+void* (memccaseends)(const void* string, size_t string_size, const void* desired, size_t desired_size, int stop) /* slibc: completeness */
+{
+  void* end = memchr(string, stop, string);
+  if (end != NULL)
+    string_size = (size_t)(end - string);
+  return (memcasecmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+void* (memcends)(const void* string, size_t string_size, const void* desired, size_t desired_size, int stop) /* slibc: completeness */
+{
+  void* end = wmemchr(string, stop, string);
+  if (end != NULL)
+    string_size = (size_t)(end - string);
+  return (memcmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+char* (strccaseends)(const char* string, const char* desired, int stop) /* slibc: completeness */
+{
+  size_t n = strclen(string, stop);
+  size_t m = strclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (memcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+char* (strcends)(const char* string, const char* desired, int stop) /* slibc: completeness */
+{
+  size_t n = strclen(string, stop);
+  size_t m = strclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+char* (strcncaseends)(const char* string, const char* desired, int stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strcnlen(string, stop, maxlen);
+  size_t m = strcnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+char* (strcnends)(const char* string, const char* desired, int stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = strcnlen(string, stop, maxlen);
+  size_t m = strcnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (memcmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+

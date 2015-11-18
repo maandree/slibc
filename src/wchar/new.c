@@ -356,3 +356,216 @@ char* wmemmemcpy(wchar_t* whither, const wchar_t* whence, const wchar_t* restric
   return r;
 }
 
+wchar_t* (wmemcasestarts)(const wchar_t* string, const wchar_t* desired, size_t size) /* slibc: completeness */
+{
+  return (wmemcasecmp)(string, desired, size) ? NULL : string;
+}
+
+wchar_t* (wcsncasestarts)(const wchar_t* string, const wchar_t* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcsnlen(string, maxlen);
+  size_t m = wcsnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcasecmp)(string, desired, m) ? NULL : string;
+}
+
+wchar_t* (wmemcaseends)(const wchar_t* string, size_t string_size, const wchar_t* desired, size_t desired_size) /* slibc: completeness */
+{
+  return (wmemcasecmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+wchar_t* (wcsncaseends)(const wchar_t* string, const wchar_t* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcsnlen(string, maxlen);
+  size_t m = wcsnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+wchar_t* (wmemstarts)(const wchar_t* string, const wchar_t* desired, size_t size) /* slibc completeness */
+{
+  return (wmemcmp)(string, desired, size) ? NULL : string;
+}
+
+wchar_t* (wstrnstarts)(const wchar_t* string, const wchar_t* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcsnlen(string, maxlen);
+  size_t m = wcsnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcmp)(string, desired, m) ? NULL : string;
+}
+
+wchar_t* (wmemends)(const wchar_t* string, size_t string_size, const wchar_t* desired, size_t desired_size) /* slibc: completeness */
+{
+  return (wmemcmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+wchar_t* (wcsnends)(const wchar_t* string, const wchar_t* desired, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcsnlen(string, maxlen);
+  size_t m = wcsnlen(desired, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+int wmemccasecmp(const wchar_t* a, const wchar_t* b, size_t size, wchar_t stop) /* slibc: completeness */
+{
+  int c1, c2;
+  for (; c1 = *a++, c2 = *b++, (c1 != stop) && (c2 != stop) && size; size--)
+    if (c1 != c2)
+      {
+	c1 = isalpha(c1) ? tolower(c1) : c1;
+	c2 = isalpha(c2) ? tolower(c2) : c2;
+	if ((c1 -= c2))
+	  return c1;
+      }
+  if (c1 == stop)  c1 = 0;
+  if (c2 == stop)  c2 = 0;
+  return size ? (c1 < c2 ? -1 : c1 > c2 ? 1 : 0) : 0;
+}
+
+int wmemccmp(const wchar_t* a, const wchar_t* b, size_t size, wchar_t stop) /* slibc: completeness */
+{
+  wchar_t c1, c2;
+  for (; c1 = *a++, c2 = *b++, (c1 != stop) && (c2 != stop) && size; size--)
+    if (c1 != c2)
+      return c1 - c2;
+  if (c1 == stop)  c1 = 0;
+  if (c2 == stop)  c2 = 0;
+  return size ? (c1 < c2 ? -1 : c1 > c2 ? 1 : 0) : 0;
+}
+
+int wcsccasecmp(const wchar_t* a, const wchar_t* b, wchar_t stop) /* slibc: completeness */
+{
+  return wcscncasecmp(a, b, stop, SIZE_MAX);
+}
+
+int wcsccmp(const wchar_t* a, const wchar_t* b, wchar_t stop) /* slibc: completeness */
+{
+  size_t n = wcsclen(a, stop);
+  size_t m = wcsclen(b, stop);
+  return wmemcmp(a, b, (n < m ? n : m) + 1);
+}
+
+int wcscncasecmp(const wchar_t* a, const wchar_t* b, wchar_t stop, size_t length) /* slibc: completeness */
+{
+  size_t n = wcscnlen(a, stop, length);
+  size_t m = wcscnlen(b, stop, length);
+  int r = wmemcasecmp(a, b, (n < m ? n : m));
+  return r ? r : n == m ? 0 : n < m ? -1 : +1;
+}
+
+int wcscncmp(const wchar_t* a, const wchar_t* b, wchar_t stop, size_t length) /* slibc: completeness */
+{
+  size_t n = wcscnlen(a, stop, length);
+  size_t m = wcscnlen(b, stop, length);
+  int r = wmemcmp(a, b, (n < m ? n : m));
+  return r ? r : n == m ? 0 : n < m ? -1 : +1;
+}
+
+wchar_t* (wmemccasestarts)(const wchar_t* string, const wchar_t* desired, size_t size, wchar_t stop) /* slibc: completeness */
+{
+  return (wmemccasecmp)(string, desired, size, stop) ? NULL : string;
+}
+
+wchar_t* (wmemcstarts)(const wchar_t* string, const wchar_t* desired, size_t size, wchar_t stop) /* slibc: completeness */
+{
+  return (wmemccmp)(string, desired, size, stop) ? NULL : string;
+}
+
+wchar_t* (wcsccasestarts)(const wchar_t* string, const wchar_t* desired, wchar_t stop) /* slibc: completeness */
+{
+  size_t n = wcsclen(string, stop);
+  size_t m = wcsclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (wmemcasecmp)(string, desired, m) ? NULL : string;
+}
+
+wchar_t* (wcscstarts)(const wchar_t* string, const wchar_t* desired, wchar_t stop) /* slibc: completeness */
+{
+  size_t n = wcsclen(string, stop);
+  size_t m = wcsclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (wmemcmp)(string, desired, m) ? NULL : string;
+}
+
+wchar_t* (wcscncasestarts)(const wchar_t* string, const wchar_t* desired, wchar_t stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcscnlen(string, stop, maxlen);
+  size_t m = wcscnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcasecmp)(string, desired, m) ? NULL : string;
+}
+
+wchar_t* (wcscnstarts)(const wchar_t* string, const wchar_t* desired, wchar_t stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcscnlen(string, stop, maxlen);
+  size_t m = wcscnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcmp)(string, desired, m) ? NULL : string;
+}
+
+wchar_t* (wmemccaseends)(const wchar_t* string, size_t string_size, const wchar_t* desired, size_t desired_size, wchar_t stop) /* slibc: completeness */
+{
+  wchar_t* end = wmemchr(string, stop, string);
+  if (end != NULL)
+    string_size = (size_t)(end - string);
+  return (wmemcasecmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+wchar_t* (wmemcends)(const wchar_t* string, size_t string_size, const wchar_t* desired, size_t desired_size, wchar_t stop) /* slibc: completeness */
+{
+  wchar_t* end = wmemchr(string, stop, string);
+  if (end != NULL)
+    string_size = (size_t)(end - string);
+  return (wmemcmp)(string + (string_size - desired_size), desired, desired_size)
+    ? NULL : (string + string_size);
+}
+
+wchar_t* (wcsccaseends)(const wchar_t* string, const wchar_t* desired, wchar_t stop) /* slibc: completeness */
+{
+  size_t n = wcsclen(string, stop);
+  size_t m = wcsclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (wmemcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+wchar_t* (wcscends)(const wchar_t* string, const wchar_t* desired, wchar_t stop) /* slibc: completeness */
+{
+  size_t n = wcsclen(string, stop);
+  size_t m = wcsclen(desired, stop);
+  if (n < m)
+    return NULL;
+  return (wmemcmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+wchar_t* (wcscncaseends)(const wchar_t* string, const wchar_t* desired, wchar_t stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcscnlen(string, stop, maxlen);
+  size_t m = wcscnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcasecmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
+wchar_t* (wcscnends)(const wchar_t* string, const wchar_t* desired, wchar_t stop, size_t maxlen) /* slibc: completeness */
+{
+  size_t n = wcscnlen(string, stop, maxlen);
+  size_t m = wcscnlen(desired, stop, maxlen);
+  if (n < m)
+    return NULL;
+  return (wmemcmp)(string + (n - m), desired, m) ? NULL : (string + n);
+}
+
