@@ -37,7 +37,7 @@ wchar_t* wcsncpy(wchar_t* restrict whither, const wchar_t* restrict whence, size
 {
   size_t n = wcsnlen(whence, maxlen);
   wmemcpy(whither, whence, n);
-  wmemset(whither, 0, maxlen - n);
+  wmemset(whither + n, 0, maxlen - n);
   return whither;
 }
 

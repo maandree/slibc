@@ -37,7 +37,7 @@ char* strncpy(char* restrict whither, const char* restrict whence, size_t maxlen
 {
   size_t n = strnlen(whence, maxlen);
   memcpy(whither, whence, n);
-  memset(whither, 0, maxlen - n);
+  memset(whither + n, 0, maxlen - n);
   return whither;
 }
 

@@ -41,7 +41,7 @@ wchar_t* wcpnmove(wchar_t* whither, const wchar_t* whence, size_t maxlen)
 {
   size_t n = wcsnlen(whence, maxlen);
   wmemmove(whither, whence, n);
-  wmemset(whither, 0, maxlen - n);
+  wmemset(whither + n, 0, maxlen - n);
   return whither + n;
 }
 

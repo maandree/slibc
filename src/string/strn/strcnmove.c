@@ -48,7 +48,7 @@ char* strcnmove(char* whither, const char* whence, int c, size_t maxlen)
   size_t n = stop == NULL ? strnlen(whence, maxlen) : (size_t)(stop - whence);
   char* r = stop == NULL ? NULL : (whither + n);
   memmove(whither, whence, n);
-  memset(whither, 0, maxlen - n);
+  memset(whither + n, 0, maxlen - n);
   return r;
 }
 

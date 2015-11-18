@@ -41,7 +41,7 @@ char* stpnmove(char* whither, const char* whence, size_t maxlen)
 {
   size_t n = strnlen(whence, maxlen);
   memmove(whither, whence, n);
-  memset(whither, 0, maxlen - n);
+  memset(whither + n, 0, maxlen - n);
   return whither + n;
 }
 

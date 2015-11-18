@@ -49,7 +49,7 @@ wchar_t* wcsstrncpy(wchar_t* restrict whither, const wchar_t* restrict whence,
   size_t n = stop == NULL ? wcsnlen(whence, maxlen) : (size_t)(stop - whence);
   wchar_t* r = stop == NULL ? NULL : (whither + n);
   wmemcpy(whither, whence, n);
-  wmemset(whither, 0, maxlen - n);
+  wmemset(whither + n, 0, maxlen - n);
   return r;
 }
 
