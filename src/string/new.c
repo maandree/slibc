@@ -19,24 +19,68 @@
 
 
 
-size_t strclen(const char* string, int stop) /* slibc: completeness */
+/**
+ * Variant of `strlen` that treats both NUL and a
+ * selected byte as the termination-byte.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   str   The string.
+ * @param   stop  The additional termination-byte.
+ * @return        The number of bytes before, the first termination-byte.
+ */
+size_t strclen(const char* string, int stop)
 {
   return (size_t)(strchrnul(string, stop) - string);
 }
 
-size_t strcnlen(const char* string, int stop, size_t maxlen) /* slibc: completeness */
+/**
+ * Variant of `strclen` that only inspects the
+ * beginning of a string.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   str     The string.
+ * @param   stop    The additional termination-byte.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          The number of bytes before, the first termination-byte.
+ *                  `maxlen` if no termination-byte was found.
+ */
+size_t strcnlen(const char* string, int stop, size_t maxlen)
 {
   const char* end = strnchr(string, stop, maxlen);
   return end ? (size_t)(end - string) : maxlen;
 }
 
-size_t strstrlen(const char* string, const char* stop) /* slibc: completeness */
+/**
+ * Variant of `strlen` that treats both NUL and a
+ * selected string as the termination-mark.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   str   The string.
+ * @param   stop  The additional termination-mark.
+ * @return        The number of bytes before, the first termination-mark.
+ */
+size_t strstrlen(const char* string, const char* stop)
 {
   const char* end = strstr(string, stop);
   return end ? (size_t)(end - string) : strlen(string);
 }
 
-size_t strstrnlen(const char* string, const char* stop, size_t maxlen) /* slibc: completeness */
+/**
+ * Variant of `strstrlen` that only inspects the
+ * beginning of a string.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   str     The string.
+ * @param   stop    The additional termination-mark.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          The number of bytes before, the first termination-mark.
+ *                  `maxlen` if no termination-byte was found.
+ */
+size_t strstrnlen(const char* string, const char* stop, size_t maxlen)
 {
   const char* end = strnstr(string, stop, maxlen);
   return end ? (size_t)(end - string) : maxlen;
