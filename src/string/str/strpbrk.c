@@ -36,7 +36,7 @@ char* (strpbrk)(const char* string, const char* stopset)
   char set[256];
   char c;
   const char* s = string;
-  memset(set, 0, 256);
+  memset(set, 0, 256 * sizeof(char));
   while ((c = *stopset++))
     set[(size_t)c] = 1;
   while ((c = *s++))
