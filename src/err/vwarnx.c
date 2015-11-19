@@ -25,6 +25,8 @@
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  (V)ariadic version of (`warnx`).
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */

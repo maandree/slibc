@@ -37,6 +37,8 @@
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  Print (warn)ing!
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */
@@ -49,6 +51,8 @@ void warn(const char*, ...)
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  (V)ariadic version of (`warn`).
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
@@ -59,6 +63,8 @@ void vwarn(const char*, va_list);
  * description of the value of `errno`.
  * 
  * This is a non-standard BSD extension.
+ * 
+ * @etymology  (`warn`), [x=](lesser variant).
  * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
@@ -72,6 +78,8 @@ void warnx(const char*, ...)
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  (V)ariadic version of (`warnx`).
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
  */
@@ -82,6 +90,8 @@ void vwarnx(const char*, va_list);
  * description of the value of `errno`. Then exit the process.
  * 
  * This is a non-standard BSD extension.
+ * 
+ * @etymology  Report (err)or!
  * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
@@ -96,6 +106,8 @@ __noreturn void err(int, const char*, ...)
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  (V)ariadic version of (`err`).
+ * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
@@ -107,6 +119,8 @@ __noreturn void verr(int, const char*, va_list);
  * description of the value of `errno`. Then exit the process.
  * 
  * This is a non-standard BSD extension.
+ * 
+ * @etymology  (`err`), [x=](lesser variant).
  * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
@@ -120,6 +134,8 @@ __noreturn void errx(int, const char*, ...)
  * description of the value of `errno`. Then exit the process.
  * 
  * This is a non-standard BSD extension.
+ * 
+ * @etymology  (V)ariadic version of (`errx`).
  * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.

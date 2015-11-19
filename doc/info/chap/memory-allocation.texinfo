@@ -233,6 +233,13 @@ void function(size_t n)
 Both of these allocation-methods are both automatic
 and dynamic.
 
+@ifnottex
+Etymology: (Alloca)te!
+@end ifnottex
+@iftex
+Etymology: @b{Alloca}te!
+@end iftex
+
 @cpindex Memory exhaustion
 Memory allocation functions return @code{NULL} if
 the process cannot allocate more memory. However,

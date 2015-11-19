@@ -23,6 +23,8 @@
  * Check whether a character is an alphabetical
  * character or a decimal digit.
  * 
+ * @etymology  (Is) character either (al)phabetical or (num)erical [(al)pha(num)erical]?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
@@ -35,6 +37,8 @@ int (isalnum)(int c)
 
 /**
  * Check whether a character is an alphabetical character.
+ * 
+ * @etymology  (Is) character (alpha)betical?
  * 
  * @param   c  The character.
  * @return     Whether the character is in
@@ -50,6 +54,8 @@ int (isalpha)(int c)
  * Check whether a character is a regular blank space
  * or a horizontal tabulation.
  * 
+ * @etymology  (Is) character a (blank) space?
+ * 
  * @param   c  The character.
  * @return     Whether the character is a ' ' or a '\t'.
  */
@@ -63,6 +69,8 @@ int (isblank)(int c)
  * Check whether a character is a non-printable
  * ASCII character.
  * 
+ * @etymology  (Is) character a (c)o(ntr)o(l) character?
+ * 
  * @param   c  The character.
  * @return     Whether the character is lower than ' '.
  */
@@ -75,6 +83,8 @@ int (iscntrl)(int c)
 /**
  * Check whether a character is a decimal digit.
  * 
+ * @etymology  (Is) character a (digit)?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in ['0', '9'].
  */
@@ -86,6 +96,8 @@ int (isdigit)(int c)
 
 /**
  * Check whether a character is has a printable glyph.
+ * 
+ * @etymology  (Is) character (graph)ical?
  * 
  * @param   c  The character.
  * @return     Whether the character is greater than ' '.
@@ -100,6 +112,8 @@ int (isgraph)(int c)
  * Check whether a character is a lowercase
  * alphabetical character.
  * 
+ * @etymology  (Is) character a (lower)case character?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in ['a', 'z'].
  */
@@ -112,6 +126,8 @@ int (islower)(int c)
 /**
  * Check whether a character is has a printable glyph
  * or a blank space.
+ * 
+ * @etymology  (Is) character (print)able?
  * 
  * @param   c  The character.
  * @return     Whether the character is at least
@@ -128,6 +144,8 @@ int (isprint)(int c)
  * that is, a printable character but a blank space,
  * numerical or alphabetical.
  * 
+ * @etymology  (Is) character a (punct)uation?
+ * 
  * @param   c  The character.
  * @return     Whether the character is a punctuation.
  */
@@ -139,6 +157,8 @@ int (ispunct)(int c)
 
 /**
  * Check whether a character is a whitespace character.
+ * 
+ * @etymology  (Is) character white(space)?
  * 
  * @param   c  The character.
  * @return     Whether the character is a ' ', '\f',
@@ -154,6 +174,8 @@ int (isspace)(int c)
  * Check whether a character is an uppercase
  * alphabetical character.
  * 
+ * @etymology  (Is) character a (upper)case character?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in ['A', 'Z'].
  */
@@ -167,6 +189,8 @@ int (isupper)(int c)
  * Check whether a character is an ASCII
  * hexadecimal digit. Both uppercase and
  * lowercase is supported.
+ * 
+ * @etymology  (Is) character a he(x)adecimal digit?
  * 
  * @param   c  The character.
  * @return     Whether the character is in
@@ -183,10 +207,12 @@ int (isxdigit)(int c)
  * Convert a uppercase ASCII character to
  * an lowercase ASCII character.
  * 
- * The function's behaviour is unspecifed
+ * The function's behaviour is unspecified
  * of the character is not alphabetical.
  * You should consider running
  * `(isupper(c) ? tolower(c) : c)` instead.
+ * 
+ * @etymology  Convert character (to) (lower)case!
  * 
  * @param   c  The character.
  * @return     The character in lowercase.
@@ -203,10 +229,12 @@ int (tolower)(int c)
  * Convert a lowercase ASCII character to
  * an uppercase ASCII character.
  * 
- * The function's behaviour is unspecifed
+ * The function's behaviour is unspecified
  * of the character is not alphabetical.
  * You should consider running
  * `(isupper(c) ? tolower(c) : c)` instead.
+ * 
+ * @etymology  Convert character (to) (upper)case!
  * 
  * @param   c  The character.
  * @return     The character in uppercase.
@@ -223,6 +251,8 @@ int (toupper)(int c)
 /**
  * Check whether a character is an ASCII character.
  * 
+ * @etymology  (Is) character an (ASCII) character?
+ * 
  * @param   c  The character
  * @return     Whether the character is an ASCII character.
  */
@@ -237,6 +267,12 @@ int (isascii)(int c)
  * 
  * Note that this does not make a proper character set
  * convertion and the result is virtually arbitrary.
+ * 
+ * Justification for existence:
+ *   The highest bit has historically been used as a
+ *   parity bit.
+ * 
+ * @etymology  Truncate character (to) fit (ASCII) character set!
  * 
  * @param   c  The character.
  * @return     The character with the 8:th bit cleared.

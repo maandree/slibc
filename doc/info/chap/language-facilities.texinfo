@@ -356,6 +356,13 @@ The expression must not have said effects.
 must not be evaluated if @code{NDEBUG} is
 defined. If @code{NDEBUG} is defined,
 @code{assert} has no effect, but is defined.
+
+@ifnottex
+Etymology: (Assertion).
+@end ifnottex
+@iftex
+Etymology: @b{Assert}ion.
+@end iftex
 @end table
 
 If @command{slibc} extensions or GNU extensions
@@ -369,6 +376,13 @@ This macro is identical to @code{assert}, except
 the argument should be an error code, and a
 description of it is printed before the process
 exits. (Nothing happens if @code{errnum} is zero.)
+
+@ifnottex
+Etymology: (@code{assert}) version of (@code{perror}).
+@end ifnottex
+@iftex
+Etymology: @b{assert} version of @b{perror}.
+@end iftex
 @end table
 
 @fnindex static_assert
@@ -381,6 +395,13 @@ is included. @code{static_assert} is similar to
 @code{assert}, however it has a second parameter:
 the message to print if the assertion failed,
 and the assertion is evaluated at compile-time.
+
+@ifnottex
+Etymology: (Static) (assert)ion.
+@end ifnottex
+@iftex
+Etymology: @b{Static} @b{assert}ion.
+@end iftex
 
 Assertions should only be used to make sure that
 impossible conditions are not reached.

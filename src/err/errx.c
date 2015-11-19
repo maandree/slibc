@@ -26,6 +26,8 @@
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  (`err`), [x=](lesser variant).
+ * 
  * @parma  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.

@@ -26,6 +26,8 @@
  * 
  * This is a non-standard BSD extension.
  * 
+ * @etymology  Print (warn)ing!
+ * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */

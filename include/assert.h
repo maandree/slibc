@@ -35,6 +35,8 @@
  * POSIX specifies that `assert` shall not evaluate the
  * expression if `NDEBUG` is defined. This is probably
  * to save CPU-cycles.
+ * 
+ * @etymology  (Assert)ion.
  */
 #ifdef NDEBUG
 # define assert(expression)   ((void)0)
@@ -53,6 +55,8 @@
  * and abort the process, if `errnum` is non-zero.
  * 
  * `assert_perror` is a GNU-compliant slibc extension.
+ * 
+ * @etymology  (`assert`) version of (`perror`).
  * 
  * @param  errnum:int  The error code, describing the error that occurred.
  */
@@ -83,6 +87,8 @@
 /**
  * A compile-time error should occur if the expression
  * evaluates to zero.
+ * 
+ * @etymology  (Static) (assert)tion.
  * 
  * @param  expression:scalar    The expression to evaluate.
  * @param  message:const char*  The message to print on error.

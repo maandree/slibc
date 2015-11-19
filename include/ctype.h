@@ -36,6 +36,8 @@
  * Check whether a character is an alphabetical
  * character or a decimal digit.
  * 
+ * @etymology  (Is) character either (al)phabetical or (num)erical [(al)pha(num)erical]?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
@@ -50,6 +52,8 @@ int (isalnum)(int)  /* [0x30, 0x39], [0x41, 0x5A], [0x61, 0x7A] */
 
 /**
  * Check whether a character is an alphabetical character.
+ * 
+ * @etymology  (Is) character (alpha)betical?
  * 
  * @param   c  The character.
  * @return     Whether the character is in
@@ -67,6 +71,8 @@ int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
  * 
  * This is a GNU extension.
  * 
+ * @etymology  (Is) character a (blank) space?
+ * 
  * @param   c  The character.
  * @return     Whether the character is a ' ' or a '\t'.
  */
@@ -83,6 +89,8 @@ int (isblank)(int) /* ' ', '\t' */
  * Check whether a character is a non-printable
  * ASCII character.
  * 
+ * @etymology  (Is) character a (c)o(ntr)o(l) character?
+ * 
  * @param   c  The character.
  * @return     Whether the character is lower than ' ',
  *             or is 0x7F.
@@ -98,6 +106,8 @@ int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
 /**
  * Check whether a character is a decimal digit.
  * 
+ * @etymology  (Is) character a (digit)?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in ['0', '9'].
  */
@@ -108,6 +118,8 @@ int (isdigit)(int)  /* [0x30, 0x39] */
 
 /**
  * Check whether a character is has a printable glyph.
+ * 
+ * @etymology  (Is) character (graph)ical?
  * 
  * @param   c  The character.
  * @return     Whether the character is greater
@@ -122,6 +134,8 @@ int (isgraph)(int)  /* [0x21, 0x7E] */
  * Check whether a character is a lowercase
  * alphabetical character.
  * 
+ * @etymology  (Is) character a (lower)case character?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in ['a', 'z'].
  */
@@ -133,6 +147,8 @@ int (islower)(int)  /* [0x61, 0x7A] */
 /**
  * Check whether a character is has a printable glyph
  * or a blank space.
+ * 
+ * @etymology  (Is) character (print)able?
  * 
  * @param   c  The character.
  * @return     Whether the character is at least
@@ -148,6 +164,8 @@ int (isprint)(int)  /* [0x20, 0x7E] */
  * that is, a printable character but a blank space,
  * numerical or alphabetical.
  * 
+ * @etymology  (Is) character a (punct)uation?
+ * 
  * @param   c  The character.
  * @return     Whether the character is a punctuation.
  */
@@ -161,6 +179,8 @@ int (ispunct)(int)  /* isprint && !isalnum && !isspace */
 
 /**
  * Check whether a character is a whitespace character.
+ * 
+ * @etymology  (Is) character white(space)?
  * 
  * @param   c  The character.
  * @return     Whether the character is a ' ', '\f',
@@ -178,6 +198,8 @@ int (isspace)(int)  /* 0x20, [0x09, 0x0D] */
  * Check whether a character is an uppercase
  * alphabetical character.
  * 
+ * @etymology  (Is) character a (upper)case character?
+ * 
  * @param   c  The character.
  * @return     Whether the character is in ['A', 'Z'].
  */
@@ -190,6 +212,8 @@ int (isupper)(int)  /* [0x41, 0x5A] */
  * Check whether a character is an ASCII
  * hexadecimal digit. Both uppercase and
  * lowercase is supported.
+ * 
+ * @etymology  (Is) character a he(x)adecimal digit?
  * 
  * @param   c  The character.
  * @return     Whether the character is in
@@ -208,10 +232,12 @@ int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
  * Convert a uppercase ASCII character to
  * an lowercase ASCII character.
  * 
- * The function's behaviour is unspecifed
+ * The function's behaviour is unspecified
  * of the character is not alphabetical.
  * You should consider running
  * `(isupper(c) ? tolower(c) : c)` instead.
+ * 
+ * @etymology  Convert character (to) (lower)case!
  * 
  * @param   c  The character.
  * @return     The character in lowercase.
@@ -226,10 +252,12 @@ int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
  * Convert a lowercase ASCII character to
  * an uppercase ASCII character.
  * 
- * The function's behaviour is unspecifed
+ * The function's behaviour is unspecified
  * of the character is not alphabetical.
  * You should consider running
  * `(isupper(c) ? tolower(c) : c)` instead.
+ * 
+ * @etymology  Convert character (to) (upper)case!
  * 
  * @param   c  The character.
  * @return     The character in uppercase.
@@ -245,6 +273,8 @@ int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
 /**
  * Check whether a character is an ASCII character.
  * 
+ * @etymology  (Is) character an (ASCII) character?
+ * 
  * @param   c  The character
  * @return     Whether the character is an ASCII character.
  */
@@ -257,6 +287,12 @@ int (isascii)(int)  /* [0x00, 0x7E] */
  * 
  * Note that this does not make a proper character set
  * convertion and the result is virtually arbitrary.
+ * 
+ * Justification for existence:
+ *   The highest bit has historically been used as a
+ *   parity bit.
+ * 
+ * @etymology  Truncate character (to) fit (ASCII) character set!
  * 
  * @param   c  The character.
  * @return     The character with the 8:th bit cleared.
@@ -290,6 +326,8 @@ int _toupper(int)
  * Check whether a character is an alphabetical
  * character or a decimal digit.
  * 
+ * @etymology  (Is) character (alpha)betical, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is
@@ -301,6 +339,8 @@ int isalnum_l(int, locale_t)
 
 /**
  * Check whether a character is an alphabetical character.
+ * 
+ * @etymology  (Is) character (alpha)betical, with consideration for (l)ocale?
  * 
  * @param   c       The character.
  * @param   locale  The locale.
@@ -317,6 +357,8 @@ int isalpha_l(int, locale_t)
  * 
  * This is a GNU extension.
  * 
+ * @etymology  (Is) character a (blank) space, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a ' ' or a '\t'.
@@ -330,6 +372,8 @@ int isblank_l(int, locale_t)
  * Check whether a character is a non-printable
  * ASCII character.
  * 
+ * @etymology  (Is) character a (c)o(ntr)o(l) character, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is non-printable.
@@ -341,6 +385,8 @@ int iscntrl_l(int, locale_t)
 /**
  * Check whether a character is a decimal digit.
  * 
+ * @etymology  (Is) character a (digit), with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is numerical.
@@ -351,6 +397,8 @@ int isdigit_l(int, locale_t)
 
 /**
  * Check whether a character is has a printable glyph.
+ * 
+ * @etymology  (Is) character (graph)ical, with consideration for (l)ocale?
  * 
  * @param   c       The character.
  * @param   locale  The locale.
@@ -364,6 +412,8 @@ int isgraph_l(int, locale_t)
  * Check whether a character is a lowercase
  * alphabetical character.
  * 
+ * @etymology  (Is) character a (lower)case character, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a lowercase letter.
@@ -375,6 +425,8 @@ int islower_l(int, locale_t)
 /**
  * Check whether a character is has a printable glyph
  * or a blank space.
+ * 
+ * @etymology  (Is) character (print)able, with consideration for (l)ocale?
  * 
  * @param   c       The character.
  * @param   locale  The locale.
@@ -390,6 +442,8 @@ int isprint_l(int, locale_t)
  * that is, a printable character but a blank space,
  * numerical or alphabetical.
  * 
+ * @etymology  (Is) character a (punct)uation, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a punctuation.
@@ -400,6 +454,8 @@ int ispunct_l(int, locale_t)
 
 /**
  * Check whether a character is a whitespace character.
+ * 
+ * @etymology  (Is) character white(space), with consideration for (l)ocale?
  * 
  * @param   c       The character.
  * @param   locale  The locale.
@@ -414,6 +470,8 @@ int isspace_l(int, locale_t)
  * Check whether a character is an uppercase
  * alphabetical character.
  * 
+ * @etymology  (Is) character a (upper)case character, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a uppercase letter.
@@ -427,6 +485,8 @@ int isupper_l(int, locale_t)
  * hexadecimal digit. Both uppercase and
  * lowercase is supported.
  * 
+ * @etymology  (Is) character a he(x)adecimal digit, with consideration for (l)ocale?
+ * 
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is in
@@ -439,12 +499,14 @@ int isxdigit_l(int, locale_t)
 /**
  * Check whether a character is an ASCII character.
  * 
+ * @etymology  (Is) character an (ASCII) character, with consideration for (l)ocale?
+ * 
  * @param   c       The character
  * @param   locale  The locale.
  * @return          Whether the character is an ASCII character.
  */
 int isascii_l(int, locale_t)
-  __warning("This function is dangerous, use 'isascii_l' instead.")
+  __warning("This function is dangerous, use 'iswascii_l' instead.")
   __GCC_ONLY(__attribute__((__const__)));
 
 /**
@@ -452,6 +514,8 @@ int isascii_l(int, locale_t)
  * 
  * Note that this does not make a proper character set
  * convertion and the result is virtually arbitrary.
+ * 
+ * @etymology  Truncate character (to) fit (ASCII) character set, with consideration for (l)ocale!
  * 
  * @param   c       The character.
  * @param   locale  The locale.
@@ -470,6 +534,8 @@ int toascii_l(int, locale_t)
  * You should consider running
  * `(isupper_l(c, l) ? tolower_l(c, l) : c)`
  * instead.
+ * 
+ * @etymology  Convert character (to) (lower)case, with consideration for (l)ocale!
  * 
  * @param   c       The character.
  * @param   locale  The locale.
@@ -490,6 +556,8 @@ int tolower_l(int, locale_t)
  * You should consider running
  * `(isupper_l(c, l) ? tolower_l(c, l) : c)`
  * instead.
+ * 
+ * @etymology  Convert character (to) (upper)case, with consideration for (l)ocale!
  * 
  * @param   c       The character.
  * @param   locale  The locale.

@@ -335,6 +335,13 @@ the @command{slibc}'s implementation will
 print the full process name, or more precisely,
 it prints @code{program_invocation_name}.
 
+@ifnottex
+Etymology: Print (warn)ing!
+@end ifnottex
+@iftex
+Etymology: Print @b{warn}ing!
+@end iftex
+
 @item void vwarn(const char* format, va_list args)
 @fnindex vwarn
 @hfindex err.h
@@ -344,6 +351,13 @@ is defined. It is made available by including
 the header file @file{<err.h>}. It is identical
 to @code{warn} except it uses @code{va_list}
 instead of being a variadic function.
+
+@ifnottex
+Etymology: (V)ariadic version of (`warn`).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic version of @b{warn}.
+@end iftex
 
 @item void warnx(const char* format, ...)
 @fnindex warnx
@@ -355,6 +369,13 @@ the header file @file{<err.h>}. It is identical
 to @code{warn} except it does not print a
 description of the value of @code{errno}.
 
+@ifnottex
+Etymology: (`warn`), [x=](lesser variant).
+@end ifnottex
+@iftex
+Etymology: @b{warn}, [x=]@b{lesser variant}.
+@end iftex
+
 @item void vwarnx(const char* format, va_list args)
 @fnindex vwarnx
 @hfindex err.h
@@ -364,6 +385,13 @@ is defined. It is made available by including
 the header file @file{<err.h>}. It is identical
 to @code{warnx} except it uses @code{va_list}
 instead of being a variadic function.
+
+@ifnottex
+Etymology: (V)ariadic version of (`warnx`).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic version of @b{warnx}.
+@end iftex
 
 @item noreturn void err(int status, const char* format, ...)
 @fnindex err
@@ -375,6 +403,13 @@ the header file @file{<err.h>}. It is identical
 to @code{warn} except will return with the
 exit value @code{status & 255}.
 
+@ifnottex
+Etymology: Report (err)or!
+@end ifnottex
+@iftex
+Etymology: Report @b{err}or!
+@end iftex
+
 @item noreturn void verr(int status, const char* format, va_list args)
 @fnindex verr
 @hfindex err.h
@@ -384,6 +419,13 @@ is defined. It is made available by including
 the header file @file{<err.h>}. It is identical
 to @code{err} except it uses @code{va_list}
 instead of being a variadic function.
+
+@ifnottex
+Etymology: (V)ariadic version of (`err`).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic version of @b{err}.
+@end iftex
 
 @item noreturn void errx(int status, const char* format, ...)
 @fnindex errx
@@ -395,6 +437,13 @@ the header file @file{<err.h>}. It is identical
 to @code{err} except it does not print a
 description of the value of @code{errno}.
 
+@ifnottex
+Etymology: (`err`), [x=](lesser variant).
+@end ifnottex
+@iftex
+Etymology: @b{err}, [x=]@b{lesser variant}.
+@end iftex
+
 @item noreturn void verrx(int status, const char* format, va_list args)
 @fnindex verrx
 @hfindex err.h
@@ -404,6 +453,13 @@ is defined. It is made available by including
 the header file @file{<err.h>}. It is identical
 to @code{errx} except it uses @code{va_list}
 instead of being a variadic function.
+
+@ifnottex
+Etymology: (V)ariadic version of (`errx`).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic version of @b{errx}.
+@end iftex
 
 @item void error(int status, int errnum, const char* format, ...)
 @fnindex error

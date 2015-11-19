@@ -37,6 +37,8 @@
  * Undefined behaviour is invoked if the memory
  * cannot be allocated.
  * 
+ * @etymology  (Alloca)te!
+ * 
  * @param   size  The number of bytes to allocate.
  * @return        Pointer to the beginning of the allocated
  *                space. Do not free it, it will be freed
