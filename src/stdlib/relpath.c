@@ -56,6 +56,8 @@ char* relpath(const char* file, const char* ref) /* XXX may also fail as get_cur
     {
       p = strlen(cwd);
       absref = malloc((p + 1) + sizeof(char));
+      if (absref == NULL)
+	goto fail;
       memcpy(absref, cwd, p);
       absref[p] = '/';
       absref[p + 1] = '\0';
