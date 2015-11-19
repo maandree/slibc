@@ -380,7 +380,8 @@ int execveat(int dirfd, const char* path, char* const argv[], char* const envp[]
 {
 /* TODO use linux system call if available */
   struct stat attr;
-  char* pathname;
+  char* pathname = NULL;
+  int saved_errno;
   
   if (*path == '/')
     return execve(path, argv, envp);
@@ -401,7 +402,12 @@ int execveat(int dirfd, const char* path, char* const argv[], char* const envp[]
     return -1;
   
   sprintf(pathname, "/dev/fd/%i%s%s", dirfd, *path ? "/" : "", path);
-  return execve(pathname, argv, envp);
+  execve(pathname, argv, envp);
+  
+  saved_errno = errno;
+  free(pathname);
+  errno = saved_errno;
+  return -1;
 }
 
 
