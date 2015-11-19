@@ -65,6 +65,8 @@ static void* unaligned_malloc(size_t size)
   
   ptr = mmap(NULL, full_size, (PROT_READ | PROT_WRITE),
 	     (MAP_PRIVATE | MAP_ANONYMOUS), -1, 0);
+  if (ptr == MAP_FAILED)
+    return NULL;
   
   ((size_t*)ptr)[0] = size;
   ((size_t*)ptr)[1] = 0;
