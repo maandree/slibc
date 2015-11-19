@@ -51,7 +51,7 @@ wchar_t* (wcsnchr)(const wchar_t* string, wchar_t c, size_t maxlen) /* slibc: co
       return NULL;
 }
 
-wchar_t* (wcsnchrnul)(const wchar_t* string, wchar_t c, size_t maxlen) /* slibc+gnu: completeness */
+wchar_t* (wcsnchrnul)(const wchar_t* string, wchar_t c, size_t maxlen) /* slibc: completeness */
 {
   for (;; string++)
     if (*string == c)

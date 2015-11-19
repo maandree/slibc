@@ -86,7 +86,21 @@ size_t strstrnlen(const char* string, const char* stop, size_t maxlen)
   return end ? (size_t)(end - string) : maxlen;
 }
 
-char* (strnchr)(const char* string, int c, size_t maxlen) /* slibc: completeness */
+/**
+ * Variant of `strchr` that only inspects the beginning
+ * of a string.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  `NULL` if none were found.
+ */
+char* (strnchr)(const char* string, int c, size_t maxlen)
 {
   for (;;)
     if (*string == c)
@@ -95,7 +109,23 @@ char* (strnchr)(const char* string, int c, size_t maxlen) /* slibc: completeness
       return NULL;
 }
 
-char* (strnchrnul)(const char* string, int c, size_t maxlen) /* slibc+gnu: completeness */
+/**
+ * Variant of `strchrnul` that only inspects the beginning
+ * of a string.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          The end of the string (or end of inspected
+ *                  part of the sring) if non were found. If the
+ *                  whole string was inspected, the returned
+ *                  pointer will point to a NUL byte.
+ */
+char* (strnchrnul)(const char* string, int c, size_t maxlen)
 {
   for (;; string++)
     if (*string == c)
