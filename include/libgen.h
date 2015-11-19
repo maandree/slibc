@@ -32,6 +32,8 @@
  * Get the basename of a filename, remove
  * trailing slashes.
  * 
+ * @etymology  File's (basename).
+ * 
  * @param   filename  The filename, may be edited by this function.
  * @return            The basename, it is either a substring
  *                    of `filename` or, if `filename` is `NULL`
@@ -44,6 +46,8 @@ char* __xpg_basename(char*)
 
 /**
  * Get the dirname of a filename.
+ * 
+ * @etymology  Parent (dir)ectory's path(name).
  * 
  * @param   filename  The filename, may be edited by this function.
  * @return            The dirname, it is either a substring
@@ -70,6 +74,8 @@ char* dirname(char*)
  * is not necessarily '/a/b'.
  * 
  * This is a slibc extension.
+ * 
+ * @etymology  (Clean) path(name).
  * 
  * @param   filename  The filename, may be edited by this function.
  * @return            The dirname, it is either `filename` or,

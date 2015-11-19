@@ -26,6 +26,8 @@
  * 
  * This is a GNU extension.
  * 
+ * @etymology  Report (error at line) in source code!
+ * 
  * @param  status    The process will exit, with the function returning, with this
  *                   exit status, unless it is zero. If zero, the process shall not exit.
  * @param  errnum    The value of `errno` when the error occurred, zero if the a textual

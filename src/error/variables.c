@@ -25,6 +25,8 @@
  * This variable is global and shared by all threads.
  * 
  * This is a GNU extension.
+ * 
+ * @etymology  (`error`)-subsystem: (message count).
  */
 volatile unsigned int error_message_count = 0;
 
@@ -44,6 +46,8 @@ volatile unsigned int error_message_count = 0;
  * occurred on the same line as the last time.
  * 
  * This is a GNU extension.
+ * 
+ * @etymology  (`error`)-subsystem: print (one) time (per line).
  */
 volatile int error_one_per_line = 1;
 
@@ -56,6 +60,8 @@ volatile int error_one_per_line = 1;
  * shared by all threads.
  * 
  * This is a GNU extension.
+ * 
+ * @etymology  (`error`)-subsystem function: (print) the (prog)ram's (name).
  */
 void (*volatile error_print_progname)(void) = NULL;
 

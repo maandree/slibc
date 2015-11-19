@@ -26,6 +26,8 @@
  * Perform an integer division and return
  * both the quotient and the remainder.
  * 
+ * @etymology  `(i)nt(max)_t`-function: (div)ide.
+ * 
  * @param   numerator    The numerator.
  * @param   denominator  The denominator, must not be 0 lest
  *                       the process will be killed by SIGFPE.

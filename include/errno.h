@@ -39,6 +39,8 @@
 /**
  * A modifiable lvalue used to describe an error
  * that has occurred in the thread.
+ * 
+ * @etymology  (Err)or (number).
  */
 #define errno  (*__errno())
 

@@ -31,6 +31,8 @@
  * 
  * This is a slibc extension to the GNU extension `error_at_line`.
  * 
+ * @etymology  (V)ariadic version of (`error_at_line`).
+ * 
  * @param  status    The process will exit, with the function returning, with this
  *                   exit status, unless it is zero. If zero, the process shall not exit.
  * @param  errnum    The value of `errno` when the error occurred, zero if the a textual

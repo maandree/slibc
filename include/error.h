@@ -36,6 +36,8 @@
  * 
  * This is a GNU extension.
  * 
+ * @etymology  Report (error)!
+ * 
  * @param  status  The process will exit, with the function returning, with this
  *                 exit status, unless it is zero. If zero, the process shall not exit.
  * @param  errnum  The value of `errno` when the error occurred, zero if the a textual
@@ -51,6 +53,8 @@ void error(int, int, const char*, ...)
  * Variant of `error` that uses `va_list` instead of variadic arguments.
  * 
  * This is a slibc extension to the GNU extension `error`.
+ * 
+ * @etymology  (V)ariadic version of (`error`).
  * 
  * @param  status  The process will exit, with the function returning, with this
  *                 exit status, unless it is zero. If zero, the process shall not exit.
@@ -71,6 +75,8 @@ void verror(int, int, const char*, va_list);
  * 
  * This is a GNU extension.
  * 
+ * @etymology  Report (error at line) in source code!
+ * 
  * @param  status    The process will exit, with the function returning, with this
  *                   exit status, unless it is zero. If zero, the process shall not exit.
  * @param  errnum    The value of `errno` when the error occurred, zero if the a textual
@@ -89,6 +95,8 @@ void error_at_line(int, int, const char*, unsigned int, const char*, ...)
  * number whence the error occurred.
  * 
  * This is a slibc extension to the GNU extension `error_at_line`.
+ * 
+ * @etymology  (V)ariadic version of (`error_at_line`).
  * 
  * @param  status    The process will exit, with the function returning, with this
  *                   exit status, unless it is zero. If zero, the process shall not exit.
@@ -111,6 +119,8 @@ void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
  * This variable is global and shared by all threads.
  * 
  * This is a GNU extension.
+ * 
+ * @etymology  (`error`)-subsystem: (message count).
  */
 extern volatile unsigned int error_message_count;
 
@@ -129,6 +139,8 @@ extern volatile unsigned int error_message_count;
  * occurred on the same line as the last time.
  * 
  * This is a GNU extension.
+ * 
+ * @etymology  (`error`)-subsystem: print (one) time (per line).
  */
 extern volatile int error_one_per_line;
 
@@ -140,6 +152,8 @@ extern volatile int error_one_per_line;
  * shared by all threads.
  * 
  * This is a GNU extension.
+ * 
+ * @etymology  (`error`)-subsystem function: (print) the (prog)ram's (name).
  */
 extern void (*volatile error_print_progname)(void);
 #endif

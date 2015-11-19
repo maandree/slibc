@@ -27,6 +27,8 @@
  * overflow, and `INTMAX_MIN` will (probably)
  * be returned.
  * 
+ * @etymology  `(i)nt(max)_t`-function: (abs)olute value.
+ * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
  */

@@ -68,6 +68,13 @@ This means that you, generally, cannot check whether an
 error has occurred by checking the value of @code{errno}
 rather than the return value.
 
+@ifnottex
+Etymology for @code{errno}: (Err)or (number).
+@end ifnottex
+@iftex
+Etymology for @code{errno}: @b{Err}or @b{number}.
+@end iftex
+
 
 
 @node Error codes
@@ -483,6 +490,13 @@ of the description of @code{errnum}.
 Unless @code{status} is @code{0}, the process
 will exit with the exit value @code{status & 255}.
 
+@ifnottex
+Etymology: Report (error)!
+@end ifnottex
+@iftex
+Etymology: Report @b{error}!
+@end iftex
+
 @item void verror(int status, int errnum, const char* format, va_list args)
 @fnindex verror
 @hfindex error.h
@@ -492,6 +506,13 @@ defined, by including the header file
 @file{<error.h>}. It is identical to
 @code{error} except it uses @code{va_list}
 instead of being a variadic function.
+
+@ifnottex
+Etymology: (V)ariadic version of (@code{error}).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic version of @b{error}.
+@end iftex
 
 @item void error_at_line(int status, int errnum, const char* filename, unsigned int linenum, const char* format, ...)
 @fnindex error_at_line
@@ -522,6 +543,13 @@ int main(void)
 @}
 @end example
 
+@ifnottex
+Etymology: Report (error at line) in source code!
+@end ifnottex
+@iftex
+Etymology: Report @b{error at line} in source code!
+@end iftex
+
 @item void verror_at_line(int status, int errnum, const char* filename, unsigned int linenum, const char* format, va_list args)
 @fnindex verror_at_line
 @hfindex error.h
@@ -532,6 +560,13 @@ defined, by including the header file
 @code{error_at_line} except it uses @code{va_list}
 instead of being a variadic function.
 
+@ifnottex
+Etymology: (V)ariadic version of (@code{error_at_line}).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic version of @b{error_at_line}.
+@end iftex
+
 @item volatile unsigned int error_message_count
 @lvindex error_message_count
 @hfindex error.h
@@ -541,6 +576,13 @@ file @file{<error.h>}. Counts the number of times
 @code{error} (or @code{verror}) and @code{error_at_line}
 (@code{verror_at_line}) has returned. This variable
 is global and shared by all threads.
+
+@ifnottex
+Etymology: (@code{error})-subsystem: (message count).
+@end ifnottex
+@iftex
+Etymology: @b{error}-subsystem: @b{message count}).
+@end iftex
 
 @item volatile int error_one_per_line
 @lvindex error_message_count
@@ -563,6 +605,13 @@ remembered, meaning if the error code is different
 printed even if it occurred on the same line as the
 last time.
 
+@ifnottex
+Etymology: (@code{error})-subsystem: print (one) time (per line).
+@end ifnottex
+@iftex
+Etymology: @b{error}-subsystem: print @b{one} time @b{per line}.
+@end iftex
+
 @item void (*volatile error_print_progname)(void)
 @lvindex error_message_count
 @hfindex error.h
@@ -575,6 +624,13 @@ of flushing stdout and printing the process name to
 stderr, by @code{error} (@code{verror}) and
 @code{verror_at_line} (@code{verror_at_line}). This
 variable is global and shared by all threads.
+
+@ifnottex
+Etymology: (@code{error})-subsystem function: (print) the (prog)ram's (name).
+@end ifnottex
+@iftex
+Etymology: @b{error}-subsystem function: @b{print} the @b{prog}ram's @b{name}.
+@end iftex
 @end table
 
 In @code{slibc}, functions defined in @file{<err.h>}
