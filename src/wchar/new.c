@@ -569,3 +569,75 @@ wchar_t* (wcscnends)(const wchar_t* string, const wchar_t* desired, wchar_t stop
   return (wmemcmp)(string + (n - m), desired, m) ? NULL : (string + n);
 }
 
+int wcslowercmp(const wchar_t* a, const wchar_t* b) /* slibc: completeness */
+{
+  return wcsnlowercmp(a, b, SIZE_MAX);
+}
+
+int wcsuppercmp(const wchar_t* a, const wchar_t* b) /* slibc: completeness */
+{
+  return wcsnuppercmp(a, b, SIZE_MAX);
+}
+
+int wcsnlowercmp(const wchar_t* a, const wchar_t* b, size_t length) /* slibc: completeness */
+{
+  wchar_t c1, c2;
+  for (; length--; a++, b++)
+    if (*a != *b)
+      {
+	c1 = iswalpha(*a) ? towlower(*a) : *a;
+	c2 = *b;
+	if (c1 < c2)  return -1;
+	if (c1 > c2)  return +1;
+      }
+    else if (!*a && !*b)  return 0;
+    else if (!*a)         return -1;
+    else if (!*b)         return +1;
+  return 0;
+}
+
+int wcsnuppercmp(const wchar_t* a, const wchar_t* b, size_t length) /* slibc: completeness */
+{
+  wchar_t c1, c2;
+  for (; length--; a++, b++)
+    if (*a != *b)
+      {
+	c1 = iswalpha(*a) ? towupper(*a) : *a;
+	c2 = *b;
+	if (c1 < c2)  return -1;
+	if (c1 > c2)  return +1;
+      }
+    else if (!*a && !*b)  return 0;
+    else if (!*a)         return -1;
+    else if (!*b)         return +1;
+  return 0;
+}
+
+int wmemlowercmp(const wchar_t* a, const wchar_t* b, size_t size) /* slibc: completeness */
+{
+  wchar_t c1, c2;
+  for (; size--; a++, b++)
+    if (*a != *b)
+      {
+	c1 = iswalpha(*a) ? towlower(*a) : *a;
+	c2 = *b;
+	if (c1 != c2)
+	  return c1 < c2 ? -1 : +1;
+      }
+  return 0;
+}
+
+int wmemuppercmp(const wchar_t* a, const wchar_t* b, size_t size) /* slibc: completeness */
+{
+  wchar_t c1, c2;
+  for (; size--; a++, b++)
+    if (*a != *b)
+      {
+	c1 = iswalpha(*a) ? towupper(*a) : *a;
+	c2 = *b;
+	if (c1 != c2)
+	  return c1 < c2 ? -1 : +1;
+      }
+  return 0;
+}
+

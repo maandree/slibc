@@ -729,3 +729,79 @@ char* (strcnends)(const char* string, const char* desired, int stop, size_t maxl
   return (memcmp)(string + (n - m), desired, m) ? NULL : (string + n);
 }
 
+int strlowercmp(const char* a, const char* b) /* slibc */
+{
+  return strnlowercmp(a, b, SIZE_MAX);
+}
+
+int struppercmp(const char* a, const char* b) /* slibc: completeness */
+{
+  return strnuppercmp(a, b, SIZE_MAX);
+}
+
+int strnlowercmp(const char* a, const char* b, size_t length) /* slibc: completeness */
+{
+  int c1, c2;
+  for (; length--; a++, b++)
+    if (*a != *b)
+      {
+	c1 = isalpha(*a) ? tolower(*a) : (int)*a;
+	c2 = *b;
+	if ((c1 -= c2))
+	  return c1;
+      }
+    else if (!*a && !*b)  return 0;
+    else if (!*a)         return -1;
+    else if (!*b)         return +1;
+  return 0;
+}
+
+int strnuppercmp(const char* a, const char* b, size_t length) /* slibc: completeness */
+{
+  int c1, c2;
+  for (; length--; a++, b++)
+    if (*a != *b)
+      {
+	c1 = isalpha(*a) ? toupper(*a) : (int)*a;
+	c2 = *b;
+	if ((c1 -= c2))
+	  return c1;
+      }
+    else if (!*a && !*b)  return 0;
+    else if (!*a)         return -1;
+    else if (!*b)         return +1;
+  return 0;
+}
+
+int memlowercmp(const void* a, const void* b, size_t size) /* slibc: completeness */
+{
+  const signed char* s1 = a;
+  const signed char* s2 = b;
+  int c1, c2;
+  for (; size--; s1++, s2++)
+    if (*s1 != *s2)
+      {
+	c1 = isalpha(*s1) ? tolower(*s1) : (int)*s1;
+	c2 = *s2;
+	if ((c1 -= c2))
+	  return c1;
+      }
+  return 0;
+}
+
+int memuppercmp(const void* a, const void* b, size_t size) /* slibc: completeness */
+{
+  const signed char* s1 = a;
+  const signed char* s2 = b;
+  int c1, c2;
+  for (; size--; s1++, s2++)
+    if (*s1 != *s2)
+      {
+	c1 = isalpha(*s1) ? toupper(*s1) : (int)*s1;
+	c2 = *s2;
+	if ((c1 -= c2))
+	  return c1;
+      }
+  return 0;
+}
+
