@@ -48,6 +48,6 @@ wchar_t* (wmemmem)(const wchar_t* haystack, size_t haystack_length,
   if (haystack_length == needle_length)
     return !wmemcmp(haystack, needle, haystack_length) ? haystack : NULL;
 #define WIDE
-#include "../string/substring.h"
+#include "../string/mem/substring.h"
 }
 

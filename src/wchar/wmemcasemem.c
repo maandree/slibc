@@ -49,6 +49,6 @@ wchar_t* (wmemcasemem)(const wchar_t* haystack, size_t haystack_length,
     return !wmemcasecmp(haystack, needle, haystack_length) ? haystack : NULL;
 #define WIDE
 #define CASE
-#include "../string/substring.h"
+#include "../string/mem/substring.h"
 }
 
