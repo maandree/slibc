@@ -50,6 +50,7 @@
 
 
 /* TODO add support for RIGHT */
+/* TODO add [w]mem[r]{lower,upper}mem */
 
 
 /* The implementation of the algorithm, read
