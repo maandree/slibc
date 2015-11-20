@@ -24,6 +24,8 @@
  * This function is identical to `strrchr`.
  * 
  * This is a deprecated BSD extension.
+ * 
+ * @etymology  (R)ight-most (index) of character.
  */
 char* (rindex)(const char* string, int c)
 {

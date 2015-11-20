@@ -25,6 +25,8 @@
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
  * 
+ * @etymology  (Str)ing-function: (case) insensitive (c)o(mp)arison.
+ * 
  * @param   a  A negative value is returned if this is the lesser.
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,

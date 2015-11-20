@@ -22,7 +22,9 @@
 /**
  * Find the first set bit in an integer.
  * 
- * @param   i  The integer
+ * @etymology  (F)ind (f)irst (s)et bit on `(l)ong (l)ong int`.
+ * 
+ * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffsll(long long i)

@@ -41,6 +41,8 @@
  * Note that `NULL` is genuinely harmful in C++,
  * but excessive use of C++, and especially it
  * features, is harmful too.
+ * 
+ * @etymology  Pointer with numerical value (0).
  */
 #ifndef NULL
 # define NULL  ((void*)0)
@@ -63,6 +65,8 @@
  * `offsetof(struct example, offset_is_16)` evaluates to
  * 16 because the member above it in the structure
  * has offset 0 and size 16. 0 + 16 = 16.
+ * 
+ * @etymology  Address-(offset of) member.
  * 
  * @param   type:identifier    The identifier for a structure.
  * @param   member:identifier  The identifier for a member, direct or indirect,

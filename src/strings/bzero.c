@@ -23,6 +23,8 @@
 /**
  * Override a memory segment with zeroes.
  * 
+ * @etymology  (B)uffer: (zero) out.
+ * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
  */

@@ -23,6 +23,8 @@
 /**
  * Copy a memory segment to another, possibly overlapping, segment.
  * 
+ * @etymology  (B)uffer: (copy).
+ * 
  * @param  whence   The source memory segment.
  * @param  whither  The destination memory segment.
  * @param  size     The number of bytes to copy.

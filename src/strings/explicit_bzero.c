@@ -33,6 +33,8 @@ void* (*volatile __slibc_explicit_memset)(void*, int, size_t) = memset;
  * Unlike `bzero` and `memset`, calls to this function
  * cannot be removed, as an optimisation, by the compiler.
  * 
+ * @etymology  (Explicit) version of (`bzero`).
+ * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
  */

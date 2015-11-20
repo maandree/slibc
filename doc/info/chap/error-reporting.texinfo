@@ -880,5 +880,11 @@ than the location and @code{error_string} should
 be printed. It is followed by the formatting-arguments.
 @end table
 
+@ifnottex
+Etymology: (@command{slibc})-enhancement of (@code{perror}).
+@end ifnottex
+@iftex
+Etymology: @b{slibc}-enhancement of @b{perror}.
+@end iftex
 @end table
 

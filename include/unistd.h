@@ -45,18 +45,24 @@
 /**
  * The file descriptor for stdin.
  * The file with input.
+ * 
+ * @etymology  (St)andar(d) (in)put (file)descriptor (number).
  */
 #define STDIN_FILENO  0
 
 /**
  * The file descriptor for stdout.
  * The file for output.
+ * 
+ * @etymology  (St)andar(d) (out)put (file)descriptor (number).
  */
 #define STDOUT_FILENO  1
 
 /**
  * The file descriptor for stderr.
  * The file for error messages and warnings.
+ * 
+ * @etymology  (St)andar(d) (err)or output (file)descriptor (number).
  */
 #define STDERR_FILENO  2
 
@@ -87,6 +93,8 @@
  * was removed from the POSIX standard in revision
  * POSIX.1-2001. It is however fundamental in
  * implementing a fast `malloc`-implementation.
+ * 
+ * @etymology  Set (br)ea(k).
  * 
  * @param   address  The process's new high end of its data segment.
  *                   If lower than the current low end, nothing will
@@ -122,6 +130,8 @@ int brk(void*) /* TODO implement brk */
  * was removed from the POSIX standard in revision
  * POSIX.1-2001. It is however fundamental in
  * implementing a fast `malloc`-implementation.
+ * 
+ * @etymology  Shift (br)ea(k).
  * 
  * @param   delta  The incremant of the size of the data segment,
  *                 zero means that the high end shall not be moved

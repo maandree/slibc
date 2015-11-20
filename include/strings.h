@@ -31,6 +31,8 @@
 /**
  * Override a memory segment with zeroes.
  * 
+ * @etymology  (B)uffer: (zero) out.
+ * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
  */
@@ -44,6 +46,8 @@ void bzero(void*, size_t)
  * Unlike `bzero` and `memset`, calls to this function
  * cannot be removed, as an optimisation, by the compiler.
  * 
+ * @etymology  (Explicit) version of (`bzero`).
+ * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
  */
@@ -52,6 +56,8 @@ void explicit_bzero(void*, size_t);
 
 /**
  * Copy a memory segment to another, possibly overlapping, segment.
+ * 
+ * @etymology  (B)uffer: (copy).
  * 
  * @param  whence   The source memory segment.
  * @param  whither  The destination memory segment.
@@ -62,6 +68,8 @@ void bcopy(const void*, void*, size_t)
 
 /**
  * This function is identical to `memcmp`.
+ * 
+ * @etymology  (B)uffer: (c)o(mp)are.
  */
 int bcmp(const void*, const void*, size_t)
   __deprecated("Use 'memcmp' instead.")
@@ -72,6 +80,8 @@ int bcmp(const void*, const void*, size_t)
  * Compare two strings alphabetically in a case insensitive manner.
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
+ * 
+ * @etymology  (Str)ing-function: (case) insensitive (c)o(mp)arison.
  * 
  * @param   a  A negative value is returned if this is the lesser.
  * @param   b  A positive value is returned if this is the lesser.
@@ -85,6 +95,8 @@ int strcasecmp(const char*, const char*)
  * Compare two strings alphabetically in a case insensitive manner.
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
+ * 
+ * @etymology  (Str)ing-function: (n)-bytes, (case) insensitive (c)o(mp)arison.
  * 
  * @param   a       A negative value is returned if this is the lesser.
  * @param   b       A positive value is returned if this is the lesser.
@@ -101,6 +113,8 @@ int strncasecmp(const char*, const char*, size_t)
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
  * 
+ * @etymology  (`strcasecmp`) variant with (l)ocale-consideration.
+ * 
  * @param   a       A negative value is returned if this is the lesser.
  * @param   b       A positive value is returned if this is the lesser.
  * @param   locale  The locale.
@@ -114,6 +128,8 @@ int strcasecmp_l(const char*, const char*, locale_t) /* TODO */
  * Compare two strings alphabetically in a case insensitive manner.
  * Be aware, only ASCII characters are case insensitive, non-ASCII
  * characters are case sensitive.
+ * 
+ * @etymology  (`strncasecmp`) variant with (l)ocale-consideration.
  * 
  * @param   a       A negative value is returned if this is the lesser.
  * @param   b       A positive value is returned if this is the lesser.
@@ -130,6 +146,8 @@ int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
  * This function is identical to `strchr`.
  * 
  * This is a deprecated BSD extension.
+ * 
+ * @etymology  (Index) of character.
  */
 char* index(const char*, int)
   __deprecated("Use 'strchr' instead.")
@@ -142,6 +160,8 @@ char* index(const char*, int)
  * This function is identical to `strrchr`.
  * 
  * This is a deprecated BSD extension.
+ * 
+ * @etymology  (R)ight-most (index) of character.
  */
 char* rindex(const char*, int)
   __deprecated("Use 'strrchr' instead.")
@@ -154,7 +174,9 @@ char* rindex(const char*, int)
 /**
  * Find the first set bit in an integer.
  * 
- * @param   i  The integer
+ * @etymology  (F)ind (f)irst (s)et bit on `int`.
+ * 
+ * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffs(int)
@@ -163,7 +185,9 @@ int ffs(int)
 /**
  * Find the first set bit in an integer.
  * 
- * @param   i  The integer
+ * @etymology  (F)ind (f)irst (s)et bit on `(l)ong int`.
+ * 
+ * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffsl(long)
@@ -172,7 +196,9 @@ int ffsl(long)
 /**
  * Find the first set bit in an integer.
  * 
- * @param   i  The integer
+ * @etymology  (F)ind (f)irst (s)et bit on `(l)ong (l)ong int`.
+ * 
+ * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
  */
 int ffsll(long long)

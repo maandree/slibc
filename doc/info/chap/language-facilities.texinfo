@@ -112,6 +112,13 @@ is stored as 1, to avoid integer overflows,
 that may occur when using @code{int}, and
 not using @code{!!} when casting to @code{int}.
 
+@ifnottex
+Etymology: (Bool)ean.
+@end ifnottex
+@iftex
+Etymology: @b{Bool}ean.
+@end iftex
+
 @item true
 Has the value 1, and represents a true value.
 
@@ -197,6 +204,17 @@ should have the alignment of the type @code{TYPE}@.
 The function call @code{alignof(TYPE)}, returns
 the alignment of the type @code{TYPE}@.
 
+@ifnottex
+Etymology of @code{alignas}: (Align as) type.
+
+Etymology of @code{alignof}: (Align)ment (of) type.
+@end ifnottex
+@iftex
+Etymology of @code{alignas}: @b{Align as} type.
+
+Etymology of @code{alignof}: @b{Align}ment @b{of} type.
+@end iftex
+
 
 
 @node Member offsets
@@ -233,6 +251,13 @@ structure has offset 0 and size 16. 0 + 16 = 16.
 @code{offsetof} is also known to be problematic in C++,
 because C++ supports redefining operators.
 
+@ifnottex
+Etymology: Address-(offset of) member.
+@end ifnottex
+@iftex
+Etymology: Address-@b{offset of} member.
+@end iftex
+
 
 
 @node Variadic functions
@@ -256,15 +281,36 @@ data type and the three macro functions.
 Data type that is used to traverse the non-fixed
 arguments in a variadic function.
 
+@ifnottex
+Etymology: (V)ariadic (a)rguments-subsystem: argument-(list).
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic @b{a}rguments-subsystem: argument-@b{list}.
+@end iftex
+
 @item void va_start(va_list @i{list}, @i{last})
 Initialises a @code{va_list}, specified by the
 first argument. The second argument must be the
 last fixed argument.
 
+@ifnottex
+Etymology: (V)ariadic (a)rguments-subsystem: (start) of use.
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic @b{a}rguments-subsystem: @b{start} of use.
+@end iftex
+
 @item void va_end(va_list @i{list})
 Deallocates resources that was allocated by
 @code{va_start}. The specified list, must not
 be used after calling this macro.
+
+@ifnottex
+Etymology: (V)ariadic (a)rguments-subsystem: (end) of use.
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic @b{a}rguments-subsystem: @b{end} of use.
+@end iftex
 
 @item @i{type} va_arg(va_list @i{list}, @i{type})
 Returns the next argument, the specified type
@@ -276,6 +322,13 @@ or @code{short int} (or variant thereof), the
 corresponding call to @code{va_arg} shall
 specify @code{int} or a variant thereof (with
 the same width as @code{int}.)
+
+@ifnottex
+Etymology: (V)ariadic (a)rguments-subsystem: get (arg)ument.
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic @b{a}rguments-subsystem: get @b{arg}ument.
+@end iftex
 @end table
 
 @fnindex va_copy
@@ -298,6 +351,13 @@ void fun(int arg, ...)
   va_end(original);
 @}
 @end example
+
+@ifnottex
+Etymology: (V)ariadic (a)rguments-subsystem: (copy) list.
+@end ifnottex
+@iftex
+Etymology: @b{V}ariadic @b{a}rguments-subsystem: @b{copy} list.
+@end iftex
 
 Some systems define @code{va_start} and @code{va_end}
 with a @code{@{} in @code{va_start} and a @code{@}}
@@ -453,4 +513,11 @@ using @code{NULL}, correct substitutions would be
 Note that @code{NULL} is genuinely harmful in C++,
 but excessive use of C++, and especially it
 features, is harmful too.
+
+@ifnottex
+Etymology: Pointer with numerical value (0).
+@end ifnottex
+@iftex
+Etymology: Pointer with numerical value @b{0}.
+@end iftex
 

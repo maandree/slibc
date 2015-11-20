@@ -34,6 +34,8 @@
  * is converted to 1 (just like prefixing with `!!`). This
  * assures that overflow during cast does not cause a non-zero
  * value to be converted to zero.
+ * 
+ * @etymology  (Bool)ean.
  */
 #define bool _Bool
 

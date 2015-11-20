@@ -410,6 +410,13 @@ for the aligment of all pointers it returns.
 you want the pointer to be unaligned, call
 @code{memalign(1, n)}.
 
+@ifnottex
+Etymology: (M)emory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: @b{M}emory @b{alloc}ation.
+@end iftex
+
 @item void* calloc(size_t count, size_t size)
 @fnindex calloc
 @cpindex Memory allocation without uninitialisation
@@ -426,6 +433,13 @@ Otherwise, @code{p = calloc(a, b)} is identical to
 p = malloc(a * b);
 memset(p, 0, a * b);
 @end example
+
+@ifnottex
+Etymology: (C)leared memory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: @b{C}leared memory @b{alloc}ation.
+@end iftex
 
 @item void free(void* ptr)
 @fnindex free
@@ -459,6 +473,13 @@ statically allocated arrays, which must not
 be deallocated, or dynamically allocated
 memory, which should be deallocated to avoid
 memory leaks.
+
+@ifnottex
+Etymology: (Free) allocated memory.
+@end ifnottex
+@iftex
+Etymology: @b{Free} allocated memory.
+@end iftex
 @end table
 
 @file{<malloc.h>} also includes four unportable
@@ -473,6 +494,13 @@ does not overflow, @code{calloc(a, b)} is identical
 to @code{zalloc(a * b)}. @code{zalloc} is a
 @command{klibc} extension.
 
+@ifnottex
+Etymology: (Z)eroed memory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: @b{Z}eroed memory @b{alloc}ation.
+@end iftex
+
 @item void* mallocz(size_t size, int clear)
 @fnindex mallocz
 This function is similar to @code{malloc}. However,
@@ -484,6 +512,13 @@ is non-zero, the allocated memory will be initialised.
 
 This function is a Plan 9 from Bell Labs extension
 and requires @code{_PLAN9_SOURCE}.
+
+@ifnottex
+Etymology: (M)emory (alloc)ation with potential (z)eroing.
+@end ifnottex
+@iftex
+Etymology: @b{M}emory @b{alloc}ation with potential @b{z}eroing.
+@end iftex
 
 @item void cfree(void* ptr, ...)
 @fnindex cfree
@@ -512,6 +547,13 @@ function @code{free}.
 
 This function is a @sc{GNU} extension and requires
 @code{_GNU_SOURCE}.
+
+@ifnottex
+Etymology: (@code{malloc})-subsystem: user-(usable size) of allocation.
+@end ifnottex
+@iftex
+Etymology: @b{malloc}-subsystem: user-@b{usable size} of allocation.
+@end iftex
 @end table
 
 @hfindex slibc-alloc.h
@@ -533,12 +575,26 @@ is guaranteed not to clear the memory. However,
 the operating system kernel may still clear the
 memory.
 
+@ifnottex
+Etymology: (Fast) variant of (@code{free}).
+@end ifnottex
+@iftex
+Etymology: @b{Fast} variant of @b{free}.
+@end iftex
+
 @item void secure_free(void* ptr)
 @fnindex secure_free
 @cpindex Deallocate memory
 @cpindex Memory, deallocation
 This function is similar to @code{free}, but it
 is guaranteed that the memory is clear.
+
+@ifnottex
+Etymology: (Secure) variant of (@code{free}).
+@end ifnottex
+@iftex
+Etymology: @b{Secure} variant of @b{free}.
+@end iftex
 
 @item void FAST_FREE(void* ptr)
 @fnindex FAST_FREE
@@ -548,6 +604,13 @@ This clears deallocates a pointer with
 @code{fast_free}, and sets @code{ptr} to
 @code{NULL}.
 
+@ifnottex
+Etymology: Macro version of (@code{fast_free}).
+@end ifnottex
+@iftex
+Etymology: Macro version of @b{fast_free}.
+@end iftex
+
 @item void SECURE_FREE(void* ptr)
 @fnindex SECURE_FREE
 @cpindex Deallocate memory
@@ -555,6 +618,13 @@ This clears deallocates a pointer with
 This clears deallocates a pointer with
 @code{secure_free}, and sets @code{ptr} to
 @code{NULL}.
+
+@ifnottex
+Etymology: Macro version of (@code{secure_free}).
+@end ifnottex
+@iftex
+Etymology: Macro version of @b{secure_free}.
+@end iftex
 
 @item size_t allocsize(void* ptr)
 @fnindex allocsize
@@ -567,6 +637,13 @@ function @code{free}.
 
 @code{allocsize(malloc(n))} returns @code{n}
 (and allocates memory in the process.)
+
+@ifnottex
+Etymology: Memory (alloc)ation (size).
+@end ifnottex
+@iftex
+Etymology: Memory @b{alloc}ation @b{size}.
+@end iftex
 @end table
 
 
@@ -614,6 +691,13 @@ to be aligned if a new pointer is returned.
 In @code{slibc}, the alignment may be lost.
 This behaviour has been chosen because aligned
 memory allocation is uncommon in practice.
+
+@ifnottex
+Etymology: (Mem)ory (align)ment.
+@end ifnottex
+@iftex
+Etymology: @b{Mem}ory @b{align}ment.
+@end iftex
 
 @item int posix_memalign(void** ptrptr, size_t boundary, size_t size)
 @fnindex posix_memalign
@@ -668,6 +752,13 @@ memory allocation is uncommon in practice.
 is not a multiple of @code{sizeof(void*)}, and
 @code{errno} is unspecified.
 
+@ifnottex
+Etymology: (@sc{POSIX})-extension: (mem)ory alignment.
+@end ifnottex
+@iftex
+Etymology: @b{POSIX}-extension: @b{mem}ory alignment.
+@end iftex
+
 @item void* valloc(size_t size)
 @fnindex valloc
 This function is similar to @code{memalign}.
@@ -698,6 +789,13 @@ to be aligned if a new pointer is returned.
 In @code{slibc}, the alignment may be lost.
 This behaviour has been chosen because aligned
 memory allocation is uncommon in practice.
+
+@ifnottex
+Etymology: Whole-(v)irtual-memory-page aligned memory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: Whole-@b{v}irtual-memory-page aligned memory @b{alloc}ation.
+@end iftex
 
 @item void* pvalloc(size_t size)
 @fnindex pvalloc
@@ -732,6 +830,13 @@ In @code{slibc}, the alignment may be lost.
 This behaviour has been chosen because aligned
 memory allocation is uncommon in practice.
 
+@ifnottex
+Etymology: Whole-(p)age-allocation variant of (@code{valloc}).
+@end ifnottex
+@iftex
+Etymology: Whole-@b{p}age-allocation variant of @b{valloc}.
+@end iftex
+
 @item void* aligned_alloc(size_t boundary, size_t size)
 @fnindex aligned_alloc
 This function is identical to @code{memalign},
@@ -752,6 +857,13 @@ A recommended practice, to align pointers is:
 @example
 p = aligned_alloc(sizeof(*p), n)
 @end example
+
+@ifnottex
+Etymology: (Align)ed memory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: @b{Align}ed memory @b{alloc}ation.
+@end iftex
 @end table
 
 
@@ -810,6 +922,13 @@ or @code{REMEMALIGN_MEMCPY}, the function fails with
 
 Upon successful completion, @code{errno} is set to zero
 if @code{NULL} is returned.
+
+@ifnottex
+Etymology: (Re)allocate (mem)ory and (align).
+@end ifnottex
+@iftex
+Etymology: @b{Re}allocate @b{mem}ory and @b{align}.
+@end iftex
 
 @item void* naive_realloc(void* ptr, size_t boundary, size_t size)
 This function is discussed in @ref{Resizing memory allocations}.
@@ -891,6 +1010,13 @@ size_t psize, new_size;
   psize = new_size;
 @}
 @end example
+
+@ifnottex
+Etymology: Memory (realloc)ation.
+@end ifnottex
+@iftex
+Etymology: Memory @b{realloc}ation.
+@end iftex
 @end table
 
 Note that if @code{ptr == NULL && size == 0},
@@ -922,6 +1048,13 @@ allocation is created, and zero-initialises the
 newly available memory when the allocation has
 grown.
 
+@ifnottex
+Etymology: (C)lear and (realloc)ate memory.
+@end ifnottex
+@iftex
+Etymology: @b{C}lear and @b{realloc}ate memory.
+@end iftex
+
 @item void* fast_realloc(void* ptr, size_t size)
 @fnindex fast_realloc
 This function is similar to @code{realloc},
@@ -933,6 +1066,12 @@ memory when the allocation has grown. The
 operating system kernel may still clear the
 disowned memory area or the old allocation.
 
+@ifnottex
+Etymology: (Fast) variant of (@code{realloc}).
+@end ifnottex
+@iftex
+Etymology: @b{Fast} variant of @b{realloc}.
+@end iftex
 
 @item void* secure_realloc(void* ptr, size_t size)
 @fnindex secure_realloc
@@ -942,6 +1081,13 @@ shrinks, clears the old allocation when a new
 allocation is created, but does not zero-initialise
 the newly available memory when the allocation has
 grown.
+
+@ifnottex
+Etymology: (Secure) variant of (@code{realloc}).
+@end ifnottex
+@iftex
+Etymology: @b{Secure} variant of @b{realloc}.
+@end iftex
 
 @item void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int clear_free)
 @fnindex custom_realloc
@@ -964,6 +1110,13 @@ disowned memory area or the old allocation, if
 the parameters specifies that the memory should
 not be cleared.
 
+@ifnottex
+Etymology: (Custom)isable variant of (@code{realloc}).
+@end ifnottex
+@iftex
+Etymology: @b{Custom}isable variant of @b{realloc}.
+@end iftex
+
 @item void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
 @fnindex extalloc
 @tpindex extalloc_mode
@@ -980,6 +1133,13 @@ initialise new memory, additionally, it will only clear
 old memory --- disowned, or the old allocation --- if
 @code{mode & EXTALLOC_CLEAR}. @code{EXTALLOC_MALLOC}
 and @code{EXTALLOC_CLEAR} can be combined freely.
+
+@ifnottex
+Etymology: (Ext)end memory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: @b{Ext}end memory @b{alloc}ation.
+@end iftex
 
 @item void* naive_realloc(void* ptr, size_t boundary, size_t size)
 @fnindex naive_realloc
@@ -1003,6 +1163,13 @@ If and only if, a new allocation is created, the
 returned pointer's alignment will be @code{boundary}.
 @end itemize
 
+@ifnottex
+Etymology: (Naïve) variant of (@code{realloc}).
+@end ifnottex
+@iftex
+Etymology: @b{Naïve} variant of @b{realloc}.
+@end iftex
+
 @item void* naive_extalloc(void* ptr, size_t size)
 @fnindex naive_extalloc
 This is a naïve bare-bones version of @code{extalloc},
@@ -1011,6 +1178,13 @@ This fucntion is identical to that of @code{naive_realloc},
 except it will return @code{NULL} with @code{errno} set to
 zero, if it is not possible to perform the shrink or grow
 without creating new pointer.
+
+@ifnottex
+Etymology: (Naïve) variant of (@code{extalloc}).
+@end ifnottex
+@iftex
+Etymology: @b{Naïve} variant of @b{extalloc}.
+@end iftex
 
 @item void* falloc(void* ptr, size_t* ptrshift, size_t boundary, size_t old_size, size_t new_size, enum falloc_mode mode)
 @fnindex falloc
@@ -1114,6 +1288,13 @@ is only copied over to the new allocation if
 @code{mode & FALLOC_MEMCPY}. If
 @code{(mode & FALLOC_INIT) && !(mode & FALLOC_MEMCPY)},
 the entire allocation will be cleared.
+
+@ifnottex
+Etymology: (F)ast memory (alloc)ation.
+@end ifnottex
+@iftex
+Etymology: @b{F}ast memory @b{alloc}ation.
+@end iftex
 @end table
 
 

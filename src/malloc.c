@@ -80,6 +80,8 @@ static void* unaligned_malloc(size_t size)
  * The returned pointer has an alignment usable
  * for any compiler-independent intrinsic data type.
  * 
+ * @etymology  (M)emory (alloc)ation.
+ * 
  * @param   size  The size of the allocation.
  * @return        Pointer to the beginning of the new allocation.
  *                If `size` is zero, this function will either return
@@ -101,6 +103,8 @@ void* malloc(size_t size)
  * 
  * `p = calloc(n, m)` is equivalent to
  * `(p = malloc(n * m), p ? (explicit_bzero(p, n * m), p) : NULL)`
+ * 
+ * @etymology  (C)leared memory (alloc)ation.
  * 
  * @param   elem_count  The number of elements to allocate.
  * @param   elem_size   The size of each element.
@@ -136,6 +140,8 @@ void* calloc(size_t elem_count, size_t elem_size)
  * 
  * This is a Plan 9 from Bell Labs extension.
  * 
+ * @etymology  (M)emory (alloc)ation with potential (z)eroing.
+ * 
  * @param   size   The size of the allocation.
  * @param   clear  Clear the allocation unless this value is zero.
  * @return         Pointer to the beginning of the new allocation.
@@ -165,6 +171,8 @@ void* mallocz(size_t size, int clear)
  * 
  * This is a klibc extension.
  * 
+ * @etymology  (Z)eroed memory (alloc)ation.
+ * 
  * @param   size  The size of the allocation.
  * @return        Pointer to the beginning of the new allocation.
  *                If `size` is zero, this function will either return
@@ -193,6 +201,8 @@ void* zalloc(size_t size)
  * 
  * On error, `ptr` is not freed.
  * 
+ * @etymology  Memory (realloc)ation.
+ * 
  * @param   ptr   Pointer to the beginning of the old memory allocation.
  *                The process may crash if it does not point to the
  *                beginning of a memory allocation on the heap.
@@ -214,6 +224,8 @@ void* realloc(void* ptr, size_t size)
 
 /**
  * Free a memory allocation.
+ * 
+ * @etymology  (Free) allocated memory.
  * 
  * @param  ptr  Pointer to the beginning of the memory allocation.
  *              The process may crash if it does not point to the
@@ -254,6 +266,8 @@ void cfree(void* ptr, ...)
  * 
  * As a GNU-compliant slibc extension, memory allocated
  * with this function can be freed with `free`.
+ * 
+ * @etymology  (Mem)ory alignment.
  * 
  * @param   boundary  The alignment.
  * @param   size      The number of bytes to allocated.
@@ -304,6 +318,8 @@ void* memalign(size_t boundary, size_t size)
  * As a GNU-compliant slibc extension, memory allocated
  * with this function can be freed with `free`.
  * 
+ * @etymology  (POSIX)-extension: (mem)ory alignment.
+ * 
  * @param   ptrptr    Output parameter for the allocated memory.
  * @param   boundary  The alignment.
  * @param   size      The number of bytes to allocated.
@@ -327,6 +343,8 @@ int posix_memalign(void** ptrptr, size_t boundary, size_t size)
  * As a GNU-compliant slibc extension, memory allocated
  * with this function can be freed with `free`.
  * 
+ * @etymology  Whole-(v)irtual-memory-page aligned memory (alloc)ation.
+ * 
  * @param   size  The number of bytes to allocated.
  * @return        Pointer to the beginning of the new allocation.
  *                If `size` is zero, this function will either return
@@ -347,6 +365,8 @@ void* valloc(size_t size)
  * This function works like `valloc`, except the allocation size,
  * including auxiliary space, is rounded up to the next multiple
  * of the page size.
+ * 
+ * @etymology  Whole-(p)age-allocation variant of (`valloc`).
  * 
  * @param   size    The number of bytes to allocated.
  * @return          Pointer to the beginning of the new allocation.
@@ -383,6 +403,8 @@ void* pvalloc(size_t size)
  * will allocate a bit of extra memory and shift the returned
  * pointer so that it is aligned.
  * 
+ * @etymology  (Alig)ned memory (alloc)ation.
+ * 
  * @param   boundary  The alignment.
  * @param   size      The number of bytes to allocated.
  * @return            Pointer to the beginning of the new allocation.
@@ -406,6 +428,8 @@ void* aligned_alloc(size_t boundary, size_t size)
  * a memory segment.
  * 
  * `p = malloc(n), malloc_usable_size(p)` will return `n`.
+ * 
+ * @etymology  (`malloc`)-subsystem: user-(usable size) of allocation.
  * 
  * @param   segment  The memory segment.
  * @return           The size of the memory segment, 0 if `segment` is `NULL`.

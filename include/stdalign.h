@@ -29,6 +29,8 @@
 /**
  * Specify the alignment of a variable.
  * 
+ * @etymology  (Align as) type.
+ * 
  * @param  type  The type whose alignment shall be used.
  */
 #if !defined(__C11__) && defined(__GNUC__)
@@ -39,6 +41,8 @@
 
 /**
  * Get the alignment of a type.
+ * 
+ * @etymology  (Align)ment (of) type.
  * 
  * @param   type  The type.
  * @return        The alignment of the type.

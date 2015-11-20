@@ -210,6 +210,8 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((__const__))); /* TODO no
  * 
  * This is a slibc extension.
  * 
+ * @etymology  (slibc)-enhancement of (`perror`).
+ * 
  * @param  progname      The name of the program, `NULL` or empty to use `program_invocation_name`.
  * @param  filename      The source code file where the error occurred.
  * @param  linenum       The line in the source code where the error occurred.

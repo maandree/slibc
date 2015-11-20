@@ -24,6 +24,8 @@
  * This function is identical to `strchr`.
  * 
  * This is a deprecated BSD extension.
+ * 
+ * @etymology  (Index) of character.
  */
 char* (index)(const char* string, int c)
 {

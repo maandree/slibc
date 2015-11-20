@@ -44,6 +44,8 @@
  * Structure used by extensions to `generic_printf`-function
  * to request that additionally arguments be added before the
  * function is called again.
+ * 
+ * @etymology  (`generic_printf`)-subsystem: (ext)ension (queue).
  */
 struct generic_printf_ext_queue
 {
@@ -75,6 +77,8 @@ struct generic_printf_ext_queue
  * Function-type used by `generic_printf` and `vgeneric_wprintf`
  * to write a string.
  * 
+ * @etymology  (`generic_printf`)-subsystem: (write-func)tion, `(t)ypedef`.
+ * 
  * @param   text    The text segment to print, it will only contain
  *                  a NUL byte if that NUL byte shall be printed.
  * @param   length  The length of `text`.
@@ -88,12 +92,16 @@ typedef int (* generic_printf_write_func_t)(const char*, size_t, void*);
 /**
  * Variant of `generic_printf_write_func_t` used for
  * `generic_wprintf` and `vgeneric_wprintf`.
+ * 
+ * @etymology  (`generic_wprintf`)-subsystem: (write-func)tion, `(t)ypedef`.
  */
 typedef int (* generic_wprintf_write_func_t)(const wchar_t*, size_t, void*);
 
 /**
  * Function-type used by `generic_printf` and `vgeneric_wprintf`
  * to write a string if a custom formatting code was encountered.
+ * 
+ * @etymology  (`generic_printf`)-subsystem: (ext)ension(-func)tion, `(t)ypedef`.
  * 
  * @param   code        The %-code, excluding the %.
  * @param   args        Formatting arguments cased to `intmax`.
@@ -116,6 +124,8 @@ typedef ssize_t (* generic_printf_ext_func_t)(const char*, intmax_t*, size_t, in
 /**
  * Variant of `generic_printf_ext_func_t` used for
  * `generic_wprintf` and `vgeneric_wprintf`.
+ * 
+ * @etymology  (`generic_wprintf`)-subsystem: (ext)ension(-func)tion, `(t)ypedef`.
  */
 typedef ssize_t (* generic_wprintf_ext_func_t)(const wchar_t*, intmax_t*, size_t, int, void*,
 					       struct generic_printf_ext_queue*);
@@ -123,6 +133,8 @@ typedef ssize_t (* generic_wprintf_ext_func_t)(const wchar_t*, intmax_t*, size_t
 
 /**
  * An almost fully generic `printf`-function.
+ * 
+ * @etymology  (Generic) (`wprintf`)-function.
  * 
  * @param   write_function      Function used to write the string. `NULL` if
  *                              it shall not be printed but only measured.
@@ -155,6 +167,8 @@ int generic_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
  * Variant of `generic_printf` that uses `va_list`
  * instead of variadic arguments.
  * 
+ * @etymology  (V)ariadic version of (`generic_printf`).
+ * 
  * @param   write_function      Function used to write the string. `NULL` if
  *                              it shall not be printed but only measured.
  * @param   extension_function  Function used to extend the functions formatting codes.
@@ -184,6 +198,8 @@ int vgeneric_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
 
 /**
  * Variant of `generic_printf` uses `wchar_t` instead of `char`;
+ * 
+ * @etymology  (Generic) (`printf`)-function.
  * 
  * @param   write_function      Function used to write the string. `NULL` if
  *                              it shall not be printed but only measured.
@@ -216,6 +232,8 @@ int generic_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
 /**
  * Variant of `generic_wprintf` that uses `va_list`
  * instead of variadic arguments.
+ * 
+ * @etymology  (V)ariadic version of (`generic_wprintf`).
  * 
  * @param   write_function      Function used to write the string. `NULL` if
  *                              it shall not be printed but only measured.

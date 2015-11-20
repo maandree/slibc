@@ -200,6 +200,8 @@ enum unescape_mode
 /**
  * Convert file permission from machine representation to human representation.
  * 
+ * @etymology  Convert to (human)-representation: `(mode)_t`.
+ * 
  * @param   buffer  Sufficiently large buffer for the output, or `NULL`.
  *                  18 characters is always sufficient, regardless of `mode`.
  * @param   perm    Machine representation of the permissions, will be masked with 07777.
@@ -221,6 +223,8 @@ char* humanmode(char* restrict, mode_t, enum humanmode_mode);
  * `value & ~*mask | *mode`. The new mode (includes file type) should
  * be `value & ~*mask | *mode & 07777`.
  * 
+ * @etymology  Convert to (machine)-representation: `(mode)_t`.
+ * 
  * @param   mode  Output parameter for the bits to set, may be `NULL`.
  * @param   mask  Output parameter for the bits to update, may be `NULL`.
  * @param   str   The file permission to parse, must not include file type or be `NULL`.
@@ -234,6 +238,8 @@ int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
 
 /**
  * Convert a file size of file offset from machine representation to human representation.
+ * 
+ * @etymology  Convert to (human)-representation: `(size)_t`.
  * 
  * @param   buffer        A buffer than shall be used if it is sufficiently large.
  * @param   bufsize       The allocation size of `buffer`.
@@ -262,21 +268,25 @@ char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* res
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
 /* TODO machinesize */
+/* @etymology  Convert to (machine)-representation: `(size)_t`. */
 int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
 		const char* restrict space, const char* restrict point);
 
 
 #ifdef __C99__
 /* TODO humandur */
+/* @etymology  Convert to (human)-representation: (dur)ation. */
 int humandur(intmax_t sec, long int nsec, const char* restrict point, const char* restrict format,
 	     const char* restrict intraspacing, const char* restrict interspacing);
 
 /* TODO machinedur */
+/* @etymology  Convert to (machine)-representation: (dur)ation. */
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict point);
 
 
 /* TODO machineint */
+/* @etymology  Convert to (machine)-representation: signed (int)eger. */
 char* machineint(intmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
@@ -284,6 +294,7 @@ char* machineint(intmax_t* restrict r, const char* restrict str)
 # endif
 
 /* TODO machineuint */
+/* @etymology  Convert to (machine)-representation: (u)nsigned (int)eger. */
 char* machineuint(uintmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
@@ -292,6 +303,7 @@ char* machineuint(uintmax_t* restrict r, const char* restrict str)
 #endif
 
 /* TODO machinefloat */
+/* @etymology  Convert to (machine)-representation: (float)ing-point number. */
 int machinefloat(long double* restrict r, const char* restrict str,
 		 const char* restrict space, const char* restrict comma);
 #ifdef __CONST_CORRECT
@@ -314,6 +326,8 @@ int machinefloat(long double* restrict r, const char* restrict str,
  * Unsupported escapes:
  *   \N{character name}
  * 
+ * @etymology  (Unescape) escaped string.
+ * 
  * @param   str   The escaped string, may be edited, may be `NULL`.
  *                Must not be reused on error.
  * @param   mode  How unrecognised escapes should be handled,
@@ -329,6 +343,8 @@ char* unescape(char*, enum unescape_mode);
 
 /**
  * Escapes a string.
+ * 
+ * @etymology  (Escape) string.
  * 
  * @param   str    The unescaped string, may be `NULL`.
  * @param   quote  The queue character, must be either ', "

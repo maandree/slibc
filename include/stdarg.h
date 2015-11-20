@@ -41,6 +41,8 @@
 
 /**
  * State of variadic argument-reading.
+ * 
+ * @etymology  (V)ariadic (a)rguments-subsystem: argument-(list).
  */
 #ifndef __DEFINED_va_list
 # define __DEFINED_va_list
@@ -56,6 +58,8 @@ typedef __builtin_va_list va_list;
 /**
  * Prologue to using a variadic arguments.
  * 
+ * @etymology  (V)ariadic (a)rguments-subsystem: (start) of use.
+ * 
  * @param  state:va_list    The state of the variadic argument-reading.
  * @param  last:identifier  The the last non-variadic argument.
  */
@@ -70,6 +74,8 @@ typedef __builtin_va_list va_list;
 /**
  * Epilogue to using a variadic arguments.
  * 
+ * @etymology  (V)ariadic (a)rguments-subsystem: (end) of use.
+ * 
  * @param  state:va_list  The state of the variadic argument-reading.
  */
 #ifndef va_end
@@ -82,6 +88,8 @@ typedef __builtin_va_list va_list;
 
 /**
  * Get the next variadic argument.
+ * 
+ * @etymology  (V)ariadic (a)rguments-subsystem: get (arg)ument.
  * 
  * @param   state:va_list    The state of the variadic argument-reading.
  * @param   type:identifier  The data type used in the called to the function,
@@ -96,6 +104,8 @@ typedef __builtin_va_list va_list;
 
 /**
  * Copy a state of variadic argument-reading.
+ * 
+ * @etymology  (V)ariadic (a)rguments-subsystem: (copy) list.
  * 
  * @param  destination:va_list  The copy if `source`.
  * @param  source:va_list       The state of the variadic argument-reading.
