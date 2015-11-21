@@ -34,7 +34,7 @@ CCFLAGS_CSTD = -std=gnu99
 CCFLAGS_INCLUDES = -Iinclude
 
 # Optimisation flags.
-CCFLAGS_OPTIIMISE = -Og -g
+CCFLAGS_OPTIMISE = -Og -g
 
 # Warning flags.
 CCFLAGS_WARNINGS = -Wall -Wextra -Wdouble-promotion -Wno-format -Winit-self -Wmissing-include-dirs \
@@ -52,7 +52,7 @@ CCFLAGS_WARNINGS = -Wall -Wextra -Wdouble-promotion -Wno-format -Winit-self -Wmi
 
 # All flags used required when compiling the library.
 CCFLAGS_COMMON = $(CCFLAGS_UNHOSTED) $(CCFLAGS_SLIBC_DEFS) $(CCFLAGS_CSTD) $(CCFLAGS_INCLUDES) \
-                 $(CCFLAGS_OPTIIMISE) $(CCFLAGS_WARNINGS)
+                 $(CCFLAGS_OPTIMISE) $(CCFLAGS_WARNINGS)
 CCFLAGS_COMMON += $(CPPFLAGS) $(CFLAGS)
 CCFLAGS_STATIC = $(CCFLAGS_COMMON)
 CCFLAGS_SHARED = $(CCFLAGS_COMMON) -fPIC -DSHARED
