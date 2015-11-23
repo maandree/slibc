@@ -184,6 +184,46 @@ static int wwrite_fd(const wchar_t* text, size_t length, int* fdp)
 
 
 /**
+ * Write a string segment to a file.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   input   Element 0: pointer to the file descriptor of the file.
+ *                  Element 1: flags for `send`.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  Any error specified for `write`.
+ */
+static int send_fd(const char* text, size_t length, int* input)
+{
+  int fd = input[0], flags = input[1];
+  /* TODO send_fd  */
+  return 0;
+  (void) text, (void) length, (void) fd, (void) flags;
+}
+
+
+/**
+ * Write a string segment to a file.
+ * 
+ * @param   text    The text to write, not NUL terminated.
+ * @param   length  The length of `text`.
+ * @param   input   Element 0: pointer to the file descriptor of the file.
+ *                  Element 1: flags for `send`.
+ * @return          Zero on success, -1 on error.
+ * 
+ * @throws  Any error specified for `write`.
+ */
+static int wsend_fd(const wchar_t* text, size_t length, int* input)
+{
+  int fd = input[0], flags = input[1];
+  /* TODO wsend_fd  */
+  return 0;
+  (void) text, (void) length, (void) fd, (void) flags;
+}
+
+
+/**
  * Write a string segment to a stream.
  * 
  * @param   text    The text to write, not NUL terminated.
@@ -409,6 +449,36 @@ int dprintf(int fd, const char* restrict format, ...)
 
 
 /**
+ * This function is identical to `dprintf`,
+ * except it uses `send` instead of `write`
+ * and supports transmissions flags.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   ...     The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int sockprintf(int fd, int flags, const char* format restrict, ...)
+{
+  V(sockprintf(fd, flags, format, args));
+}
+
+
+/**
  * This function is identical to `fprintf`,
  * it prints to a buffer rather than a stream.
  * 
@@ -622,7 +692,7 @@ int vfprintf_unlocked(FILE* restrict stream, const char* restrict format, va_lis
 
 
 /**
- * This function is identical to `vdprintf`,
+ * This function is identical to `dprintf`,
  * except it uses `va_list` instead of variadic argument.
  * 
  * @param   fd      The file descriptor.
@@ -643,6 +713,36 @@ int vfprintf_unlocked(FILE* restrict stream, const char* restrict format, va_lis
 int vdprintf(int fd, const char* restrict format, va_list args)
 {
   P_CHAR(write_fd, 0, 0, 0, &fd);
+}
+
+
+/**
+ * This function is identical to `sockprintf`,
+ * except it uses `va_list` instead of variadic argument.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   args    The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int vsockprintf(int fd, int flags, const char* restrict format, va_list args)
+{
+  int input[] = {fd, flags};
+  P_CHAR(send_fd, 0, 0, 0, input);
 }
 
 
@@ -891,6 +991,35 @@ int dwprintf(int fd, const wchar_t* restrict format, ...)
 
 
 /**
+ * This function is identical to `sockprintf`
+ * except it uses wide characters.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   ...     The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int sockwprintf(int fd, int flags, const wchar_t* restrict format, ...)
+{
+  V(sockwprintf(fd, flags, format, args));
+}
+
+
+/**
  * This function is identical to `snprintf`
  * (not `sprintf`) except it uses wide characters.
  * 
@@ -1078,7 +1207,7 @@ int vfwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va
 
 
 /**
- * This function is identical to `vdprintf`,
+ * This function is identical to `dwprintf`,
  * except it uses `va_list` instead of variadic argument.
  * 
  * This is a slibc extension added for completeness.
@@ -1101,6 +1230,36 @@ int vfwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va
 int vdwprintf(int fd, const wchar_t* restrict format, va_list args)
 {
   P_WCHAR(wwrite_fd, 0, 0, 0, &fd);
+}
+
+
+/**
+ * This function is identical to `sockwprintf`
+ * except it uses `va_list` instead of variadic argument.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   args    The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int vsockwprintf(int fd, int flags, const wchar_t* restrict format, va_list args)
+{
+  int input[] = {fd, flags};
+  P_WCHAR(wsend_fd, 0, 0, 0, input);
 }
 
 

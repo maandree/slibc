@@ -138,6 +138,35 @@ int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
 int dprintf(int, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(2), __format__(__slibc_printf__, 2, 3))));
 
+#if defined(__SLIBC_SOURCE)
+/**
+ * This function is identical to `dprintf`,
+ * except it uses `send` instead of `write`
+ * and supports transmissions flags.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   ...     The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int sockprintf(int, int, const char* restrict, ...)
+  __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
+#endif
+
 /**
  * This function is identical to `fprintf`,
  * it prints to a buffer rather than a stream.
@@ -380,7 +409,7 @@ int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
 #endif
 
 /**
- * This function is identical to `vdprintf`,
+ * This function is identical to `dprintf`,
  * except it uses `va_list` instead of variadic argument.
  * 
  * @param   fd      The file descriptor.
@@ -400,6 +429,34 @@ int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
  */
 int vdprintf(int, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(2))));
+
+#if defined(__SLIBC_SOURCE)
+/**
+ * This function is identical to `sockprintf`,
+ * except it uses `va_list` instead of variadic argument.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   args    The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int vsockprintf(int, int, const char* restrict, va_list)
+  __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
+#endif
 
 /**
  * This function is identical to `sprintf`,
@@ -619,6 +676,32 @@ int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  */
 int dwprintf(int, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(2))));
+
+/**
+ * This function is identical to `sockprintf`
+ * except it uses wide characters.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   ...     The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int sockwprintf(int, int, const wchar_t* restrict, ...)
+  __GCC_ONLY(__attribute__((__nonnull__(3))));
 # endif
 
 /**
@@ -839,7 +922,7 @@ int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 /**
- * This function is identical to `vdprintf`,
+ * This function is identical to `dwprintf`,
  * except it uses `va_list` instead of variadic argument.
  * 
  * This is a slibc extension added for completeness.
@@ -861,6 +944,32 @@ int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  */
 int vdwprintf(int, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(2))));
+
+/**
+ * This function is identical to `sockwprintf`
+ * except it uses `va_list` instead of variadic argument.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   fd      The file descriptor.
+ * @parma   flags   Flags to pass to `send`, see `send`
+ *                  for more information.
+ * @param   format  The formatting-string.
+ * @param   args    The formatting-arguments.
+ * @return          The number of written bytes.
+ *                  On error, a negative value (namely -1
+ *                  in this implementation) is returned.
+ *                  It is unspecified what shall happen if
+ *                  more than `INT_MAX` bytes are written;
+ *                  in slibc, `INT_MAX` is returned if more
+ *                  is written, you can use "%zn" to find
+ *                  the actual length.
+ * 
+ * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * @throws           Any error specified for `write`.
+ */
+int vsockwprintf(int, int, const wchar_t* restrict, va_list)
+  __GCC_ONLY(__attribute__((__nonnull__(3))));
 # endif
 
 /**
