@@ -159,7 +159,7 @@ static char* humansize_round(char* buffer, size_t bufsize, enum humansize_mode m
     total += ((double)values[words]) / dividend, dividend *= (double)div;
   
   /* Ensure the buffer is large enougth. */
-  SNPRINTF(NULL, 0, "%.*lf%\zn", (detail < 0 ? 0 : detail), (double)total, (ssize_t*)&n);
+  SNPRINTF(NULL, 0, "%.*lf%zn", (detail < 0 ? 0 : detail), (double)total, (ssize_t*)&n);
   if (n + strlen(point) + 3 - (detail < 0 ? 0 : 1) > bufsize / sizeof(char))
     {
       bufsize = n + strlen(point) + 3 - (detail < 0 ? 0 : 1);
@@ -201,7 +201,7 @@ static char* humansize_round(char* buffer, size_t bufsize, enum humansize_mode m
 	  while (det--)
 	    div *= 10;
 	  i += div;
-	  SPRINTF(buffer, "%zu%\zn", i, (ssize_t*)&n);
+	  SPRINTF(buffer, "%zu%zn", i, (ssize_t*)&n);
 	}
     }
   
