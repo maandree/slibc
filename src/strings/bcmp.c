@@ -23,7 +23,7 @@
 /**
  * This function is identical to `memcmp`.
  * 
- * @etymology  (B)uffer: (c)o(mp)are.
+ * @etymology  (B)ytes: (c)o(mp)are.
  * 
  * @since  Always.
  */

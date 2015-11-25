@@ -31,7 +31,7 @@
 /**
  * Override a memory segment with zeroes.
  * 
- * @etymology  (B)uffer: (zero) out.
+ * @etymology  (B)ytes: (zero) out.
  * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
@@ -61,7 +61,7 @@ void explicit_bzero(void*, size_t);
 /**
  * Copy a memory segment to another, possibly overlapping, segment.
  * 
- * @etymology  (B)uffer: (copy).
+ * @etymology  (B)ytes: (copy).
  * 
  * @param  whence   The source memory segment.
  * @param  whither  The destination memory segment.
@@ -75,7 +75,7 @@ void bcopy(const void*, void*, size_t)
 /**
  * This function is identical to `memcmp`.
  * 
- * @etymology  (B)uffer: (c)o(mp)are.
+ * @etymology  (B)ytes: (c)o(mp)are.
  * 
  * @since  Always.
  */
