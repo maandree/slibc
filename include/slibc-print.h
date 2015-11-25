@@ -23,14 +23,6 @@
 
 
 
-/**
- * `NULL`'s canonical header is <stddef.h>
- */
-#ifndef NULL
-# define NULL  ((void*)0)
-#endif
-
-
 #define __NEED_size_t
 #define __NEED_ssize_t
 #define __NEED_wchar_t
