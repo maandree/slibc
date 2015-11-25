@@ -30,6 +30,8 @@
  * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void warnx(const char* format, ...)
 {

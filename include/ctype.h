@@ -41,6 +41,8 @@
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (isalnum)(int)  /* [0x30, 0x39], [0x41, 0x5A], [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -58,6 +60,8 @@ int (isalnum)(int)  /* [0x30, 0x39], [0x41, 0x5A], [0x61, 0x7A] */
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['A', 'Z'] or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -75,6 +79,8 @@ int (isalpha)(int)  /* [0x41, 0x5A], [0x61, 0x7A] */
  * 
  * @param   c  The character.
  * @return     Whether the character is a ' ' or a '\t'.
+ * 
+ * @since  Always.
  */
 int (isblank)(int) /* ' ', '\t' */
   __GCC_ONLY(__attribute__((__const__)));
@@ -94,6 +100,8 @@ int (isblank)(int) /* ' ', '\t' */
  * @param   c  The character.
  * @return     Whether the character is lower than ' ',
  *             or is 0x7F.
+ * 
+ * @since  Always.
  */
 int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
   __GCC_ONLY(__attribute__((__const__)));
@@ -110,6 +118,8 @@ int (iscntrl)(int)  /* [0x00, 0x1F], 0x7F */
  * 
  * @param   c  The character.
  * @return     Whether the character is in ['0', '9'].
+ * 
+ * @since  Always.
  */
 int (isdigit)(int)  /* [0x30, 0x39] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -124,6 +134,8 @@ int (isdigit)(int)  /* [0x30, 0x39] */
  * @param   c  The character.
  * @return     Whether the character is greater
  *             than ' ', but is not 0x7F.
+ * 
+ * @since  Always.
  */
 int (isgraph)(int)  /* [0x21, 0x7E] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -138,6 +150,8 @@ int (isgraph)(int)  /* [0x21, 0x7E] */
  * 
  * @param   c  The character.
  * @return     Whether the character is in ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (islower)(int)  /* [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -153,6 +167,8 @@ int (islower)(int)  /* [0x61, 0x7A] */
  * @param   c  The character.
  * @return     Whether the character is at least
  *             as great as ' ', but is not 0x7F.
+ * 
+ * @since  Always.
  */
 int (isprint)(int)  /* [0x20, 0x7E] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -168,6 +184,8 @@ int (isprint)(int)  /* [0x20, 0x7E] */
  * 
  * @param   c  The character.
  * @return     Whether the character is a punctuation.
+ * 
+ * @since  Always.
  */
 int (ispunct)(int)  /* isprint && !isalnum && !isspace */
   __GCC_ONLY(__attribute__((__const__)));
@@ -185,6 +203,8 @@ int (ispunct)(int)  /* isprint && !isalnum && !isspace */
  * @param   c  The character.
  * @return     Whether the character is a ' ', '\f',
  *             '\n', '\r', '\t', or '\v'.
+ * 
+ * @since  Always.
  */
 int (isspace)(int)  /* 0x20, [0x09, 0x0D] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -202,6 +222,8 @@ int (isspace)(int)  /* 0x20, [0x09, 0x0D] */
  * 
  * @param   c  The character.
  * @return     Whether the character is in ['A', 'Z'].
+ * 
+ * @since  Always.
  */
 int (isupper)(int)  /* [0x41, 0x5A] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -218,6 +240,8 @@ int (isupper)(int)  /* [0x41, 0x5A] */
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -243,6 +267,8 @@ int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
  * @return     The character in lowercase.
  *             Guaranteed to be unchanged if the
  *             character already is in lowercase.
+ * 
+ * @since  Always.
  */
 int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -263,6 +289,8 @@ int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
  * @return     The character in uppercase.
  *             Guaranteed to be unchanged if the
  *             character already is in lowercase.
+ * 
+ * @since  Always.
  */
 int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -277,6 +305,8 @@ int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
  * 
  * @param   c  The character
  * @return     Whether the character is an ASCII character.
+ * 
+ * @since  Always.
  */
 int (isascii)(int)  /* [0x00, 0x7E] */
   __GCC_ONLY(__attribute__((__const__)));
@@ -296,6 +326,8 @@ int (isascii)(int)  /* [0x00, 0x7E] */
  * 
  * @param   c  The character.
  * @return     The character with the 8:th bit cleared.
+ * 
+ * @since  Always.
  */
 int (toascii)(int)
   __warning("Using 'toascii' is, generally, unwise.")
@@ -307,6 +339,8 @@ int (toascii)(int)
 /**
  * This function is identical to `tolower`.
  * It is provided for backwards-compatibility with SVID.
+ * 
+ * @since  Always.
  */
 int _tolower(int)
   __deprecated("Use 'tolower' instead.")
@@ -315,6 +349,8 @@ int _tolower(int)
 /**
  * This function is identical to `tolower`.
  * It is provided for backwards-compatibility with SVID.
+ * 
+ * @since  Always.
  */
 int _toupper(int)
   __deprecated("Use 'toupper' instead.")
@@ -332,6 +368,8 @@ int _toupper(int)
  * @param   locale  The locale.
  * @return          Whether the character is
  *                  alphabetical or numerical.
+ * 
+ * @since  Always.
  */
 int isalnum_l(int, locale_t)
   __warning("This function is dangerous, use 'iswalnum_l' instead.")
@@ -345,6 +383,8 @@ int isalnum_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is alphabetical.
+ * 
+ * @since  Always.
  */
 int isalpha_l(int, locale_t)
   __warning("This function is dangerous, use 'iswalpha_l' instead.")
@@ -362,6 +402,8 @@ int isalpha_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a ' ' or a '\t'.
+ * 
+ * @since  Always.
  */
 int isblank_l(int, locale_t)
   __warning("This function is dangerous, use 'iswblank_l' instead.")
@@ -377,6 +419,8 @@ int isblank_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is non-printable.
+ * 
+ * @since  Always.
  */
 int iscntrl_l(int, locale_t)
   __warning("This function is dangerous, use 'iswcntrl_l' instead.")
@@ -390,6 +434,8 @@ int iscntrl_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is numerical.
+ * 
+ * @since  Always.
  */
 int isdigit_l(int, locale_t)
   __warning("This function is dangerous, use 'iswdigit_l' instead.")
@@ -403,6 +449,8 @@ int isdigit_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character has a glyph.
+ * 
+ * @since  Always.
  */
 int isgraph_l(int, locale_t)
   __warning("This function is dangerous, use 'iswgraph_l' instead.")
@@ -417,6 +465,8 @@ int isgraph_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a lowercase letter.
+ * 
+ * @since  Always.
  */
 int islower_l(int, locale_t)
   __warning("This function is dangerous, use 'iswlower_l' instead.")
@@ -432,6 +482,8 @@ int islower_l(int, locale_t)
  * @param   locale  The locale.
  * @return          Whether the character has a printable
  *                  glyph or is a blank space.
+ * 
+ * @since  Always.
  */
 int isprint_l(int, locale_t)
   __warning("This function is dangerous, use 'iswprint_l' instead.")
@@ -447,6 +499,8 @@ int isprint_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a punctuation.
+ * 
+ * @since  Always.
  */
 int ispunct_l(int, locale_t)
   __warning("This function is dangerous, use 'iswpunct_l' instead.")
@@ -461,6 +515,8 @@ int ispunct_l(int, locale_t)
  * @param   locale  The locale.
  * @return          Whether the character is a
  *                  whitespace character.
+ * 
+ * @since  Always.
  */
 int isspace_l(int, locale_t)
   __warning("This function is dangerous, use 'iswspace_l' instead.")
@@ -475,6 +531,8 @@ int isspace_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          Whether the character is a uppercase letter.
+ * 
+ * @since  Always.
  */
 int isupper_l(int, locale_t)
   __warning("This function is dangerous, use 'iswupper_l' instead.")
@@ -491,6 +549,8 @@ int isupper_l(int, locale_t)
  * @param   locale  The locale.
  * @return          Whether the character is in
  *                  ['0', '9'], ['A', 'Z'], or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int isxdigit_l(int, locale_t)
   __warning("This function is dangerous, use 'iswxdigit_l' instead.")
@@ -504,6 +564,8 @@ int isxdigit_l(int, locale_t)
  * @param   c       The character
  * @param   locale  The locale.
  * @return          Whether the character is an ASCII character.
+ * 
+ * @since  Always.
  */
 int isascii_l(int, locale_t)
   __warning("This function is dangerous, use 'iswascii_l' instead.")
@@ -520,6 +582,8 @@ int isascii_l(int, locale_t)
  * @param   c       The character.
  * @param   locale  The locale.
  * @return          The character with the 8:th bit cleared.
+ * 
+ * @since  Always.
  */
 int toascii_l(int, locale_t)
   __warning("This function is dangerous, use 'towascii_l' instead.")
@@ -542,6 +606,8 @@ int toascii_l(int, locale_t)
  * @return          The character in lowercase.
  *                  Guaranteed to be unchanged if the
  *                  character already is in lowercase.
+ * 
+ * @since  Always.
  */
 int tolower_l(int, locale_t)
   __warning("This function is dangerous, use 'iswlower_l' instead.")
@@ -564,6 +630,8 @@ int tolower_l(int, locale_t)
  * @return          The character in uppercase.
  *                  Guaranteed to be unchanged if the
  *                  character already is in lowercase.
+ * 
+ * @since  Always.
  */
 int toupper_l(int, locale_t)
   __warning("This function is dangerous, use 'iswupper_l' instead.")

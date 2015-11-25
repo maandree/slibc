@@ -32,6 +32,8 @@
  * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void verrx(int status, const char* format, va_list args)
 {

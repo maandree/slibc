@@ -45,12 +45,16 @@
 /**
  * The value a process shall exit with upon
  * success completion.
+ * 
+ * @since  Always.
  */
 #define EXIT_SUCCESS  0
 
 /**
  * A standard value a process can exit with
  * if it terminates because of failure.
+ * 
+ * @since  Always.
  */
 #define EXIT_FAILURE  1
 
@@ -65,6 +69,8 @@
  *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
+ * 
+ * @since  Always.
  */
 div_t div(int, int)
   __GCC_ONLY(__attribute__((__const__)));
@@ -78,6 +84,8 @@ div_t div(int, int)
  *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
+ * 
+ * @since  Always.
  */
 ldiv_t ldiv(long, long)
   __GCC_ONLY(__attribute__((__const__)));
@@ -91,6 +99,8 @@ ldiv_t ldiv(long, long)
  *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
+ * 
+ * @since  Always.
  */
 lldiv_t lldiv(long long, long long)
   __GCC_ONLY(__attribute__((__const__)));
@@ -106,6 +116,8 @@ lldiv_t lldiv(long long, long long)
  * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
+ * 
+ * @since  Always.
  */
 int (abs)(int)
   __GCC_ONLY(__attribute__((__const__)));
@@ -121,6 +133,8 @@ int (abs)(int)
  * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
+ * 
+ * @since  Always.
  */
 long int (labs)(long int)
   __GCC_ONLY(__attribute__((__const__)));
@@ -136,6 +150,8 @@ long int (labs)(long int)
  * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
+ * 
+ * @since  Always.
  */
 long long int (llabs)(long long int)
   __GCC_ONLY(__attribute__((__const__)));
@@ -157,6 +173,8 @@ long long int (llabs)(long long int)
  *                if `file` does. (Or if `ref` does but file is empty.)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* abspath(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __malloc__)));
@@ -176,6 +194,8 @@ char* abspath(const char*, const char*)
  *                point to `file`.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* relpath(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __malloc__)));
@@ -194,6 +214,8 @@ char* relpath(const char*, const char*)
  * 
  * @param   string  The string to convert.
  * @return          The number encoded by the string.
+ * 
+ * @since  Always.
  */
 double atof(const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -210,6 +232,8 @@ double atof(const char*)
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
+ * 
+ * @since  Always.
  */
 int atoi(const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -226,6 +250,8 @@ int atoi(const char*)
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
+ * 
+ * @since  Always.
  */
 long int atol(const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -242,6 +268,8 @@ long int atol(const char*)
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
+ * 
+ * @since  Always.
  */
 long long int atoll(const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -251,6 +279,8 @@ long long int atoll(const char*)
  * This function is identical to `atoll`.
  * 
  * This is a Linux libc extension.
+ * 
+ * @since  Always.
  */
 long long int atoq(const char*)
   __deprecated("'atoq' is obsolete and not portable, use 'atoll' instead.")

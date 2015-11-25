@@ -47,6 +47,8 @@
  * The file with input.
  * 
  * @etymology  (St)andar(d) (in)put (file)descriptor (number).
+ * 
+ * @since  Always.
  */
 #define STDIN_FILENO  0
 
@@ -55,6 +57,8 @@
  * The file for output.
  * 
  * @etymology  (St)andar(d) (out)put (file)descriptor (number).
+ * 
+ * @since  Always.
  */
 #define STDOUT_FILENO  1
 
@@ -63,6 +67,8 @@
  * The file for error messages and warnings.
  * 
  * @etymology  (St)andar(d) (err)or output (file)descriptor (number).
+ * 
+ * @since  Always.
  */
 #define STDERR_FILENO  2
 
@@ -108,6 +114,8 @@
  *                  have been exceeded, RAM and swap memory would
  *                  have been exhausted, or the request would cause
  *                  the data segment to overlap another segment.
+ * 
+ * @since  Always.
  */
 int brk(void*) /* TODO implement brk */
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -145,6 +153,8 @@ int brk(void*) /* TODO implement brk */
  *                  have been exceeded, RAM and swap memory would
  *                  have been exhausted, or the request would cause
  *                  the data segment to overlap another segment.
+ * 
+ * @since  Always.
  */
 void* sbrk(ptrdiff_t) /* TODO implement sbrk */
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -173,6 +183,8 @@ int isatty(int);
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execl(const char*, ... /*, NULL */)
   __GCC_ONLY(__attribute__((__sentinel__(0), __nonnull__(1))));
@@ -194,6 +206,8 @@ int execl(const char*, ... /*, NULL */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execlp(const char*, ... /*, NULL */)
   __GCC_ONLY(__attribute__((__sentinel__(0), __nonnull__(1))));
@@ -215,6 +229,8 @@ int execlp(const char*, ... /*, NULL */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execle(const char*, ... /*, NULL, char* const[] */)
   __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(1))));
@@ -243,6 +259,8 @@ int execle(const char*, ... /*, NULL, char* const[] */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execlpe(const char*, ... /*, NULL, char* const[] */)
   __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(1))));
@@ -265,6 +283,8 @@ int execlpe(const char*, ... /*, NULL, char* const[] */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execv(const char*, char* const[])
   __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -290,6 +310,8 @@ int execv(const char*, char* const[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execvp(const char*, char* const[])
   __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -315,6 +337,8 @@ int execvp(const char*, char* const[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execve(const char*, char* const[], char* const[])
   __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -347,6 +371,8 @@ int execve(const char*, char* const[], char* const[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execvpe(const char*, char* const[], char* const[])
   __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -382,6 +408,8 @@ int execvpe(const char*, char* const[], char* const[])
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execlat(int, const char*, ... /*, NULL, int */)
   __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(2))));
@@ -418,6 +446,8 @@ int execlat(int, const char*, ... /*, NULL, int */)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execlpat(int, const char*, ... /*, NULL, int */)
   __GCC_ONLY(__attribute__((__sentinel__(1), __nonnull__(2))));
@@ -454,6 +484,8 @@ int execlpat(int, const char*, ... /*, NULL, int */)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execleat(int, const char*, ... /*, NULL, char* const[], int */)
   __GCC_ONLY(__attribute__((__sentinel__(2), __nonnull__(2))));
@@ -494,6 +526,8 @@ int execleat(int, const char*, ... /*, NULL, char* const[], int */)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execlpeat(int, const char*, ... /*, NULL, char* const[], int */)
   __GCC_ONLY(__attribute__((__sentinel__(2), __nonnull__(2))));
@@ -530,6 +564,8 @@ int execlpeat(int, const char*, ... /*, NULL, char* const[], int */)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execvat(int, const char*, char* const[], int)
   __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -570,6 +606,8 @@ int execvat(int, const char*, char* const[], int)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execvpat(int, const char*, char* const[], int)
   __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -609,6 +647,8 @@ int execvpat(int, const char*, char* const[], int)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execveat(int, const char*, char* const[], char* const[], int)
   __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -654,6 +694,8 @@ int execveat(int, const char*, char* const[], char* const[], int)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execvpeat(int, const char*, char* const[], char* const[], int)
   __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -676,6 +718,8 @@ int execvpeat(int, const char*, char* const[], char* const[], int)
  *               set to describe the error.
  * 
  * @throws       Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecl(int, ... /*, NULL */)
   __GCC_ONLY(__attribute__((__sentinel__(0))));
@@ -699,6 +743,8 @@ int fexecl(int, ... /*, NULL */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecle(int, ... /*, NULL, char* const[] */)
   __GCC_ONLY(__attribute__((__sentinel__(1))));
@@ -722,6 +768,8 @@ int fexecle(int, ... /*, NULL, char* const[] */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecv(int, char* const[]);
 #endif
@@ -747,6 +795,8 @@ int fexecv(int, char* const[]);
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecve(int, char* const[], char* const[]);
 

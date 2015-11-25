@@ -41,6 +41,8 @@
  * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void warn(const char*, ...)
   __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 1, 2))));
@@ -55,6 +57,8 @@ void warn(const char*, ...)
  * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void vwarn(const char*, va_list);
 
@@ -68,6 +72,8 @@ void vwarn(const char*, va_list);
  * 
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void warnx(const char*, ...)
   __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 1, 2))));
@@ -82,6 +88,8 @@ void warnx(const char*, ...)
  * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void vwarnx(const char*, va_list);
 
@@ -93,9 +101,11 @@ void vwarnx(const char*, va_list);
  * 
  * @etymology  Report (err)or!
  * 
- * @parma  status  The exit status the process should have.
+ * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
+ * 
+ * @since  Always.
  */
 __noreturn void err(int, const char*, ...)
   __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 2, 3))));
@@ -108,9 +118,11 @@ __noreturn void err(int, const char*, ...)
  * 
  * @etymology  (V)ariadic version of (`err`).
  * 
- * @parma  status  The exit status the process should have.
+ * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
+ * 
+ * @since  Always.
  */
 __noreturn void verr(int, const char*, va_list);
 
@@ -122,9 +134,11 @@ __noreturn void verr(int, const char*, va_list);
  * 
  * @etymology  (`err`), [x=](lesser variant).
  * 
- * @parma  status  The exit status the process should have.
+ * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
+ * 
+ * @since  Always.
  */
 __noreturn void errx(int, const char*, ...)
   __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 2, 3))));
@@ -137,9 +151,11 @@ __noreturn void errx(int, const char*, ...)
  * 
  * @etymology  (V)ariadic version of (`errx`).
  * 
- * @parma  status  The exit status the process should have.
+ * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
+ * 
+ * @since  Always.
  */
 __noreturn void verrx(int, const char*, va_list);
 #endif

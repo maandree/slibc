@@ -31,6 +31,8 @@
  *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
+ * 
+ * @since  Always.
  */
 lldiv_t lldiv(long long numerator, long long denominator)
 {

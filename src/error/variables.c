@@ -27,6 +27,8 @@
  * This is a GNU extension.
  * 
  * @etymology  (`error`)-subsystem: (message count).
+ * 
+ * @since  Always.
  */
 volatile unsigned int error_message_count = 0;
 
@@ -48,6 +50,8 @@ volatile unsigned int error_message_count = 0;
  * This is a GNU extension.
  * 
  * @etymology  (`error`)-subsystem: print (one) time (per line).
+ * 
+ * @since  Always.
  */
 volatile int error_one_per_line = 1;
 
@@ -62,6 +66,8 @@ volatile int error_one_per_line = 1;
  * This is a GNU extension.
  * 
  * @etymology  (`error`)-subsystem function: (print) the (prog)ram's (name).
+ * 
+ * @since  Always.
  */
 void (*volatile error_print_progname)(void) = NULL;
 

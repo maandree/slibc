@@ -91,6 +91,8 @@ static void* unaligned_malloc(size_t size)
  *                indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* malloc(size_t size)
 {
@@ -116,6 +118,8 @@ void* malloc(size_t size)
  *                      `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* calloc(size_t elem_count, size_t elem_size)
 {
@@ -152,6 +156,8 @@ void* calloc(size_t elem_count, size_t elem_size)
  *                 indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* mallocz(size_t size, int clear)
 {
@@ -182,6 +188,8 @@ void* mallocz(size_t size, int clear)
  *                indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* zalloc(size_t size)
 {
@@ -215,6 +223,8 @@ void* zalloc(size_t size)
  *                is returned and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* realloc(void* ptr, size_t size)
 {
@@ -231,6 +241,8 @@ void* realloc(void* ptr, size_t size)
  *              The process may crash if it does not point to the
  *              beginning of a memory allocation on the heap.
  *              However, if it is `NULL`, nothing will happen.
+ * 
+ * @since  Always.
  */
 void free(void* ptr)
 {
@@ -249,6 +261,8 @@ void free(void* ptr)
  *              The process may crash if it does not point to the
  *              beginning of a memory allocation on the heap.
  *              However, if it is `NULL`, nothing will happen.
+ * 
+ * @since  Always.
  */
 void cfree(void* ptr, ...)
 {
@@ -280,6 +294,8 @@ void cfree(void* ptr, ...)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  * @throws  EINVAL  If `boundary` is not a power of two.
+ * 
+ * @since  Always.
  */
 void* memalign(size_t boundary, size_t size)
 {
@@ -327,6 +343,8 @@ void* memalign(size_t boundary, size_t size)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  * @throws  EINVAL  If `boundary` is not a power-of-two multiple of `sizeof(void*)`.
+ * 
+ * @since  Always.
  */
 int posix_memalign(void** ptrptr, size_t boundary, size_t size)
 {
@@ -354,6 +372,8 @@ int posix_memalign(void** ptrptr, size_t boundary, size_t size)
  *                indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* valloc(size_t size)
 {
@@ -377,6 +397,8 @@ void* valloc(size_t size)
  *                  indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* pvalloc(size_t size)
 {
@@ -416,6 +438,8 @@ void* pvalloc(size_t size)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  * @throws  EINVAL  If `boundary` is not a power of two.
+ * 
+ * @since  Always.
  */
 void* aligned_alloc(size_t boundary, size_t size)
 {
@@ -433,6 +457,8 @@ void* aligned_alloc(size_t boundary, size_t size)
  * 
  * @param   segment  The memory segment.
  * @return           The size of the memory segment, 0 if `segment` is `NULL`.
+ * 
+ * @since  Always.
  */
 size_t malloc_usable_size(void* segment)
 {

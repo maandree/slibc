@@ -23,9 +23,21 @@
 
 
 #if defined(__SLIBC_SOURCE)
+/**
+ * @since  Always.
+ */
 # define S_IRALL  (S_IRUSR | S_IRGRP | S_IROTH)
+/**
+ * @since  Always.
+ */
 # define S_IWALL  (S_IWUSR | S_IWGRP | S_IWOTH)
+/**
+ * @since  Always.
+ */
 # define S_IXALL  (S_IXUSR | S_IXGRP | S_IXOTH)
+/**
+ * @since  Always.
+ */
 # define S_ISALL  (S_ISUID | S_ISGID | S_ISVTX)
 #endif
 

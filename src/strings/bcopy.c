@@ -28,6 +28,8 @@
  * @param  whence   The source memory segment.
  * @param  whither  The destination memory segment.
  * @param  size     The number of bytes to copy.
+ * 
+ * @since  Always.
  */
 void bcopy(const void* whence, void* whither, size_t size)
 {

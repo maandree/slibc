@@ -38,6 +38,8 @@
  * @throws  0       `str` is `NULL`.
  * @throws  EINVAL  If `quote` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* escape(const char* restrict str, char quote)
 {

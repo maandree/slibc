@@ -35,6 +35,8 @@
  * @return          Pointer to the first occurrence of `c`,
  *                  Pointer to the terminating NUL character
  *                  if none were found.
+ * 
+ * @since  Always.
  */
 char* (strchrnul)(const char* string, int c)
 {

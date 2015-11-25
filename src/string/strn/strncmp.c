@@ -27,6 +27,8 @@
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strncmp(const char* a, const char* b, size_t length)
 {

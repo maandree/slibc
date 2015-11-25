@@ -29,6 +29,8 @@
  *                    of `filename` or, if `filename` is `NULL`
  *                    or is empty, a statically allocationed string,
  *                    so it must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* __xpg_basename(char* filename)
 {

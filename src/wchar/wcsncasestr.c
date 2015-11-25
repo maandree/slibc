@@ -30,6 +30,8 @@
  * @param   maxlen    The maximum number of character to search.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcsncasestr)(const wchar_t* haystack, const wchar_t* needle, size_t maxlen)
 {

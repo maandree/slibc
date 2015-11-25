@@ -31,6 +31,8 @@
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strcasecmp(const char* a, const char* b)
 {

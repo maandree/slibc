@@ -45,6 +45,8 @@
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int generic_printf(generic_printf_write_func_t write_function, generic_printf_ext_func_t extension_function,
 		   size_t maximum_length, int limited_length, size_t* restrict actual_length, int terminate,
@@ -86,6 +88,8 @@ int generic_printf(generic_printf_write_func_t write_function, generic_printf_ex
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vgeneric_printf(generic_printf_write_func_t write_function, generic_printf_ext_func_t extension_function,
 		    size_t maximum_length, int limited_length, size_t* restrict actual_length, int terminate,
@@ -131,6 +135,8 @@ int vgeneric_printf(generic_printf_write_func_t write_function, generic_printf_e
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int generic_wprintf(generic_wprintf_write_func_t write_function, generic_wprintf_ext_func_t extension_function,
 		    size_t maximum_length, int limited_length, size_t* restrict actual_length, int terminate,
@@ -173,6 +179,8 @@ int generic_wprintf(generic_wprintf_write_func_t write_function, generic_wprintf
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vgeneric_wprintf(generic_wprintf_write_func_t write_function, generic_wprintf_ext_func_t extension_function,
 		     size_t maximum_length, int limited_length, size_t* restrict actual_length, int terminate,

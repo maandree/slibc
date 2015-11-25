@@ -30,6 +30,8 @@
  * @param   size     The size of the memory segment.
  * @return           Pointer to the first occurrence of `c`,
  *                   `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 void* (memchr)(const void* segment, int c, size_t size)
 {

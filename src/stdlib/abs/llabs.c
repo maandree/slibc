@@ -29,6 +29,8 @@
  * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
+ * 
+ * @since  Always.
  */
 long long int (llabs)(long long int value)
 {

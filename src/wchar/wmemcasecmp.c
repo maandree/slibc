@@ -28,6 +28,8 @@
  * @param   size  The size of the segments.
  * @return        Zero is returned if `a` and `b` are equal, otherwise,
  *                see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wmemcasecmp(const wchar_t* a, const wchar_t* b, size_t size)
 {

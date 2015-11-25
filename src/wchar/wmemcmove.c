@@ -34,6 +34,8 @@
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemcmove(wchar_t* whither, const wchar_t* whence, wchar_t c, size_t size)
 {

@@ -31,6 +31,8 @@
  * @param   size     The size of the memory segment.
  * @return           Pointer to the first occurrence of `c`,
  *                   `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* (wmemchr)(const wchar_t* segment, wchar_t c, size_t size)
 {

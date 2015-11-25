@@ -43,6 +43,8 @@
  * State of variadic argument-reading.
  * 
  * @etymology  (V)ariadic (a)rguments-subsystem: argument-(list).
+ * 
+ * @since  Always.
  */
 #ifndef __DEFINED_va_list
 # define __DEFINED_va_list
@@ -62,6 +64,8 @@ typedef __builtin_va_list va_list;
  * 
  * @param  state:va_list    The state of the variadic argument-reading.
  * @param  last:identifier  The the last non-variadic argument.
+ * 
+ * @since  Always.
  */
 #ifndef va_start
 # ifndef __PORTABLE
@@ -77,6 +81,8 @@ typedef __builtin_va_list va_list;
  * @etymology  (V)ariadic (a)rguments-subsystem: (end) of use.
  * 
  * @param  state:va_list  The state of the variadic argument-reading.
+ * 
+ * @since  Always.
  */
 #ifndef va_end
 # ifndef __PORTABLE
@@ -97,6 +103,8 @@ typedef __builtin_va_list va_list;
  *                           are promoted in the cal, thus you must not use a
  *                           type smaller than `int`, lest bad things will happen.
  * @return  :`type`          The next argument.
+ * 
+ * @since  Always.
  */
 #ifndef va_arg
 # define va_arg(state, type)  __builtin_va_arg(state, type)
@@ -109,6 +117,8 @@ typedef __builtin_va_list va_list;
  * 
  * @param  destination:va_list  The copy if `source`.
  * @param  source:va_list       The state of the variadic argument-reading.
+ * 
+ * @since  Always.
  */
 #ifndef va_copy
 # define va_copy(destination, source)  __builtin_va_copy(destination, source)

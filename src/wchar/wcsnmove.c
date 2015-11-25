@@ -34,6 +34,8 @@
  *                   shorter, `whither` will be filled with NUL characters
  *                   until this amount of characters have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsnmove(wchar_t* whither, const wchar_t* whence, size_t maxlen)
 {

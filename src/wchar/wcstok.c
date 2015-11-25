@@ -37,6 +37,8 @@
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 wchar_t* wcstok(wchar_t* restrict string, const wchar_t* restrict delimiters,
 		wchar_t** restrict state)

@@ -36,6 +36,8 @@
  * @return          Pointer to the first occurrence of `c`,
  *                  Pointer to the terminating NUL character
  *                  if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcschrnul)(const wchar_t* string, wchar_t c)
 {

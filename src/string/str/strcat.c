@@ -28,6 +28,8 @@
  * @param   whither  The string to extend.
  * @param   whence   The string to append.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strcat(char* restrict whither, const char* restrict whence)
 {

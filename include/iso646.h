@@ -35,56 +35,78 @@
 
 /**
  * Alias for logical and (&&).
+ * 
+ * @since  Always.
  */
 #define and     &&
 
 /**
  * Alias for bitwise and assignement (&=).
+ * 
+ * @since  Always.
  */
 #define and_eq  &=
 
 /**
  * Alias for bitwise and (&).
+ * 
+ * @since  Always.
  */
 #define bitand  &
 
 /**
  * Alias for bitwise inclusive or (|).
+ * 
+ * @since  Always.
  */
 #define bitor   |
 
 /**
  * Alias for bitwise complement (~).
+ * 
+ * @since  Always.
  */
 #define compl   ~
 
 /**
  * Alias for logical complement (!).
+ * 
+ * @since  Always.
  */
 #define not     !
 
 /**
  * Alias for inequality comparer (!=).
+ * 
+ * @since  Always.
  */
 #define not_eq  !=
 
 /**
  * Alias for logical inclusive (||).
+ * 
+ * @since  Always.
  */
 #define or      ||
 
 /**
  * Alias for bitwise inclusive or assignment (|=).
+ * 
+ * @since  Always.
  */
 #define or_eq   |=
 
 /**
  * Alias for bitwise exclusive or (^).
+ * 
+ * @since  Always.
  */
 #define xor     ^
 
 /**
  * Alias for bitwise exclusive or assignment (^=).
+ * 
+ * @since  Always.
  */
 #define xor_eq  ^=
 

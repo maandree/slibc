@@ -36,6 +36,8 @@
  *                  is set to indicate the error.
  * 
  * @throws  ERANGE  `buf` was too small to store the description.
+ * 
+ * @since  Always.
  */
 char* __gnu_strerror_r(int errnum, char* buf, size_t buflen)
 {

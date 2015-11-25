@@ -48,6 +48,8 @@
  * @throws  0       `str` is `NULL`.
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  EINVAL  If `str` is invalid and `mode & UNESCAPE_EINVAL`.
+ * 
+ * @since  Always.
  */
 char* unescape(char* str, enum unescape_mode mode)
 {

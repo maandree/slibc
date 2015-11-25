@@ -37,6 +37,8 @@
  * to save CPU-cycles.
  * 
  * @etymology  (Assert)ion.
+ * 
+ * @since  Always.
  */
 #ifdef NDEBUG
 # define assert(expression)   ((void)0)
@@ -59,6 +61,8 @@
  * @etymology  (`assert`) version of (`perror`).
  * 
  * @param  errnum:int  The error code, describing the error that occurred.
+ * 
+ * @since  Always.
  */
 # ifdef assert_perror
 #  undef assert_perror
@@ -92,6 +96,8 @@
  * 
  * @param  expression:scalar    The expression to evaluate.
  * @param  message:const char*  The message to print on error.
+ * 
+ * @since  Always.
  */
 # define static_assert _Static_assert
 #endif
@@ -106,6 +112,8 @@
  * @param  line        The line in the source code whence the assertion was made.
  * @param  func        The function in the source code whence the assertion was made,
  *                     `NULL` if unknown (C99 is required.)
+ * 
+ * @since  Always.
  */
 __noreturn void __assert_fail(const char*, int, const char*, int, const char*)
   __GCC_ONLY(__attribute__((__nonnull__(3, 5))));

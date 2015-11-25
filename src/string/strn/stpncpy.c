@@ -35,6 +35,8 @@
  *                   until this amount of bytes have been written.
  * @return           `whither` plus the number of written bytes,
  *                   excluding NUL bytes, is returned.
+ * 
+ * @since  Always.
  */
 char* stpncpy(char* restrict whither, const char* restrict whence, size_t maxlen)
 {

@@ -26,6 +26,8 @@
  * This is a deprecated BSD extension.
  * 
  * @etymology  (R)ight-most (index) of character.
+ * 
+ * @since  Always.
  */
 char* (rindex)(const char* string, int c)
 {

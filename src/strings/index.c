@@ -26,6 +26,8 @@
  * This is a deprecated BSD extension.
  * 
  * @etymology  (Index) of character.
+ * 
+ * @since  Always.
  */
 char* (index)(const char* string, int c)
 {

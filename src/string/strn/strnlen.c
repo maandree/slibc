@@ -27,6 +27,8 @@
  * @param   maxlen  The number of bytes to inspect, at most.
  * @return          The number of bytes before, the first NUL byte.
  *                  `maxlen` if no NUL byte was found.
+ * 
+ * @since  Always.
  */
 size_t strnlen(const char* str, size_t maxlen)
 {

@@ -35,6 +35,8 @@
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 wchar_t* wcssep(wchar_t** restrict string, const wchar_t* restrict delimiters)
 {

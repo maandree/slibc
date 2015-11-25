@@ -21,6 +21,8 @@
 
 /**
  * This function is identical to `wcsstr`.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcswcs)(const wchar_t* haystack, const wchar_t* needle)
 {

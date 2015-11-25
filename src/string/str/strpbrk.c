@@ -30,6 +30,8 @@
  * @return           A pointer to the first occurrence in
  *                   `string` of a byte found in `stopset`.
  *                   `NULL` is returned if none is found.
+ * 
+ * @since  Always.
  */
 char* (strpbrk)(const char* string, const char* stopset)
 {

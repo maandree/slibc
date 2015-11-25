@@ -45,6 +45,8 @@
  *                 be printed.
  * @param  format  Formatting-string for a detailed description of what happend.
  * @param  args    Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 void error(int, int, const char*, ...)
   __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 3, 4))));
@@ -63,6 +65,8 @@ void error(int, int, const char*, ...)
  *                 be printed.
  * @param  format  Formatting-string for a detailed description of what happend.
  * @param  args    Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 # if defined(__SLIBC_SOURCE)
 void verror(int, int, const char*, va_list);
@@ -86,6 +90,8 @@ void verror(int, int, const char*, va_list);
  * @param  linenum   The line number of in the source code file where the error occurred.
  * @param  format    Formatting-string for a detailed description of what happend.
  * @param  args      Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 void error_at_line(int, int, const char*, unsigned int, const char*, ...)
   __GCC_ONLY(__attribute__((__format__(__slibc_printf__, 5, 6))));
@@ -107,6 +113,8 @@ void error_at_line(int, int, const char*, unsigned int, const char*, ...)
  * @param  linenum   The line number of in the source code file where the error occurred.
  * @param  format    Formatting-string for a detailed description of what happend.
  * @param  args      Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 # if defined(__SLIBC_SOURCE)
 void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
@@ -121,6 +129,8 @@ void verror_at_line(int, int, const char*, unsigned int, const char*, va_list);
  * This is a GNU extension.
  * 
  * @etymology  (`error`)-subsystem: (message count).
+ * 
+ * @since  Always.
  */
 extern volatile unsigned int error_message_count;
 
@@ -141,6 +151,8 @@ extern volatile unsigned int error_message_count;
  * This is a GNU extension.
  * 
  * @etymology  (`error`)-subsystem: print (one) time (per line).
+ * 
+ * @since  Always.
  */
 extern volatile int error_one_per_line;
 
@@ -154,6 +166,8 @@ extern volatile int error_one_per_line;
  * This is a GNU extension.
  * 
  * @etymology  (`error`)-subsystem function: (print) the (prog)ram's (name).
+ * 
+ * @since  Always.
  */
 extern void (*volatile error_print_progname)(void);
 #endif

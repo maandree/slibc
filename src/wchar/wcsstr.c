@@ -27,6 +27,8 @@
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcsstr)(const wchar_t* haystack, const wchar_t* needle)
 {

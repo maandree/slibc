@@ -32,6 +32,8 @@
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 void* (memccpy)(void* restrict whither, const void* restrict whence, int c, size_t size)
 {

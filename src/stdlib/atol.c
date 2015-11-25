@@ -32,6 +32,8 @@
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
+ * 
+ * @since  Always.
  */
 long int atol(const char* string)
 {

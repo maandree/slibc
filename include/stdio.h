@@ -61,6 +61,8 @@ int fflush(FILE*);
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int printf(const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1), __format__(__slibc_printf__, 1, 2))));
@@ -84,6 +86,8 @@ int printf(const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int fprintf(FILE* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3))));
@@ -109,6 +113,8 @@ int fprintf(FILE* restrict, const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3))));
@@ -134,6 +140,8 @@ int fprintf_unlocked(FILE* restrict, const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int dprintf(int, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(2), __format__(__slibc_printf__, 2, 3))));
@@ -147,7 +155,7 @@ int dprintf(int, const char* restrict, ...)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   ...     The formatting-arguments.
@@ -162,6 +170,8 @@ int dprintf(int, const char* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int sockprintf(int, int, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
@@ -187,6 +197,8 @@ int sockprintf(int, int, const char* restrict, ...)
  *                  use "%zn" to find the actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int sprintf(char* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3))));
@@ -211,6 +223,8 @@ int sprintf(char* restrict, const char* restrict, ...)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int snprintf(char* restrict, size_t, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
@@ -245,6 +259,8 @@ int snprintf(char* restrict, size_t, const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int asprintf(char** restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2), __format__(__slibc_printf__, 2, 3), __warn_unused_result__)));
@@ -280,6 +296,8 @@ int asprintf(char** restrict, const char* restrict, ...)
  *                         use "%zn" to find the actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 #define asprintfa(buffer, format, ...)					\
   ({									\
@@ -333,6 +351,8 @@ int asprintf(char** restrict, const char* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int bprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __format__(__slibc_printf__, 5, 6), __warn_unused_result__)));
@@ -356,6 +376,8 @@ int bprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vprintf(const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -378,6 +400,8 @@ int vprintf(const char* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vfprintf(FILE* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -403,6 +427,8 @@ int vfprintf(FILE* restrict, const char* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -426,6 +452,8 @@ int vfprintf_unlocked(FILE* restrict, const char* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vdprintf(int, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -438,7 +466,7 @@ int vdprintf(int, const char* restrict, va_list)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   args    The formatting-arguments.
@@ -453,6 +481,8 @@ int vdprintf(int, const char* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vsockprintf(int, int, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
@@ -475,6 +505,8 @@ int vsockprintf(int, int, const char* restrict, va_list)
  *                  use "%zn" to find the actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vsprintf(char* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -499,6 +531,8 @@ int vsprintf(char* restrict, const char* restrict, va_list)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(3))));
@@ -532,6 +566,8 @@ int vsnprintf(char* restrict, size_t, const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vasprintf(char** restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
@@ -578,6 +614,8 @@ int vasprintf(char** restrict, const char* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vbprintf(char** restrict, size_t* restrict, size_t, int, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __warn_unused_result__)));
@@ -602,6 +640,8 @@ int vbprintf(char** restrict, size_t* restrict, size_t, int, const char* restric
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int wprintf(const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -624,6 +664,8 @@ int wprintf(const wchar_t* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -649,6 +691,8 @@ int fwprintf(FILE* restrict, const wchar_t* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -673,6 +717,8 @@ int fwprintf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int dwprintf(int, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -684,7 +730,7 @@ int dwprintf(int, const wchar_t* restrict, ...)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   ...     The formatting-arguments.
@@ -699,6 +745,8 @@ int dwprintf(int, const wchar_t* restrict, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int sockwprintf(int, int, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__nonnull__(3))));
@@ -724,6 +772,8 @@ int sockwprintf(int, int, const wchar_t* restrict, ...)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(3))));
@@ -758,6 +808,8 @@ int swprintf(wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
@@ -793,6 +845,8 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  *                         use "%zn" to find the actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 #define aswprintfa(buffer, format, ...)						\
   ({										\
@@ -847,6 +901,8 @@ int aswprintf(wchar_t** restrict, const wchar_t* restrict, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int bwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* restrict, ...)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __warn_unused_result__)));
@@ -870,6 +926,8 @@ int bwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* r
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vwprintf(const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(1))));
@@ -892,6 +950,8 @@ int vwprintf(const wchar_t* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -917,6 +977,8 @@ int vfwprintf(FILE* restrict, const wchar_t* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -941,6 +1003,8 @@ int vfwprintf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vdwprintf(int, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(2))));
@@ -952,7 +1016,7 @@ int vdwprintf(int, const wchar_t* restrict, va_list)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   args    The formatting-arguments.
@@ -967,6 +1031,8 @@ int vdwprintf(int, const wchar_t* restrict, va_list)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vsockwprintf(int, int, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__nonnull__(3))));
@@ -992,6 +1058,8 @@ int vsockwprintf(int, int, const wchar_t* restrict, va_list)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(3))));
@@ -1026,6 +1094,8 @@ int vswprintf(wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2), __warn_unused_result__)));
@@ -1073,6 +1143,8 @@ int vaswprintf(wchar_t** restrict, const wchar_t* restrict, va_list)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vbwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* restrict, va_list)
  __GCC_ONLY(__attribute__((__nonnull__(1, 2, 5), __warn_unused_result__)));
@@ -1092,6 +1164,8 @@ int vbwprintf(wchar_t** restrict, size_t* restrict, size_t, int, const wchar_t* 
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int scanf(const char* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1), __format__(__slibc_scanf__, 1, 2))));
@@ -1109,6 +1183,8 @@ int scanf(const char* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fscanf(FILE* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
@@ -1126,6 +1202,8 @@ int fscanf(FILE* restrict, const char* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int sscanf(const char* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
@@ -1145,6 +1223,8 @@ int sscanf(const char* restrict, const char* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fscanf_unlocked(FILE* restrict, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2), __format__(__slibc_scanf__, 2, 3))));
@@ -1166,6 +1246,8 @@ int fscanf_unlocked(FILE* restrict, const char* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int snscanf(const char* restrict, size_t, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3), __format__(__slibc_scanf__, 3, 4))));
@@ -1186,6 +1268,8 @@ int snscanf(const char* restrict, size_t, const char* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int dscanf(int, const char* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2), __format__(__slibc_scanf__, 2, 3))));
@@ -1203,6 +1287,8 @@ int dscanf(int, const char* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vscanf(const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
@@ -1219,6 +1305,8 @@ int vscanf(const char* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfscanf(FILE* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1235,6 +1323,8 @@ int vfscanf(FILE* restrict, const char* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vsscanf(const char* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1254,6 +1344,8 @@ int vsscanf(const char* restrict, const char* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfscanf_unlocked(FILE* restrict, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1273,6 +1365,8 @@ int vfscanf_unlocked(FILE* restrict, const char* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vsnscanf(const char* restrict, size_t, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3))));
@@ -1291,6 +1385,8 @@ int vsnscanf(const char* restrict, size_t, const char* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vdscanf(int, const char* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
@@ -1308,6 +1404,8 @@ int vdscanf(int, const char* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int wscanf(const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
@@ -1324,6 +1422,8 @@ int wscanf(const wchar_t* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fwscanf(FILE* restrict, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1340,6 +1440,8 @@ int fwscanf(FILE* restrict, const wchar_t* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1359,6 +1461,8 @@ int swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fwscanf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1378,6 +1482,8 @@ int fwscanf_unlocked(FILE* restrict, const wchar_t* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int snwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3))));
@@ -1396,6 +1502,8 @@ int snwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int dwscanf(int, const wchar_t* restrict, ...)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
@@ -1413,6 +1521,8 @@ int dwscanf(int, const wchar_t* restrict, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vwscanf(const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1))));
@@ -1429,6 +1539,8 @@ int vwscanf(const wchar_t* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1445,6 +1557,8 @@ int vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1464,6 +1578,8 @@ int vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfwscanf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 2))));
@@ -1483,6 +1599,8 @@ int vfwscanf_unlocked(FILE* restrict, const wchar_t* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vsnwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(3))));
@@ -1501,6 +1619,8 @@ int vsnwscanf(const wchar_t* restrict, size_t, const wchar_t* restrict, va_list)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vdwscanf(int, const wchar_t* restrict, va_list)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
@@ -1511,6 +1631,8 @@ int vdwscanf(int, const wchar_t* restrict, va_list)
 #if !defined(__PORTABLE)
 /**
  * This function is identical to `scanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_scanf(const char* restrict, ...)
   __deprecated("Use 'scanf' instead.")
@@ -1518,6 +1640,8 @@ int __isoc99_scanf(const char* restrict, ...)
 
 /**
  * This function is identical to `fscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_fscanf(FILE* restrict, const char* restrict, ...)
   __deprecated("Use 'fscanf' instead.")
@@ -1525,6 +1649,8 @@ int __isoc99_fscanf(FILE* restrict, const char* restrict, ...)
 
 /**
  * This function is identical to `sscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_sscanf(const char* restrict, const char* restrict, ...)
   __deprecated("Use 'sscanf' instead.")
@@ -1533,6 +1659,8 @@ int __isoc99_sscanf(const char* restrict, const char* restrict, ...)
 
 /**
  * This function is identical to `vscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vscanf(const char* restrict, va_list)
   __deprecated("Use 'vscanf' instead.")
@@ -1540,6 +1668,8 @@ int __isoc99_vscanf(const char* restrict, va_list)
 
 /**
  * This function is identical to `vfscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vfscanf(FILE* restrict, const char* restrict, va_list)
   __deprecated("Use 'vfscanf' instead.")
@@ -1547,6 +1677,8 @@ int __isoc99_vfscanf(FILE* restrict, const char* restrict, va_list)
 
 /**
  * This function is identical to `vsscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vsscanf(const char* restrict, const char* restrict, va_list)
   __deprecated("Use 'vsscanf' instead.")
@@ -1555,6 +1687,8 @@ int __isoc99_vsscanf(const char* restrict, const char* restrict, va_list)
 
 /**
  * This function is identical to `wscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_wscanf(const wchar_t* restrict, ...)
   __deprecated("Use 'wscanf' instead.")
@@ -1562,6 +1696,8 @@ int __isoc99_wscanf(const wchar_t* restrict, ...)
 
 /**
  * This function is identical to `fwscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_fwscanf(FILE* restrict, const wchar_t* restrict, ...)
   __deprecated("Use 'fwscanf' instead.")
@@ -1569,6 +1705,8 @@ int __isoc99_fwscanf(FILE* restrict, const wchar_t* restrict, ...)
 
 /**
  * This function is identical to `swscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
   __deprecated("Use 'swscanf' instead.")
@@ -1577,6 +1715,8 @@ int __isoc99_swscanf(const wchar_t* restrict, const wchar_t* restrict, ...)
 
 /**
  * This function is identical to `vwscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vwscanf(const wchar_t* restrict, va_list)
   __deprecated("Use 'vwscanf' instead.")
@@ -1584,6 +1724,8 @@ int __isoc99_vwscanf(const wchar_t* restrict, va_list)
 
 /**
  * This function is identical to `vfwscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
   __deprecated("Use 'vfwscanf' instead.")
@@ -1591,6 +1733,8 @@ int __isoc99_vfwscanf(FILE* restrict, const wchar_t* restrict, va_list)
 
 /**
  * This function is identical to `vswscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vswscanf(const wchar_t* restrict, const wchar_t* restrict, va_list)
   __deprecated("Use 'vswscanf' instead.")

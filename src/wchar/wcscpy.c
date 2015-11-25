@@ -26,6 +26,8 @@
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscpy(wchar_t* restrict whither, const wchar_t* restrict whence)
 {

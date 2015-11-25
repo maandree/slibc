@@ -28,6 +28,8 @@
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + strlen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 char* stpmove(char* whither, const char* whence)
 {

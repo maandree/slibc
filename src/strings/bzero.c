@@ -27,6 +27,8 @@
  * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
+ * 
+ * @since  Always.
  */
 void bzero(void* segment, size_t size)
 {

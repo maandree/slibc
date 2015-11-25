@@ -25,6 +25,8 @@
  * 
  * @param   str  The string.
  * @return       The number of bytes before the first NUL byte.
+ * 
+ * @since  Always.
  */
 size_t strlen(const char* str)
 {

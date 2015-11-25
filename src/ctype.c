@@ -28,6 +28,8 @@
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (isalnum)(int c)
 {
@@ -43,6 +45,8 @@ int (isalnum)(int c)
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['A', 'Z'] or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (isalpha)(int c)
 {
@@ -58,6 +62,8 @@ int (isalpha)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is a ' ' or a '\t'.
+ * 
+ * @since  Always.
  */
 int (isblank)(int c)
 {
@@ -73,6 +79,8 @@ int (isblank)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is lower than ' '.
+ * 
+ * @since  Always.
  */
 int (iscntrl)(int c)
 {
@@ -87,6 +95,8 @@ int (iscntrl)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is in ['0', '9'].
+ * 
+ * @since  Always.
  */
 int (isdigit)(int c)
 {
@@ -101,6 +111,8 @@ int (isdigit)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is greater than ' '.
+ * 
+ * @since  Always.
  */
 int (isgraph)(int c)
 {
@@ -116,6 +128,8 @@ int (isgraph)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is in ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (islower)(int c)
 {
@@ -132,6 +146,8 @@ int (islower)(int c)
  * @param   c  The character.
  * @return     Whether the character is at least
  *             as great as ' '.
+ * 
+ * @since  Always.
  */
 int (isprint)(int c)
 {
@@ -148,6 +164,8 @@ int (isprint)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is a punctuation.
+ * 
+ * @since  Always.
  */
 int (ispunct)(int c)
 {
@@ -163,6 +181,8 @@ int (ispunct)(int c)
  * @param   c  The character.
  * @return     Whether the character is a ' ', '\f',
  *             '\n', '\r', '\t', or '\v'.
+ * 
+ * @since  Always.
  */
 int (isspace)(int c)
 {
@@ -178,6 +198,8 @@ int (isspace)(int c)
  * 
  * @param   c  The character.
  * @return     Whether the character is in ['A', 'Z'].
+ * 
+ * @since  Always.
  */
 int (isupper)(int c)
 {
@@ -195,6 +217,8 @@ int (isupper)(int c)
  * @param   c  The character.
  * @return     Whether the character is in
  *             ['0', '9'], ['A', 'Z'], or ['a', 'z'].
+ * 
+ * @since  Always.
  */
 int (isxdigit)(int c)
 {
@@ -218,6 +242,8 @@ int (isxdigit)(int c)
  * @return     The character in lowercase.
  *             Guaranteed to be unchanged if the
  *             character already is in lowercase.
+ * 
+ * @since  Always.
  */
 int (tolower)(int c)
 {
@@ -240,6 +266,8 @@ int (tolower)(int c)
  * @return     The character in uppercase.
  *             Guaranteed to be unchanged if the
  *             character already is in lowercase.
+ * 
+ * @since  Always.
  */
 int (toupper)(int c)
 {
@@ -255,6 +283,8 @@ int (toupper)(int c)
  * 
  * @param   c  The character
  * @return     Whether the character is an ASCII character.
+ * 
+ * @since  Always.
  */
 int (isascii)(int c)
 {
@@ -276,6 +306,8 @@ int (isascii)(int c)
  * 
  * @param   c  The character.
  * @return     The character with the 8:th bit cleared.
+ * 
+ * @since  Always.
  */
 int (toascii)(int c)
 {
@@ -286,6 +318,8 @@ int (toascii)(int c)
 /**
  * This function is identical to `tolower`.
  * It is provided for backwards-compatibility with SVID.
+ * 
+ * @since  Always.
  */
 int _tolower(int c)
 {
@@ -296,6 +330,8 @@ int _tolower(int c)
 /**
  * This function is identical to `tolower`.
  * It is provided for backwards-compatibility with SVID.
+ * 
+ * @since  Always.
  */
 int _toupper(int c)
 {

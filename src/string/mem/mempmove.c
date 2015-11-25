@@ -29,6 +29,8 @@
  * @param   whence   The source memory segment.
  * @param   size     The number of bytes to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 void* mempmove(void* whither, const void* whence, size_t size)
 {

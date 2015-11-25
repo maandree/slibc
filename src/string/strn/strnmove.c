@@ -34,6 +34,8 @@
  *                   shorter, `whither` will be filled with NUL bytes
  *                   until this amount of bytes have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strnmove(char* whither, const char* whence, size_t maxlen)
 {

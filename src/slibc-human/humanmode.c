@@ -35,6 +35,8 @@
  * 
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* humanmode(char* restrict buffer, mode_t perm, enum humanmode_mode mode)
 {

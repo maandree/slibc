@@ -38,17 +38,23 @@
  * function is called again.
  * 
  * @etymology  (`generic_printf`)-subsystem: (ext)ension (queue).
+ * 
+ * @since  Always.
  */
 struct generic_printf_ext_queue
 {
   /**
    * Sizes, in bytes, of the missing arguments.
    * Only 1, 2, 4 and 8 are allowed.
+   * 
+   * @since  Always.
    */
   char sizes[4];
   
   /**
    * The indices of the missing arguments.
+   * 
+   * @since  Always.
    */
   size_t indices[4];
   
@@ -60,6 +66,8 @@ struct generic_printf_ext_queue
    * omitted arguments. To avoid a deadlock,
    * add arguments in the order of their index
    * if there are more than 4 missing arguments.
+   * 
+   * @since  Always.
    */
   size_t count;
 };
@@ -78,6 +86,8 @@ struct generic_printf_ext_queue
  *                  `vgeneric_wprintf` via the parameter `data`.
  * @return          Zero on success, -1 on error. `errno` shall
  *                  be set on error.
+ * 
+ * @since  Always.
  */
 typedef int (* generic_printf_write_func_t)(const char*, size_t, void*);
 
@@ -86,6 +96,8 @@ typedef int (* generic_printf_write_func_t)(const char*, size_t, void*);
  * `generic_wprintf` and `vgeneric_wprintf`.
  * 
  * @etymology  (`generic_wprintf`)-subsystem: (write-func)tion, `(t)ypedef`.
+ * 
+ * @since  Always.
  */
 typedef int (* generic_wprintf_write_func_t)(const wchar_t*, size_t, void*);
 
@@ -109,6 +121,8 @@ typedef int (* generic_wprintf_write_func_t)(const wchar_t*, size_t, void*);
  *                      value of `argn`, if `queue_data` must be set.
  * 
  * @throws  EINVAL  If `code` could not be recognised.
+ * 
+ * @since  Always.
  */
 typedef ssize_t (* generic_printf_ext_func_t)(const char*, intmax_t*, size_t, int, void*,
 					      struct generic_printf_ext_queue*);
@@ -118,6 +132,8 @@ typedef ssize_t (* generic_printf_ext_func_t)(const char*, intmax_t*, size_t, in
  * `generic_wprintf` and `vgeneric_wprintf`.
  * 
  * @etymology  (`generic_wprintf`)-subsystem: (ext)ension(-func)tion, `(t)ypedef`.
+ * 
+ * @since  Always.
  */
 typedef ssize_t (* generic_wprintf_ext_func_t)(const wchar_t*, intmax_t*, size_t, int, void*,
 					       struct generic_printf_ext_queue*);
@@ -150,6 +166,8 @@ typedef ssize_t (* generic_wprintf_ext_func_t)(const wchar_t*, intmax_t*, size_t
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int generic_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
 		   size_t, int, size_t* restrict, int, void*, const char*, ...)
@@ -183,6 +201,8 @@ int generic_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vgeneric_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
 		    size_t, int, size_t* restrict, int, void*, const char*, va_list)
@@ -216,6 +236,8 @@ int vgeneric_printf(generic_printf_write_func_t, generic_printf_ext_func_t,
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int generic_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
 		    size_t, int, size_t* restrict, int, void*, const wchar_t*, ...)
@@ -250,6 +272,8 @@ int generic_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
  * 
  * @throws          Any error thrown by `write_function` or `extension_function`.
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vgeneric_wprintf(generic_wprintf_write_func_t, generic_wprintf_ext_func_t,
 		     size_t, int, size_t* restrict, int, void*, const wchar_t*, va_list)

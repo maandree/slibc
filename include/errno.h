@@ -41,6 +41,8 @@
  * that has occurred in the thread.
  * 
  * @etymology  (Err)or (number).
+ * 
+ * @since  Always.
  */
 #define errno  (*__errno())
 
@@ -70,6 +72,8 @@ volatile int* __errno(void) /* TODO not implemented */
  * or `argv[0]` is edited.
  * 
  * This is a GNU and slibc extension.
+ * 
+ * @since  Always.
  */
 #if defined(__GNU_SOURCE) || defined(__SLIBC_SOURCE)
 extern char* program_invocation_name; /* TODO not implemented */
@@ -83,6 +87,8 @@ extern char* program_invocation_name; /* TODO not implemented */
  * or `argv[0]` is edited.
  * 
  * This is a GNU extension.
+ * 
+ * @since  Always.
  */
 #if defined(__GNU_SOURCE)
 extern char* program_invocation_short_name; /* TODO not implemented */

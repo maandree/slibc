@@ -28,6 +28,8 @@
  *                  and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 char* strdup(const char* string)
 {

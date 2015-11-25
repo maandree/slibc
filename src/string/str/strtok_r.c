@@ -37,6 +37,8 @@
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 char* strtok_r(char* restrict string, const char* restrict delimiters,
 	       char** restrict state)

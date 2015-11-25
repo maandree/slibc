@@ -204,6 +204,8 @@ static inline int exact_numeric(mode_t* restrict mode, mode_t* restrict mask, co
  * @return        Zero on success, -1 on error.
  * 
  * @throws  EINVAL  If `str` is not parseable.
+ * 
+ * @since  Always.
  */
 int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str)
 {

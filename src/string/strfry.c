@@ -30,6 +30,8 @@
  * 
  * @param   anagram  An anagram of the output, will be modified.
  * @retrun           The string, which will `== anagram`.
+ * 
+ * @since  Always.
  */
 char* strfry(char* anagram)
 {

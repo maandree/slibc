@@ -77,6 +77,8 @@
  * ```
  * 
  * This is a slibc extension.
+ * 
+ * @since  Always.
  */
 #define FAILABLE_CALL(expression)  \
   ({ typeof(expression) __slibc_r = (expression); *__slibc_error_line() = __LINE__; __slibc_r; })
@@ -123,6 +125,8 @@
  *                     that was the line that failed, if `condition`
  *                     evaluates to non-zero.
  * @return             1 if `condition` evaluates to non-zero, 0 otherwise.
+ * 
+ * @since  Always.
  */
 #define FAILURE_CHECK(condition, offset)  \
   ((condition) ? (*__slibc_error_line() = (__LINE__ - (offset)), 1) : 0)
@@ -168,6 +172,8 @@
  *              to describe what action failed. If the first argument is
  *              `NULL`, this is not printed and only the location of the
  *              error and `errno` is used to describe the error.
+ * 
+ * @since  Always.
  */
 #define PRINT_FAILURE(...)  \
   (PRINT_CUSTOM_FAILURE(errno, NULL, __VA_ARGS__))
@@ -191,6 +197,8 @@
  *                       to describe what action failed. If the first argument is
  *                       `NULL`, this is not printed and only the location of the
  *                       error and `error_string` is used to describe the error.
+ * 
+ * @since  Always.
  */
 #define PRINT_CUSTOM_FAILURE(error_code, error_string, ...)  \
   (slibc_perror(NULL, __FILE__, *__slibc_error_line(), __func__, &(error_code), error_string, __VA_ARGS__))
@@ -198,6 +206,8 @@
 /**
  * Helper function to keep track of the line of origin, in a
  * thread-safe manner, without requiring new revisions of C.
+ * 
+ * @since  Always.
  */
 int* __slibc_error_line(void) __GCC_ONLY(__attribute__((__const__))); /* TODO not implemented */
 
@@ -222,6 +232,8 @@ int* __slibc_error_line(void) __GCC_ONLY(__attribute__((__const__))); /* TODO no
  * @param  format        Formatting-string for a description of the action that failed. `NULL` if
  *                       no description other than the location and `error_string` should be printed.
  * @param  ...           Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 void slibc_perror(const char*, const char*, int, const char*, int*, const char*, const char*, ...)
   __GCC_ONLY(__attribute__((__nonnull__(2, 4), __format__(__slibc_printf__, 7, 8))));

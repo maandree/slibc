@@ -27,6 +27,8 @@
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 char* (strstr)(const char* haystack, const char* needle)
 {

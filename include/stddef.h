@@ -43,6 +43,8 @@
  * features, is harmful too.
  * 
  * @etymology  Pointer with numerical value (0).
+ * 
+ * @since  Always.
  */
 #ifndef NULL
 # define NULL  ((void*)0)
@@ -72,6 +74,8 @@
  * @param   member:identifier  The identifier for a member, direct or indirect,
  *                             of the structure.
  * @return  :size_t            The offset of the member.
+ * 
+ * @since  Always.
  */
 #define offsetof(type, member)  \
   ((size_t)((char*)&(((type*)NULL)->member) - (char*)NULL))

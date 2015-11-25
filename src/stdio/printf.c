@@ -184,7 +184,7 @@ static int wwrite_fd(const wchar_t* text, size_t length, int* fdp)
 
 
 /**
- * Write a string segment to a file.
+ * Write a string segment to a socket with `send`.
  * 
  * @param   text    The text to write, not NUL terminated.
  * @param   length  The length of `text`.
@@ -204,7 +204,7 @@ static int send_fd(const char* text, size_t length, int* input)
 
 
 /**
- * Write a string segment to a file.
+ * Write a string segment to a socket with `send`.
  * 
  * @param   text    The text to write, not NUL terminated.
  * @param   length  The length of `text`.
@@ -361,6 +361,8 @@ static int wwrite_buffer(const wchar_t* text, size_t length, struct buffer* buff
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int printf(const char* restrict format, ...)
 {
@@ -387,6 +389,8 @@ int printf(const char* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int fprintf(FILE* restrict stream, const char* restrict format, ...)
 {
@@ -414,6 +418,8 @@ int fprintf(FILE* restrict stream, const char* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int fprintf_unlocked(FILE* restrict stream, const char* restrict format, ...)
 {
@@ -441,6 +447,8 @@ int fprintf_unlocked(FILE* restrict stream, const char* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int dprintf(int fd, const char* restrict format, ...)
 {
@@ -471,6 +479,8 @@ int dprintf(int fd, const char* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int sockprintf(int fd, int flags, const char* format restrict, ...)
 {
@@ -498,6 +508,8 @@ int sockprintf(int fd, int flags, const char* format restrict, ...)
  *                  use "%zn" to find the actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int sprintf(char* restrict buffer, const char* restrict format, ...)
 {
@@ -525,6 +537,8 @@ int sprintf(char* restrict buffer, const char* restrict format, ...)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int snprintf(char* restrict buffer, size_t size, const char* restrict format, ...)
 {
@@ -555,6 +569,8 @@ int snprintf(char* restrict buffer, size_t size, const char* restrict format, ..
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int asprintf(char** restrict buffer, const char* restrict format, ...)
 {
@@ -602,6 +618,8 @@ int asprintf(char** restrict buffer, const char* restrict format, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int bprintf(char** restrict buffer, size_t* restrict size, size_t offset,
 	    int secure, const char* restrict format, ...)
@@ -627,6 +645,8 @@ int bprintf(char** restrict buffer, size_t* restrict size, size_t offset,
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vprintf(const char* restrict format, va_list args)
 {
@@ -652,6 +672,8 @@ int vprintf(const char* restrict format, va_list args)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vfprintf(FILE* restrict stream, const char* restrict format, va_list args)
 {
@@ -684,6 +706,8 @@ int vfprintf(FILE* restrict stream, const char* restrict format, va_list args)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int vfprintf_unlocked(FILE* restrict stream, const char* restrict format, va_list args)
 {
@@ -709,6 +733,8 @@ int vfprintf_unlocked(FILE* restrict stream, const char* restrict format, va_lis
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vdprintf(int fd, const char* restrict format, va_list args)
 {
@@ -738,6 +764,8 @@ int vdprintf(int fd, const char* restrict format, va_list args)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vsockprintf(int fd, int flags, const char* restrict format, va_list args)
 {
@@ -763,6 +791,8 @@ int vsockprintf(int fd, int flags, const char* restrict format, va_list args)
  *                  use "%zn" to find the actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vsprintf(char* restrict buffer, const char* restrict format, va_list args)
 {
@@ -791,6 +821,8 @@ int vsprintf(char* restrict buffer, const char* restrict format, va_list args)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vsnprintf(char* restrict buffer, size_t size, const char* restrict format, va_list args)
 {
@@ -821,6 +853,8 @@ int vsnprintf(char* restrict buffer, size_t size, const char* restrict format, v
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vasprintf(char** restrict buffer, const char* restrict format, va_list args)
 {
@@ -871,6 +905,8 @@ int vasprintf(char** restrict buffer, const char* restrict format, va_list args)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vbprintf(char** restrict buffer, size_t* restrict size, size_t offset,
 	     int secure, const char* restrict format, va_list args)
@@ -904,6 +940,8 @@ int vbprintf(char** restrict buffer, size_t* restrict size, size_t offset,
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int wprintf(const wchar_t* restrict format, ...)
 {
@@ -929,6 +967,8 @@ int wprintf(const wchar_t* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int fwprintf(FILE* restrict stream, const wchar_t* restrict format, ...)
 {
@@ -956,6 +996,8 @@ int fwprintf(FILE* restrict stream, const wchar_t* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int fwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, ...)
 {
@@ -983,6 +1025,8 @@ int fwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, ...
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int dwprintf(int fd, const wchar_t* restrict format, ...)
 {
@@ -1012,6 +1056,8 @@ int dwprintf(int fd, const wchar_t* restrict format, ...)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int sockwprintf(int fd, int flags, const wchar_t* restrict format, ...)
 {
@@ -1039,6 +1085,8 @@ int sockwprintf(int fd, int flags, const wchar_t* restrict format, ...)
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int swprintf(wchar_t* restrict buffer, size_t size, const wchar_t* restrict format, ...)
 {
@@ -1069,6 +1117,8 @@ int swprintf(wchar_t* restrict buffer, size_t size, const wchar_t* restrict form
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int aswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, ...)
 {
@@ -1117,6 +1167,8 @@ int aswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, ...)
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int bwprintf(wchar_t** restrict buffer, size_t* restrict size, size_t offset,
 	     int secure, const wchar_t* restrict format, ...)
@@ -1142,6 +1194,8 @@ int bwprintf(wchar_t** restrict buffer, size_t* restrict size, size_t offset,
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vwprintf(const wchar_t* restrict format, va_list args)
 {
@@ -1167,6 +1221,8 @@ int vwprintf(const wchar_t* restrict format, va_list args)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite`.
+ * 
+ * @since  Always.
  */
 int vfwprintf(FILE* restrict stream, const wchar_t* restrict format, va_list args)
 {
@@ -1199,6 +1255,8 @@ int vfwprintf(FILE* restrict stream, const wchar_t* restrict format, va_list arg
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws          Any error specified for `fwrite_unlocked`.
+ * 
+ * @since  Always.
  */
 int vfwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va_list args)
 {
@@ -1226,6 +1284,8 @@ int vfwprintf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vdwprintf(int fd, const wchar_t* restrict format, va_list args)
 {
@@ -1255,6 +1315,8 @@ int vdwprintf(int fd, const wchar_t* restrict format, va_list args)
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws           Any error specified for `write`.
+ * 
+ * @since  Always.
  */
 int vsockwprintf(int fd, int flags, const wchar_t* restrict format, va_list args)
 {
@@ -1283,6 +1345,8 @@ int vsockwprintf(int fd, int flags, const wchar_t* restrict format, va_list args
  *                  actual length.
  * 
  * @throws  EINVAL  `format` contained unsupported formatting codes.
+ * 
+ * @since  Always.
  */
 int vswprintf(wchar_t* restrict buffer, size_t size, const wchar_t* restrict format, va_list args)
 {
@@ -1314,6 +1378,8 @@ int vswprintf(wchar_t* restrict buffer, size_t size, const wchar_t* restrict for
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vaswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, va_list args)
 {
@@ -1365,6 +1431,8 @@ int vaswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, va_lis
  * @throws  EINVAL  `format` contained unsupported formatting codes.
  * @throws  ENOMEM  The process cannot allocation the
  *                  sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 int vbwprintf(wchar_t** restrict buffer, size_t* restrict size, size_t offset,
 	      int secure, const wchar_t* restrict format, va_list args)

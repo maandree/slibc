@@ -27,6 +27,8 @@
  * @return          The number of `wchar_t`:s before the
  *                  first NUL character. `maxlen` if no
  *                  NUL character was found.
+ * 
+ * @since  Always.
  */
 size_t wcsnlen(const wchar_t* str, size_t maxlen)
 {

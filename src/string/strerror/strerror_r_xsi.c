@@ -35,6 +35,8 @@
  * @return          Zero on success, value for `errno` on error
  * 
  * @throws  ERANGE  `buf` was too small to store the description.
+ * 
+ * @since  Always.
  */
 int __xsi_strerror_r(int errnum, char* buf, size_t buflen)
 {

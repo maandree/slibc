@@ -32,6 +32,8 @@
  *                   shorter, `whither` will be filled with NUL characters
  *                   until this amount of characters have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsncpy(wchar_t* restrict whither, const wchar_t* restrict whence, size_t maxlen)
 {

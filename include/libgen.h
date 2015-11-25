@@ -39,6 +39,8 @@
  *                    of `filename` or, if `filename` is `NULL`
  *                    or is empty, a statically allocationed string,
  *                    so it must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* __xpg_basename(char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -55,6 +57,8 @@ char* __xpg_basename(char*)
  *                    or does no contain a non-trailing slash,
  *                    a statically allocationed string, so it
  *                    must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* dirname(char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -82,6 +86,8 @@ char* dirname(char*)
  *                    if `filename` is `NULL` or does no contain a
  *                    non-trailing slash, a statically allocationed
  *                    string, so it must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* cleanname(char*)
 #endif

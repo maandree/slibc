@@ -59,6 +59,8 @@
  * 
  * @param   errnum  The error code.
  * @return          A description of the error.
+ * 
+ * @since  Always.
  */
 char* strerror(int)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __warn_unused_result__)));
@@ -80,6 +82,8 @@ char* strerror(int)
  * @param   locale  The locale, must be a valid locale and not
  *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
  * @return          A description of the error.
+ * 
+ * @since  Always.
  */
 char* strerror_l(int, locale_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__))); /* TODO attributes */
@@ -102,6 +106,8 @@ char* strerror_l(int, locale_t)
  * @return          Zero on success, value for `errno` on error
  * 
  * @throws  ERANGE  `buf` was too small to store the description.
+ * 
+ * @since  Always.
  */
 int __xsi_strerror_r(int, char*, size_t); /* XSI-compliant strerror_r */
 
@@ -121,6 +127,8 @@ int __xsi_strerror_r(int, char*, size_t); /* XSI-compliant strerror_r */
  *                  is set to indicate the error.
  * 
  * @throws  ERANGE  `buf` was too small to store the description.
+ * 
+ * @since  Always.
  */
 char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
 
@@ -139,6 +147,8 @@ char* __gnu_strerror_r(int, char*, size_t); /* GNU-specific strerror_r */
  * 
  * @param   str  The string.
  * @return       The number of bytes before the first NUL byte.
+ * 
+ * @since  Always.
  */
 size_t strlen(const char*)
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__, __pure__)));
@@ -154,6 +164,8 @@ size_t strlen(const char*)
  * @param   maxlen  The number of bytes to inspect, at most.
  * @return          The number of bytes before, the first NUL byte.
  *                  `maxlen` if no NUL byte was found.
+ * 
+ * @since  Always.
  */
 size_t strnlen(const char*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -168,6 +180,8 @@ size_t strnlen(const char*, size_t)
  * @param   c        The character (8 bits wide.)
  * @param   size     The size of the memory segment.
  * @return           `segment` is returned.
+ * 
+ * @since  Always.
  */
 void* memset(void*, int, size_t);
 
@@ -178,6 +192,8 @@ void* memset(void*, int, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of bytes to copy.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 void* memcpy(void* restrict, const void* restrict, size_t);
 
@@ -191,6 +207,8 @@ void* memcpy(void* restrict, const void* restrict, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of bytes to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 void* mempcpy(void* restrict, const void* restrict, size_t);
 #endif
@@ -202,6 +220,8 @@ void* mempcpy(void* restrict, const void* restrict, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of bytes to copy.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 void* memmove(void*, const void*, size_t);
 
@@ -216,6 +236,8 @@ void* memmove(void*, const void*, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of bytes to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 void* mempmove(void*, const void*, size_t);
 #endif
@@ -233,6 +255,8 @@ void* mempmove(void*, const void*, size_t);
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 void* memccpy(void* restrict, const void* restrict, int, size_t);
 
@@ -252,6 +276,8 @@ void* memccpy(void* restrict, const void* restrict, int, size_t);
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 void* memcmove(void*, const void*, int, size_t);
 
@@ -264,6 +290,8 @@ void* memcmove(void*, const void*, int, size_t);
  * @param   str  The beginning of the memory segment.
  * @param   c    The character (8 bits wide.)
  * @return       `str` is returned.
+ * 
+ * @since  Always.
  */
 char* strset(char* str, int c);
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -276,6 +304,8 @@ char* strset(char* str, int c);
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strcpy(char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -287,6 +317,8 @@ char* strcpy(char* restrict, const char* restrict)
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + strlen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 char* stpcpy(char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -307,6 +339,8 @@ char* stpcpy(char* restrict, const char* restrict)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strccpy(char* restrict, const char* restrict, int)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -326,6 +360,8 @@ char* strccpy(char* restrict, const char* restrict, int)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -344,6 +380,8 @@ char* strstrcpy(char* restrict, const char* restrict, const char* restrict)
  *                   shorter, `whither` will be filled with NUL bytes
  *                   until this amount of bytes have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strncpy(char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -365,6 +403,8 @@ char* strncpy(char* restrict, const char* restrict, size_t)
  *                   until this amount of bytes have been written.
  * @return           `whither` plus the number of written bytes,
  *                   excluding NUL bytes, is returned.
+ * 
+ * @since  Always.
  */
 char* stpncpy(char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -392,6 +432,8 @@ char* stpncpy(char* restrict, const char* restrict, size_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strcncpy(char* restrict, const char* restrict, int, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -418,6 +460,8 @@ char* strcncpy(char* restrict, const char* restrict, int, size_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strstrncpy(char* restrict, const char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -434,6 +478,8 @@ char* strstrncpy(char* restrict, const char* restrict, const char* restrict, siz
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strmove(char*, const char*)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -447,6 +493,8 @@ char* strmove(char*, const char*)
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + strlen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 char* stpmove(char*, const char*)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -466,6 +514,8 @@ char* stpmove(char*, const char*)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strcmove(char*, const char*, int)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -485,6 +535,8 @@ char* strcmove(char*, const char*, int)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strstrmove(char*, const char*, const char* restrict)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -504,6 +556,8 @@ char* strstrmove(char*, const char*, const char* restrict)
  *                   shorter, `whither` will be filled with NUL bytes
  *                   until this amount of bytes have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strnmove(char*, const char*, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -526,6 +580,8 @@ char* strnmove(char*, const char*, size_t)
  *                   until this amount of bytes have been written.
  * @return           `whither` plus the number of written bytes,
  *                   excluding NUL bytes, is returned.
+ * 
+ * @since  Always.
  */
 char* stpnmove(char*, const char*, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -552,6 +608,8 @@ char* stpnmove(char*, const char*, size_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strcnmove(char*, const char*, int, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -578,6 +636,8 @@ char* strcnmove(char*, const char*, int, size_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strstrnmove(char*, const char*, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -593,6 +653,8 @@ char* strstrnmove(char*, const char*, const char* restrict, size_t)
  * @param   whither  The string to extend.
  * @param   whence   The string to append.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strcat(char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -614,6 +676,8 @@ char* strcat(char* restrict, const char* restrict)
  *                   shorter, `whither` will be filled with NUL bytes
  *                   until this amount of bytes have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strncat(char* restrict, const char* restrict, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -629,6 +693,8 @@ char* strncat(char* restrict, const char* restrict, size_t)
  *                  and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 char* strdup(const char*)
   __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
@@ -647,6 +713,8 @@ char* strdup(const char*)
  *                  and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 char* strndup(const char*, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
@@ -664,6 +732,8 @@ char* strndup(const char*, size_t)
  *                   and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 void* memdup(const void*, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
@@ -680,6 +750,8 @@ void* memdup(const void*, size_t)
  * @param   string:const char*  The string to duplicate.
  * @return  :size_t             The new string. There is no way to
  *                              detect whether the allocation failed.
+ * 
+ * @since  Always.
  */
 #  define strdupa(string)				\
   ({							\
@@ -702,6 +774,8 @@ void* memdup(const void*, size_t)
  *                              A NUL byte is guaranteed to always be written.
  * @return  :size_t             The new string. There is no way to
  *                              detect whether the allocation failed.
+ * 
+ * @since  Always.
  */
 #  define strndupa(string, maxlen)			\
   ({							\
@@ -723,6 +797,8 @@ void* memdup(const void*, size_t)
  * @param   size:size_t          The size of the memory segment.
  * @return  :size_t              The new segment. There is no way to
  *                               detect whether the allocation failed.
+ * 
+ * @since  Always.
  */
 #  define memdupa(segment, size)	\
   ({					\
@@ -743,6 +819,8 @@ void* memdup(const void*, size_t)
  * @param   size  The size of the segments.
  * @return        Zero is returned if `a` and `b` are equal, otherwise,
  *                see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int memcmp(const void*, const void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -759,6 +837,8 @@ int memcmp(const void*, const void*, size_t)
  * @param   size  The size of the segments.
  * @return        Zero is returned if `a` and `b` are equal, otherwise,
  *                see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int memcasecmp(const void*, const void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -771,6 +851,8 @@ int memcasecmp(const void*, const void*, size_t)
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strcmp(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -783,6 +865,8 @@ int strcmp(const char*, const char*)
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strncmp(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -803,6 +887,8 @@ int strverscmp(const char*, const char*)
  * @param   size     The size of the memory segment.
  * @return           Pointer to the first occurrence of `c`,
  *                   `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 void* memchr(const void*, int, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -821,6 +907,8 @@ void* memchr(const void*, int, size_t)
  * @param   segment  The memory segment to search.
  * @param   c        The sought after character.
  * @return           Pointer to the first occurrence of `c`.
+ * 
+ * @since  Always.
  */
 void* rawmemchr(const void*, int)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __returns_nonnull__, __nonnull__, __pure__)));
@@ -841,6 +929,8 @@ void* rawmemchr(const void*, int)
  * @param   size     The size of the memory segment.
  * @return           Pointer to the last occurrence of `c`,
  *                   `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 void* memrchr(const void*, int, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -860,6 +950,8 @@ void* memrchr(const void*, int, size_t)
  * @param   c       The sought after character.
  * @return          Pointer to the first occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 char* strchr(const char*, int)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -881,6 +973,8 @@ char* strchr(const char*, int)
  * @return          Pointer to the first occurrence of `c`,
  *                  Pointer to the terminating NUL character
  *                  if none were found.
+ * 
+ * @since  Always.
  */
 char* strchrnul(const char*, int)
    __GCC_ONLY(__attribute__((__warn_unused_result__, __returns_nonnull__, __nonnull__, __pure__)));
@@ -902,6 +996,8 @@ char* strchrnul(const char*, int)
  * @param   c       The sought after character.
  * @return          Pointer to the last occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 char* strrchr(const char*, int)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -918,6 +1014,8 @@ char* strrchr(const char*, int)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 char* strstr(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -933,6 +1031,8 @@ char* strstr(const char*, const char*)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 char* strcasestr(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -953,6 +1053,8 @@ char* strcasestr(const char*, const char*)
  * @param   maxlen    The maximum number of character to search.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 char* strnstr(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -971,6 +1073,8 @@ char* strnstr(const char*, const char*, size_t)
  * @param   maxlen    The maximum number of character to search.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 char* strncasestr(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -988,6 +1092,8 @@ char* strncasestr(const char*, const char*, size_t)
  * @param   haystack  The string to search.
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
+ * 
+ * @since  Always.
  */
 char* rawstrstr(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __returns_nonnull__, __pure__)));
@@ -1005,6 +1111,8 @@ char* rawstrstr(const char*, const char*)
  * @param   haystack  The string to search.
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
+ * 
+ * @since  Always.
  */
 char* rawstrcasestr(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __returns_nonnull__, __pure__)));
@@ -1025,6 +1133,8 @@ char* rawstrcasestr(const char*, const char*)
  * @param   needle_length    The length of `needle`.
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 void* memcasemem(const void*, size_t, const void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -1042,6 +1152,8 @@ void* memcasemem(const void*, size_t, const void*, size_t)
  * @param   desired  The desired beginning of the string.
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 char* strstarts(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1059,6 +1171,8 @@ char* strstarts(const char*, const char*)
  * @param   desired  The desired ending of the string.
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 char* strends(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1076,6 +1190,8 @@ char* strends(const char*, const char*)
  * @param   desired  The desired beginning of the string.
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 char* strcasestarts(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1093,6 +1209,8 @@ char* strcasestarts(const char*, const char*)
  * @param   desired  The desired ending of the string.
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 char* strcaseends(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1115,6 +1233,8 @@ char* strcaseends(const char*, const char*)
  * @param   needle_length    The length of `needle`.
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 void* memmem(const void*, size_t, const void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -1135,6 +1255,8 @@ void* memmem(const void*, size_t, const void*, size_t)
  * @param   string   The string.
  * @param   skipset  Bytes allowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t strspn(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1147,6 +1269,8 @@ size_t strspn(const char*, const char*)
  * @param   string   The string.
  * @param   stopset  Bytes disallowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t strcspn(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1162,6 +1286,8 @@ size_t strcspn(const char*, const char*)
  * @return           A pointer to the first occurrence in
  *                   `string` of a byte found in `stopset`.
  *                   `NULL` is returned if none is found.
+ * 
+ * @since  Always.
  */
 char* strpbrk(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1184,6 +1310,8 @@ char* strpbrk(const char*, const char*)
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 char* strtok(char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2))));
@@ -1206,6 +1334,8 @@ char* strtok(char* restrict, const char* restrict)
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 char* strtok_r(char* restrict, const char* restrict, char** restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2, 3))));
@@ -1224,6 +1354,8 @@ char* strtok_r(char* restrict, const char* restrict, char** restrict)
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 char* strsep(char** restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));
@@ -1241,6 +1373,8 @@ char* strsep(char** restrict, const char* restrict)
  *                    of `filename` or, if `filename` is `NULL`
  *                    or is empty, a statically allocationed string,
  *                    so it must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* __gnu_basename(const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -1257,6 +1391,8 @@ char* __gnu_basename(const char*)
  * 
  * @param   anagram  An anagram of the output, will be modified.
  * @retrun           The string, which will `== anagram`.
+ * 
+ * @since  Always.
  */
 char* strfry(char*);
 
@@ -1269,6 +1405,8 @@ char* strfry(char*);
  * @param   segment  The memory segment.
  * @param   size     The size of the memory segment.
  * @return           `segment` is returned
+ * 
+ * @since  Always.
  */
 char* memfrob(char*, size_t);
 #endif

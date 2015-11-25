@@ -25,6 +25,8 @@
  * @param   str  The string.
  * @return       The number of `wchar_t`:s before the
  *               first NUL character.
+ * 
+ * @since  Always.
  */
 size_t wcslen(const wchar_t* str)
 {

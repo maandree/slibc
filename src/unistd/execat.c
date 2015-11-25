@@ -36,6 +36,8 @@ struct stat { int st_mode; };
 
 /**
  * The current environment variables.
+ * 
+ * @since  Always.
  */
 extern char** environ;
 
@@ -52,6 +54,8 @@ extern char** environ;
  * @param   use_path    Whether $PATH may be used.
  * 
  * @throws              Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 static void vexecat(int dirfd, const char* file, va_list argv, int fetch_envp, int use_path)
 {
@@ -107,6 +111,8 @@ static void vexecat(int dirfd, const char* file, va_list argv, int fetch_envp, i
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execlat(int dirfd, const char* path, ... /*, NULL, int flags */)
 {
@@ -152,6 +158,8 @@ int execlat(int dirfd, const char* path, ... /*, NULL, int flags */)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execlpat(int dirfd, const char* file, ... /*, NULL, int flags */)
 {
@@ -197,6 +205,8 @@ int execlpat(int dirfd, const char* file, ... /*, NULL, int flags */)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execleat(int dirfd, const char* path, ... /*, NULL, char* const[] envp, int flags */)
 {
@@ -246,6 +256,8 @@ int execleat(int dirfd, const char* path, ... /*, NULL, char* const[] envp, int 
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execlpeat(int dirfd, const char* file, ... /*, NULL, char* const[] envp, int flags */)
 {
@@ -291,6 +303,8 @@ int execlpeat(int dirfd, const char* file, ... /*, NULL, char* const[] envp, int
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execvat(int dirfd, const char* path, char* const argv[], int flags)
 {
@@ -334,6 +348,8 @@ int execvat(int dirfd, const char* path, char* const argv[], int flags)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execvpat(int dirfd, const char* file, char* const argv[], int flags)
 {
@@ -375,6 +391,8 @@ int execvpat(int dirfd, const char* file, char* const argv[], int flags)
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execveat(int dirfd, const char* path, char* const argv[], char* const envp[], int flags)
 {
@@ -451,6 +469,8 @@ int execveat(int dirfd, const char* path, char* const argv[], char* const envp[]
  *                 set to describe the error.
  * 
  * @throws         Any error specified for execveat(2).
+ * 
+ * @since  Always.
  */
 int execvpeat(int dirfd, const char* file, char* const argv[], char* const envp[], int flags)
 {

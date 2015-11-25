@@ -34,6 +34,8 @@
  * @param   locale  The locale, must be a valid locale and not
  *                  `LC_GLOBAL_LOCALE`, lest the behaviour is undefined.
  * @return          A description of the error.
+ * 
+ * @since  Always.
  */
 char* strerror_l(int errnum, locale_t locale)
 {

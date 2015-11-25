@@ -31,6 +31,8 @@
  *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
+ * 
+ * @since  Always.
  */
 div_t div(int numerator, int denominator)
 {

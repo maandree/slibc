@@ -26,6 +26,8 @@
  * @param   c        The character (8 bits wide.)
  * @param   size     The size of the memory segment.
  * @return           `segment` is returned.
+ * 
+ * @since  Always.
  */
 void* memset(void* segment, int c, size_t size)
 {

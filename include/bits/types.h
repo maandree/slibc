@@ -63,6 +63,8 @@
 /**
  * Signed integer type of the result of subtracting two pointers.
  * May not be greater than the width of type `long int`.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_ptrdiff_t) && !defined(__DEFINED_ptrdiff_t)
 # define __DEFINED_ptrdiff_t
@@ -72,6 +74,8 @@ typedef signed __LIMITED_PTR_INT ptrdiff_t;
 
 /**
  * Unsigned version of `ptrdiff_t`
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_uptrdiff_t) && !defined(__DEFINED_uptrdiff_t)
 # define __DEFINED_uptrdiff_t
@@ -95,6 +99,8 @@ typedef unsigned __LIMITED_PTR_INT uptrdiff_t;
  * it is implementation specific and may depend on the
  * libc implementation, the version of the libc implementation,
  * and the microarchitecture.
+ * 
+ * @since  Always.
  */
 # if defined(__NEED_wchar_t) && !defined(__DEFINED_wchar_t)
 #  define __DEFINED_wchar_t
@@ -129,6 +135,8 @@ typedef __WCHAR_SIGNNESS __INT64 wchar_t
  * it is implementation specific and may depend on the
  * libc implementation, the version of the libc implementation,
  * and the microarchitecture.
+ * 
+ * @since  Always.
  */
 # if defined(__NEED_wint_t) && !defined(__DEFINED_wint_t)
 #  define __DEFINED_wint_t
@@ -142,6 +150,8 @@ typedef wchar_t wint_t
  * Unsigned integer type of the result of the
  * `sizeof` operator. May not be greater than the
  * width of type `long int`.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_size_t) && !defined(__DEFINED_size_t)
 # define __DEFINED_size_t
@@ -151,6 +161,8 @@ typedef unsigned __LIMITED_PTR_INT size_t;
 
 /**
  * Signed version of `size_t`
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_ssize_t) && !defined(__DEFINED_ssize_t)
 # define __DEFINED_ssize_t
@@ -161,6 +173,8 @@ typedef signed __LIMITED_PTR_INT ssize_t;
 /**
  * A type, of unspecified construct, whose alignment requirement
  * is at least as strict as that of every scalar type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_max_align_t) && !defined(__DEFINED_max_align_t)
 # define __DEFINED_max_align_t
@@ -176,6 +190,8 @@ typedef struct
  * Signed exact-width integer types.
  * 
  * These types are guaranteed to use two's complement.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_intN_t) && !defined(__DEFINED_intN_t)
 # define __DEFINED_intN_t
@@ -188,6 +204,8 @@ typedef signed __INT64 int64_t;
 
 /**
  * Unsigned exact-width integer types.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_uintN_t) && !defined(__DEFINED_uintN_t)
 # define __DEFINED_uintN_t
@@ -204,6 +222,8 @@ typedef unsigned __INT64 uint64_t;
  * 
  * `int_least8_t`, `int_least16_t`, `int_least32_t`, and
  * `int_least64_t` are guaranteed to be defined.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_int_leastN_t) && !defined(__DEFINED_int_leastN_t)
 # define __DEFINED_int_leastN_t
@@ -220,6 +240,8 @@ typedef signed __INT64 int_least64_t;
  * 
  * `uint_least8_t`, `uint_least16_t`, `uint_least32_t`, and
  * `uint_least64_t` are guaranteed to be defined.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_uint_leastN_t) && !defined(__DEFINED_uint_leastN_t)
 # define __DEFINED_uint_leastN_t
@@ -240,6 +262,8 @@ typedef unsigned __INT64 uint_least64_t;
  * in serialised/marshalled data, as they may depend
  * on the C library the program is compiled against
  * and the version of that library.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_int_fastN_t) && !defined(__DEFINED_int_fastN_t)
 # define __DEFINED_int_fastN_t
@@ -260,6 +284,8 @@ typedef signed __INT_FAST64 int_fast64_t;
  * in serialised/marshalled data, as they may depend
  * on the C library the program is compiled against
  * and the version of that library.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_uint_fastN_t) && !defined(__DEFINED_uint_fastN_t)
 # define __DEFINED_uint_fastN_t
@@ -272,6 +298,8 @@ typedef unsigned __INT_FAST64 uint_fast64_t;
 
 /**
  * The widest signed integer type available.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_intmax_t) && !defined(__DEFINED_intmax_t)
 # define __DEFINED_intmax_t
@@ -284,6 +312,8 @@ typedef signed __INT64 intmax_t;
 
 /**
  * The widest unsigned integer type available.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_uintmax_t) && !defined(__DEFINED_uintmax_t)
 # define __DEFINED_uintmax_t
@@ -299,6 +329,8 @@ typedef unsigned __INT64 uintmax_t;
  * It may be defined as volatile, slibc does not do
  * this however because it is good practice to do
  * so explcitily when using the `sig_atomic_t` type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_sig_atomic_t) && !defined(__DEFINED_sig_atomic_t)
 # define __DEFINED_sig_atomic_t
@@ -313,6 +345,8 @@ typedef int sig_atomic_t;
  * A structure than holds both the quotient and
  * the remainer in an integer division, of
  * `int` type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_div_t) && !defined(__DEFINED_div_t)
 # define __DEFINED_div_t
@@ -335,6 +369,8 @@ typedef struct {
  * A structure than holds both the quotient and
  * the remainer in an integer division, of
  * `long int` type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_ldiv_t) && !defined(__DEFINED_ldiv_t)
 # define __DEFINED_ldiv_t
@@ -357,6 +393,8 @@ typedef struct {
  * A structure than holds both the quotient and
  * the remainer in an integer division, of
  * `long long int` type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_lldiv_t) && !defined(__DEFINED_lldiv_t)
 # define __DEFINED_lldiv_t
@@ -379,6 +417,8 @@ typedef struct {
  * A structure than holds both the quotient and
  * the remainer in an integer division, of
  * `intmax_t` type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_imaxdiv_t) && !defined(__DEFINED_imaxdiv_t)
 # define __DEFINED_imaxdiv_t
@@ -399,6 +439,8 @@ typedef struct {
 
 /**
  * Locale datatype.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_locale_t) && !defined(__DEFINED_locale_t)
 # define __DEFINED_locale_t
@@ -411,6 +453,8 @@ typedef int locale_t; /* TODO not implemented */
 
 /**
  * State of variadic argument-reading.
+ * 
+ * @since  Always.
  */
 #define __ONLY_va_list
 # include <stdarg.h>
@@ -419,6 +463,8 @@ typedef int locale_t; /* TODO not implemented */
 
 /**
  * Datatype for file permissions and file type.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_mode_t) && !defined(__DEFINED_mode_t)
 # define __DEFINED_mode_t
@@ -428,6 +474,8 @@ typedef unsigned int mode_t;
 
 /**
  * Datatype for process identifiers.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_pid_t) && !defined(__DEFINED_pid_t)
 # define __DEFINED_pid_t
@@ -437,6 +485,8 @@ typedef signed int pid_t;
 
 /**
  * Datatype for user identifiers.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_uid_t) && !defined(__DEFINED_uid_t)
 # define __DEFINED_uid_t
@@ -446,6 +496,8 @@ typedef unsigned int uid_t;
 
 /**
  * Datatype for group identifiers.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_gid_t) && !defined(__DEFINED_gid_t)
 # define __DEFINED_gid_t
@@ -457,6 +509,8 @@ typedef unsigned int gid_t;
  * Datatype for microseconds.
  * (The name should be 'µseconds', but we are limited
  * to ASCII and 'u' looks similar to 'µ'.)
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_useconds_t) && !defined(__DEFINED_useconds_t)
 # define __DEFINED_useconds_t
@@ -466,6 +520,8 @@ typedef signed long useconds_t;
 
 /**
  * Datatype for file offsets.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_off_t) && !defined(__DEFINED_off_t)
 # define __DEFINED_off_t
@@ -477,6 +533,8 @@ typedef signed __INT64 off_t;
  * Datatype for inode identifiers, the number identifying
  * a file on a filesystem.
  * ('inode' is probably a contraction of 'index node'.)
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_ino_t) && !defined(__DEFINED_ino_t)
 # define __DEFINED_ino_t
@@ -486,6 +544,8 @@ typedef unsigned __INT64 ino_t;
 
 /**
  * Datatype for device identifiers.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_dev_t) && !defined(__DEFINED_dev_t)
 # define __DEFINED_dev_t
@@ -495,6 +555,8 @@ typedef unsigned __INT64 dev_t;
 
 /**
  * Datatype for filesystem block counts.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_fsblkcnt_t) && !defined(__DEFINED_fsblkcnt_t)
 # define __DEFINED_fsblkcnt_t
@@ -504,6 +566,8 @@ typedef unsigned __INT64 fsblkcnt_t;
 
 /**
  * Datatype for filesystem file counts.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_fsfilcnt_t) && !defined(__DEFINED_fsfilcnt_t)
 # define __DEFINED_fsfilcnt_t
@@ -513,6 +577,8 @@ typedef unsigned __INT64 fsfilcnt_t;
 
 /**
  * Datatype for block sizes.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_blksize_t) && !defined(__DEFINED_blksize_t)
 # define __DEFINED_blksize_t
@@ -522,6 +588,8 @@ typedef signed __LIMITED_PTR_INT blksize_t;
 
 /**
  * Datatype for block counts.
+ * 
+ * @since  Always.
  */
 #if defined(__NEED_blkcnt_t) && !defined(__DEFINED_blkcnt_t)
 # define __DEFINED_blkcnt_t

@@ -37,6 +37,8 @@ void* (*volatile __slibc_explicit_memset)(void*, int, size_t) = memset;
  * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
+ * 
+ * @since  Always.
  */
 void explicit_bzero(void* segment, size_t size)
 {

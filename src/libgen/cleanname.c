@@ -42,6 +42,8 @@
  *                    if `filename` is `NULL` or does no contain a
  *                    non-trailing slash, a statically allocationed
  *                    string, so it must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* cleanname(char* filename)
 {

@@ -41,6 +41,8 @@
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 char* strcncpy(char* restrict whither, const char* restrict whence, int c, size_t maxlen)
 {

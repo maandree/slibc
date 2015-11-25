@@ -35,6 +35,8 @@
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscmove(wchar_t* whither, const wchar_t* whence, wchar_t c)
 {

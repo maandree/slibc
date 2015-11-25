@@ -30,6 +30,8 @@
  * 
  * @param  format  Formatting-string for the warning.
  * @param  args    Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void vwarn(const char* format, va_list args)
 {

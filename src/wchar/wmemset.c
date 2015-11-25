@@ -26,6 +26,8 @@
  * @param   c        The wide character.
  * @param   size     The number of wide characters in the memory segment.
  * @return           `segment` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemset(wchar_t* segment, wchar_t c, size_t size)
 {

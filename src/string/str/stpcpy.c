@@ -26,6 +26,8 @@
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + strlen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 char* stpcpy(char* restrict whither, const char* restrict whence)
 {

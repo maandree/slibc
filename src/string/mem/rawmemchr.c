@@ -31,6 +31,8 @@
  * @param   segment  The memory segment to search.
  * @param   c        The sought after character.
  * @return           Pointer to the first occurrence of `c`.
+ * 
+ * @since  Always.
  */
 void* (rawmemchr)(const void* segment, int c)
 {

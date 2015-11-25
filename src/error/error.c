@@ -35,6 +35,8 @@
  *                 be printed.
  * @param  format  Formatting-string for a detailed description of what happend.
  * @param  args    Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 void error(int status, int errnum, const char* format, ...)
 {

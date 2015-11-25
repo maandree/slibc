@@ -28,6 +28,8 @@
  * @param   str   The string.
  * @param   stop  The additional termination-byte.
  * @return        The number of bytes before, the first termination-byte.
+ * 
+ * @since  Always.
  */
 size_t strclen(const char* string, int stop)
 {
@@ -45,6 +47,8 @@ size_t strclen(const char* string, int stop)
  * @param   maxlen  The number of bytes to inspect, at most.
  * @return          The number of bytes before, the first termination-byte.
  *                  `maxlen` if no termination-byte was found.
+ * 
+ * @since  Always.
  */
 size_t strcnlen(const char* string, int stop, size_t maxlen)
 {
@@ -61,6 +65,8 @@ size_t strcnlen(const char* string, int stop, size_t maxlen)
  * @param   str   The string.
  * @param   stop  The additional termination-mark.
  * @return        The number of bytes before, the first termination-mark.
+ * 
+ * @since  Always.
  */
 size_t strstrlen(const char* string, const char* stop)
 {
@@ -79,6 +85,8 @@ size_t strstrlen(const char* string, const char* stop)
  * @param   maxlen  The number of bytes to inspect, at most.
  * @return          The number of bytes before, the first termination-mark.
  *                  `maxlen` if no termination-byte was found.
+ * 
+ * @since  Always.
  */
 size_t strstrnlen(const char* string, const char* stop, size_t maxlen)
 {
@@ -99,6 +107,8 @@ size_t strstrnlen(const char* string, const char* stop, size_t maxlen)
  * @param   maxlen  The number of bytes to inspect, at most.
  * @return          Pointer to the first occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 char* (strnchr)(const char* string, int c, size_t maxlen)
 {
@@ -124,6 +134,8 @@ char* (strnchr)(const char* string, int c, size_t maxlen)
  *                  part of the sring) if non were found. If the
  *                  whole string was inspected, the returned
  *                  pointer will point to a NUL byte.
+ * 
+ * @since  Always.
  */
 char* (strnchrnul)(const char* string, int c, size_t maxlen)
 {

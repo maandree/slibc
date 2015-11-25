@@ -28,6 +28,8 @@
  * @param   whither  The string to extend.
  * @param   whence   The string to append.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscat(wchar_t* restrict whither, const wchar_t* restrict whence)
 {

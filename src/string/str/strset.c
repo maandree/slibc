@@ -28,6 +28,8 @@
  * @param   str  The beginning of the memory segment.
  * @param   c    The character (8 bits wide.)
  * @return       `str` is returned.
+ * 
+ * @since  Always.
  */
 char* strset(char* str, int c)
 {

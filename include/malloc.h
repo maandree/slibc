@@ -51,6 +51,8 @@
  *                indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* malloc(size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
@@ -73,6 +75,8 @@ void* malloc(size_t)
  *                      `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* calloc(size_t, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
@@ -99,6 +103,8 @@ void* calloc(size_t, size_t)
  *                 indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* mallocz(size_t, int)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
@@ -125,6 +131,8 @@ void* mallocz(size_t, int)
  *                indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* zalloc(size_t)
   __warning("'zalloc' is klibc extension, use 'calloc(1, n)' instead of 'zalloc(n)'.")
@@ -154,6 +162,8 @@ void* zalloc(size_t)
  *                is returned and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* realloc(void*, size_t)
    __GCC_ONLY(__attribute__((__warn_unused_result__)))
@@ -168,6 +178,8 @@ void* realloc(void*, size_t)
  *              The process may crash if it does not point to the
  *              beginning of a memory allocation on the heap.
  *              However, if it is `NULL`, nothing will happen.
+ * 
+ * @since  Always.
  */
 void free(void*)
   __slibc_warning("Use 'fast_free' or 'secure_free' instead.");
@@ -183,6 +195,8 @@ void free(void*)
  *              The process may crash if it does not point to the
  *              beginning of a memory allocation on the heap.
  *              However, if it is `NULL`, nothing will happen.
+ * 
+ * @since  Always.
  */
 #if !defined(__PORTABLE)
 void cfree(void*, ...)
@@ -214,6 +228,8 @@ void cfree(void*, ...)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  * @throws  EINVAL  If `boundary` is not a power of two.
+ * 
+ * @since  Always.
  */
 void* memalign(size_t, size_t)
 #ifdef __C11__
@@ -240,6 +256,8 @@ void* memalign(size_t, size_t)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  * @throws  EINVAL  If `boundary` is not a power-of-two multiple of `sizeof(void*)`.
+ * 
+ * @since  Always.
  */
 int posix_memalign(void**, size_t, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -263,6 +281,8 @@ int posix_memalign(void**, size_t, size_t)
  *                  indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* valloc(size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)))
@@ -285,6 +305,8 @@ void* valloc(size_t)
  *                  indicate the error.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* pvalloc(size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)))
@@ -315,6 +337,8 @@ void* pvalloc(size_t)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
  * @throws  EINVAL  If `boundary` is not a power of two.
+ * 
+ * @since  Always.
  */
 void* aligned_alloc(size_t, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
@@ -332,6 +356,8 @@ void* aligned_alloc(size_t, size_t)
  * 
  * @param   segment  The memory segment.
  * @return           The size of the memory segment, 0 if `segment` is `NULL`.
+ * 
+ * @since  Always.
  */
 size_t malloc_usable_size(void*)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));

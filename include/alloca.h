@@ -43,6 +43,8 @@
  * @return        Pointer to the beginning of the allocated
  *                space. Do not free it, it will be freed
  *                automatically when the function returns.
+ * 
+ * @since  Always.
  */
 void* alloca(size_t);
 #if defined(__GNUC__)

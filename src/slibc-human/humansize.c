@@ -244,6 +244,8 @@ static char* humansize_round(char* buffer, size_t bufsize, enum humansize_mode m
  * 
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode mode, int detail,
 		const char* restrict point, const char* restrict intraspacing, const char* restrict interspacing)

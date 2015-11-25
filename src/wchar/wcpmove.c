@@ -28,6 +28,8 @@
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + wcslen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcpmove(wchar_t* whither, const wchar_t* whence)
 {

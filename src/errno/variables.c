@@ -35,6 +35,8 @@
  * or `argv[0]` is edited.
  * 
  * This is a GNU and slibc extension.
+ * 
+ * @since  Always.
  */
 char* program_invocation_name = NULL;
 
@@ -46,6 +48,8 @@ char* program_invocation_name = NULL;
  * or `argv[0]` is edited.
  * 
  * This is a GNU extension.
+ * 
+ * @since  Always.
  */
 char* program_invocation_short_name = NULL;
 

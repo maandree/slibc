@@ -28,6 +28,8 @@
  * @param   whence   The source memory segment.
  * @param   size     The number of wide characters to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmempcpy(wchar_t* restrict whither, const wchar_t* restrict whence, size_t size)
 {

@@ -36,6 +36,8 @@
  * 
  * @param   errnum  The error code.
  * @return          A description of the error.
+ * 
+ * @since  Always.
  */
 char* strerror(int errnum)
 {

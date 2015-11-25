@@ -29,6 +29,8 @@
  * @param   desired  The desired ending of the string.
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 char* (strends)(const char* string, const char* desired)
 {

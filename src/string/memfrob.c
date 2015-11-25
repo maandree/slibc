@@ -28,6 +28,8 @@
  * @param   segment  The memory segment.
  * @param   size     The size of the memory segment.
  * @return           `segment` is returned
+ * 
+ * @since  Always.
  */
 char* memfrob(char* segment, size_t size)
 {

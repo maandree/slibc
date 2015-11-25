@@ -26,6 +26,8 @@
  * 
  * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
+ * 
+ * @since  Always.
  */
 int ffsl(long i)
 {

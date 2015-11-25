@@ -32,16 +32,22 @@
  * They are independent of each other, and
  * multiple can be selected by using bitwise or
  * between them.
+ * 
+ * @since  Always.
  */
 enum extalloc_mode
   {
     /**
      * Clear disowned memory.
+     * 
+     * @since  Always.
      */
     EXTALLOC_CLEAR = 1,
     
     /**
      * Create new allocation with `malloc` if necessary.
+     * 
+     * @since  Always.
      */
     EXTALLOC_MALLOC = 2,
     
@@ -53,22 +59,30 @@ enum extalloc_mode
  * They are independent of each other, and
  * multiple can be selected by using bitwise or
  * between them.
+ * 
+ * @since  Always.
  */
 enum rememalign_mode
   {
     /**
      * Clear disowned memory.
+     * 
+     * @since  Always.
      */
     REMEMALIGN_CLEAR = 1,
     
     /**
      * Initialise new memory.
+     * 
+     * @since  Always.
      */
     REMEMALIGN_INIT = 2,
     
     /**
      * If a new allocation is created, copy the data
      * from the old allocation over to the new allocation.
+     * 
+     * @since  Always.
      */
     REMEMALIGN_MEMCPY = 4,
     
@@ -80,22 +94,30 @@ enum rememalign_mode
  * They are independent of each other, and
  * multiple can be selected by using bitwise or
  * between them.
+ * 
+ * @since  Always.
  */
 enum falloc_mode
   {
     /**
      * Clear disowned memory.
+     * 
+     * @since  Always.
      */
     FALLOC_CLEAR = 1,
     
     /**
      * Initialise new memory.
+     * 
+     * @since  Always.
      */
     FALLOC_INIT = 2,
     
     /**
      * If a new allocation is created, copy the data
      * from the old allocation over to the new allocation.
+     * 
+     * @since  Always.
      */
     FALLOC_MEMCPY = 4,
     
@@ -109,6 +131,8 @@ enum falloc_mode
  * @etymology  (Fast) variant of (`free`).
  * 
  * @param  segment  The memory segment to free.
+ * 
+ * @since  Always.
  */
 void fast_free(void*);
 
@@ -119,6 +143,8 @@ void fast_free(void*);
  * @etymology  (Secure) variant of (`free`).
  * 
  * @param  segment  The memory segment to free.
+ * 
+ * @since  Always.
  */
 void secure_free(void*);
 
@@ -144,6 +170,8 @@ void secure_free(void*);
  *                  implemented in slibc. It is however not guaranteed
  *                  that this will happen, undefined behaviour may be
  *                  invoked instead.
+ * 
+ * @since  Always.
  */
 size_t allocsize(void*)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -161,6 +189,8 @@ size_t allocsize(void*)
  * @return        The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* crealloc(void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -176,6 +206,8 @@ void* crealloc(void*, size_t)
  * @return        The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* fast_realloc(void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -191,6 +223,8 @@ void* fast_realloc(void*, size_t)
  * @return        The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* secure_realloc(void*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -218,6 +252,8 @@ void* secure_realloc(void*, size_t)
  * @return              The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* custom_realloc(void*, size_t, int, int, int)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -246,6 +282,8 @@ void* custom_realloc(void*, size_t, int, int, int)
  * 
  * @throws  0       `errno` is set to zero success if `NULL` is returned.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* extalloc(void*, size_t, enum extalloc_mode)
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
@@ -266,6 +304,8 @@ void* extalloc(void*, size_t, enum extalloc_mode)
  * @throws  0       `errno` is set to zero success if `NULL` is returned.
  * @throws  EINVAL  `mode` is invalid, or `boundary` is not a power of two.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* rememalign(void*, size_t, size_t, enum rememalign_mode)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
@@ -290,6 +330,8 @@ void* rememalign(void*, size_t, size_t, enum rememalign_mode)
  * @return            The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* naive_realloc(void*, size_t, size_t) /* sic! we limit ourself to ASCII */
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
@@ -308,6 +350,8 @@ void* naive_realloc(void*, size_t, size_t) /* sic! we limit ourself to ASCII */
  * 
  * @throws  0       `malloc` is require to perform the action.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
@@ -366,6 +410,8 @@ void* naive_extalloc(void*, size_t) /* sic! we limit ourself to ASCII */
  * @throws  0       `new_size` is zero.
  * @throws  EINVAL  The arguments are invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* falloc(void*, size_t*, size_t, size_t, size_t, enum falloc_mode);
 
@@ -375,6 +421,8 @@ void* falloc(void*, size_t*, size_t, size_t, size_t, enum falloc_mode);
  * so that another attempt to free the segment will not crash the process.
  * 
  * @etymology  Macro version of (`fast_free`).
+ * 
+ * @since  Always.
  */
 #define FAST_FREE(segment)  (fast_free(segment), (void)((segment) = NULL));
 
@@ -383,6 +431,8 @@ void* falloc(void*, size_t*, size_t, size_t, size_t, enum falloc_mode);
  * so that another attempt to free the segment will not crash the process.
  * 
  * @etymology  Macro version of (`secure_free`).
+ * 
+ * @since  Always.
  */
 #define SECURE_FREE(segment)  (secure_free(segment), (void)((segment) = NULL));
 

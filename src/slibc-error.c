@@ -44,6 +44,8 @@
  * @param  format        Formatting-string for a description of the action that failed. `NULL` if
  *                       no description other than the location and `error_string` should be printed.
  * @param  ...           Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 void slibc_perror(const char* progname, const char* filename, int linenum, const char* function,
 		  int* error_code, const char* error_string, const char* format, ...)

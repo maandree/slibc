@@ -28,6 +28,8 @@
  * @param   str  The beginning of the memory segment.
  * @param   c    The wide character.
  * @return       `str` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsset(wchar_t* str, wchar_t c)
 {

@@ -32,6 +32,8 @@
  * @param   segment  The memory segment to search.
  * @param   c        The sought after character.
  * @return           Pointer to the first occurrence of `c`.
+ * 
+ * @since  Always.
  */
 wchar_t* (rawwmemchr)(const wchar_t* segment, wchar_t c)
 {

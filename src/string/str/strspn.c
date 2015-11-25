@@ -27,6 +27,8 @@
  * @param   string   The string.
  * @param   skipset  Bytes allowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t strspn(const char* string, const char* skipset)
 {

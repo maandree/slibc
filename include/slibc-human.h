@@ -35,6 +35,8 @@
 
 /**
  * Representation settings for file permissions.
+ * 
+ * @since  Always.
  */
 enum humanmode_mode
   {
@@ -44,6 +46,8 @@ enum humanmode_mode
      * 
      * If used in combination with `HUMANMODE_MASK`,
      * 0750 resolves to 'u=rwx,g=r-x,o=---'.
+     * 
+     * @since  Always.
      */
     HUMANMODE_STAT = 1,
     
@@ -53,6 +57,8 @@ enum humanmode_mode
      * 
      * If used in combination with `HUMANMODE_STAT`,
      * 0750 resolves to 'u=rwx,g=r-x,o=---'.
+     * 
+     * @since  Always.
      */
     HUMANMODE_MASK = 2,
   };
@@ -61,6 +67,8 @@ enum humanmode_mode
 /**
  * Representation settings for converting
  * sizes to human-readable format.
+ * 
+ * @since  Always.
  */
 enum humansize_mode
   {
@@ -69,6 +77,8 @@ enum humansize_mode
      * 
      * Cannot be combined with `HUMANSIZE_IEC`
      * or `HUMANSIZE_IEC_EXPLICIT`.
+     * 
+     * @since  Always.
      */
     HUMANSIZE_SI = 1,
     
@@ -77,6 +87,8 @@ enum humansize_mode
      * 
      * Cannot be combined with `HUMANSIZE_SI`
      * or `HUMANSIZE_IEC_EXPLICIT`.
+     * 
+     * @since  Always.
      */
     HUMANSIZE_IEC = 2,
     
@@ -85,12 +97,16 @@ enum humansize_mode
      * 
      * Cannot be combined with `HUMANSIZE_SI`
      * or `HUMANSIZE_IEC`.
+     * 
+     * @since  Always.
      */
     HUMANSIZE_IEC_EXPLICIT = 4,
     
     
     /**
      * 'B' is only included if there is no prefix.
+     * 
+     * @since  Always.
      */
     HUMANSIZE_PREFIX_ONLY = 8,
     
@@ -103,6 +119,8 @@ enum humansize_mode
      * and `detail == 3` may yeild '3TB 2MB' for the same size.
      * 
      * Cannot be combined with `HUMANSIZE_ROUND`.
+     * 
+     * @since  Always.
      */
     HUMANSIZE_EXACT = 16,
     
@@ -112,6 +130,8 @@ enum humansize_mode
      * `detail` < 0 is allowed, 
      * 
      * Cannot be combined with `HUMANSIZE_EXACT`.
+     * 
+     * @since  Always.
      */
     HUMANSIZE_ROUND = 32,
   };
@@ -120,6 +140,8 @@ enum humansize_mode
 /**
  * Settings for treating ambiguous file size
  * and file offset representations when parsing.
+ * 
+ * @since  Always.
  */
 enum machinesize_mode
   {
@@ -129,6 +151,8 @@ enum machinesize_mode
      * If `MACHINESIZE_IEC` is also used,
      * 1000-base is used if 'B' is explicitly
      * included, otherwise 1024-base is used.
+     * 
+     * @since  Always.
      */
     MACHINESIZE_SI = 1,
     
@@ -138,6 +162,8 @@ enum machinesize_mode
      * If `MACHINESIZE_SI` is also used,
      * 1000-base is used if 'B' is explicitly
      * included, otherwise 1024-base is used.
+     * 
+     * @since  Always.
      */
     MACHINESIZE_IEC = 2,
   };
@@ -146,6 +172,8 @@ enum machinesize_mode
 /**
  * Ways to handled unrecognised escapes,
  * and other configurations.
+ * 
+ * @since  Always.
  */
 enum unescape_mode
   {
@@ -155,6 +183,8 @@ enum unescape_mode
      * 
      * Cannot be used together with
      * `UNESCAPE_VERBATIM` or `UNESCAPE_IGNORE`.
+     * 
+     * @since  Always.
      */
     UNESCAPE_EINVAL = 1,
     
@@ -164,6 +194,8 @@ enum unescape_mode
      * 
      * Cannot be used together with
      * `UNESCAPE_EINVAL` or `UNESCAPE_IGNORE`.
+     * 
+     * @since  Always.
      */
     UNESCAPE_VERBATIM = 2,
     
@@ -173,6 +205,8 @@ enum unescape_mode
      * 
      * Cannot be used together with
      * `UNESCAPE_EINVAL` or `UNESCAPE_VERBATIM`.
+     * 
+     * @since  Always.
      */
     UNESCAPE_IGNORE = 4,
     
@@ -182,6 +216,8 @@ enum unescape_mode
      * 
      * If not used, '\&' is handled as an
      * unsupported escape.
+     * 
+     * @since  Always.
      */
     UNESCAPE_AMPERSAND = 8,
     
@@ -191,6 +227,8 @@ enum unescape_mode
      * 
      * If not used, '\0' resolves to a
      * 0 byte (termination).
+     * 
+     * @since  Always.
      */
     UNESCAPE_MOD_UTF8 = 16,
   };
@@ -212,6 +250,8 @@ enum unescape_mode
  * 
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* humanmode(char* restrict, mode_t, enum humanmode_mode);
 
@@ -231,6 +271,8 @@ char* humanmode(char* restrict, mode_t, enum humanmode_mode);
  * @return        Zero on success, -1 on error.
  * 
  * @throws  EINVAL  If `str` is not parseable.
+ * 
+ * @since  Always.
  */
 int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
   __GCC_ONLY(__attributes__((__nonnull__(3))));
@@ -262,6 +304,8 @@ int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  EINVAL  If `mode & HUMANSIZE_EXACT` and `detail < 0`.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* restrict,
 		const char* restrict, const char* restrict)
@@ -269,6 +313,7 @@ char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* res
 
 /* TODO machinesize */
 /* @etymology  Convert to (machine)-representation: `(size)_t`. */
+/* @since  Always. */
 int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
 		const char* restrict space, const char* restrict point);
 
@@ -276,17 +321,20 @@ int machinesize(size_t* restrict size, const char* restrict str, enum machinesiz
 #ifdef __C99__
 /* TODO humandur */
 /* @etymology  Convert to (human)-representation: (dur)ation. */
+/* @since  Always. */
 int humandur(intmax_t sec, long int nsec, const char* restrict point, const char* restrict format,
 	     const char* restrict intraspacing, const char* restrict interspacing);
 
 /* TODO machinedur */
 /* @etymology  Convert to (machine)-representation: (dur)ation. */
+/* @since  Always. */
 int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 	       const char* restrict space, const char* restrict point);
 
 
 /* TODO machineint */
 /* @etymology  Convert to (machine)-representation: signed (int)eger. */
+/* @since  Always. */
 char* machineint(intmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
@@ -295,6 +343,7 @@ char* machineint(intmax_t* restrict r, const char* restrict str)
 
 /* TODO machineuint */
 /* @etymology  Convert to (machine)-representation: (u)nsigned (int)eger. */
+/* @since  Always. */
 char* machineuint(uintmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
@@ -304,6 +353,7 @@ char* machineuint(uintmax_t* restrict r, const char* restrict str)
 
 /* TODO machinefloat */
 /* @etymology  Convert to (machine)-representation: (float)ing-point number. */
+/* @since  Always. */
 int machinefloat(long double* restrict r, const char* restrict str,
 		 const char* restrict space, const char* restrict comma);
 #ifdef __CONST_CORRECT
@@ -338,6 +388,8 @@ int machinefloat(long double* restrict r, const char* restrict str,
  * @throws  0       `str` is `NULL`.
  * @throws  EINVAL  If `mode` is invalid.
  * @throws  EINVAL  If `str` is invalid and `mode & UNESCAPE_EINVAL`.
+ * 
+ * @since  Always.
  */
 char* unescape(char*, enum unescape_mode);
 
@@ -357,6 +409,8 @@ char* unescape(char*, enum unescape_mode);
  * @throws  0       `str` is `NULL`.
  * @throws  EINVAL  If `quote` is invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* escape(const char* restrict)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));

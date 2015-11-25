@@ -36,16 +36,22 @@
  * value to be converted to zero.
  * 
  * @etymology  (Bool)ean.
+ * 
+ * @since  Always.
  */
 #define bool _Bool
 
 /**
  * A true value.
+ * 
+ * @since  Always.
  */
 #define true 1
 
 /**
  * An untrue value.
+ * 
+ * @since  Always.
  */
 #define false 0
 
@@ -53,6 +59,8 @@
  * This macro can be relied on being defined and set to 1 if
  * <stdbool.h> has defined the type `bool` (as a macro) and
  * the constants (macros) `true` and `false`.
+ * 
+ * @since  Always.
  */
 #define __bool_true_false_are_defined 1
 

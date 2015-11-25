@@ -37,6 +37,8 @@
  * @param  linenum   The line number of in the source code file where the error occurred.
  * @param  format    Formatting-string for a detailed description of what happend.
  * @param  args      Formatting-arguments for `format`.
+ * 
+ * @since  Always.
  */
 void error_at_line(int status, int errnum, const char* filename,
 		   unsigned int linenum, const char* format, ...)

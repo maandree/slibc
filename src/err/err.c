@@ -31,6 +31,8 @@
  * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
+ * 
+ * @since  Always.
  */
 void err(int status, const char* format, ...)
 {

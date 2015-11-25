@@ -32,6 +32,8 @@
  * @etymology  (Align as) type.
  * 
  * @param  type  The type whose alignment shall be used.
+ * 
+ * @since  Always.
  */
 #if !defined(__C11__) && defined(__GNUC__)
 # define _Alignas(type)  __attribute__((__aligned__(type)))
@@ -46,6 +48,8 @@
  * 
  * @param   type  The type.
  * @return        The alignment of the type.
+ * 
+ * @since  Always.
  */
 #if !defined(__C11__) && defined(__GNUC__)
 # define _Alignof(type)  __alignof__(type)

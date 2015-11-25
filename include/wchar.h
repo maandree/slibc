@@ -62,6 +62,8 @@
  * @param   str  The string.
  * @return       The number of `wchar_t`:s before the
  *               first NUL character.
+ * 
+ * @since  Always.
  */
 size_t wcslen(const wchar_t*)
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__, __pure__)));
@@ -74,6 +76,8 @@ size_t wcslen(const wchar_t*)
  * @return          The number of `wchar_t`:s before the
  *                  first NUL character. `maxlen` if no
  *                  NUL character was found.
+ * 
+ * @since  Always.
  */
 size_t wcsnlen(const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -87,6 +91,8 @@ size_t wcsnlen(const wchar_t*, size_t)
  * @param   c        The wide character.
  * @param   size     The number of wide characters in the memory segment.
  * @return           `segment` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemset(wchar_t*, wchar_t, size_t);
 
@@ -97,6 +103,8 @@ wchar_t* wmemset(wchar_t*, wchar_t, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of wide characters to copy.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
 
@@ -110,6 +118,8 @@ wchar_t* wmemcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of wide characters to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmempcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
 
@@ -122,6 +132,8 @@ wchar_t* wmempcpy(wchar_t* restrict, const wchar_t* restrict, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of wide characters to copy.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemmove(wchar_t*, const wchar_t*, size_t);
 
@@ -136,6 +148,8 @@ wchar_t* wmemmove(wchar_t*, const wchar_t*, size_t);
  * @param   whence   The source memory segment.
  * @param   size     The number of wide characters to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wmempmove(wchar_t*, const wchar_t*, size_t);
 # endif
@@ -157,6 +171,8 @@ wchar_t* wmempmove(wchar_t*, const wchar_t*, size_t);
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t);
 
@@ -175,6 +191,8 @@ wchar_t* wmemccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t);
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
 
@@ -187,6 +205,8 @@ wchar_t* wmemcmove(wchar_t*, const wchar_t*, wchar_t, size_t);
  * @param   str  The beginning of the memory segment.
  * @param   c    The wide character.
  * @return       `str` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsset(wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -199,6 +219,8 @@ wchar_t* wcsset(wchar_t*, wchar_t)
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscpy(wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -213,6 +235,8 @@ wchar_t* wcscpy(wchar_t* restrict, const wchar_t* restrict)
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + wcslen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcpcpy(wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -235,6 +259,8 @@ wchar_t* wcpcpy(wchar_t* restrict, const wchar_t* restrict)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -254,6 +280,8 @@ wchar_t* wcsccpy(wchar_t* restrict, const wchar_t* restrict, wchar_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstrcpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -272,6 +300,8 @@ wchar_t* wcsstrcpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* re
  *                   shorter, `whither` will be filled with NUL characters
  *                   until this amount of characters have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -293,6 +323,8 @@ wchar_t* wcsncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
  *                   until this amount of characters have been written.
  * @return           `whither` plus the number of written characters,
  *                   excluding NUL characters, is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcpncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -321,6 +353,8 @@ wchar_t* wcpncpy(wchar_t* restrict, const wchar_t* restrict, size_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscncpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -347,6 +381,8 @@ wchar_t* wcscncpy(wchar_t* restrict, const wchar_t* restrict, wchar_t, size_t)
  *                   number of copied chartacters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstrncpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -363,6 +399,8 @@ wchar_t* wcsstrncpy(wchar_t* restrict, const wchar_t* restrict, const wchar_t* r
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsmove(wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -376,6 +414,8 @@ wchar_t* wcsmove(wchar_t*, const wchar_t*)
  * @param   whither  The destination memory segment.
  * @param   whence   The source memory segment.
  * @return           `whither + wcslen(whence)` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcpmove(wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -396,6 +436,8 @@ wchar_t* wcpmove(wchar_t*, const wchar_t*)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscmove(wchar_t*, const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -415,6 +457,8 @@ wchar_t* wcscmove(wchar_t*, const wchar_t*, wchar_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstrmove(wchar_t*, const wchar_t*, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -434,6 +478,8 @@ wchar_t* wcsstrmove(wchar_t*, const wchar_t*, const wchar_t* restrict)
  *                   shorter, `whither` will be filled with NUL characters
  *                   until this amount of characters have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsnmove(wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -456,6 +502,8 @@ wchar_t* wcsnmove(wchar_t*, const wchar_t*, size_t)
  *                   until this amount of characters have been written.
  * @return           `whither` plus the number of written characters,
  *                   excluding NUL characters, is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcpnmove(wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
@@ -483,6 +531,8 @@ wchar_t* wcpnmove(wchar_t*, const wchar_t*, size_t)
  *                   number of copied characters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscnmove(wchar_t*, const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -509,6 +559,8 @@ wchar_t* wcscnmove(wchar_t*, const wchar_t*, wchar_t, size_t)
  *                   number of copied chartacters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstrnmove(wchar_t*, const wchar_t*, const wchar_t* restrict, size_t)
   __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
@@ -524,6 +576,8 @@ wchar_t* wcsstrnmove(wchar_t*, const wchar_t*, const wchar_t* restrict, size_t)
  * @param   whither  The string to extend.
  * @param   whence   The string to append.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscat(wchar_t* restrict whither, const wchar_t* restrict whence)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -545,6 +599,8 @@ wchar_t* wcscat(wchar_t* restrict whither, const wchar_t* restrict whence)
  *                   shorter, `whither` will be filled with NUL characters
  *                   until this amount of characters have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size_t maxlen)
   __GCC_ONLY(__attribute__((__nonnull__)));
@@ -563,6 +619,8 @@ wchar_t* wcsncat(wchar_t* restrict whither, const wchar_t* restrict whence, size
  *                  and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsdup(const wchar_t*)
   __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
@@ -584,6 +642,8 @@ wchar_t* wcsdup(const wchar_t*)
  *                  and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsndup(const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
@@ -600,6 +660,8 @@ wchar_t* wcsndup(const wchar_t*, size_t)
  *                   and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemdup(const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__malloc__, __nonnull__, __warn_unused_result__)));
@@ -616,6 +678,8 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @param   string:const wchar_t*  The string to duplicate.
  * @return  :size_t                The new string. There is no way to
  *                                 detect whether the allocation failed.
+ * 
+ * @since  Always.
  */
 #   define wcsdupa(string)					\
   ({								\
@@ -637,6 +701,8 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  *                                 A NUL byte is guaranteed to always be written.
  * @return  :size_t                The new string. There is no way to
  *                                 detect whether the allocation failed.
+ * 
+ * @since  Always.
  */
 #   define wstrndupa(string, maxlen)				\
   ({								\
@@ -657,6 +723,8 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @param   size:size_t             The size of the memory segment.
  * @return  :size_t                 The new segment. There is no way to
  *                                  detect whether the allocation failed.
+ * 
+ * @since  Always.
  */
 #  define wmemdupa(segment, size)				\
   ({								\
@@ -677,6 +745,8 @@ wchar_t* wmemdup(const wchar_t*, size_t)
  * @param   size  The size of the segments.
  * @return        Zero is returned if `a` and `b` are equal, otherwise,
  *                see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wmemcmp(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -693,6 +763,8 @@ int wmemcmp(const wchar_t*, const wchar_t*, size_t)
  * @param   size  The size of the segments.
  * @return        Zero is returned if `a` and `b` are equal, otherwise,
  *                see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wmemcasecmp(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -705,6 +777,8 @@ int wmemcasecmp(const wchar_t*, const wchar_t*, size_t)
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wcscmp(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -721,6 +795,8 @@ int wcscmp(const wchar_t*, const wchar_t*)
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wcscasecmp(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -735,6 +811,8 @@ int wcscasecmp(const wchar_t*, const wchar_t*)
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wcsncmp(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -751,6 +829,8 @@ int wcsncmp(const wchar_t*, const wchar_t*, size_t)
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -766,6 +846,8 @@ int wcsncasecmp(const wchar_t*, const wchar_t*, size_t)
  * @param   size     The size of the memory segment.
  * @return           Pointer to the first occurrence of `c`,
  *                   `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -784,6 +866,8 @@ wchar_t* wmemchr(const wchar_t*, wchar_t, size_t)
  * @param   segment  The memory segment to search.
  * @param   c        The sought after character.
  * @return           Pointer to the first occurrence of `c`.
+ * 
+ * @since  Always.
  */
 wchar_t* rawwmemchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __returns_nonnull__, __nonnull__, __pure__)));
@@ -806,6 +890,8 @@ wchar_t* rawwmemchr(const wchar_t*, wchar_t)
  * @param   size     The size of the memory segment.
  * @return           Pointer to the last occurrence of `c`,
  *                   `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -823,6 +909,8 @@ wchar_t* wmemrchr(const wchar_t*, wchar_t, size_t)
  * @param   c       The sought after character.
  * @return          Pointer to the first occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcschr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -845,6 +933,8 @@ wchar_t* wcschr(const wchar_t*, wchar_t)
  * @return          Pointer to the first occurrence of `c`,
  *                  Pointer to the terminating NUL character
  *                  if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcschrnul(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __returns_nonnull__, __nonnull__, __pure__)));
@@ -866,6 +956,8 @@ wchar_t* wcschrnul(const wchar_t*, wchar_t)
  * @param   c       The sought after character.
  * @return          Pointer to the last occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsrchr(const wchar_t*, wchar_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -876,6 +968,8 @@ wchar_t* wcsrchr(const wchar_t*, wchar_t)
 
 /**
  * This function is identical to `wcsstr`.
+ * 
+ * @since  Always.
  */
 wchar_t* wcswcs(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)))
@@ -892,6 +986,8 @@ wchar_t* wcswcs(const wchar_t*, const wchar_t*)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -910,6 +1006,8 @@ wchar_t* wcsstr(const wchar_t*, const wchar_t*)
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -929,6 +1027,8 @@ wchar_t* wcscasestr(const wchar_t*, const wchar_t*)
  * @param   maxlen    The maximum number of character to search.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -947,6 +1047,8 @@ wchar_t* wcsnstr(const wchar_t*, const wchar_t*, size_t)
  * @param   maxlen    The maximum number of character to search.
  * @return            Pointer to the first occurrence of the
  *                    substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -964,6 +1066,8 @@ wchar_t* wcsncasestr(const wchar_t*, const wchar_t*, size_t)
  * @param   haystack  The string to search.
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
+ * 
+ * @since  Always.
  */
 wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __returns_nonnull__, __pure__)));
@@ -981,6 +1085,8 @@ wchar_t* rawwcsstr(const wchar_t*, const wchar_t*)
  * @param   haystack  The string to search.
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
+ * 
+ * @since  Always.
  */
 wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __returns_nonnull__, __pure__)));
@@ -1001,6 +1107,8 @@ wchar_t* rawwcscasestr(const wchar_t*, const wchar_t*)
  * @param   needle_length    The length of `needle`.
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -1018,6 +1126,8 @@ wchar_t* wmemcasemem(const wchar_t*, size_t, const wchar_t*, size_t)
  * @param   desired  The desired beginning of the string.
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstarts(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1035,6 +1145,8 @@ wchar_t* wcsstarts(const wchar_t*, const wchar_t*)
  * @param   desired  The desired ending of the string.
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1052,6 +1164,8 @@ wchar_t* wcsends(const wchar_t*, const wchar_t*)
  * @param   desired  The desired beginning of the string.
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscasestarts(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1069,6 +1183,8 @@ wchar_t* wcscasestarts(const wchar_t*, const wchar_t*)
  * @param   desired  The desired ending of the string.
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1092,6 +1208,8 @@ wchar_t* wcscaseends(const wchar_t*, const wchar_t*)
  * @param   needle_length    The length of `needle`.
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __pure__)));
@@ -1112,6 +1230,8 @@ wchar_t* wmemmem(const wchar_t*, size_t, const wchar_t*, size_t)
  * @param   string   The string.
  * @param   skipset  Characters allowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t wcsspn(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1124,6 +1244,8 @@ size_t wcsspn(const wchar_t*, const wchar_t*)
  * @param   string   The string.
  * @param   stopset  Characters disallowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t wcscspn(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1139,6 +1261,8 @@ size_t wcscspn(const wchar_t*, const wchar_t*)
  * @return           A pointer to the first occurrence in
  *                   `string` of a character found in `stopset`.
  *                   `NULL` is returned if none is found.
+ * 
+ * @since  Always.
  */
 wchar_t* wcspbrk(const wchar_t*, const wchar_t*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -1165,6 +1289,8 @@ wchar_t* wcspbrk(const wchar_t*, const wchar_t*)
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 wchar_t* wcstok(wchar_t* restrict, const wchar_t* restrict, wchar_t** restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(2, 3))));
@@ -1186,6 +1312,8 @@ wchar_t* wcstok(wchar_t* restrict, const wchar_t* restrict, wchar_t** restrict)
  *                      `NULL` is returned the search as reached
  *                      the end of the string, and there therefore
  *                      are no more tokens.
+ * 
+ * @since  Always.
  */
 wchar_t* wcssep(wchar_t** restrict, const wchar_t* restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));

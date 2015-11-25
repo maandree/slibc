@@ -32,6 +32,8 @@
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
+ * 
+ * @since  Always.
  */
 long long int atoll(const char* string)
 {

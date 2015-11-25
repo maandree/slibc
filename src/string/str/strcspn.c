@@ -27,6 +27,8 @@
  * @param   string   The string.
  * @param   stopset  Bytes disallowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t strcspn(const char* string, const char* stopset)
 {

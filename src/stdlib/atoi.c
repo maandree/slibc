@@ -32,6 +32,8 @@
  * 
  * @param   string  The string to convert.
  * @return          The integer encoded by the string.
+ * 
+ * @since  Always.
  */
 int atoi(const char* string)
 {

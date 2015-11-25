@@ -25,6 +25,8 @@
 
 /**
  * The current environment variables.
+ * 
+ * @since  Always.
  */
 extern char** environ;
 
@@ -39,6 +41,8 @@ extern char** environ;
  * @param   fetch_envp  Whether `argv` includes `envp`.
  * 
  * @throws              Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 static void vfexec(int fd, va_list argv, int fetch_envp)
 {
@@ -79,6 +83,8 @@ static void vfexec(int fd, va_list argv, int fetch_envp)
  *               set to describe the error.
  * 
  * @throws       Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecl(int fd, ... /*, NULL */)
 {
@@ -111,6 +117,8 @@ int fexecl(int fd, ... /*, NULL */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecle(int fd, ... /*, NULL, char* const envp[] */)
 {
@@ -143,6 +151,8 @@ int fexecle(int fd, ... /*, NULL, char* const envp[] */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecv(int fd, char* const argv[])
 {
@@ -171,6 +181,8 @@ int fexecv(int fd, char* const argv[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int fexecve(int fd, char* const argv[], char* const envp[])
 {

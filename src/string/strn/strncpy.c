@@ -32,6 +32,8 @@
  *                   shorter, `whither` will be filled with NUL bytes
  *                   until this amount of bytes have been written.
  * @return           `whither` is returned.
+ * 
+ * @since  Always.
  */
 char* strncpy(char* restrict whither, const char* restrict whence, size_t maxlen)
 {

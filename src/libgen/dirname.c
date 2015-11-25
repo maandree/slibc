@@ -29,6 +29,8 @@
  *                    or does no contain a non-trailing slash,
  *                    a statically allocationed string, so it
  *                    must not freed or edited.
+ * 
+ * @since  Always.
  */
 char* dirname(char* filename)
 {

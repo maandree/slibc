@@ -30,6 +30,8 @@
  *                  and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsdup(const wchar_t* string)
 {

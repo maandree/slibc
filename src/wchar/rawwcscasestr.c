@@ -30,6 +30,8 @@
  * @param   haystack  The string to search.
  * @param   needle    The sought after substring.
  * @return            Pointer to the first occurrence of the substring.
+ * 
+ * @since  Always.
  */
 wchar_t* (rawwcscasestr)(const wchar_t* haystack, const wchar_t* needle)
 {

@@ -23,6 +23,8 @@
  * This function is identical to `atoll`.
  * 
  * This is a Linux libc extension.
+ * 
+ * @since  Always.
  */
 long long int atoq(const char* string)
 {

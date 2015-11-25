@@ -37,6 +37,8 @@
  * @param   needle_length    The length of `needle`.
  * @return                   Pointer to the first occurrence of
  *                           the substring, `NULL` if not found.
+ * 
+ * @since  Always.
  */
 void* (memmem)(const void* __haystack, size_t haystack_length,
 	       const void* __needle, size_t needle_length)

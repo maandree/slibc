@@ -36,6 +36,8 @@
  *                   until this amount of characters have been written.
  * @return           `whither` plus the number of written characters,
  *                   excluding NUL characters, is returned.
+ * 
+ * @since  Always.
  */
 wchar_t* wcpnmove(wchar_t* whither, const wchar_t* whence, size_t maxlen)
 {

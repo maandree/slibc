@@ -34,24 +34,32 @@
  * however `.<patch>` is omitted if the patch-number is nought,
  * `.<micro>` is omitted if the both the patch- and micro-number
  * are nought.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_MAJOR__  0
 
 /**
  * The minor-number in the version of slibc that
  * you are compiling against.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_MINOR__  1
 
 /**
  * The micro-number in the version of slibc that
  * you are compiling against.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_MICRO__  0
 
 /**
  * The patch-number in the version of slibc that
  * you are compiling against.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_PATCH__  0
 
@@ -80,6 +88,8 @@
  * 
  * You can check if this header is defined to
  * check whether you are using slibc at all.
+ * 
+ * @since  Always.
  */
 #define __SLIBC__  \
   __SLIBC_CONSTRUCT_VERSION(__SLIBC_MAJOR__, __SLIBC_MINOR__,  \
@@ -95,6 +105,8 @@
  * @param  minor  The minor-number of the least required version of slibc.
  * @param  micro  The micro-number of the least required version of slibc.
  * @param  patch  The patch-number of the least required version of slibc.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_REQ_4__(major, minor, micro, patch)  \
   (__SLIBC__ >= __SLIBC_CONSTRUCT_VERSION(major, minor, micro, patch))
@@ -107,6 +119,8 @@
  * @param  major  The major-number of the least required version of slibc.
  * @param  minor  The minor-number of the least required version of slibc.
  * @param  micro  The micro-number of the least required version of slibc.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_REQ_3__(major, minor, micro)  \
   __SLIBC_REQ_4__(major, minor, micro, patch)
@@ -118,6 +132,8 @@
  * 
  * @param  major  The major-number of the least required version of slibc.
  * @param  minor  The minor-number of the least required version of slibc.
+ * 
+ * @since  Always.
  */
 #define __SLIBC_REQ__(major, minor)  \
   __SLIBC_REQ_4__(major, minor, 0, 0)

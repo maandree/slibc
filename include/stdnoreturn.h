@@ -34,6 +34,8 @@
  * Specifies that a function never returns, that is,
  * the process exits or changes process image before
  * the function returns.
+ * 
+ * @since  Always.
  */
 # if !defined(__C11__) && defined(__GNUC__)
 #  define _Noreturn  __attribute__((__noreturn__))

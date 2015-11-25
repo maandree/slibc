@@ -33,6 +33,8 @@
  * @return           A pointer to the first occurrence in
  *                   `string` of a character found in `stopset`.
  *                   `NULL` is returned if none is found.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcspbrk)(const wchar_t* string, const wchar_t* stopset)
 {

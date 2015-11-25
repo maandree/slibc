@@ -41,6 +41,8 @@
  *                   number of copied chartacters; the address of
  *                   one character passed the last written non-NUL
  *                   character.
+ * 
+ * @since  Always.
  */
 wchar_t* wcsstrnmove(wchar_t* whither, const wchar_t* whence, const wchar_t* restrict str, size_t maxlen)
 {

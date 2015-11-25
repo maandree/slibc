@@ -31,6 +31,8 @@
  *                   and `errno` is set to indicate the error.
  * 
  * @throws  ENOMEM  The process could not allocate sufficient amount of memory.
+ * 
+ * @since  Always.
  */
 void* memdup(const void* segment, size_t size)
 {

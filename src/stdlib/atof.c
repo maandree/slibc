@@ -31,6 +31,8 @@
  * 
  * @param   string  The string to convert.
  * @return          The number encoded by the string.
+ * 
+ * @since  Always.
  */
 double atof(const char* string)
 {

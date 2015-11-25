@@ -31,6 +31,8 @@
  * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
+ * 
+ * @since  Always.
  */
 intmax_t (imaxabs)(intmax_t value)
 {

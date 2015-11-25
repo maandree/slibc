@@ -30,6 +30,8 @@
  * @param   string   The string.
  * @param   skipset  Characters allowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t wcsspn(const wchar_t* string, const wchar_t* skipset)
 {

@@ -29,6 +29,8 @@
  * @param   desired  The desired ending of the string.
  * @return           The `string`, where `desired` beings if
  *                   `string` ends with `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcscaseends)(const wchar_t* string, const wchar_t* desired)
 {

@@ -35,6 +35,8 @@
  * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
+ * 
+ * @since  Always.
  */
 void bzero(void*, size_t)
   __deprecated("Use 'memset', 'explicit_bzero' or 'secure_free' instead.");
@@ -50,6 +52,8 @@ void bzero(void*, size_t)
  * 
  * @param  segment  The memory segment to override.
  * @param  size     The size of the memory segment.
+ * 
+ * @since  Always.
  */
 void explicit_bzero(void*, size_t);
 #endif
@@ -62,6 +66,8 @@ void explicit_bzero(void*, size_t);
  * @param  whence   The source memory segment.
  * @param  whither  The destination memory segment.
  * @param  size     The number of bytes to copy.
+ * 
+ * @since  Always.
  */
 void bcopy(const void*, void*, size_t)
   __deprecated("Use 'memmove', or similar function, instead, but be aware of reordered parameters.");
@@ -70,6 +76,8 @@ void bcopy(const void*, void*, size_t)
  * This function is identical to `memcmp`.
  * 
  * @etymology  (B)uffer: (c)o(mp)are.
+ * 
+ * @since  Always.
  */
 int bcmp(const void*, const void*, size_t)
   __deprecated("Use 'memcmp' instead.")
@@ -87,6 +95,8 @@ int bcmp(const void*, const void*, size_t)
  * @param   b  A positive value is returned if this is the lesser.
  * @return     Zero is returned if `a` and `b` are equal, otherwise,
  *             see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strcasecmp(const char*, const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -103,6 +113,8 @@ int strcasecmp(const char*, const char*)
  * @param   length  The maximum number of characters to compare.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strncasecmp(const char*, const char*, size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -120,6 +132,8 @@ int strncasecmp(const char*, const char*, size_t)
  * @param   locale  The locale.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strcasecmp_l(const char*, const char*, locale_t) /* TODO */
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -137,6 +151,8 @@ int strcasecmp_l(const char*, const char*, locale_t) /* TODO */
  * @param   locale  The locale.
  * @return          Zero is returned if `a` and `b` are equal, otherwise,
  *                  see the specifications for `a` and `b`.
+ * 
+ * @since  Always.
  */
 int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__, __pure__)));
@@ -148,6 +164,8 @@ int strncasecmp_l(const char*, const char*, size_t, locale_t) /* TODO */
  * This is a deprecated BSD extension.
  * 
  * @etymology  (Index) of character.
+ * 
+ * @since  Always.
  */
 char* index(const char*, int)
   __deprecated("Use 'strchr' instead.")
@@ -162,6 +180,8 @@ char* index(const char*, int)
  * This is a deprecated BSD extension.
  * 
  * @etymology  (R)ight-most (index) of character.
+ * 
+ * @since  Always.
  */
 char* rindex(const char*, int)
   __deprecated("Use 'strrchr' instead.")
@@ -178,6 +198,8 @@ char* rindex(const char*, int)
  * 
  * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
+ * 
+ * @since  Always.
  */
 int ffs(int)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __const__)));
@@ -189,6 +211,8 @@ int ffs(int)
  * 
  * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
+ * 
+ * @since  Always.
  */
 int ffsl(long)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __const__)));
@@ -200,6 +224,8 @@ int ffsl(long)
  * 
  * @param   i  The integer.
  * @return     The value of the least significant set bit, zero if none.
+ * 
+ * @since  Always.
  */
 int ffsll(long long)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __const__)));

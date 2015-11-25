@@ -36,6 +36,8 @@
  *                if `file` does. (Or if `ref` does but file is empty.)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 char* abspath(const char* file, const char* ref) /* XXX may also fail as get_current_dir_name */
 {

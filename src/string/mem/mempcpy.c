@@ -28,6 +28,8 @@
  * @param   whence   The source memory segment.
  * @param   size     The number of bytes to copy.
  * @return           `whither + size` is returned.
+ * 
+ * @since  Always.
  */
 void* mempcpy(void* restrict whither, const void* restrict whence, size_t size)
 {

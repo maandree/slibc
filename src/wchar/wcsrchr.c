@@ -35,6 +35,8 @@
  * @param   c       The sought after character.
  * @return          Pointer to the last occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 wchar_t* (wcsrchr)(const wchar_t* string, wchar_t c)
 {

@@ -44,6 +44,8 @@
  *                       the process will be killed by SIGFPE.
  * @return               The quotient in `.quot`, and
  *                       the remainder in `.rem`.
+ * 
+ * @since  Always.
  */
 imaxdiv_t imaxdiv(intmax_t, intmax_t)
   __GCC_ONLY(__attribute__((__const__)));
@@ -60,6 +62,8 @@ imaxdiv_t imaxdiv(intmax_t, intmax_t)
  * 
  * @param   value  The integer.
  * @return         The absolute value of the integer.
+ * 
+ * @since  Always.
  */
 intmax_t (imaxabs)(intmax_t)
   __GCC_ONLY(__attribute__((__const__)));
@@ -67,7 +71,7 @@ intmax_t (imaxabs)(intmax_t)
 
 
 
-/* Printing and scanning code affixes. */
+/* Printing and scanning code affixes. FOR INTERNAL USE. */
 
 /**
  * Length modifier affix for printing an `int8_t` or an `uint8_t`.
@@ -179,6 +183,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int(8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRId8  __PRI8 "d"
 
@@ -187,6 +193,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int(16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRId16  __PRI16 "d"
 
@@ -195,6 +203,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int(32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRId32  __PRI32 "d"
 
@@ -203,6 +213,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int(64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRId64  __PRI64 "d"
 
@@ -212,6 +224,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdLEAST8  PRId8
 
@@ -220,6 +234,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdLEAST16  PRId16
 
@@ -228,6 +244,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdLEAST32  PRId32
 
@@ -236,6 +254,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdLEAST64  PRId64
 
@@ -245,6 +265,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdFAST8  __PRIFAST8 "d"
 
@@ -253,6 +275,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdFAST16  __PRIFAST16 "d"
 
@@ -261,6 +285,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdFAST32  __PRIFAST32 "d"
 
@@ -269,6 +295,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdFAST64  __PRIFAST64 "d"
 
@@ -279,6 +307,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int(8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIi8  __PRI8 "i"
 
@@ -287,6 +317,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int(16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIi16  __PRI16 "i"
 
@@ -295,6 +327,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int(32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIi32  __PRI32 "i"
 
@@ -303,6 +337,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int(64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIi64  __PRI64 "i"
 
@@ -312,6 +348,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiLEAST8  PRIi8
 
@@ -320,6 +358,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiLEAST16  PRIi16
 
@@ -328,6 +368,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiLEAST32  PRIi32
 
@@ -336,6 +378,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiLEAST64  PRIi64
 
@@ -345,6 +389,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiFAST8  __PRIFAST8 "i"
 
@@ -353,6 +399,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiFAST16  __PRIFAST16 "i"
 
@@ -361,6 +409,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiFAST32  __PRIFAST32 "i"
 
@@ -369,6 +419,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiFAST64  __PRIFAST64 "i"
 
@@ -379,6 +431,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint8_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `int(8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIo8  __PRI8 "o"
 
@@ -387,6 +441,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint16_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `int(16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIo16  __PRI16 "o"
 
@@ -395,6 +451,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint32_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `int(32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIo32  __PRI32 "o"
 
@@ -403,6 +461,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint64_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `int(64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIo64  __PRI64 "o"
 
@@ -412,6 +472,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least8_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoLEAST8  PRIo8
 
@@ -420,6 +482,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least16_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoLEAST16  PRIo16
 
@@ -428,6 +492,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least32_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoLEAST32  PRIo32
 
@@ -436,6 +502,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least64_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoLEAST64  PRIo64
 
@@ -445,6 +513,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast8_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoFAST8  __PRIFAST8 "o"
 
@@ -453,6 +523,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast16_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoFAST16  __PRIFAST16 "o"
 
@@ -461,6 +533,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast32_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoFAST32  __PRIFAST32 "o"
 
@@ -469,6 +543,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast64_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoFAST64  __PRIFAST64 "o"
 
@@ -479,6 +555,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint(8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIu8  __PRI8 "u"
 
@@ -487,6 +565,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint(16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIu16  __PRI16 "u"
 
@@ -495,6 +575,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint(32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIu32  __PRI32 "u"
 
@@ -503,6 +585,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint(64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIu64  __PRI64 "u"
 
@@ -512,6 +596,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuLEAST8  PRIu8
 
@@ -520,6 +606,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuLEAST16  PRIu16
 
@@ -528,6 +616,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuLEAST32  PRIu32
 
@@ -536,6 +626,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuLEAST64  PRIu64
 
@@ -545,6 +637,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast8_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuFAST8  __PRIFAST8 "u"
 
@@ -553,6 +647,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast16_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuFAST16  __PRIFAST16 "u"
 
@@ -561,6 +657,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast32_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuFAST32  __PRIFAST32 "u"
 
@@ -569,6 +667,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast64_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuFAST64  __PRIFAST64 "u"
 
@@ -579,6 +679,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint8_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint(8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIx8  __PRI8 "x"
 
@@ -587,6 +689,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint16_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint(16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIx16  __PRI16 "x"
 
@@ -595,6 +699,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint32_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint(32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIx32  __PRI32 "x"
 
@@ -603,6 +709,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint64_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint(64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIx64  __PRI64 "x"
 
@@ -612,6 +720,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least8_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxLEAST8  PRIx8
 
@@ -620,6 +730,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least16_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxLEAST16  PRIx16
 
@@ -628,6 +740,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least32_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxLEAST32  PRIx32
 
@@ -636,6 +750,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least64_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxLEAST64  PRIx64
 
@@ -645,6 +761,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast8_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxFAST8  __PRIFAST8 "x"
 
@@ -653,6 +771,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast16_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxFAST16  __PRIFAST16 "x"
 
@@ -661,6 +781,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast32_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxFAST32  __PRIFAST32 "x"
 
@@ -669,6 +791,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast64_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxFAST64  __PRIFAST64 "x"
 
@@ -679,6 +803,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint8_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint(8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIX8  __PRI8 "X"
 
@@ -687,6 +813,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint16_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint(16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIX16  __PRI16 "X"
 
@@ -695,6 +823,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint32_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint(32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIX32  __PRI32 "X"
 
@@ -703,6 +833,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint64_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint(64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIX64  __PRI64 "X"
 
@@ -712,6 +844,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least8_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXLEAST8  PRIX8
 
@@ -720,6 +854,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least16_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXLEAST16  PRIX16
 
@@ -728,6 +864,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least32_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXLEAST32  PRIX32
 
@@ -736,6 +874,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least64_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXLEAST64  PRIX64
 
@@ -745,6 +885,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast8_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXFAST8  __PRIFAST8 "X"
 
@@ -753,6 +895,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast16_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXFAST16  __PRIFAST16 "X"
 
@@ -761,6 +905,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast32_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXFAST32  __PRIFAST32 "X"
 
@@ -769,6 +915,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast64_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXFAST64  __PRIFAST64 "X"
 
@@ -779,6 +927,8 @@ intmax_t (imaxabs)(intmax_t)
  * intmax_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int(max)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIdMAX __PRIMAX "d"
 
@@ -787,6 +937,8 @@ intmax_t (imaxabs)(intmax_t)
  * intmax_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int(max)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIiMAX __PRIMAX "i"
 
@@ -795,6 +947,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIoMAX __PRIMAX "o"
 
@@ -803,6 +957,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIuMAX __PRIMAX "u"
 
@@ -811,6 +967,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIxMAX __PRIMAX "x"
 
@@ -819,6 +977,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define PRIXMAX __PRIMAX "X"
 
@@ -830,6 +990,8 @@ intmax_t (imaxabs)(intmax_t)
  * in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(d)` for `int(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define PRIdPTR __PRIPTR "d"
 
@@ -839,6 +1001,8 @@ intmax_t (imaxabs)(intmax_t)
  * in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(i)` for `int(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define PRIiPTR __PRIPTR "i"
 
@@ -848,6 +1012,8 @@ intmax_t (imaxabs)(intmax_t)
  * in octal form.
  * 
  * @etymology  `(pri)ntf` `%(o)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define PRIoPTR __PRIPTR "o"
 
@@ -857,6 +1023,8 @@ intmax_t (imaxabs)(intmax_t)
  * in decimal form.
  * 
  * @etymology  `(pri)ntf` `%(u)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define PRIuPTR __PRIPTR "u"
 
@@ -866,6 +1034,8 @@ intmax_t (imaxabs)(intmax_t)
  * in lowercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(x)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define PRIxPTR __PRIPTR "x"
 
@@ -875,6 +1045,8 @@ intmax_t (imaxabs)(intmax_t)
  * in uppercase hexadecimal form.
  * 
  * @etymology  `(pri)ntf` `%(X)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define PRIXPTR __PRIPTR "X"
 
@@ -888,6 +1060,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int(8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNd8  __SCN8 "d"
 
@@ -896,6 +1070,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int(16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNd16  __SCN16 "d"
 
@@ -904,6 +1080,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int(32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNd32  __SCN32 "d"
 
@@ -912,6 +1090,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int(64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNd64  __SCN64 "d"
 
@@ -921,6 +1101,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdLEAST8  SCNd8
 
@@ -929,6 +1111,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdLEAST16  SCNd16
 
@@ -937,6 +1121,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdLEAST32  SCNd32
 
@@ -945,6 +1131,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdLEAST64  SCNd64
 
@@ -954,6 +1142,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdFAST8  __SCNFAST8 "d"
 
@@ -962,6 +1152,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdFAST16  __SCNFAST16 "d"
 
@@ -970,6 +1162,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdFAST32  __SCNFAST32 "d"
 
@@ -978,6 +1172,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdFAST64  __SCNFAST64 "d"
 
@@ -988,6 +1184,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int(8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNi8  __SCN8 "i"
 
@@ -996,6 +1194,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int(16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNi16  __SCN16 "i"
 
@@ -1004,6 +1204,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int(32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNi32  __SCN32 "i"
 
@@ -1012,6 +1214,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int(64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNi64  __SCN64 "i"
 
@@ -1021,6 +1225,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiLEAST8  SCNi8
 
@@ -1029,6 +1235,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiLEAST16  SCNi16
 
@@ -1037,6 +1245,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiLEAST32  SCNi32
 
@@ -1045,6 +1255,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_least64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiLEAST64  SCNi64
 
@@ -1054,6 +1266,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiFAST8  __SCNFAST8 "i"
 
@@ -1062,6 +1276,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiFAST16  __SCNFAST16 "i"
 
@@ -1070,6 +1286,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiFAST32  __SCNFAST32 "i"
 
@@ -1078,6 +1296,8 @@ intmax_t (imaxabs)(intmax_t)
  * an int_fast64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiFAST64  __SCNFAST64 "i"
 
@@ -1088,6 +1308,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint8_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint(8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNo8  __SCN8 "o"
 
@@ -1096,6 +1318,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint16_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint(16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNo16  __SCN16 "o"
 
@@ -1104,6 +1328,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint32_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint(32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNo32  __SCN32 "o"
 
@@ -1112,6 +1338,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint64_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint(64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNo64  __SCN64 "o"
 
@@ -1121,6 +1349,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least8_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoLEAST8  SCNo8
 
@@ -1129,6 +1359,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least16_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoLEAST16  SCNo16
 
@@ -1137,6 +1369,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least32_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoLEAST32  SCNo32
 
@@ -1145,6 +1379,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least64_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoLEAST64  SCNo64
 
@@ -1154,6 +1390,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast8_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoFAST8  __SCNFAST8 "o"
 
@@ -1162,6 +1400,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast16_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoFAST16  __SCNFAST16 "o"
 
@@ -1170,6 +1410,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast32_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoFAST32  __SCNFAST32 "o"
 
@@ -1178,6 +1420,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast64_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoFAST64  __SCNFAST64 "o"
 
@@ -1188,6 +1432,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint(8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNu8  __SCN8 "u"
 
@@ -1196,6 +1442,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint(16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNu16  __SCN16 "u"
 
@@ -1204,6 +1452,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint(32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNu32  __SCN32 "u"
 
@@ -1212,6 +1462,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint(64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNu64  __SCN64 "u"
 
@@ -1221,6 +1473,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuLEAST8  SCNu8
 
@@ -1229,6 +1483,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuLEAST16  SCNu16
 
@@ -1237,6 +1493,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuLEAST32  SCNu32
 
@@ -1245,6 +1503,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_least64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuLEAST64  SCNu64
 
@@ -1254,6 +1514,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast8_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuFAST8  __SCNFAST8 "u"
 
@@ -1262,6 +1524,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast16_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuFAST16  __SCNFAST16 "u"
 
@@ -1270,6 +1534,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast32_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuFAST32  __SCNFAST32 "u"
 
@@ -1278,6 +1544,8 @@ intmax_t (imaxabs)(intmax_t)
  * an uint_fast64_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuFAST64  __SCNFAST64 "u"
 
@@ -1288,6 +1556,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint8_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint(8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNx8  __SCN8 "x"
 
@@ -1296,6 +1566,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint16_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint(16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNx16  __SCN16 "x"
 
@@ -1304,6 +1576,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint32_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint(32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNx32  __SCN32 "x"
 
@@ -1312,6 +1586,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint64_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint(64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNx64  __SCN64 "x"
 
@@ -1321,6 +1597,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least8_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(least8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxLEAST8  SCNx8
 
@@ -1329,6 +1607,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least16_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(least16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxLEAST16  SCNx16
 
@@ -1337,6 +1617,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least32_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(least32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxLEAST32  SCNx32
 
@@ -1345,6 +1627,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_least64_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(least64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxLEAST64  SCNx64
 
@@ -1354,6 +1638,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast8_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(fast8)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxFAST8  __SCNFAST8 "x"
 
@@ -1362,6 +1648,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast16_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(fast16)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxFAST16  __SCNFAST16 "x"
 
@@ -1370,6 +1658,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast32_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(fast32)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxFAST32  __SCNFAST32 "x"
 
@@ -1378,6 +1668,8 @@ intmax_t (imaxabs)(intmax_t)
  * uint_fast64_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint_(fast64)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxFAST64  __SCNFAST64 "x"
 
@@ -1388,6 +1680,8 @@ intmax_t (imaxabs)(intmax_t)
  * intmax_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int(max)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNdMAX __SCNMAX "d"
 
@@ -1396,6 +1690,8 @@ intmax_t (imaxabs)(intmax_t)
  * intmax_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int(max)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNiMAX __SCNMAX "i"
 
@@ -1404,6 +1700,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNoMAX __SCNMAX "o"
 
@@ -1412,6 +1710,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNuMAX __SCNMAX "u"
 
@@ -1420,6 +1720,8 @@ intmax_t (imaxabs)(intmax_t)
  * uintmax_t from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint(max)_t`.
+ * 
+ * @since  Always.
  */
 #define SCNxMAX __SCNMAX "x"
 
@@ -1431,6 +1733,8 @@ intmax_t (imaxabs)(intmax_t)
  * from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(d)` for `int(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define SCNdPTR __SCNPTR "d"
 
@@ -1440,6 +1744,8 @@ intmax_t (imaxabs)(intmax_t)
  * from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(i)` for `int(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define SCNiPTR __SCNPTR "i"
 
@@ -1449,6 +1755,8 @@ intmax_t (imaxabs)(intmax_t)
  * from octal form.
  * 
  * @etymology  `(sc)a(n)f` `%(o)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define SCNoPTR __SCNPTR "o"
 
@@ -1458,6 +1766,8 @@ intmax_t (imaxabs)(intmax_t)
  * from decimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(u)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define SCNuPTR __SCNPTR "u"
 
@@ -1467,6 +1777,8 @@ intmax_t (imaxabs)(intmax_t)
  * from hexadecimal form.
  * 
  * @etymology  `(sc)a(n)f` `%(x)` for `uint(ptr)_t` and alike.
+ * 
+ * @since  Always.
  */
 #define SCNxPTR __SCNPTR "x"
 

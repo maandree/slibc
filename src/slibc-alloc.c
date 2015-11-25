@@ -59,6 +59,8 @@
  * override the memory segment with zeroes before freeing the allocation.
  * 
  * @param  segment  The memory segment to free.
+ * 
+ * @since  Always.
  */
 void fast_free(void* segment)
 {
@@ -73,6 +75,8 @@ void fast_free(void* segment)
  * override the memory segment with zeroes before freeing the allocation.
  * 
  * @param  segment  The memory segment to free.
+ * 
+ * @since  Always.
  */
 void secure_free(void* segment)
 {
@@ -103,6 +107,8 @@ void secure_free(void* segment)
  *                  implemented in slibc. It is however not guaranteed
  *                  that this will happen, undefined behaviour may be
  *                  invoked instead.
+ * 
+ * @since  Always.
  */
 size_t allocsize(void* segment)
 {
@@ -169,6 +175,8 @@ size_t allocsize(void* segment)
  * @return        The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* crealloc(void* ptr, size_t size)
 {
@@ -185,6 +193,8 @@ void* crealloc(void* ptr, size_t size)
  * @return        The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* fast_realloc(void* ptr, size_t size)
 {
@@ -201,6 +211,8 @@ void* fast_realloc(void* ptr, size_t size)
  * @return        The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* secure_realloc(void* ptr, size_t size)
 {
@@ -229,6 +241,8 @@ void* secure_realloc(void* ptr, size_t size)
  * @return              The new allocation, see `realloc` for more details.
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int clear_free)
 {
@@ -258,6 +272,8 @@ void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int c
  * 
  * @throws  0       `errno` is set to zero success if `NULL` is returned.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
 {
@@ -300,6 +316,8 @@ void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
  * @throws  0       `errno` is set to zero success if `NULL` is returned.
  * @throws  EINVAL  `mode` is invalid, or `boundary` is not a power of two.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode mode)
 {
@@ -373,6 +391,8 @@ void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode m
  * 
  * @throws  EINVAL  `boundary` is not a power of two.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* naive_realloc(void* ptr, size_t boundary, size_t size)
 {
@@ -394,6 +414,8 @@ void* naive_realloc(void* ptr, size_t boundary, size_t size)
  * 
  * @throws  0       `malloc` is require to perform the action.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* naive_extalloc(void* ptr, size_t size)
 {
@@ -419,6 +441,8 @@ void* naive_extalloc(void* ptr, size_t size)
  *                     on error (errno is set to describe the error.)
  * 
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 __GCC_ONLY(__attribute__((nonnull)))
 static inline void* falloc_realloc(void* ptr, size_t* ptrshift, size_t alignment,
@@ -501,6 +525,8 @@ static inline void* falloc_realloc(void* ptr, size_t* ptrshift, size_t alignment
  * @throws  0       `new_size` is zero.
  * @throws  EINVAL  The arguments are invalid.
  * @throws  ENOMEM  The process cannot allocate more memory.
+ * 
+ * @since  Always.
  */
 void* falloc(void* ptr, size_t* ptrshift, size_t alignment,
 	     size_t old_size, size_t new_size, enum falloc_mode mode)

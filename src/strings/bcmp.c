@@ -24,6 +24,8 @@
  * This function is identical to `memcmp`.
  * 
  * @etymology  (B)uffer: (c)o(mp)are.
+ * 
+ * @since  Always.
  */
 int bcmp(const void* a, const void* b, size_t size)
 {

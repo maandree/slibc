@@ -29,6 +29,8 @@
 
 /**
  * The current environment variables.
+ * 
+ * @since  Always.
  */
 extern char** environ;
 
@@ -44,6 +46,8 @@ extern char** environ;
  * @param   use_path    Whether $PATH may be used.
  * 
  * @throws              Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 static void vexec(const char* file, va_list argv, int fetch_envp, int use_path)
 {
@@ -82,6 +86,8 @@ static void vexec(const char* file, va_list argv, int fetch_envp, int use_path)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execl(const char* path, ... /*, NULL */)
 {
@@ -112,6 +118,8 @@ int execl(const char* path, ... /*, NULL */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execlp(const char* file, ... /*, NULL */)
 {
@@ -142,6 +150,8 @@ int execlp(const char* file, ... /*, NULL */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execle(const char* path, ... /*, NULL, char* const envp[] */)
 {
@@ -178,6 +188,8 @@ int execle(const char* path, ... /*, NULL, char* const envp[] */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execlpe(const char* file, ... /*, NULL, char* const envp[] */)
 {
@@ -208,6 +220,8 @@ int execlpe(const char* file, ... /*, NULL, char* const envp[] */)
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execv(const char* path, char* const argv[])
 {
@@ -236,6 +250,8 @@ int execv(const char* path, char* const argv[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execvp(const char* file, char* const argv[])
 {
@@ -264,6 +280,8 @@ int execvp(const char* file, char* const argv[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execve(const char* path, char* const argv[], char* const envp[])
 {
@@ -300,6 +318,8 @@ int execve(const char* path, char* const argv[], char* const envp[])
  *                set to describe the error.
  * 
  * @throws        Any error specified for execve(2).
+ * 
+ * @since  Always.
  */
 int execvpe(const char* file, char* const argv[], char* const envp[])
 {

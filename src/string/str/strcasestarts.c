@@ -29,6 +29,8 @@
  * @param   desired  The desired beginning of the string.
  * @return           `string` if `string` begins with
  *                   `desired`, `NULL` otherwise.
+ * 
+ * @since  Always.
  */
 char* (strcasestarts)(const char* string, const char* desired)
 {

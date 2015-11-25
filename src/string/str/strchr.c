@@ -34,6 +34,8 @@
  * @param   c       The sought after character.
  * @return          Pointer to the first occurrence of `c`,
  *                  `NULL` if none were found.
+ * 
+ * @since  Always.
  */
 char* (strchr)(const char* string, int c)
 {

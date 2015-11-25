@@ -30,6 +30,8 @@
  * @param   string   The string.
  * @param   stopset  Characters disallowed in the substring.
  * @return           The length of the substring.
+ * 
+ * @since  Always.
  */
 size_t wcscspn(const wchar_t* string, const wchar_t* stopset)
 {

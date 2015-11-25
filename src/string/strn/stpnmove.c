@@ -36,6 +36,8 @@
  *                   until this amount of bytes have been written.
  * @return           `whither` plus the number of written bytes,
  *                   excluding NUL bytes, is returned.
+ * 
+ * @since  Always.
  */
 char* stpnmove(char* whither, const char* whence, size_t maxlen)
 {

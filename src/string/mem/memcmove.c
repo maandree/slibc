@@ -34,6 +34,8 @@
  *                   that is, the address of `whither` plus the
  *                   number of copied characters; the address of
  *                   one character passed the last written character.
+ * 
+ * @since  Always.
  */
 void* (memcmove)(void* whither, const void* whence, int c, size_t size)
 {

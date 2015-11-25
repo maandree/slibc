@@ -27,6 +27,8 @@
 
 # pragma GCC diagnostic ignored "-Wcast-qual"
 # pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+/* TODO [v]sock[w]scanf (can use MSG_PEEK) */
+/* TODO doc: performance issue on [v]d[w]scanf */
 
 
 
@@ -80,6 +82,8 @@ extern int wread_fd(void);
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int scanf(const char* restrict format, ...)
 {
@@ -100,6 +104,8 @@ int scanf(const char* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fscanf(FILE* restrict stream, const char* restrict format, ...)
 {
@@ -120,6 +126,8 @@ int fscanf(FILE* restrict stream, const char* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int sscanf(const char* restrict input, const char* restrict format, ...)
 {
@@ -141,6 +149,8 @@ int sscanf(const char* restrict input, const char* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fscanf_unlocked(FILE* restrict stream, const char* restrict format, ...)
 {
@@ -165,6 +175,8 @@ int fscanf_unlocked(FILE* restrict stream, const char* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int snscanf(const char* restrict input, size_t length, const char* restrict format, ...)
 {
@@ -188,6 +200,8 @@ int snscanf(const char* restrict input, size_t length, const char* restrict form
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int dscanf(int fd, const char* restrict format, ...)
 {
@@ -206,6 +220,8 @@ int dscanf(int fd, const char* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vscanf(const char* restrict format, va_list args)
 {
@@ -225,6 +241,8 @@ int vscanf(const char* restrict format, va_list args)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfscanf(FILE* restrict stream, const char* restrict format, va_list args)
 {
@@ -249,6 +267,8 @@ int vfscanf(FILE* restrict stream, const char* restrict format, va_list args)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vsscanf(const char* restrict input, const char* restrict format, va_list args)
 {
@@ -270,6 +290,8 @@ int vsscanf(const char* restrict input, const char* restrict format, va_list arg
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfscanf_unlocked(FILE* restrict stream, const char* restrict format, va_list args)
 {
@@ -292,6 +314,8 @@ int vfscanf_unlocked(FILE* restrict stream, const char* restrict format, va_list
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vsnscanf(const char* restrict input, size_t length, const char* restrict format, va_list args)
 {
@@ -313,6 +337,8 @@ int vsnscanf(const char* restrict input, size_t length, const char* restrict for
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vdscanf(int fd, const char* restrict format, va_list args)
 {
@@ -331,6 +357,8 @@ int vdscanf(int fd, const char* restrict format, va_list args)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int wscanf(const wchar_t* restrict format, ...)
 {
@@ -350,6 +378,8 @@ int wscanf(const wchar_t* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fwscanf(FILE* restrict stream, const wchar_t* restrict format, ...)
 {
@@ -369,6 +399,8 @@ int fwscanf(FILE* restrict stream, const wchar_t* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int swscanf(const wchar_t* restrict input, const wchar_t* restrict format, ...)
 {
@@ -390,6 +422,8 @@ int swscanf(const wchar_t* restrict input, const wchar_t* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int fwscanf_unlocked(FILE* restrict stream, const wchar_t* restrict format, ...)
 {
@@ -412,6 +446,8 @@ int fwscanf_unlocked(FILE* restrict stream, const wchar_t* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int snwscanf(const wchar_t* restrict input, size_t length, const wchar_t* restrict format, ...)
 {
@@ -433,6 +469,8 @@ int snwscanf(const wchar_t* restrict input, size_t length, const wchar_t* restri
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int dwscanf(int fd, const wchar_t* restrict format, ...)
 {
@@ -451,6 +489,8 @@ int dwscanf(int fd, const wchar_t* restrict format, ...)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vwscanf(const wchar_t* restrict format, va_list args)
 {
@@ -470,6 +510,8 @@ int vwscanf(const wchar_t* restrict format, va_list args)
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_list args)
 {
@@ -494,6 +536,8 @@ int vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_list args
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vswscanf(const wchar_t* restrict input, const wchar_t* restrict format, va_list args)
 {
@@ -515,6 +559,8 @@ int vswscanf(const wchar_t* restrict input, const wchar_t* restrict format, va_l
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vfwscanf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va_list args)
 {
@@ -537,6 +583,8 @@ int vfwscanf_unlocked(FILE* restrict stream, const wchar_t* restrict format, va_
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vsnwscanf(const wchar_t* restrict input, size_t length, const wchar_t* restrict format, va_list args)
 {
@@ -558,6 +606,8 @@ int vsnwscanf(const wchar_t* restrict input, size_t length, const wchar_t* restr
  *                  if the end of the input is reached before the
  *                  first argument is successfully converted, or
  *                  on error.
+ * 
+ * @since  Always.
  */
 int vdwscanf(int fd, const wchar_t* restrict format, va_list args)
 {
@@ -568,6 +618,8 @@ int vdwscanf(int fd, const wchar_t* restrict format, va_list args)
 
 /**
  * This function is identical to `scanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_scanf(const char* restrict format, ...)
 {
@@ -576,6 +628,8 @@ int __isoc99_scanf(const char* restrict format, ...)
 
 /**
  * This function is identical to `fscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_fscanf(FILE* restrict stream, const char* restrict format, ...)
 {
@@ -584,6 +638,8 @@ int __isoc99_fscanf(FILE* restrict stream, const char* restrict format, ...)
 
 /**
  * This function is identical to `sscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_sscanf(const char* restrict input, const char* restrict format, ...)
 {
@@ -592,6 +648,8 @@ int __isoc99_sscanf(const char* restrict input, const char* restrict format, ...
 
 /**
  * This function is identical to `vscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vscanf(const char* restrict format, va_list args)
 {
@@ -600,6 +658,8 @@ int __isoc99_vscanf(const char* restrict format, va_list args)
 
 /**
  * This function is identical to `vfscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vfscanf(FILE* restrict stream, const char* restrict format, va_list args)
 {
@@ -608,6 +668,8 @@ int __isoc99_vfscanf(FILE* restrict stream, const char* restrict format, va_list
 
 /**
  * This function is identical to `vsscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vsscanf(const char* restrict input, const char* restrict format, va_list args)
 {
@@ -616,6 +678,8 @@ int __isoc99_vsscanf(const char* restrict input, const char* restrict format, va
 
 /**
  * This function is identical to `wscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_wscanf(const wchar_t* restrict format, ...)
 {
@@ -624,6 +688,8 @@ int __isoc99_wscanf(const wchar_t* restrict format, ...)
 
 /**
  * This function is identical to `fwscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_fwscanf(FILE* restrict stream, const wchar_t* restrict format, ...)
 {
@@ -632,6 +698,8 @@ int __isoc99_fwscanf(FILE* restrict stream, const wchar_t* restrict format, ...)
 
 /**
  * This function is identical to `swscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_swscanf(const wchar_t* restrict input, const wchar_t* restrict format, ...)
 {
@@ -640,6 +708,8 @@ int __isoc99_swscanf(const wchar_t* restrict input, const wchar_t* restrict form
 
 /**
  * This function is identical to `vwscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vwscanf(const wchar_t* restrict format, va_list args)
 {
@@ -648,6 +718,8 @@ int __isoc99_vwscanf(const wchar_t* restrict format, va_list args)
 
 /**
  * This function is identical to `vfwscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_list args)
 {
@@ -656,6 +728,8 @@ int __isoc99_vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_
 
 /**
  * This function is identical to `vswscanf`.
+ * 
+ * @since  Always.
  */
 int __isoc99_vswscanf(const wchar_t* restrict input, const wchar_t* restrict format, va_list args)
 {
