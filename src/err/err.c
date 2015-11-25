@@ -28,7 +28,7 @@
  * 
  * @etymology  Report (err)or!
  * 
- * @parma  status  The exit status the process should have.
+ * @param  status  The exit status the process should have.
  * @param  format  Formatting-string for the warning.
  * @param  ...     Formatting-arguments.
  */

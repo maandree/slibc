@@ -52,7 +52,7 @@
 /**
  * Store permission bits.
  * 
- * @parma  S:char      Character representing the bits to set.
+ * @param  S:char      Character representing the bits to set.
  * @param  V:mode_t    The variables for the permissions.
  * @param  U:int type  First-level index in `bits` for the user.
  */

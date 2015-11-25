@@ -456,7 +456,7 @@ int dprintf(int fd, const char* restrict format, ...)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   ...     The formatting-arguments.
@@ -723,7 +723,7 @@ int vdprintf(int fd, const char* restrict format, va_list args)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   args    The formatting-arguments.
@@ -997,7 +997,7 @@ int dwprintf(int fd, const wchar_t* restrict format, ...)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   ...     The formatting-arguments.
@@ -1240,7 +1240,7 @@ int vdwprintf(int fd, const wchar_t* restrict format, va_list args)
  * This is a slibc extension added for completeness.
  * 
  * @param   fd      The file descriptor.
- * @parma   flags   Flags to pass to `send`, see `send`
+ * @param   flags   Flags to pass to `send`, see `send`
  *                  for more information.
  * @param   format  The formatting-string.
  * @param   args    The formatting-arguments.
