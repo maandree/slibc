@@ -148,6 +148,9 @@ enum machinesize_mode
     /**
      * 'k' and 'K' is 1000.
      * 
+     * 'i'-affix for 'K' = 1024 is still
+     * supported.
+     * 
      * If `MACHINESIZE_IEC` is also used,
      * 1000-base is used if 'B' is explicitly
      * included, otherwise 1024-base is used.
@@ -311,11 +314,34 @@ char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* res
 		const char* restrict, const char* restrict)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 
-/* TODO machinesize */
-/* @etymology  Convert to (machine)-representation: `(size)_t`. */
-/* @since  Always. */
-int machinesize(size_t* restrict size, const char* restrict str, enum machinesize_mode mode,
-		const char* restrict space, const char* restrict point);
+/**
+ * Parses a human representation of storage size or file offset.
+ * 
+ * If no unit is used, bytes are assumed. If you rather it be
+ * (for example) kilobytes, you can multiply it if
+ * `strpbrk(str, "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM") == NULL`.
+ * 
+ * @etymology  Convert to (machine)-representation: `(size)_t`.
+ * 
+ * @param   size   Output parameter for the value, must not be `NULL`.
+ * @param   str    The value to parse, must not `NULL`.
+ * @param   mode   How to parse ambiguous strings, 0 for default.
+ * @param   space  Characters to ignore (thousand-group delimiters).
+ *                 Supports UTF-8. `NULL` for default. Default value
+ *                 is " '".
+ * @param   point  Decimal pointer chracters. Supports UTF-8. `NULL`
+ *                 for default. Default value is ",.".
+ * @return         Zero on success, -1 on error.
+ * 
+ * @throws  EINVAL  If `mode` is invalid.
+ * @throws  EINVAL  If `str` is not parseable.
+ * @throws  ERANGE  If the value is too range to fit in a `size_t`.
+ * 
+ * @since  Always.
+ */
+int machinesize(size_t* restrict, const char* restrict, enum machinesize_mode,
+		const char* restrict, const char* restrict)
+  __GCC_ONLY(__attribute__((__nonnull__(1, 2))));
 
 
 #ifdef __C99__
@@ -354,8 +380,8 @@ char* machineuint(uintmax_t* restrict r, const char* restrict str)
 /* TODO machinefloat */
 /* @etymology  Convert to (machine)-representation: (float)ing-point number. */
 /* @since  Always. */
-int machinefloat(long double* restrict r, const char* restrict str,
-		 const char* restrict space, const char* restrict comma);
+char* machinefloat(long double* restrict r, const char* restrict str,
+		   const char* restrict space, const char* restrict point);
 #ifdef __CONST_CORRECT
 # define machinefloat(...)  (__const_correct_2(machinefloat, __VA_ARGS__))
 #endif
