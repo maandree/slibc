@@ -146,7 +146,22 @@ char* (strnchrnul)(const char* string, int c, size_t maxlen)
       return string;
 }
 
-char* (memcchr)(const char* segment, int c, int stop, size_t size) /* slibc: completeness */
+/**
+ * Variant of `memchr` that stops searching when it
+ * another specified character.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   segment  The memory segment to search.
+ * @param   c        The sought after character.
+ * @param   stop     Return `NULL` when this character is found.
+ * @param   size     The size of the memory segment.
+ * @return           Pointer to the first occurrence of `c`,
+ *                   `NULL` if none were found.
+ * 
+ * @since  Always.
+ */
+char* (memcchr)(const char* segment, int c, int stop, size_t size)
 {
   char* s = segment;
   for (;;)
@@ -156,7 +171,23 @@ char* (memcchr)(const char* segment, int c, int stop, size_t size) /* slibc: com
       return NULL;
 }
 
-char* (strcchr)(const char* string, int c, int stop) /* slibc: completeness */
+/**
+ * Variant of `strchr` that stops searching when it
+ * another specified character.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @param   stop    Return `NULL` when this character is found.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  `NULL` if none were found.
+ * 
+ * @since  Always.
+ */
+char* (strcchr)(const char* string, int c, int stop)
 {
   for (;;)
     if (*string == c)
@@ -165,7 +196,24 @@ char* (strcchr)(const char* string, int c, int stop) /* slibc: completeness */
       return NULL;
 }
 
-char* (strcnchr)(const char* string, int c, int stop, size_t maxlen) /* slibc: completeness */
+/**
+ * Variant of `strnchr` that stops searching when it
+ * another specified character.
+ * 
+ * This is a slibc extension added for completeness.
+ * 
+ * @param   string  The string to search.
+ *                  The terminating NUL character is
+ *                  considered a part of the string.
+ * @param   c       The sought after character.
+ * @param   stop    Return `NULL` when this character is found.
+ * @param   maxlen  The number of bytes to inspect, at most.
+ * @return          Pointer to the first occurrence of `c`,
+ *                  `NULL` if none were found.
+ * 
+ * @since  Always.
+ */
+char* (strcnchr)(const char* string, int c, int stop, size_t maxlen)
 {
   for (;;)
     if (*string == c)
