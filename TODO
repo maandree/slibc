@@ -46,3 +46,6 @@ The width of intptr_t  should be determined by sizeof(void*),
 the width of size_t    should be determined by sizeof(sizeof(0)), and
 the width of ptrdiff_t should be determined by sizeof(NULL - NULL);
 
+libslibc
+  library with all slibc-extension. <slibc.h>
+
