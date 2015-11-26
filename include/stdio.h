@@ -184,6 +184,36 @@ int sockprintf(int, int, const char* restrict, ...)
  * This is identical to `snprintf` with
  * `SIZE_MAX` as the second argument.
  * 
+ * `sprintf` is(!) safe to use. As long as you allocate
+ * the a large enough buffer. One way to do this is
+ * by measuring the length of the result first.
+ * 
+ *     ssize_t n;
+ *     char* buffer = NULL;
+ *     snprintf(NULL, 0, "%zu%zn", your_value, &n);
+ *     buffer = malloc((size_t)n * sizeof(char));
+ *     if (buffer == NULL) goto fail;
+ *     sprintf(buffer, "%zu", your_value);
+ * 
+ * If you don't care about portability, you can use
+ * `asprintf`, `asprintfa` or `bprintf`. However, you
+ * often do not need to measure the result with `snprintf`.
+ * A maximum possible length can often be determined
+ * at compile-time or only using `strlen'.
+ * 
+ *     char buffer[3 * sizeof(ssize_t) + 2]; // A very poor, but still safe,
+ *                                           // approximation to log₁₀.
+ *     spritnf(buffer, "%zi", your_signed_value);
+ * 
+ * These techniques guarantees that all of the string is
+ * written, and is therefore preferable over replacing
+ * `sprintf` with `snprintf`. Because of this, slibc
+ * does not consider `sprintf` unsafe like some of the
+ * more hokey C standard library implementations. This
+ * is C damn it!
+ * 
+ *   “Almost anything can be unsafe if you don't use it properly.”
+ * 
  * @param   buffer  The output buffer.
  * @param   format  The formatting-string.
  * @param   ...     The formatting-arguments.
