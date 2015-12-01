@@ -49,3 +49,13 @@ the width of ptrdiff_t should be determined by sizeof(NULL - NULL);
 libslibc
   library with all slibc-extension. <slibc.h>
 
+Extensions:
+  mkdir -p
+  Variable argument max and min
+  base64
+  base64 -d
+  base16
+  base16 -d
+  variable argument string concat
+  string manipulation
+
