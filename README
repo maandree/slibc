@@ -37,3 +37,14 @@ name starts with `slibc-`. Headers starting with
 `slibc/` are not extensions, those are internals
 that may change at any time.
 
+
+Writing a C standard library is a massive task.
+As I only have x86_64 hardware, I will require
+help write the assembly code for other hardware.
+I also need help writing the texinfo manual and
+example code for functions, help figuring out
+the correct feature-test macros for all functions,
+their etymology, and in which libc implementions
+they appear. Help optimising all functions would
+also be appreciated.
+
