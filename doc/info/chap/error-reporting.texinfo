@@ -581,7 +581,7 @@ is global and shared by all threads.
 Etymology: (@code{error})-subsystem: (message count).
 @end ifnottex
 @iftex
-Etymology: @b{error}-subsystem: @b{message count}).
+Etymology: @b{error}-subsystem: @b{message count}.
 @end iftex
 
 @item volatile int error_one_per_line
