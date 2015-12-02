@@ -190,7 +190,7 @@ int (isprint)(int)  /* [0x20, 0x7E] */
 int (ispunct)(int)  /* isprint && !isalnum && !isspace */
   __GCC_ONLY(__attribute__((__const__)));
 #if defined (__GNUC__)
-# define ispunk(c)  \
+# define ispunct(c)  \
   ({ int __c = (c); (isprint(__c) && !isalnum(__c) && !isspace(__c)); })
 #endif
 
