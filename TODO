@@ -41,6 +41,7 @@ LOW PRIORITY:
 crt0 with cpu cycle count printing
 BUFSIZ configurable by environment variable
 Rate limitation of I/O-functions configured by environment variables
+configuration: unlink = shred if st_nlink=1
 
 The width of intptr_t  should be determined by sizeof(void*),
 the width of size_t    should be determined by sizeof(sizeof(0)), and
