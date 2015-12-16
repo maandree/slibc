@@ -157,6 +157,32 @@ uint64_t _htonll(uint64_t)
 #endif
 
 
+/* TODO We "need" conversion to and from two's complement.
+ *      It is important to remember than intN_t cannot be
+ *      used for this functions because they require two's
+ *      complement.
+ *
+ *         unsigned to_twos_complement(signed v) {
+ *           unsigned r;
+ *           if (v >= -0)
+ *             return (unsigned)v;
+ *           r = (unsigned)-v;
+ *           r = ~(r - 1);
+ *           return r;
+ *         }
+ *
+ *         signed from_twos_complement(unsigned v) {
+ *           signed r;
+ *           if ((v >> (X_BIT - 1)) == 0)
+ *             return (signed)v;
+ *           r = ~r;
+ *           if (r == X_MAX)
+ *             return errno = ERANGE, 0;
+ *           return errno = 0, r + 1;
+ *         }
+ */
+
+
 
 #endif
 
