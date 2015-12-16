@@ -47,6 +47,7 @@
  * @since  Always.
  */
 void* alloca(size_t);
+  __GCC_ONLY(__attribute__((__warn_unused_result__)));
 #if defined(__GNUC__)
 # define alloca(size)  __builtin_alloca(size)
 #endif

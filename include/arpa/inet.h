@@ -46,7 +46,7 @@
  * @since  Always.
  */
 uint16_t _ntohs(uint16_t)
-  __GCC_ONLY(__attribute__((__const__, __warn_unuses_result__)));
+  __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
 #if !defined(__PORTABLE)
 # define ntohs  _ntohs
 #else
@@ -65,7 +65,7 @@ uint16_t _ntohs(uint16_t)
  * @since  Always.
  */
 uint32_t _ntohl(uint32_t)
-  __GCC_ONLY(__attribute__((__const__, __warn_unuses_result__)));
+  __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
 #if !defined(__PORTABLE)
 # define ntohl  _ntohl
 #else
@@ -87,7 +87,7 @@ uint32_t _ntohl(uint32_t)
  * @since  Always.
  */
 uint64_t _ntohll(uint64_t)
-  __GCC_ONLY(__attribute__((__const__, __warn_unuses_result__)));
+  __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
 # if !defined(__PORTABLE)
 #  define ntohll  _ntohll
 # else
@@ -107,7 +107,7 @@ uint64_t _ntohll(uint64_t)
  * @since  Always.
  */
 uint16_t _htons(uint16_t)
-  __GCC_ONLY(__attribute__((__const__, __warn_unuses_result__)));
+  __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
 #if !defined(__PORTABLE)
 # define htons  _htons
 #else
@@ -126,7 +126,7 @@ uint16_t _htons(uint16_t)
  * @since  Always.
  */
 uint32_t _htonl(uint32_t)
-  __GCC_ONLY(__attribute__((__const__, __warn_unuses_result__)));
+  __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
 #if !defined(__PORTABLE)
 # define htonl  _htonl
 #else
@@ -148,7 +148,7 @@ uint32_t _htonl(uint32_t)
  * @since  Always.
  */
 uint64_t _htonll(uint64_t)
-  __GCC_ONLY(__attribute__((__const__, __warn_unuses_result__)));
+  __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
 # if !defined(__PORTABLE)
 #  define htonll  _htonll
 # else
