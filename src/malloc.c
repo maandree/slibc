@@ -51,6 +51,7 @@ static size_t get_pagesize(void)
   static size_t pagesize = 0;
   if (pagesize == 0)
     {
+      /* TODO This should be done i crt0. */
       long r = sysconf(_SC_PAGESIZE);
       pagesize = (size_t)(r == -1 ? 4096 : r);
     }
