@@ -40,6 +40,25 @@
 
 
 /**
+ * Return the pagesize. If it it cannot be retrieved,
+ * use a fallback value.
+ * 
+ * @return  The pagesize, or a fallback value.
+ */
+__attribute__((__warn_unused_result__, const))
+static size_t get_pagesize(void)
+{
+  static size_t pagesize = 0;
+  if (pagesize == 0)
+    {
+      long r = sysconf(_SC_PAGESIZE);
+      pagesize = (size_t)(r == -1 ? 4096 : r);
+    }
+  return pagesize;
+}
+
+
+/**
  * Create a new memory allocation on the heap.
  * The allocation will not be initialised.
  * The returned pointer is unaligned.
@@ -377,7 +396,7 @@ int posix_memalign(void** ptrptr, size_t boundary, size_t size)
  */
 void* valloc(size_t size)
 {
-  return memalign((size_t)sysconf(_SC_PAGESIZE), size);
+  return memalign(get_pagesize(), size);
 }
 
 
@@ -402,7 +421,7 @@ void* valloc(size_t size)
  */
 void* pvalloc(size_t size)
 {
-  size_t boundary = (size_t)sysconf(_SC_PAGESIZE);
+  size_t boundary = get_pagesize();
   size_t full_size = 2 * sizeof(size_t) + boundary - 1 + size;
   size_t rounding = 0;
   
