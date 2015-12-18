@@ -42,6 +42,6 @@ uint64_t _htonll(uint64_t value)
   rc[5] = (value >> 16) & 255;
   rc[6] = (value >>  8) & 255;
   rc[7] = (value >>  0) & 255;
-  return *(uint16_t*)rc;
+  return *(uint64_t*)rc;
 }
 

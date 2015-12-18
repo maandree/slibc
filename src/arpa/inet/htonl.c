@@ -36,6 +36,6 @@ uint32_t _htonl(uint32_t value)
   rc[1] = (value >> 16) & 255;
   rc[2] = (value >>  8) & 255;
   rc[3] = (value >>  0) & 255;
-  return *(uint16_t*)rc;
+  return *(uint32_t*)rc;
 }
 
