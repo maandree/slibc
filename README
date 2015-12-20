@@ -1,50 +1,69 @@
-slibc, the Stockholm C Standard Library, is an
-implementation of a C standard libray, for POSIX,
-just for fun.
+NAME
+	slibc - the Stockholm C Standard Library
 
-slibc does not aim to support C++, or any other
-language than C. Furthermore, it does not try
-to support older versions of C than C99.
+DESCRIPTION
+	slibc is a POSIX C standard library. It aims to support
+	ISO C99, and newer versions of ISO C, other versions of C
+	are ignored except for proper feature-test macros. Ignores
+	all languages other than C, this means that slibc cannot be
+	used in C++ by merely including the header files.
 
+	In addition to POSIX, slibc aims to support common
+	extensions, especially those in the GNU C Library because of
+	its predominance on GNU systems. slibc also aims to fill the
+	lacunae in the C standard library specification, and make
+	programming in C even easier by adding functions that would
+	be generally useful are impossible to implement efficiently
+	in other libraries.
 
-Macro definitions:
+FEATURE-TEST MACROS
+	slibc defines a few slibc-specified feature-test macros:
 
-	_SLIBC_SOURCE             -- Enable slibc extensions. These extensions
-	                               are usually extensions introduced in other
-	                               C libraries, but are considered good extensions.
-	_SLIBC_SUPPRESS_WARNINGS  -- Suppress all #warning and other warnings, this is
-	                               primarily intended to be used when compiling slibc.
-	_PORTABLE_SOURCE          -- Unconditionally disable all non-POSIX extensions, and
-	                               otherwise help ensure that the source is portable.
-	_LIBRARY_HEADER		  -- Alternative to _PORTABLE_SOURCE that should
-	                               be used in header files for libraries. This
-	                               allows you to be sure that your library is
-	                               portable between libc:s, and that sources
-	                               using your library does not been to be compiled
-	                               with the same libc. It is important to use
-	                               this instead of _PORTABLE_SOURCE in library
-	                               header files, otherwise the user of the library
-	                               cannot fully utilise _PORTABLE_SOURCE.
+	_SLIBC_SOURCE
+		Enable slibc extensions. These extensions are
+		often extensions introduced in other C libraries,
+		but are considered good extensions.
 
-	See info manual for all definitions.
+		slibc provides some slibc-specific extensions that
+		do not require _SLIBC_SOURCE. (They are however
+		disabled if _PORTABLE_SOURCE or _LIBRARY_HEADER are
+		defined.) These extensions are defined in header
+		files whose name starts with 'slibc-'. Headers
+		starting with 'slibc/' are not extensions, those are
+		internals that may change at any time.
 
+	_SLIBC_SUPPRESS_WARNINGS
+		Suppress all #warning and other warnings, this is
+		primarily intended to be used when compiling slibc.
 
-slibc provides some slibc-specific extensions that
-do not require _SLIBC_SOURCE. (They are however
-disabled if _PORTABLE_SOURCE is defined.) These
-extensions are defined in header files whose
-name starts with `slibc-`. Headers starting with
-`slibc/` are not extensions, those are internals
-that may change at any time.
+	_PORTABLE_SOURCE
+		Unconditionally disable all non-POSIX extensions, and
+		otherwise help ensure that the source is portable.
 
+	_LIBRARY_HEADER
+		Alternative to _PORTABLE_SOURCE that should be used in
+		header files for libraries. This allows you to be sure
+		that your library is portable between libc:s, and that
+		sources using your library does not been to be compiled
+		with the same libc. It is important to use this instead
+		of _PORTABLE_SOURCE in library header files, otherwise
+		the user of the library cannot fully utilise
+		_PORTABLE_SOURCE.
 
-Writing a C standard library is a massive task.
-As I only have x86_64 hardware, I will require
-help write the assembly code for other hardware.
-I also need help writing the texinfo manual and
-example code for functions, help figuring out
-the correct feature-test macros for all functions,
-their etymology, and in which libc implementions
-they appear. Help optimising all functions would
-also be appreciated.
+COMMENTS
+	Writing a C standard library is a massive task. As I only have
+	x86_64 hardware, I will require help write the assembly code
+	for other hardware. I also need help writing the texinfo manual
+	and example code for functions, help figuring out the correct
+	feature-test macros for all functions, their etymology, and in
+	which libc implementions they appear. Help optimising all
+	functions would also be appreciated.
+
+RATIONALE
+	slibc is written as a learning exercise, and for fun.
+
+SEE ALSO
+	<https://en.wikipedia.org/wiki/C_standard_library>
+
+	Full documentation available locally via: info '(gpp)'
 
