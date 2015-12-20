@@ -97,6 +97,24 @@
 #define __WCHAR_BIT        //(bin/gen/bits/intconf | grep ^WCHAR_BIT     | sed "s/^[^ ]* //")
 
 /**
+ * The 16-bit integer 0x0102 but with the
+ * bytes swapped to the storage order.
+ */
+#define __INT16_BYTEORDER  //(bin/gen/bits/intconf | grep ^INT16_BYTEORDER | sed "s/^[^ ]* //")
+
+/**
+ * The 32-bit integer 0x01020304 but with
+ * the bytes swapped to the storage order.
+ */
+#define __INT32_BYTEORDER  //(bin/gen/bits/intconf | grep ^INT32_BYTEORDER | sed "s/^[^ ]* //")
+
+/**
+ * The 64-bit integer 0x0102030405060708 but with
+ * the bytes swapped to the storage order.
+ */
+#define __INT64_BYTEORDER  //(bin/gen/bits/intconf | grep ^INT64_BYTEORDER | sed "s/^[^ ]* //")
+
+/**
  * The underlaying intrinsic type for `int8_t` or `uint8_t`.
  */
 #define __INT8             //(bin/gen/bits/intconf | grep ^INT8          | sed "s/^[^ ]* //" | sed 1q)

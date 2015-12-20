@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <arpa/inet.h>
+#include <bits/intconf.h>
+
 
 
 /**
@@ -31,6 +33,13 @@
  */
 uint32_t _ntohl(uint32_t value)
 {
+#if __INT32_BYTEORDER == 0x01020304
+  return value;
+#elif __INT32_BYTEORDER == 0x04030201
+  return (value >> 24) | ((value & 0xFF0000) >> 8) | ((value & 0x00FF00) << 8) | (value << 24);
+#elif __INT32_BYTEORDER == 0x02010403
+  return (value & 0xFF00FF00) >> 8) | ((value & 0x00FF00FF) << 8);
+#else
   unsigned char* v = (unsigned char*)&value;
   uint32_t rc = 0;
   rc |= (uint32_t)(v[0]) << 24;
@@ -38,5 +47,6 @@ uint32_t _ntohl(uint32_t value)
   rc |= (uint32_t)(v[2]) <<  8;
   rc |= (uint32_t)(v[3]) <<  0;
   return rc;
+#endif
 }
 

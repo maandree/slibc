@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <arpa/inet.h>
+#include <bits/intconf.h>
+
 
 
 /**
@@ -31,10 +33,10 @@
  */
 uint16_t _ntohs(uint16_t value)
 {
-  unsigned char* v = (unsigned char*)&value;
-  uint16_t rc = 0;
-  rc |= (uint16_t)(v[0]) << 8;
-  rc |= (uint16_t)(v[1]) << 0;
-  return rc;
+#if __INT16_BYTEORDER == 0x0102
+  return value;
+#else
+  return (value >> 8) | (value << 8);
+#endif
 }
 

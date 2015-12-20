@@ -140,6 +140,82 @@ static int fast(int bits)
 
 
 /**
+ * For a 16-bit integer with the value 0x0102, print,
+ * to a string, the bytes it is constructed by one the
+ * host machine, in storage order.
+ * 
+ * @return  The bytes in the integer juxtaposed.
+ */
+static char* byteorder_16(void)
+{
+  static char buf[16 / 4 + 1];
+  union
+  {
+    short int all;
+    struct
+    {
+      char a; char b;
+    };
+  } test = { .all = 0x0102 };
+  
+  sprintf(buf, "%02i%02i", test.a, test.b);
+  return buf;
+}
+
+
+/**
+ * For a 32-bit integer with the value 0x01020304, print,
+ * to a string, the bytes it is constructed by one the
+ * host machine, in storage order.
+ * 
+ * @return  The bytes in the integer juxtaposed.
+ */
+static char* byteorder_32(void)
+{
+  static char buf[32 / 4 + 1];
+  union
+  {
+    int all;
+    struct
+    {
+      char a; char b; char c; char d;
+    };
+  } test = { .all = 0x01020304 };
+  
+  sprintf(buf, "%02i%02i%02i%02i",
+	  test.a, test.b, test.c, test.d);
+  return buf;
+}
+
+
+/**
+ * For a 16-bit integer with the value 0x0102030405060708,
+ * print, to a string, the bytes it is constructed by one
+ * the host machine, in storage order.
+ * 
+ * @return  The bytes in the integer juxtaposed.
+ */
+static char* byteorder_64(void)
+{
+  static char buf[64 / 4 + 1];
+  union
+  {
+    long long int all;
+    struct
+    {
+      char a; char b; char c; char d;
+      char e; char f; char g; char h;
+    };
+  } test = { .all = 0x0102030405060708LL };
+  
+  sprintf(buf, "%02i%02i%02i%02i%02i%02i%02i%02i",
+	  test.a, test.b, test.c, test.d,
+	  test.e, test.f, test.g, test.h);
+  return buf;
+}
+
+
+/**
  * @param   argc  The number of command line arguments, should
  *                be either 1 (print integer width information)
  *                or 2 (otherwise).
@@ -167,12 +243,18 @@ int main(int argc, char* argv[])
       r |= printf("PTR_BIT %zu\n",       8 * sizeof(void*));
       r |= printf("WCHAR_BIT %zu\n",     8 * sizeof(L'\0'));
       
+      /* Print byte orders. */
+      r |= printf("INT16_BYTEORDER 0x%s\n",   byteorder_16());
+      r |= printf("INT32_BYTEORDER 0x%s\n",   byteorder_32());
+      r |= printf("INT64_BYTEORDER 0x%sLL\n", byteorder_64());
+      
       /* Print the intrinsic type for specific numbers of bits. */
       r |= printf("INT%zu %s\n", 8 * sizeof(char), "char");
       r |= printf("INT%zu %s\n", 8 * sizeof(short int), "short int");
       r |= printf("INT%zu %s\n", 8 * sizeof(int), "int");
       r |= printf("INT%zu %s\n", 8 * sizeof(long int), "long int");
       r |= printf("INT%zu %s\n", 8 * sizeof(long long int), "long long int");
+      
       return r < 0 ? 1 : 0;
     }
   else if (argc == 2)

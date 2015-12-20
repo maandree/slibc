@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <arpa/inet.h>
+#include <bits/intconf.h>
+
 
 
 /**
@@ -31,9 +33,10 @@
  */
 uint16_t _htons(uint16_t value)
 {
-  char rc[2];
-  rc[0] = (value >> 8) & 255;
-  rc[1] = (value >> 0) & 255;
-  return *(uint16_t*)rc;
+#if __INT16_BYTEORDER == 0x0102
+  return value;
+#else
+  return (value >> 8) | (value << 8);
+#endif
 }
 

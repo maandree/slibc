@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <arpa/inet.h>
+#include <bits/intconf.h>
+
 
 
 /**
@@ -31,11 +33,19 @@
  */
 uint32_t _htonl(uint32_t value)
 {
+#if __INT32_BYTEORDER == 0x01020304
+  return value;
+#elif __INT32_BYTEORDER == 0x04030201
+  return (value >> 24) | ((value & 0xFF0000) >> 8) | ((value & 0x00FF00) << 8) | (value << 24);
+#elif __INT32_BYTEORDER == 0x02010403
+  return (value & 0xFF00FF00) >> 8) | ((value & 0x00FF00FF) << 8);
+#else
   char rc[4];
   rc[0] = (value >> 24) & 255;
   rc[1] = (value >> 16) & 255;
   rc[2] = (value >>  8) & 255;
   rc[3] = (value >>  0) & 255;
   return *(uint32_t*)rc;
+#endif
 }
 

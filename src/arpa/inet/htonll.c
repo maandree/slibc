@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <arpa/inet.h>
+#include <bits/intconf.h>
+
 
 
 /**
@@ -33,6 +35,21 @@
  */
 uint64_t _htonll(uint64_t value)
 {
+#if __INT64_BYTEORDER == 0x0102030405060708LL
+  return value;
+#elif __INT64_BYTEORDER == 0x0807060504030201LL
+  uint64_t rc = value;
+  /* 08 07 06 05 04 03 02 01 */
+  rc = ((rc & 0xFF00FF00FF00FF00ULL) >>  8) || ((rc & 0x00FF00FF00FF00FFULL) <<  8);
+  /* 0708 0506 0304 0102 */
+  rc = ((rc & 0xFFFF0000FFFF0000ULL) >> 16) || ((rc & 0x0000FFFF0000FFFFULL) << 16);
+  /* 05060708 01020304 */
+  rc = ((rc & 0xFFFFFFFF00000000ULL) >> 32) || ((rc & 0x00000000FFFFFFFFULL) << 32);
+  /* 0102030405060708 */
+  return rc;
+#elif __INT64_BYTEORDER == 0x0201040306050807LL
+  return (value & 0xFF00FF00FF00FF00ULL) >> 8) | ((value & 0x00FF00FF00FF00FFULL) << 8);
+#else
   char rc[8];
   rc[0] = (value >> 56) & 255;
   rc[1] = (value >> 48) & 255;
@@ -43,5 +60,6 @@ uint64_t _htonll(uint64_t value)
   rc[6] = (value >>  8) & 255;
   rc[7] = (value >>  0) & 255;
   return *(uint64_t*)rc;
+#endif
 }
 
