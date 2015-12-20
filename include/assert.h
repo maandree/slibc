@@ -67,7 +67,7 @@
 # ifdef assert_perror
 #  undef assert_perror
 # endif
-# ifdef NDEBUG
+# if defined(NDEBUG)
 #  define assert_perror(errnum)  ((void)0)
 # elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #  define assert_perror(errnum)  \
