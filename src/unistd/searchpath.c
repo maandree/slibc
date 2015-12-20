@@ -50,6 +50,6 @@
  */
 char* searchpath(const char* name)
 {
-  return searchpath3(name, "", NULL);
+  return searchpath3(name, "", "");
 }
 

@@ -57,6 +57,6 @@
  */
 char* searchpath2(const char* name, const char* fallback)
 {
-  return searchpath3(name, fallback, NULL);
+  return searchpath3(name, fallback, "");
 }
 
