@@ -1,0 +1,21 @@
+RUNTIME DEPENDENCIES:
+
+	(none)
+
+
+BUILD DEPENDENCIES:
+
+	gcc
+	make
+	coreutils
+	sed
+	texinfo>=4.11 (optional)
+	https://github.com/maandree/gpp (only utilisable if not cross-compiling, optional)
+	libc (only utilisable if not cross-compiling, optional, can be slibc itself)
+
+
+INSTALL DEPENDENCIES:
+
+	make
+	coreutils
+
