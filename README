@@ -11,7 +11,7 @@ DESCRIPTION
 	In addition to POSIX, slibc aims to support common
 	extensions, especially those in the GNU C Library because of
 	its predominance on GNU systems. slibc also aims to fill the
-	lacunae in the C standard library specification, and make
+	lacunæ in the C standard library specification, and make
 	programming in C even easier by adding functions that would
 	be generally useful are impossible to implement efficiently
 	in other libraries.
