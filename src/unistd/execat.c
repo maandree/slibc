@@ -474,65 +474,30 @@ int execveat(int dirfd, const char* path, char* const argv[], char* const envp[]
  */
 int execvpeat(int dirfd, const char* file, char* const argv[], char* const envp[], int flags)
 {
-  char* path = NULL;
   char* pathname = NULL;
-  char* p;
-  char* q;
-  size_t len = 0;
   int eacces = 0;
   int saved_errno;
   
   if (strchr(file, '/') || !*file)
     return execveat(dirfd, file, argv, envp, flags);
   
-  path = getenv("PATH");
-  if (path == NULL)
+  if (getenv("PATH") == NULL)
     {
       execveat(dirfd, file, argv, envp, flags);
       if      (errno == EACCES)  eacces = 1;
-      else if (errno != ENOENT)  goto fail;
-      
-      if ((len = confstr(_CS_PATH, NULL, 0)))
-	{
-	  path = malloc(len * sizeof(char));
-	  if (path == NULL)
-	    goto fail;
-	  if (!confstr(_CS_PATH, path, len))
-	    free(path), path = NULL;
-	}
-      if (path == NULL)
-	path = strdup("/usr/local/bin:/bin:/usr/bin");
+      else if (errno != ENOENT)  return -1;
     }
-  else
-    path = strdup(path);
-  if (path == NULL)
-    goto fail;
   
-  pathname = malloc((strlen(path) + strlen(file) + 2) * sizeof(char));
+  pathname = searchpath3(file, NULL, "");
   if (pathname == NULL)
-    goto fail;
+    return -1;
   
-  for (p = path; *p; p = q + 1)
-    {
-      if (p == (q = strchr(p, ':')))
-	continue;
-      *q = '\0';
-      
-      stpcpy(stpcpy(stpcpy(pathname, p), "/"), file);
-      
-      execve(pathname, argv, envp);
-      if      (errno == EACCES)  eacces = 1;
-      else if (errno != ENOENT)  goto fail;
-    }
+  execve(pathname, argv, envp);
   
-  free(path);
-  free(pathname);
-  return errno = (eacces ? EACCES : ENOENT), -1;
-  
- fail:
   saved_errno = errno;
-  free(path);
   free(pathname);
+  if (eacces && (saved_errno == ENOENT))
+    saved_errno = EACCES;
   errno = saved_errno;
   return -1;
 }

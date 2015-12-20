@@ -329,7 +329,7 @@ int execvpe(const char* file, char* const argv[], char* const envp[])
   if (!*file)
     return errno = ENOENT, -1;
   
-  pathname = searchpath2(file, NULL);
+  pathname = searchpath3(file, NULL, ".");
   if (pathname == NULL)
     return -1;
   

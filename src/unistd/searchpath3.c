@@ -16,6 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+/* TODO temporary contants from other headers { */
+#define _CS_PATH 1
+/* } */
 
 
 
@@ -40,6 +45,9 @@
  * @param   fallback  Value to use instead of the value of $PATH, if
  *                    path is not defined. If `NULL` the default value
  *                    for $PATH is used.
+ * @param   first     If $PATH is not defined, and `fallback` is `NULL`,
+ *                    these directories are tested before the default
+ *                    directories. May be `NULL`.
  * @return            The pathname of the sought file, `NULL` on error,
  *                    or if not found. Files that are not executable
  *                    are (almost) ignored.
@@ -55,8 +63,79 @@
  * 
  * @since  Always.
  */
-char* searchpath2(const char* name, const char* fallback)
+char* searchpath3(const char* name, const char* fallback, const char* first)
 {
-  return searchpath3(name, fallback, NULL);
+  char* path;
+  size_t len = 0;
+  char* pathname = NULL;
+  char* p;
+  char* q;
+  int eacces = 0;
+  int saved_errno;
+  
+  if (strstarts(name, "./") || strstarts(name, "../") || strstarts(name, "/"))
+    {
+      if (access(name, X_OK) == 0)
+	return strdup(name);
+      return NULL;
+    }
+  
+  path = getenv("PATH");
+  if ((path == NULL) && (fallback == NULL))
+    {
+      if (first == NULL)
+	first = "";
+      if ((len = confstr(_CS_PATH, NULL, 0)))
+	{
+	  path = malloc((strlen(first) + 1 + len) * sizeof(char));
+	  if (path == NULL)
+	    goto fail;
+	  if (!confstr(_CS_PATH, stpcpy(stpcpy(path, first), ":"), len))
+	    free(path), path = NULL;
+	}
+      if (path == NULL)
+	{
+	  path = malloc(strlen(first) * sizeof(char) + sizeof(":/usr/local/bin:/bin:/usr/bin"));
+	  if (path == NULL)
+	    goto fail;
+	  stpcpy(stpcpy(path, first), ":/usr/local/bin:/bin:/usr/bin");
+	}
+    }
+  else
+    path = strdup(path == NULL ? fallback : path);
+  if (path == NULL)
+    goto fail;
+  
+  pathname = malloc((strlen(path) + strlen(name) + 2) * sizeof(char));
+  if (pathname == NULL)
+    goto fail;
+  
+  for (p = path; *p; p = q + 1)
+    {
+      if (p == (q = strchr(p, ':')))
+	continue;
+      *q = '\0';
+      
+      stpcpy(stpcpy(stpcpy(pathname, p), "/"), name);
+      
+      if (access(pathname, X_OK) == 0)
+	{
+	  char* truncated = realloc(pathname, (strlen(pathname) + 1) * sizeof(char));
+	  return truncated == NULL ? pathname : truncated;
+	}
+      else if (errno == EACCES)  eacces = 1;
+      else if (errno != ENOENT)  goto fail;
+    }
+  
+  free(path);
+  free(pathname);
+  return errno = (eacces ? EACCES : ENOENT), -1;
+  
+ fail:
+  saved_errno = errno;
+  free(path);
+  free(pathname);
+  errno = saved_errno;
+  return -1;
 }
 

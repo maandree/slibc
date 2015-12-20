@@ -830,7 +830,8 @@ int fexecve(int, char* const[], char* const[]);
  * 
  * @since  Always.
  */
-char* searchpath(const char*);
+char* searchpath(const char*)
+  __GCC_ONLY(__attribute__((__nonnull__(0))));
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -853,9 +854,8 @@ char* searchpath(const char*);
  * 
  * @param   name      The name of the sought executable. Must not be `NULL`.
  * @param   fallback  Value to use instead of the value of $PATH, if
- *                    path is not defined. If `NULL` the fall rules for
- *                    the `exec`-functions are used: The current working
- *                    directory, and the default value for $PATH.
+ *                    path is not defined. If `NULL` the default value
+ *                    for $PATH is used.
  * @return            The pathname of the sought file, `NULL` on error,
  *                    or if not found. Files that are not executable
  *                    are (almost) ignored.
@@ -871,7 +871,50 @@ char* searchpath(const char*);
  * 
  * @since  Always.
  */
-char* searchpath2(const char*, const char*);
+char* searchpath2(const char*, const char*)
+  __GCC_ONLY(__attribute__((__nonnull__(0))));
+
+/**
+ * Search the environment variable $PATH for an executable
+ * file whose name is the specified name. Slashes are ignored
+ * and treated as any other character. $PATH is searched
+ * for left to right, and ':' is used as the path-delimiter.
+ * If $PATH is not defined, a fallback value for $PATH will be
+ * used.
+ * 
+ * $PATH is not inspected if `name` starts with './', '../', or '/'.
+ * 
+ * This function was added because it was useful in implementing
+ * the `exec`-function family.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  Variant of (searchpath) that takes (2) arguments.
+ * 
+ * @param   name      The name of the sought executable. Must not be `NULL`.
+ * @param   fallback  Value to use instead of the value of $PATH, if
+ *                    path is not defined. If `NULL` the default value
+ *                    for $PATH is used.
+ * @param   first     If $PATH is not defined, and `fallback` is `NULL`,
+ *                    these directories are tested before the default
+ *                    directories. May be `NULL`.
+ * @return            The pathname of the sought file, `NULL` on error,
+ *                    or if not found. Files that are not executable
+ *                    are (almost) ignored.
+ * 
+ * @throws  ENOMEM  The process cannot allocate enough memory.
+ * @throws  ENOENT  There are no directories listed in $PATH, or
+ *                  the sought file is not exist inside $PATH.
+ * @throws  EACCES  None of the candidates (with at least one candidate)
+ *                  are executable by the current user.
+ * @throws          Any exception defined for access(3), except for `EROFS`,
+ *                  these when encountered, the search is aborted, unless
+ *                  the error is `ENOENT` or `EACCES`.
+ * 
+ * @since  Always.
+ */
+char* searchpath3(const char*, const char*, const char*)
+  __GCC_ONLY(__attribute__((__nonnull__(0))));
 #endif
 
 
