@@ -25,6 +25,15 @@
 
 
 /**
+ * The default value for the PATH environment variable.
+ */
+#ifndef DEFAULT_PATH
+# define DEFAULT_PATH  "/usr/local/bin:/bin:/usr/bin"
+#endif
+
+
+
+/**
  * Search the environment variable $PATH for an executable
  * file whose name is the specified name. Slashes are ignored
  * and treated as any other character. $PATH is searched
@@ -95,10 +104,10 @@ char* searchpath3(const char* name, const char* fallback, const char* first)
 	}
       if (path == NULL)
 	{
-	  path = malloc(strlen(first) * sizeof(char) + sizeof(":/usr/local/bin:/bin:/usr/bin"));
+	  path = malloc(strlen(first) * sizeof(char) + sizeof(":" DEFAULT_PATH));
 	  if (path == NULL)
 	    goto fail;
-	  stpcpy(stpcpy(path, first), ":/usr/local/bin:/bin:/usr/bin");
+	  stpcpy(stpcpy(path, first), ":" DEFAULT_PATH);
 	}
     }
   else
