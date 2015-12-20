@@ -800,6 +800,7 @@ int fexecv(int, char* const[]);
  */
 int fexecve(int, char* const[], char* const[]);
 
+
 #if defined(__PLAN9_SOURCE) || defined(__SLIBC_SOURCE)
 /**
  * Search the environment variable $PATH for an executable
@@ -915,6 +916,48 @@ char* searchpath2(const char*, const char*)
  */
 char* searchpath3(const char*, const char*, const char*)
   __GCC_ONLY(__attribute__((__nonnull__(0))));
+#endif
+
+
+#if defined(__BSD_SOURCE) || defined(__XOPEN_SOURCE)
+/**
+ * Detach the process from the controlling terminal
+ * and run in the background.
+ * 
+ * The function shall change the working directory
+ * to '/' to avoid block a mountpoint from being
+ * unmounted. It shall also change direct stdin,
+ * stdout, and stderr to '/dev/null'. It shall
+ * then double-fork, and between the fork, become
+ * a session leader, temporarily, so that the
+ * it no longer has a controlling terminal.
+ * 
+ * Note well, this function does not implement a
+ * reliable or particularly correct mechanism for
+ * daemonising a process. It shall not be used!
+ * Note, the GNU implementation is slightly
+ * different because of a bug.
+ * 
+ * @param   nochdir  The not change working directory to '/'.
+ * @param   noclose  The not redirect stdin, stdout, and stderr to '/dev/null'.
+ * @return           Zero on success, -1 on error.
+ * 
+ * @throws  EACCES  If `nochdir` is zero, and the user is denied access to '/'.
+ * @throws          Any error specified for open(3).
+ * @throws          Any error specified for dup2(3).
+ * @throws          Any error specified for fork(3).
+ * @throws          Any error specified for setsid(3).
+ * 
+ * @since  Always.
+ */
+int daemon(int, int)
+  __deprecated("Portable programs should implement this mechanism "
+	       "manually. Non-portable programs may use 'daemonise'.");
+#endif
+
+
+#if defined(__SLIBC_SOURCE)
+int daemonise(const char* int); /* TODO */
 #endif
 
 
