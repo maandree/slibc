@@ -1,0 +1,24 @@
+@c  The title and the subtitle of the manual.
+@set title Stockholm C Standard Library
+@set subtitle The @command{slibc} reference manual
+
+@c  The full name of the documented program or package.
+@set programname Stockholm C Standard Library
+@set programnamewiththe the Stockholm C Standard Library
+
+
+@c  Authors of the manual. Included at the bottom
+@c  of the titlepage on TeX processed output.
+@macro authors{}
+@author by Mattias Andrée (maandree)
+@end macro
+
+
+@c  Dedication for TeX processed output.
+@c @set HAVE_DEDICATION
+@c @macro dedication{}
+@c TODO  I do not have a quote for this manual yet.
+@c @center `'
+@c @end macro
+@c  (I don't use dedications, I use quotes.)
+

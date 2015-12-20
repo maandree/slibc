@@ -117,22 +117,22 @@
 /**
  * The underlaying intrinsic type for `int8_t` or `uint8_t`.
  */
-#define __INT8             //(bin/gen/bits/intconf | grep ^INT8          | sed "s/^[^ ]* //" | sed 1q)
+#define __INT8             //(bin/gen/bits/intconf | grep ^INT8\         | sed "s/^[^ ]* //" | sed 1q)
 
 /**
  * The underlaying intrinsic type for `int16_t` or `uint16_t`.
  */
-#define __INT16            //(bin/gen/bits/intconf | grep ^INT16         | sed "s/^[^ ]* //" | sed 1q)
+#define __INT16            //(bin/gen/bits/intconf | grep ^INT16\        | sed "s/^[^ ]* //" | sed 1q)
 
 /**
  * The underlaying intrinsic type for `int32_t` or `uint32_t`.
  */
-#define __INT32            //(bin/gen/bits/intconf | grep ^INT32         | sed "s/^[^ ]* //" | sed 1q)
+#define __INT32            //(bin/gen/bits/intconf | grep ^INT32\        | sed "s/^[^ ]* //" | sed 1q)
 
 /**
  * The underlaying intrinsic type for `int64_t` or `uint64_t`.
  */
-#define __INT64            //(bin/gen/bits/intconf | grep ^INT64         | sed "s/^[^ ]* //" | sed 1q)
+#define __INT64            //(bin/gen/bits/intconf | grep ^INT64\        | sed "s/^[^ ]* //" | sed 1q)
 
 /**
  * The underlaying intrinsic type for `int8_t` or `uint8_t`.

@@ -72,7 +72,7 @@ uint32_t _ntohl(uint32_t)
 # define ntohl(value)  (_ntohl(value))
 #endif
 
-#ifdef (__SLIBC_SOURCE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Convert a 64-bit quantity from network byte order
  * (little endian) to host byte order.
@@ -133,7 +133,7 @@ uint32_t _htonl(uint32_t)
 # define htonl(value)  (_htonl(value))
 #endif
 
-#ifdef (__SLIBC_SOURCE)
+#if defined(__SLIBC_SOURCE)
 /**
  * Convert a 64-bit quantity from host byte order
  * (little endian) to network byte order.

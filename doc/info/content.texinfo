@@ -1,0 +1,101 @@
+@c  This file includes everything after the titlepage.
+
+
+@defcodeindex op
+@defcodeindex hf
+@defcodeindex lv
+
+
+
+@ifnothtml
+@shortcontents
+@contents
+@end ifnothtml
+
+
+@menu
+* Introduction::                              Introduction to @command{slibc} and this manual.
+* Language facilities::                       C language facilities provided by the library.
+* Error reporting::                           Detecting, reporting, and printing errors.
+* Integer types::                             Portable and descriptive integer types.
+* Memory allocation::                         How to give your process or memory.
+
+* Free Software Needs Free Documentation::    Why free documentation is important.
+* GNU General Public License::                Copying and sharing @command{slibc}.
+* GNU Free Documentation License::            Copying and sharing this manual.
+
+* Concept index::                             Index of concepts.
+* Option index::                              Index of command line options.
+* Program index::                             Index of utilities.
+* Variable index::                            Index of environment variables.
+* Header file index::                         Index of header files.
+* Data type index::                           Index of data types.
+* LValue index::                              Index of all types of lvalues.
+* Function index::                            Index of functions and callable macros.
+@end menu
+@c In GNU Emacs a @detailmenu can be created with `C-c C-u m`.
+@c TODO @detailmenu
+
+
+
+@include chap/introduction.texinfo
+@include chap/language-facilities.texinfo
+@include chap/error-reporting.texinfo
+@include chap/integer-types.texinfo
+@include chap/memory-allocation.texinfo
+
+
+
+@include appx/free-software-needs-free-documentation.texinfo
+
+@node GNU General Public License
+@appendix GNU General Public License
+@include appx/gpl.texinfo
+
+@node GNU Free Documentation License
+@appendix GNU Free Documentation License
+@include appx/fdl.texinfo
+
+
+
+@node Concept index
+@unnumbered Concept index
+Index of concepts.
+@printindex cp
+
+@node Option index
+@unnumbered Option index
+Index of command line options.
+@printindex op
+
+@node Program index
+@unnumbered Program index
+Index of utilities.
+@printindex pg
+
+@node Variable index
+@unnumbered Variable index
+Index of environment variables.
+@printindex vr
+
+@node Header file index
+@unnumbered Header file index
+Index of header files.
+@printindex hf
+
+@node Data type index
+@unnumbered Data type index
+Index of type definitions, structures, unions, enumerations,
+and built in data types.
+@printindex tp
+
+@node LValue index
+@unnumbered LValue index
+Index of variables, constant preprocessor values, and lvalue macros.
+@printindex lv
+
+@node Function index
+@unnumbered Function index
+Index of functions and callable macros.
+@printindex fn
+

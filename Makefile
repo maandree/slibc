@@ -61,8 +61,11 @@ CCFLAGS_SHARED = $(CCFLAGS_COMMON) -fPIC -DSHARED
 MMFLAGS = $(CCFLAGS_COMMON) -Igen -MG
 
 
-# Flags to pass into the texinfo manual compilers.
-TEXIFLAGS =
+# Flags to pass into the texinfo manual compilers, when processing with TeX.
+TEXINFO_FLAGS =
+
+# Flags to pass into the texinfo manual compilers, when not processing with TeX.
+INFO_FLAGS =
 
 # This shall be set to 'logo' when doc/logo.svg exists, and is the logo of the project.
 LOGO =
@@ -160,7 +163,7 @@ obj/%.ps: doc/%.svg
 # Compile texinfo manual.
 bin/%.info $(foreach P,$(INFOPARTS_),bin/%.info-$(P)): doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo
 	@mkdir -p bin
-	$(MAKEINFO) $(TEXIFLAGS) $<
+	$(MAKEINFO) $(INFO_FLAGS) $<
 	mv $*.info bin
 ifneq ($(INFOPARTS),0)
 	mv $*.info-* bin
@@ -169,19 +172,19 @@ endif
 bin/%.pdf: doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo $(foreach F,$(LOGO),obj/$(F).pdf)
 	@! test -d obj/pdf || rm -rf obj/pdf
 	@mkdir -p obj/pdf bin
-	cd obj/pdf && texi2pdf $(TEXIFLAGS) ../../$< < /dev/null
+	cd obj/pdf && texi2pdf $(TEXINFO_FLAGS) ../../$< < /dev/null
 	mv obj/pdf/$*.pdf $@
 
 bin/%.dvi: doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
 	@! test -d obj/dvi || rm -rf obj/dvi
 	@mkdir -p obj/dvi bin
-	cd obj/dvi && $(TEXI2DVI) $(TEXIFLAGS) ../../$< < /dev/null
+	cd obj/dvi && $(TEXI2DVI) $(TEXINFO_FLAGS) ../../$< < /dev/null
 	mv obj/dvi/$*.dvi $@
 
 bin/%.ps: doc/info/%.texinfo doc/info/*.texinfo doc/info/*/*.texinfo $(foreach F,$(LOGO),obj/$(F).eps)
 	@! test -d obj/ps || rm -rf obj/ps
 	@mkdir -p obj/ps bin
-	cd obj/ps && texi2pdf $(TEXIFLAGS) --ps ../../$< < /dev/null
+	cd obj/ps && texi2pdf $(TEXINFO_FLAGS) --ps ../../$< < /dev/null
 	mv obj/ps/$*.ps $@
 
 

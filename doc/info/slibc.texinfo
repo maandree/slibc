@@ -1,7 +1,7 @@
 \input texinfo   @c -*-texinfo-*-
 @c %**start of header
 @documentencoding UTF-8
-@include macros.texinfo
+@include reusable/macros.texinfo
 @copying
 @c --------------------------------------------------------------------------------
 Copyright @copyright{} 2015  @w{Mattias Andrée @e{maandree@@member.fsf.org}}
@@ -16,6 +16,7 @@ with no Front-Cover Texts, and with no Back-Cover Texts. A copy of the
 license is included in the section entitled ``GNU Free Documentation License''.
 @end quotation
 @c THIS WAS LAST CHANGED 2015-OCTOBER-12
+@c When updated, please remember to update hardcopy-copying.texinfo too.
 @c --------------------------------------------------------------------------------
 @end copying
 
@@ -23,7 +24,25 @@ license is included in the section entitled ``GNU Free Documentation License''.
 @setfilename slibc.info
 @settitle slibc -- Stockholm C Standard Library
 @documentlanguage en_GB
-@finalout
+@include titlepage-data.texinfo
+
+@c  You can change the title of the document in dir by compiling with
+@c    INFO_FLAGS='-c CATEGORY=your_new_category'
+@ifclear CATEGORY
+@set CATEGORY Multimedia
+@end ifclear
+
+@dircategory @value{CATEGORY}
+@direntry
+* slibc: (slibc).               @value{subtitle}
+@end direntry
+
+@documentdescription
+Developer and maintainer manual for the
+Stockholm C Standard Library.
+@end documentdescription
+@c %**end of header
+
 
 @iftex
 @c @set USLETTER
@@ -40,6 +59,7 @@ license is included in the section entitled ``GNU Free Documentation License''.
 @c @set DOUBLE_HEADINGS
 @c @set SINGLE_HEADINGS
 @c @set AMERICANSPACING
+@c @set FINALOUT
 
 @ignore
 
@@ -65,87 +85,13 @@ license is included in the section entitled ``GNU Free Documentation License''.
 
 @end ignore
 
-@ifset HARDCOPY
-@ifclear USLETTER
-@ifclear AFOURPAPER
-@ifclear AFIVEPAPER
-@ifclear SMALLBOOK
-@set SMALLBOOK
-@end ifclear
-@end ifclear
-@end ifclear
-@end ifclear
-@end ifset
-
-@ifclear SINGLE_HEADINGS
-@ifclear DOUBLE_HEADINGS
-@ifclear HARDCOPY
-@set SINGLE_HEADINGS
-@end ifclear
-@ifset HARDCOPY
-@set DOUBLE_HEADINGS
-@end ifset
-@end ifclear
-@end ifclear
-
-@ifset AFIVEPAPER
-@afivepaper
-@end ifset
-@ifset SMALLBOOK
-@smallbook
-@end ifset
-@ifclear AFIVEPAPER
-@ifclear SMALLBOOK
-@ifclear USLETTER
-@afourpaper
-@set AFOURPAPER
-@end ifclear
-@end ifclear
-@end ifclear
-
-@ifset HARDCOPY
-@ifset CROPMARKS
-@cropmarks
-@end ifset
-@ifclear SKIPCHAPTERNEWPAGE
-@setchapternewpage odd
-@end ifclear
-@end ifset
-
-@ifclear SKIPFONTTEXTSIZE
-@ifset SMALLBOOK
-@set SMALLFONT
-@end ifset
-@ifset AFIVEPAPER
-@set SMALLFONT
-@end ifset
-@end ifclear
-@ifset SMALLFONT
-@fonttextsize 10
-@end ifset
-@ifclear SMALLFONT
-@fonttextsize 11
-@end ifclear
-
-@ifclear AMERICANSPACING
-@frenchspacing on
-@end ifclear
-
+@comment You can see these too with TEXINFO_FLAGS.
 @c @paragraphindent asis
 @c @firstparagraphindent none
 @c @exampleindent asis
 @c @kbdinputstyle distinct
 
-@dircategory Library
-@direntry
-* slibc: (slibc).               Stockholm C Standard Library.
-@end direntry
-
-@documentdescription
-Developer and maintainer manual for the
-Stockholm C Standard Library.
-@end documentdescription
-@c %**end of header
+@include reusable/paper.texinfo
 
 
 
@@ -195,183 +141,11 @@ Stockholm C Standard Library.
 
 
 
-@defcodeindex op
-@defcodeindex hf
-@defcodeindex lv
-
-
-
-@ifset HARDCOPY
 @include hardcopy-copying.texinfo
-@end ifset
+@include reusable/titlepage.texinfo
+@setheadings{}
 
-@ifnottex
-@node Top
-@top slibc -- Stockholm C Standard Library
-@insertcopying
-@end ifnottex
-
-@titlepage
-@title Stockholm C Standard Library
-@subtitle The @command{slibc} reference manual
-
-@ifset DATE
-@ifset VERSION
-@ifset EDITION
-@subtitle @value{DATE}, Stockholm C Standard Library version@tie{}@value{VERSION}, @value{EDITION} edition
-@end ifset
-@ifclear EDITION
-@subtitle @value{DATE}, Stockholm C Standard Library version@tie{}@value{VERSION}
-@end ifclear
-@end ifset
-@ifclear VERSION
-@ifset EDITION
-@subtitle @value{DATE}, @value{EDITION} edition
-@end ifset
-@ifclear EDITION
-@subtitle @value{DATE}
-@end ifclear
-@end ifclear
-@end ifset
-@ifclear DATE
-@ifset VERSION
-@ifset EDITION
-@subtitle Stockholm C Standard Library version@tie{}@value{VERSION}, @value{EDITION} edition
-@end ifset
-@ifclear EDITION
-@subtitle Stockholm C Standard Library version@tie{}@value{VERSION}
-@end ifclear
-@end ifset
-@ifclear VERSION
-@ifset EDITION
-@subtitle @value{EDITION} edition
-@end ifset
-@end ifclear
-@end ifclear
-
-@ifset LOGO
-@vskip 0pt plus 1filll
-@comment this way, it is centered exactly in pdf and approximently in dvi and ps
-@comment @center does not work for @image in dvi and ps
-@multitable @columnfractions 0.15 0.7
-@item @tab @center @image{../logo,250px}
-@end multitable
-@vskip 0pt plus 2filll
-@end ifset
-@author by Mattias Andrée (maandree)
-
-@page
-@ifset HARDCOPY
-@vskip 0pt plus 1filll
-@insertcopying
-@page
-@end ifset
-@c TODO  I do not have a quote for this manual yet.
-@c @center `'
-@ifclear HARDCOPY
-@vskip 0pt plus 1filll
-@c If you prefer a dead tree edition, you can order one from
-@c ...
-@c @*
-@insertcopying
-@end ifclear
-@end titlepage
-
-@ifset DOUBLE_HEADINGS
-@headings double
-@end ifset
-@ifset SINGLE_HEADINGS
-@headings single
-@end ifset
-
-@shortcontents
-@contents
-
-
-
-@menu
-* Introduction::                              Introduction to @command{slibc} and this manual.
-* Language facilities::                       C language facilities provided by the library.
-* Error reporting::                           Detecting, reporting, and printing errors.
-* Integer types::                             Portable and descriptive integer types.
-* Memory allocation::                         How to give your process or memory.
-
-* Free Software Needs Free Documentation::    Why free documentation is important.
-* GNU General Public License::                Copying and sharing @command{slibc}.
-* GNU Free Documentation License::            Copying and sharing this manual.
-
-* Concept index::                             Index of concepts.
-* Option index::                              Index of command line options.
-* Program index::                             Index of utilities.
-* Variable index::                            Index of environment variables.
-* Header file index::                         Index of header files.
-* Data type index::                           Index of data types.
-* LValue index::                              Index of all types of lvalues.
-* Function index::                            Index of functions and callable macros.
-@end menu
-@c TODO @detailmenu (`C-c C-u m`)
-
-
-
-@include chap/introduction.texinfo
-@include chap/language-facilities.texinfo
-@include chap/error-reporting.texinfo
-@include chap/integer-types.texinfo
-@include chap/memory-allocation.texinfo
-
-
-
-@include appx/free-software-needs-free-documentation.texinfo
-
-@node GNU General Public License
-@appendix GNU General Public License
-@include gpl.texinfo
-
-@node GNU Free Documentation License
-@appendix GNU Free Documentation License
-@include fdl.texinfo
-
-
-@node Concept index
-@unnumbered Concept index
-Index of concepts.
-@printindex cp
-
-@node Option index
-@unnumbered Option index
-Index of command line options.
-@printindex op
-
-@node Program index
-@unnumbered Program index
-Index of utilities.
-@printindex pg
-
-@node Variable index
-@unnumbered Variable index
-Index of environment variables.
-@printindex vr
-
-@node Header file index
-@unnumbered Header file index
-Index of header files.
-@printindex hf
-
-@node Data type index
-@unnumbered Data type index
-Index of type definitions, structures, unions, enumerations,
-and built in data types.
-@printindex tp
-
-@node LValue index
-@unnumbered LValue index
-Index of variables, constant preprocessor values, and lvalue macros.
-@printindex lv
-
-@node Function index
-@unnumbered Function index
-Index of functions and callable macros.
-@printindex fn
+@include content.texinfo
 
 
 @bye
