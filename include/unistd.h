@@ -800,6 +800,80 @@ int fexecv(int, char* const[]);
  */
 int fexecve(int, char* const[], char* const[]);
 
+#if defined(__PLAN9_SOURCE) || defined(__SLIBC_SOURCE)
+/**
+ * Search the environment variable $PATH for an executable
+ * file whose name is the specified name. Slashes are ignored
+ * and treated as any other character. $PATH is searched
+ * for left to right, and ':' is used as the path-delimiter.
+ * 
+ * $PATH is not inspected if `name` starts with './', '../', or '/'.
+ * 
+ * This is a Plan 9 from Bell Labs compliant slibc extension.
+ * 
+ * @etymology  (Search) ($PATH) for an executable.
+ * 
+ * @param   name  The name of the sought executable. Must not be `NULL`.
+ * @return        The pathname of the sought file, `NULL` on error,
+ *                or if not found. Files that are not executable
+ *                are (almost) ignored.
+ * 
+ * @throws  ENOMEM  The process cannot allocate enough memory.
+ * @throws  ENOENT  $PATH is not defined, there are no directories
+ *                  listed in $PATH, or the sought file is not
+ *                  exist inside $PATH.
+ * @throws  EACCES  None of the candidates (with at least one candidate)
+ *                  are executable by the current user.
+ * @throws          Any exception defined for access(3), except for `EROFS`,
+ *                  these when encountered, the search is aborted, unless
+ *                  the error is `ENOENT` or `EACCES`.
+ * 
+ * @since  Always.
+ */
+char* searchpath(const char*);
+#endif
+
+#if defined(__SLIBC_SOURCE)
+/**
+ * Search the environment variable $PATH for an executable
+ * file whose name is the specified name. Slashes are ignored
+ * and treated as any other character. $PATH is searched
+ * for left to right, and ':' is used as the path-delimiter.
+ * If $PATH is not defined, a fallback value for $PATH will be
+ * used.
+ * 
+ * $PATH is not inspected if `name` starts with './', '../', or '/'.
+ * 
+ * This function was added because it was useful in implementing
+ * the `exec`-function family.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  Variant of (searchpath) that takes (2) arguments.
+ * 
+ * @param   name      The name of the sought executable. Must not be `NULL`.
+ * @param   fallback  Value to use instead of the value of $PATH, if
+ *                    path is not defined. If `NULL` the fall rules for
+ *                    the `exec`-functions are used: The current working
+ *                    directory, and the default value for $PATH.
+ * @return            The pathname of the sought file, `NULL` on error,
+ *                    or if not found. Files that are not executable
+ *                    are (almost) ignored.
+ * 
+ * @throws  ENOMEM  The process cannot allocate enough memory.
+ * @throws  ENOENT  There are no directories listed in $PATH, or
+ *                  the sought file is not exist inside $PATH.
+ * @throws  EACCES  None of the candidates (with at least one candidate)
+ *                  are executable by the current user.
+ * @throws          Any exception defined for access(3), except for `EROFS`,
+ *                  these when encountered, the search is aborted, unless
+ *                  the error is `ENOENT` or `EACCES`.
+ * 
+ * @since  Always.
+ */
+char* searchpath2(const char*, const char*);
+#endif
+
 
 
 #endif

@@ -21,9 +21,6 @@
 #include <alloca.h>
 #include <string.h>
 #include <stdlib.h>
-/* TODO temporary contants from other headers { */
-#define _CS_PATH 1
-/* } */
 
 
 
@@ -323,12 +320,7 @@ int execve(const char* path, char* const argv[], char* const envp[])
  */
 int execvpe(const char* file, char* const argv[], char* const envp[])
 {
-  char* path = NULL;
   char* pathname = NULL;
-  char* p;
-  char* q;
-  size_t len = 0;
-  int eacces = 0;
   int saved_errno;
   
   if (strchr(file, '/'))
@@ -337,49 +329,13 @@ int execvpe(const char* file, char* const argv[], char* const envp[])
   if (!*file)
     return errno = ENOENT, -1;
   
-  path = getenv("PATH");
-  if (path == NULL)
-    {
-      if ((len = confstr(_CS_PATH, NULL, 0)))
-	{
-	  path = malloc((2 + len) * sizeof(char));
-	  if (path == NULL)
-	    goto fail;
-	  if (!confstr(_CS_PATH, stpcpy(path, ".:"), len))
-	    free(path), path = NULL;
-	}
-      if (path == NULL)
-	path = strdup(".:/usr/local/bin:/bin:/usr/bin");
-    }
-  else
-    path = strdup(path);
-  if (path == NULL)
-    goto fail;
-  
-  pathname = malloc((strlen(path) + strlen(file) + 2) * sizeof(char));
+  pathname = searchpath2(file, NULL);
   if (pathname == NULL)
-    goto fail;
+    return -1;
   
-  for (p = path; *p; p = q + 1)
-    {
-      if (p == (q = strchr(p, ':')))
-	continue;
-      *q = '\0';
-      
-      stpcpy(stpcpy(stpcpy(pathname, p), "/"), file);
-      
-      execve(pathname, argv, envp);
-      if      (errno == EACCES)  eacces = 1;
-      else if (errno != ENOENT)  goto fail;
-    }
+  execve(pathname, argv, envp);
   
-  free(path);
-  free(pathname);
-  return errno = (eacces ? EACCES : ENOENT), -1;
-  
- fail:
   saved_errno = errno;
-  free(path);
   free(pathname);
   errno = saved_errno;
   return -1;
