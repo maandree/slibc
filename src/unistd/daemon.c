@@ -38,6 +38,8 @@
  * Note, the GNU implementation is slightly
  * different because of a bug.
  * 
+ * @etymology  (Daemon)ise!
+ * 
  * @param   nochdir  The not change working directory to '/'.
  * @param   noclose  The not redirect stdin, stdout, and stderr to '/dev/null'.
  * @return           Zero on success, -1 on error.
