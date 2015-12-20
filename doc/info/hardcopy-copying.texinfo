@@ -47,9 +47,9 @@ with no Front-Cover Texts,
 and with no Back-Cover Texts.
 A copy of the license is included in the section entitled
 ``GNU Free Documentation License''.
-@c  THIS WAS LAST UPPDATE 2015-DECEMBER-08 UTC
+@c  THIS WAS LAST UPPDATE 2015-OCTOBER-12 UTC
 @c  AUTHORITATIVE COPYRIGHT INFORMATION IS AVAILABLE
-@c  IN scrotty.texinfo. THIS FILL MUST BE UPDATED
+@c  IN slibc.texinfo. THIS FILL MUST BE UPDATED
 @c  BEFORE PRINTING.
 
 @*
