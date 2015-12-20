@@ -33,11 +33,11 @@
  */
 uint32_t _htonl(uint32_t value)
 {
-#if __INT32_BYTEORDER == 0x01020304
+#if __INT32_BYTEORDER == 0x01020304L
   return value;
-#elif __INT32_BYTEORDER == 0x04030201
+#elif __INT32_BYTEORDER == 0x04030201L
   return (value >> 24) | ((value & 0xFF0000) >> 8) | ((value & 0x00FF00) << 8) | (value << 24);
-#elif __INT32_BYTEORDER == 0x02010403
+#elif __INT32_BYTEORDER == 0x02010403L
   return (value & 0xFF00FF00) >> 8) | ((value & 0x00FF00FF) << 8);
 #else
   char rc[4];

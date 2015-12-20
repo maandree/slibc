@@ -173,17 +173,34 @@ static char* byteorder_16(void)
 static char* byteorder_32(void)
 {
   static char buf[32 / 4 + 1];
-  union
-  {
-    int all;
-    struct
+  if (8 * sizeof(int) == 32)
     {
-      char a; char b; char c; char d;
-    };
-  } test = { .all = 0x01020304 };
+      union
+      {
+	int all;
+	struct
+	{
+	  char a; char b; char c; char d;
+	};
+      } test = { .all = 0x01020304 };
   
-  sprintf(buf, "%02i%02i%02i%02i",
-	  test.a, test.b, test.c, test.d);
+      sprintf(buf, "%02i%02i%02i%02i",
+	      test.a, test.b, test.c, test.d);
+    }
+  else
+    {
+      union
+      {
+	long int all;
+	struct
+	{
+	  char a; char b; char c; char d;
+	};
+      } test = { .all = 0x01020304L };
+  
+      sprintf(buf, "%02i%02i%02i%02i",
+	      test.a, test.b, test.c, test.d);
+    }
   return buf;
 }
 
@@ -245,7 +262,7 @@ int main(int argc, char* argv[])
       
       /* Print byte orders. */
       r |= printf("INT16_BYTEORDER 0x%s\n",   byteorder_16());
-      r |= printf("INT32_BYTEORDER 0x%s\n",   byteorder_32());
+      r |= printf("INT32_BYTEORDER 0x%sL\n",  byteorder_32());
       r |= printf("INT64_BYTEORDER 0x%sLL\n", byteorder_64());
       
       /* Print the intrinsic type for specific numbers of bits. */
