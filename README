@@ -59,6 +59,15 @@ COMMENTS
 	which libc implementions they appear. Help optimising all
 	functions would also be appreciated.
 
+FUTURE DIRECTIONS
+       The macro _SMALL_BINARY shall whenever available, create
+       macros that make the program use implementions of the functions
+       that optimised for size rather than performance. It should
+       be compile-time selectable whether this macro has any effect,
+       or if it is always in effect. _FAST_BINARY could also be added
+       to make the program use fast implementions when the library
+       is compiled to use the size optimised implementations.
+
 RATIONALE
 	slibc is written as a learning exercise, and for fun.
 
