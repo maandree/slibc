@@ -69,7 +69,7 @@
 # endif
 # ifdef NDEBUG
 #  define assert_perror(errnum)  ((void)0)
-#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+# elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #  define assert_perror(errnum)  \
   ((void)((errnum == 0) ? 0 : (__assert_fail(NULL, errnum, __FILE__, __LINE__, __func__), 0)))
 # else
