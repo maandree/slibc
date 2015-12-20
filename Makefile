@@ -22,7 +22,7 @@ CCFLAGS_UNHOSTED = -nostdinc -ffreestanding
 
 # Preprocessor flags defined by slibc that are required to build the slibc.
 CCFLAGS_SLIBC_DEFS = -D_SLIBC_SOURCE=1 -D_GNU_SOURCE=1 -D_BSD_SOURCE=1 -D_SLIBC_SUPPRESS_WARNINGS=1 \
-                     -D_POSIX_C_SOURCE=999999L -D_XOPEN_SOURCE=9999 -D__BUILDING_SLIBC=1
+                     -D_POSIX_C_SOURCE=999999L -D_XOPEN_SOURCE=9999 -D_PLAN9_SOURCE=1 -D__BUILDING_SLIBC=1
 # __BUILDING_SLIBC is used to that make all prototypes visible, that are otherwise
 # hidden because the library is compiled with a too old revision of C.
 
