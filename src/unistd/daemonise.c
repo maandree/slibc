@@ -167,7 +167,7 @@ int daemonise(const char* name, int flags) /* TODO user-private daemons */
     }
   
   /* Remove malformatted environment entires. */
-  if ((flags & DAEMONISE_KEEP_ENVIRON) == 0)
+  if (((flags & DAEMONISE_KEEP_ENVIRON) == 0) && (environ != NULL))
     {
       for (r = w = environ; *r; r++)
 	if (strchr(*r, '=')) /* It happens that this is not the case! (Thank you PAM!) */
