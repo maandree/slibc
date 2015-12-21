@@ -1112,6 +1112,47 @@ int daemonise(const char*, int)
 #endif
 
 
+/**
+ * Get password input from the terminal.
+ * 
+ * The exact behaviour of this function depends on the implementations.
+ * However you can assume that, the controlling terminal (/dev/tty) is
+ * opened and used for input and output, and that echoing is disabled.
+ * You cannot assume that arbitrary lengths are supported. However, in
+ * this implementation, line editing is enabled and arbitrary lengths
+ * are supported. If the length of the input (excluding termination) is
+ * less than 8192 a statically allocated string is returned, otherwise
+ * a dynamically allocated string is returned.
+ * 
+ * @etymology  (Get) (pass)word from terminal!
+ * 
+ * @param   prompt  Text to print at the beginning of the line.
+ *                  Used to tell the user what is expected of her.
+ *                  Must not be `NULL`.
+ * @return          The entered line. You should override it with zeroes as
+ *                  soon as possible to avoid leaving cleartest passphrases
+ *                  visible in memory, or potentially stored to unencrypted
+ *                  swap. The returned string is statically allocated, do
+ *                  not deallocate it, unless you know that you are using
+ *                  slibc and the length of the string is at least 8192.
+ *                  `NULL` on error. If a statically allocated string is
+ *                  returned, it will be overwritten at the next call.
+ * 
+ * @throws  Any error specified for open(3).
+ * @throws  Any error specified for malloc(3).
+ * @throws  Any error specified for read(3).
+ * @throws  Any error specified for tcgetattr(3).
+ * @throws  Any error specified for tcsetattr(3).
+ * @throws  Any error specified for tcdrain(3).
+ * 
+ * @since  Always.
+ */
+char* getpass(const char*)
+  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)))
+  __deprecated("'getpass' has been deprecated without any "
+	       "replacement. You could use libpassphrase instead. :)");
+
+
 
 #endif
 
