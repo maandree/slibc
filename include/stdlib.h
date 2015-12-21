@@ -288,6 +288,49 @@ long long int atoq(const char*)
 #endif
 
 
+#if !defined(__PORTABLE)
+/**
+ * This function is identical to `atoll`.
+ * 
+ * This is a Linux libc extension.
+ * 
+ * @since  Always.
+ */
+long long int atoq(const char*)
+  __deprecated("'atoq' is obsolete and not portable, use 'atoll' instead.")
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));
+#endif
+
+
+#if defined(__SVID_SOURCE) || defined(__BSD_SOURCE)
+/**
+ * This function shall in some manner clear the environment.
+ * 
+ * To minimise the risk of fatal race conditions, this
+ * implementation will set the first element in
+ * `extern char** environ` to `NULL`, unless `environ`
+ * itself is `NULL`. This also reduces that risk that
+ * programs stop working when switching to slibc.
+ * 
+ * The exact behaviour of this function depeneds of the
+ * implementations. Depending on the implementation,
+ * this may or may not entail setting `environ` to `NULL`.
+ * 
+ * This function is a very common non-standard extension.
+ * 
+ * @etymology  (Clear) the (env)ironment!
+ * 
+ * @returns  This function is always successful, and will
+ *           always return zero. However, according to the
+ *           specifications, it shall return -1 on failure.
+ * 
+ * @since  Always.
+ */
+int clearenv(void)
+  __warning("It may be better to use `if (environ) *environ = NULL;`.");
+#endif
+
+
 
 /* TODO implement rand-functions */
 #define RAND_MAX  1
