@@ -48,6 +48,7 @@
  * @since  Always.
  */
 int creat(const char*, mode_t)
+  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)))
   __deprecated("Use 'open' instead.");
 
 
