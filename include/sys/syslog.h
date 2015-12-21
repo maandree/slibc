@@ -15,6 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-# warning "Redirecting incorrect #include of <sys/poll.h> to <poll.h>"
-#include <poll.h>
+# warning "Redirecting incorrect #include of <sys/syslog.h> to <syslog.h>"
+#include <syslog.h>
 

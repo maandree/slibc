@@ -15,6 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-# warning "Redirection incorrect #include of <wait.h> to <sys/wait.h>"
+# warning "Redirecting incorrect #include of <wait.h> to <sys/wait.h>"
 #include <sys/wait.h>
 

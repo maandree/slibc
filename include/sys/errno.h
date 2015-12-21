@@ -15,6 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-# warning "Redirection incorrect #include of <sys/errno.h> to <errno.h>"
+# warning "Redirecting incorrect #include of <sys/errno.h> to <errno.h>"
 #include <errno.h>
 

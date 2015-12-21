@@ -15,6 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-# warning "Redirection incorrect #include of <sys/fcntl.h> to <fcntl.h>"
+# warning "Redirecting incorrect #include of <sys/fcntl.h> to <fcntl.h>"
 #include <fcntl.h>
 
