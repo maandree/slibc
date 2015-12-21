@@ -330,6 +330,32 @@ int clearenv(void)
   __warning("It may be better to use `if (environ) *environ = NULL;`.");
 #endif
 
+/**
+ * This function returns the value assoicated with a
+ * specified environment variable.
+ * 
+ * Portable program must not check `errno`. No errors
+ * are defined by POSIX.
+ * 
+ * @etymology  (Get) the value of an (env)ironment variable!
+ * 
+ * @param   name  The name of the sought environment variable.
+ *                Must not be `NULL`.
+ * @return        The value of the environment variable.
+ *                `NULL` on error, or if not found. This
+ *                pointer is subpointer, and must not be
+ *                modified except for in-place changes.
+ * 
+ * @throws  0       No such environment variable found.
+ *                  This is a slibc extensions.
+ * @throws  EINVAL  `name` is `NULL` (must not be the case), empty,
+ *                  or contains a '='. This is a slibc extensions.
+ * 
+ * @since  Always.
+ */
+char* getenv(const char*)
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));
+
 
 
 /* TODO implement rand-functions */
