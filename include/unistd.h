@@ -73,11 +73,70 @@
 #define STDERR_FILENO  2
 
 
-/* TODO temporary values */
+/**
+ * Used in `access` and `faccessat`, to check
+ * weather a file appears to exists for the
+ * current user. It is impled for `X_OK`,
+ * `W_OK` and `R_OK`.
+ * 
+ * Its value, 0, comes from that this check
+ * is always performed.
+ * 
+ * @etymology  This constant is named in symmetry with
+ *             `X_OK`, `W_OK`, and `R_OK`. The 'F' comes
+ *             from "(f)ile exists", and '_OK' comes
+ *             from the name of the other '?(_OK)'
+ *             constants.
+ * 
+ * @since  Always.
+ */
 #define F_OK  0
+
+/**
+ * Used in `access` and `faccessat`, to check
+ * weather a file is executable (for directories:
+ * its content can be listed) for the current
+ * user. Implies `F_OK`.
+ * 
+ * Its value, 1, comes from that for each user-octet
+ * in the permission bits, the bit 1 signifies that
+ * the file is executable.
+ * 
+ * @etymology  Is e(x)ecute (ok)ay?
+ * 
+ * @since  Always.
+ */
 #define X_OK  1
+
+/**
+ * Used in `access` and `faccessat`, to check
+ * weather a file is writable for the current
+ * user. Implies `F_OK`.
+ * 
+ * Its value, 2, comes from that for each user-octet
+ * in the permission bits, the bit 2 signifies that
+ * the file is writable.
+ * 
+ * @since  Always.
+ * @etymology  Is (w)rite (ok)ay?
+ */
 #define W_OK  2
+
+/**
+ * Used in `access` and `faccessat`, to check
+ * weather a file is readable for the current
+ * user. Implies `F_OK`.
+ * 
+ * Its value, 4, comes from that for each user-octet
+ * in the permission bits, the bit 4 signifies that
+ * the file is readable.
+ * 
+ * @etymology  Is (r)ead (ok)ay?
+ * 
+ * @since  Always.
+ */
 #define R_OK  4
+
 
 
 /**
