@@ -1107,8 +1107,8 @@ int daemon(int, int)
  * 
  * @since  Always.
  */
-int daemonise(const char* int)
-  __GCC_ONLY(__attributes__((__nonnull__)));
+int daemonise(const char*, int)
+  __GCC_ONLY(__attribute__((__nonnull__)));
 #endif
 
 
