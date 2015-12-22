@@ -66,3 +66,6 @@ We shall follow this, but it should optional to truncate the
 value to INT_MAX. Programs should not have to limit the
 resulting string to 32765 bytes!
 
+Can we implement any of these:
+  http://www.gnu.org/fun/jokes/errno.2
+
