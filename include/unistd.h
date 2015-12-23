@@ -1134,6 +1134,10 @@ int daemon(int, int)
  * you make the function call. The process can have become
  * partially deamonised.
  * 
+ * If $XDG_RUNTIME_DIR is set and is not empty, its value
+ * should be used instead of /run for the runtime data-files
+ * directory, in which the PID file is stored.
+ * 
  * @etymology  (Daemonise) the process!
  * 
  * @param   name   The name of the daemon. Use a hardcoded value,

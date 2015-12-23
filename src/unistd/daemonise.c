@@ -92,6 +92,10 @@ extern char** environ;
  * you make the function call. The process can have become
  * partially deamonised.
  * 
+ * If $XDG_RUNTIME_DIR is set and is not empty, its value
+ * should be used instead of /run for the runtime data-files
+ * directory, in which the PID file is stored.
+ * 
  * @etymology  (Daemonise) the process!
  * 
  * @param   name   The name of the daemon. Use a hardcoded value,
@@ -126,7 +130,7 @@ extern char** environ;
  * 
  * @since  Always.
  */
-int daemonise(const char* name, int flags) /* TODO user-private daemons */
+int daemonise(const char* name, int flags)
 {
 #define t(...)  do { if (__VA_ARGS__) goto fail; }  while (0)
   
@@ -135,6 +139,7 @@ int daemonise(const char* name, int flags) /* TODO user-private daemons */
   sigset_t set;
   char* r;
   char* w;
+  char* run;
   int i, closeerr, fd = -1;
   int saved_errno;
   
@@ -213,8 +218,17 @@ int daemonise(const char* name, int flags) /* TODO user-private daemons */
   /* Create PID file. */
   if (flags & DAEMONISE_NO_PID_FILE)
     goto no_pid_file;
-  pidpath = alloca(sizeof("/run/.pid") + strlen(name) * sizeof(char));
-  stpcpy(stpcpy(stpcpy(pidpath, "/run/"), name), ".pid");
+  char* run = getenv("XDG_RUNTIME_DIR");
+  if (run && *run)
+    {
+      pidpath = alloca(sizeof("/.pid") + (strlen(run) + strlen(name)) * sizeof(char));
+      stpcpy(stpcpy(stpcpy(stpcpy(pidpath, run), "/", name), ".pid");
+    }
+  else
+    {
+      pidpath = alloca(sizeof("/run/.pid") + strlen(name) * sizeof(char));
+      stpcpy(stpcpy(stpcpy(pidpath, "/run/"), name), ".pid");
+    }
   fd = open(pidpath, O_WRONLY | O_CREAT | O_EXCL, 0644);
   t (fd == -1);
   pid = getpid();
