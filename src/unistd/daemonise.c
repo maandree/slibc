@@ -218,11 +218,11 @@ int daemonise(const char* name, int flags)
   /* Create PID file. */
   if (flags & DAEMONISE_NO_PID_FILE)
     goto no_pid_file;
-  char* run = getenv("XDG_RUNTIME_DIR");
+  run = getenv("XDG_RUNTIME_DIR");
   if (run && *run)
     {
       pidpath = alloca(sizeof("/.pid") + (strlen(run) + strlen(name)) * sizeof(char));
-      stpcpy(stpcpy(stpcpy(stpcpy(pidpath, run), "/", name), ".pid");
+      stpcpy(stpcpy(stpcpy(stpcpy(pidpath, run), "/"), name), ".pid");
     }
   else
     {
@@ -234,7 +234,7 @@ int daemonise(const char* name, int flags)
   pid = getpid();
   t (dprintf(fd, "%lli\n", (long long int)pid)) < 0;
   t (close(fd) && (errno != EINTR));
-  no_pid_file:
+ no_pid_file:
   
   /* Redirect to '/dev/null'. */
   if (flags & DAEMONISE_KEEP_STDERR)
