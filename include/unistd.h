@@ -1134,6 +1134,8 @@ int daemon(int, int)
  * you make the function call. The process can have become
  * partially deamonised.
  * 
+ * @etymology  (Daemonise) the process!
+ * 
  * @param   name   The name of the daemon. Use a hardcoded value,
  *                 not the process name. Must not be `NULL`.
  * @param   flags  Flags to modify the behaviour of the function.
