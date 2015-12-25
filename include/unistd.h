@@ -1138,6 +1138,8 @@ int daemon(int, int)
  * should be used instead of /run for the runtime data-files
  * directory, in which the PID file is stored.
  * 
+ * This is a slibc extension.
+ * 
  * @etymology  (Daemonise) the process!
  * 
  * @param   name   The name of the daemon. Use a hardcoded value,
@@ -1174,6 +1176,23 @@ int daemon(int, int)
  */
 int daemonise(const char*, int)
   __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)));
+
+/**
+ * Remove the PID file created by `daemonise`. This shall
+ * always be called before exiting after calling `daemonise`,
+ * even if it failed.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  (Un)link PID file created by `(daemonise)`!
+ * 
+ * @return  Zero on success, -1 on error.
+ * 
+ * @throws  Any error specified for unlink(3).
+ * 
+ * @since  Always.
+ */
+int undaemonise(void);
 #endif
 
 
