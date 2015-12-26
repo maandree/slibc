@@ -66,7 +66,7 @@ int stack_will_overflow(intptr_t n)
     if (sigprocmask(SIG_SETMASK, &old_mask, NULL))
       return 1;
     
-    if (signal(SIGSEGV, Sold_sigsegv_handler) == SIG_ERR)
+    if (signal(SIGSEGV, old_sigsegv_handler) == SIG_ERR)
       return 1;
   }
   
