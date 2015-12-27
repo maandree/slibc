@@ -21,6 +21,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <ctype.h>
+#include <string.h>
 
 
 
@@ -37,7 +38,7 @@
 __attribute__((nonnull))
 static size_t prefix(char** restrict str, enum machinesize_mode mode)
 {
-#define P(A, B)  case A: case B: n++
+#define P(A, B)  case A: case B: power++
   char* p = *str;
   size_t power = 0;
   size_t base = 0;
@@ -113,8 +114,8 @@ int machinesize(size_t* restrict size, const char* restrict str, enum machinesiz
   size_t word;
   long double dword;
   size_t u;
-  char* p;
-  char* q;
+  const char* p;
+  const char* q;
   int started = 0;
   int pluses = 0;
   int have_unitless = 0;
@@ -143,7 +144,7 @@ int machinesize(size_t* restrict size, const char* restrict str, enum machinesiz
 	dword *= (long double)u;
 	if (dword > (long double)SIZE_MAX)
 	  return errno = ERANGE, -1;
-	down = (size_t)dword;
+	word = (size_t)dword;
 	OVERFLOW(uaddl, word, r, &r, ERANGE, -1);
       }
     else
@@ -151,7 +152,7 @@ int machinesize(size_t* restrict size, const char* restrict str, enum machinesiz
   
   if ((!started) || (have_unitless && (words > 1)))
     goto invalid;
-  return *save = r, 0;
+  return *size = r, 0;
  invalid:
   return errno = EINVAL, -1;
 }

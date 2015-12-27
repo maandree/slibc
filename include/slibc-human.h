@@ -23,6 +23,7 @@
 
 
 
+#define __NEED_size_t
 #define __NEED_mode_t
 #ifdef __C99__
 # define __NEED_intmax_t
@@ -364,7 +365,7 @@ int machinedur(intmax_t* restrict sec, long int* nsec, const char* restrict str,
 char* machineint(intmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
-#  define machineint(...)  (__const_correct_2p(machineint, __VA_ARGS__))
+#  define machineint(...)  (__const_correct2p(machineint, __VA_ARGS__))
 # endif
 
 /* TODO machineuint */
@@ -373,7 +374,7 @@ char* machineint(intmax_t* restrict r, const char* restrict str)
 char* machineuint(uintmax_t* restrict r, const char* restrict str)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 # ifdef __CONST_CORRECT
-#  define machineuint(...)  (__const_correct_2p(machineuint, __VA_ARGS__))
+#  define machineuint(...)  (__const_correct2p(machineuint, __VA_ARGS__))
 # endif
 #endif
 
@@ -383,7 +384,7 @@ char* machineuint(uintmax_t* restrict r, const char* restrict str)
 char* machinefloat(long double* restrict r, const char* restrict str,
 		   const char* restrict space, const char* restrict point);
 #ifdef __CONST_CORRECT
-# define machinefloat(...)  (__const_correct_2(machinefloat, __VA_ARGS__))
+# define machinefloat(...)  (__const_correct2(machinefloat, __VA_ARGS__))
 #endif
 
 
