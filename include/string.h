@@ -293,7 +293,7 @@ void* memcmove(void*, const void*, int, size_t);
  * 
  * @since  Always.
  */
-char* strset(char* str, int c);
+char* strset(char* str, int c)
   __GCC_ONLY(__attribute__((__returns_nonnull__, __nonnull__)));
 #endif
 

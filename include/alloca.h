@@ -72,7 +72,7 @@ void* alloca(size_t);
  * @since  Always.
  */
 void (needstack)(int);
-# elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
+# if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #  define needstack(n)  __needstack(n, __FILE__, __LINE__, __func__)
 # else
 #  define needstack(n)  __needstack(n, __FILE__, __LINE__, NULL)
