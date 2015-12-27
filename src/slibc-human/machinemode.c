@@ -31,7 +31,7 @@
 /**
  * Group can execute/list or/and set GID.
  */
-#define S_ISGRP  (S_ISGID | S_IXGRO)
+#define S_ISGRP  (S_ISGID | S_IXGRP)
 
 /**
  * Others (not in group) can execute/list or/and sticky bit.
