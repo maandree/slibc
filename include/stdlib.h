@@ -288,20 +288,6 @@ long long int atoq(const char*)
 #endif
 
 
-#if !defined(__PORTABLE)
-/**
- * This function is identical to `atoll`.
- * 
- * This is a Linux libc extension.
- * 
- * @since  Always.
- */
-long long int atoq(const char*)
-  __deprecated("'atoq' is obsolete and not portable, use 'atoll' instead.")
-  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));
-#endif
-
-
 #if defined(__SVID_SOURCE) || defined(__BSD_SOURCE)
 /**
  * This function shall in some manner clear the environment.

@@ -33,9 +33,9 @@
  */
 char* strset(char* str, int c)
 {
-  char* s = segment;
+  char* s = str;
   while (*s)
     *s++ = (char)c;
-  return segment;
+  return str;
 }
 

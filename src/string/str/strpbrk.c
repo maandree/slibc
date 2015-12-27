@@ -18,6 +18,9 @@
 #include <string.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
  * This function works like `strcspn`,

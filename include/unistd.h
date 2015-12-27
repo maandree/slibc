@@ -891,7 +891,7 @@ int fexecve(int, char* const[], char* const[]);
  * @since  Always.
  */
 char* searchpath(const char*)
-  __GCC_ONLY(__attribute__((__nonnull__(0), __warn_unused_result__)));
+  __GCC_ONLY(__attribute__((__nonnull__(1), __warn_unused_result__)));
 #endif
 
 #if defined(__SLIBC_SOURCE)
@@ -932,7 +932,7 @@ char* searchpath(const char*)
  * @since  Always.
  */
 char* searchpath2(const char*, const char*)
-  __GCC_ONLY(__attribute__((__nonnull__(0), __warn_unused_result__)));
+  __GCC_ONLY(__attribute__((__nonnull__(1), __warn_unused_result__)));
 
 /**
  * Search the environment variable $PATH for an executable
@@ -974,7 +974,7 @@ char* searchpath2(const char*, const char*)
  * @since  Always.
  */
 char* searchpath3(const char*, const char*, const char*)
-  __GCC_ONLY(__attribute__((__nonnull__(0), __warn_unused_result__)));
+  __GCC_ONLY(__attribute__((__nonnull__(1), __warn_unused_result__)));
 #endif
 
 

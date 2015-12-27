@@ -18,6 +18,9 @@
 #include <string.h>
 
 
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+
+
 
 /**
  * Check whether a string starts with a specific string.

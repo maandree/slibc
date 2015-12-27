@@ -46,7 +46,7 @@
  * 
  * @since  Always.
  */
-void* alloca(size_t);
+void* alloca(size_t)
   __GCC_ONLY(__attribute__((__warn_unused_result__)));
 #if defined(__GNUC__)
 # define alloca(size)  __builtin_alloca(size)
@@ -94,7 +94,7 @@ void (needstack)(int);
  * @param  func  The function in the source code whence the check was made,
  *               `NULL` if unknown (C99 is required.)
  */
-void __needstack(int, const char*, int, const char*)
+void __needstack(int, const char*, int, const char*);
 
 
 

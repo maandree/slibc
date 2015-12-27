@@ -515,7 +515,7 @@ int vdprintf(int, const char* restrict, va_list)
  * @since  Always.
  */
 int vsockprintf(int, int, const char* restrict, va_list)
-  __GCC_ONLY(__attribute__((__nonnull__(3), __format__(__slibc_printf__, 3, 4))));
+  __GCC_ONLY(__attribute__((__nonnull__(3))));
 #endif
 
 /**

@@ -482,7 +482,7 @@ int dprintf(int fd, const char* restrict format, ...)
  * 
  * @since  Always.
  */
-int sockprintf(int fd, int flags, const char* format restrict, ...)
+int sockprintf(int fd, int flags, const char* restrict format, ...)
 {
   V(sockprintf(fd, flags, format, args));
 }
