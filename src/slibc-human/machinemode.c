@@ -92,7 +92,7 @@ static mode_t bits[][] = {
  */
 static inline int partial_symbolic(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str)
 {
-#define  TEST_(S, T, V)  (strstarts(str, S) && !(T & (symbols = V)))
+#define  TEST_(S, T, V)  (strstarts(str, S) && !((T) & (symbols = (V))))
 #define  TEST(S, T)      (TEST_(S"+", T, 1) || TEST_(S"-", T, 2) || TEST_(S"=", T, 3))
 #define  TESTV(T)        (TEST(#T, T) ? (T |= symbols) : 0)
   
