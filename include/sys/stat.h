@@ -24,18 +24,32 @@
 
 #if defined(__SLIBC_SOURCE)
 /**
+ * Everyone, or anyone, have read permission.
+ * 
  * @since  Always.
  */
 # define S_IRALL  (S_IRUSR | S_IRGRP | S_IROTH)
+
 /**
+ * Everyone, or anyone, have write permission.
+ * 
  * @since  Always.
  */
 # define S_IWALL  (S_IWUSR | S_IWGRP | S_IWOTH)
+
 /**
+ * Everyone, or anyone, have execute permission.
+ * Execute permission for directories means to
+ * be able to list files in the directory.
+ * 
  * @since  Always.
  */
 # define S_IXALL  (S_IXUSR | S_IXGRP | S_IXOTH)
+
 /**
+ * Set-UID bit, set-GID bit, and/or sticky bit
+ * is set.
+ * 
  * @since  Always.
  */
 # define S_ISALL  (S_ISUID | S_ISGID | S_ISVTX)
