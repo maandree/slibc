@@ -628,7 +628,7 @@ int asprintf(char** restrict buffer, const char* restrict format, ...)
  *                  It shall point to a variable whose value is
  *                  the allocation size of `*buffer`, or point to
  *                  a variable whose value is zero if `*buffer`
- *                  is `NULL`
+ *                  is `NULL`.
  * @param   offset  The offset in the buffer where the function
  *                  shall start the printing.
  * @param   secure  Non-zero if the function must override the
@@ -915,7 +915,7 @@ int vasprintf(char** restrict buffer, const char* restrict format, va_list args)
  *                  It shall point to a variable whose value is
  *                  the allocation size of `*buffer`, or point to
  *                  a variable whose value is zero if `*buffer`
- *                  is `NULL`
+ *                  is `NULL`.
  * @param   offset  The offset in the buffer where the function
  *                  shall start the printing.
  * @param   secure  Non-zero if the function must override the
@@ -1177,7 +1177,7 @@ int aswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, ...)
  *                  It shall point to a variable whose value is
  *                  the allocation size of `*buffer`, or point to
  *                  a variable whose value is zero if `*buffer`
- *                  is `NULL`
+ *                  is `NULL`.
  * @param   offset  The offset in the buffer where the function
  *                  shall start the printing.
  * @param   secure  Non-zero if the function must override the
@@ -1441,7 +1441,7 @@ int vaswprintf(wchar_t** restrict buffer, const wchar_t* restrict format, va_lis
  *                  It shall point to a variable whose value is
  *                  the allocation size of `*buffer`, or point to
  *                  a variable whose value is zero if `*buffer`
- *                  is `NULL`
+ *                  is `NULL`.
  * @param   offset  The offset in the buffer where the function
  *                  shall start the printing.
  * @param   secure  Non-zero if the function must override the
