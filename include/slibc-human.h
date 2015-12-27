@@ -278,7 +278,7 @@ char* humanmode(char* restrict, mode_t, enum humanmode_mode);
  * @since  Always.
  */
 int machinemode(mode_t* restrict, mode_t* restrict, const char* restrict)
-  __GCC_ONLY(__attributes__((__nonnull__(3))));
+  __GCC_ONLY(__attribute__((__nonnull__(3))));
 
 
 /**
