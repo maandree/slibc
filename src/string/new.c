@@ -16,6 +16,85 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <string.h>
+#include <stdint.h>
+#include <ctype.h>
+/* TEMPORARY {{ */
+#define STATIC static __attribute__((__used__))
+# pragma GCC diagnostic ignored "-Wdiscarded-qualifiers"
+STATIC size_t strclen(const char* string, int stop);
+STATIC size_t strcnlen(const char* string, int stop, size_t maxlen);
+STATIC size_t strstrlen(const char* string, const char* stop);
+STATIC size_t strstrnlen(const char* string, const char* stop, size_t maxlen);
+STATIC char* (strnchr)(const char* string, int c, size_t maxlen);
+STATIC char* (strnchrnul)(const char* string, int c, size_t maxlen);
+STATIC char* (memcchr)(const char* segment, int c, int stop, size_t size);
+STATIC char* (strcchr)(const char* string, int c, int stop);
+STATIC char* (strcnchr)(const char* string, int c, int stop, size_t maxlen);
+STATIC char* (strcchrnul)(const char* string, int c, int stop);
+STATIC char* (strcnchrnul)(const char* string, int c, int stop, size_t maxlen);
+STATIC char* (strnrchr)(const char* string, int c, size_t maxlen);
+STATIC void* (memcrchr)(const void* segment, int c, int stop, size_t size);
+STATIC char* (strcrchr)(const char* string, int c, int stop);
+STATIC char* (strcnrchr)(const char* string, int c, int stop, size_t maxlen);
+STATIC void* (rawmemrchr)(const void* segment, int c, size_t size);
+STATIC void* (rawmemcasemem)(const void* haystack, const void* needle, size_t needle_length);
+STATIC void* (rawmemmem)(const void* haystack, const void* needle, size_t needle_length);
+STATIC void* (memccasemem)(const void* haystack, size_t haystack_length, const void* needle, size_t needle_length, int stop);
+STATIC void* (memcmem)(const void* haystack, size_t haystack_length, const void* needle, size_t needle_length, int stop);
+STATIC char* (strccasestr)(const char* haystack, const char* needle, int stop);
+STATIC char* (strcstr)(const char* haystack, const char* needle, int stop);
+STATIC char* (strcncasestr)(const char* haystack, const char* needle, int stop, size_t maxlen);
+STATIC char* (strcnstr)(const char* haystack, const char* needle, int stop, size_t maxlen);
+STATIC char* (strpcbrk)(const char* string, const char* skipset);
+STATIC char* (strpbrknul)(const char* string, const char* stopset);
+STATIC char* (strpcbrknul)(const char* string, const char* skipset);
+STATIC char* (strnpbrk)(const char* string, const char* stopset, size_t maxlen);
+STATIC char* (strnpcbrk)(const char* string, const char* skipset, size_t maxlen);
+STATIC char* (strnpbrknul)(const char* string, const char* stopset, size_t maxlen);
+STATIC char* (strnpcbrknul)(const char* string, const char* skipset, size_t maxlen);
+STATIC size_t strnspn(const char* string, const char* skipset, size_t maxlen);
+STATIC size_t strncspn(const char* string, const char* stopset, size_t maxlen);
+STATIC char* strnsep(char** restrict string, const char* restrict delimiters, size_t* restrict maxlen);
+STATIC char* strntok(char* restrict string, const char* restrict delimiters, char** restrict state, size_t* restrict maxlen);
+STATIC char* (strprbrk)(const char* string, const char* stopset);
+STATIC char* (strprcbrk)(const char* string, const char* skipset);
+STATIC char* (strnprbrk)(const char* string, const char* stopset, size_t maxlen);
+STATIC char* (strnprcbrk)(const char* string, const char* skipset, size_t maxlen);
+STATIC char* memmemmove(char* whither, const char* whence, const char* restrict str, size_t strsize, size_t size);
+STATIC char* memmemcpy(void* whither, const void* whence, const char* restrict str, size_t strsize, size_t size);
+STATIC void* (memcasestarts)(const void* string, const void* desired, size_t size);
+STATIC char* (strncasestarts)(const char* string, const char* desired, size_t maxlen);
+STATIC void* (memcaseends)(const void* string, size_t string_size, const void* desired, size_t desired_size);
+STATIC char* (strncaseends)(const char* string, const char* desired, size_t maxlen);
+STATIC void* (memstarts)(const void* string, const void* desired, size_t size);
+STATIC char* (strnstarts)(const char* string, const char* desired, size_t maxlen);
+STATIC void* (memends)(const void* string, size_t string_size, const void* desired, size_t desired_size);
+STATIC char* (strnends)(const char* string, const char* desired, size_t maxlen);
+STATIC int memccasecmp(const void* a, const void* b, size_t size, int stop);
+STATIC int memccmp(const void* a, const void* b, size_t size, int stop);
+STATIC int strccasecmp(const char* a, const char* b, int stop);
+STATIC int strccmp(const char* a, const char* b, int stop);
+STATIC int strcncasecmp(const char* a, const char* b, int stop, size_t length);
+STATIC int strcncmp(const char* a, const char* b, int stop, size_t length);
+STATIC void* (memccasestarts)(const void* string, const void* desired, size_t size, int stop);
+STATIC void* (memcstarts)(const void* string, const void* desired, size_t size, int stop);
+STATIC char* (strccasestarts)(const char* string, const char* desired, int stop);
+STATIC char* (strcstarts)(const char* string, const char* desired, int stop);
+STATIC char* (strcncasestarts)(const char* string, const char* desired, int stop, size_t maxlen);
+STATIC char* (strcnstarts)(const char* string, const char* desired, int stop, size_t maxlen);
+STATIC void* (memccaseends)(const void* string, size_t string_size, const void* desired, size_t desired_size, int stop);
+STATIC void* (memcends)(const void* string, size_t string_size, const void* desired, size_t desired_size, int stop);
+STATIC char* (strccaseends)(const char* string, const char* desired, int stop);
+STATIC char* (strcends)(const char* string, const char* desired, int stop);
+STATIC char* (strcncaseends)(const char* string, const char* desired, int stop, size_t maxlen);
+STATIC char* (strcnends)(const char* string, const char* desired, int stop, size_t maxlen);
+STATIC int strlowercmp(const char* a, const char* b);
+STATIC int struppercmp(const char* a, const char* b);
+STATIC int strnlowercmp(const char* a, const char* b, size_t length);
+STATIC int strnuppercmp(const char* a, const char* b, size_t length);
+STATIC int memlowercmp(const void* a, const void* b, size_t size);
+STATIC int memuppercmp(const void* a, const void* b, size_t size);
+/* }} */
 
 
 
