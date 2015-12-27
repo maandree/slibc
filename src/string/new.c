@@ -191,10 +191,10 @@ size_t strstrnlen(const char* string, const char* stop, size_t maxlen)
  */
 char* (strnchr)(const char* string, int c, size_t maxlen)
 {
-  for (;;)
+  for (;; string++)
     if (*string == c)
       return string;
-    else if (!*string++ || !maxlen--)
+    else if (!*string || !maxlen--)
       return NULL;
 }
 
@@ -243,10 +243,10 @@ char* (strnchrnul)(const char* string, int c, size_t maxlen)
 char* (memcchr)(const char* segment, int c, int stop, size_t size)
 {
   char* s = segment;
-  for (;;)
+  for (;; s++)
     if (*s == c)
       return s;
-    else if ((*s++ == stop) || !size--)
+    else if ((*s == stop) || !size--)
       return NULL;
 }
 
@@ -268,10 +268,10 @@ char* (memcchr)(const char* segment, int c, int stop, size_t size)
  */
 char* (strcchr)(const char* string, int c, int stop)
 {
-  for (;;)
+  for (;; string++)
     if (*string == c)
       return string;
-    else if (!*string || (*string++ == stop))
+    else if (!*string || (*string == stop))
       return NULL;
 }
 
@@ -294,10 +294,10 @@ char* (strcchr)(const char* string, int c, int stop)
  */
 char* (strcnchr)(const char* string, int c, int stop, size_t maxlen)
 {
-  for (;;)
+  for (;; string++)
     if (*string == c)
       return string;
-    else if (!*string || (*string++ == stop) || !maxlen--)
+    else if (!*string || (*string == stop) || !maxlen--)
       return NULL;
 }
 
@@ -322,31 +322,33 @@ char* (strcnchrnul)(const char* string, int c, int stop, size_t maxlen) /* slibc
 char* (strnrchr)(const char* string, int c, size_t maxlen) /* slibc: completeness */
 {
   char* r = NULL;
-  while (maxlen--)
+  for (; maxlen--; string++)
     if (*string == c)
       r = string;
-    else if (!*string++)
-      return c ? r : (string - 1);
+    else if (!*string)
+      return c ? r : string;
+  return NULL;
 }
 
 void* (memcrchr)(const void* segment, int c, int stop, size_t size) /* slibc: completeness */
 {
   char* r = NULL;
+  char* s = segment;
   for (;; size--)
-    if (*segment == c)
-      r = segment;
-    else if ((*segment == stop) || !size)
+    if (*s == c)
+      r = s;
+    else if ((*s == stop) || !size)
       return r;
 }
 
 char* (strcrchr)(const char* string, int c, int stop) /* slibc: completeness */
 {
   char* r = NULL;
-  for (;;)
+  for (;; string++)
     if (*string == c)
       r = string;
-    else if (!*string++)
-      return c ? r : (string - 1);
+    else if (!*string)
+      return c ? r : string;
     else if (*string == stop)
       return r;
 }
@@ -354,11 +356,14 @@ char* (strcrchr)(const char* string, int c, int stop) /* slibc: completeness */
 char* (strcnrchr)(const char* string, int c, int stop, size_t maxlen) /* slibc: completeness */
 {
   char* r = NULL;
-  while (maxlen--)
+  for (; maxlen--; string++)
     if (*string == c)
       r = string;
-    else if (!*string++)
-      return c ? r : (string - 1);
+    else if (!*string)
+      return c ? r : string;
+    else if (*string == stop)
+      return r;
+  return NULL;
 }
 
 void* (rawmemrchr)(const void* segment, int c, size_t size) /* slibc+gnu: completeness */
@@ -816,7 +821,7 @@ char* (strcnstarts)(const char* string, const char* desired, int stop, size_t ma
 
 void* (memccaseends)(const void* string, size_t string_size, const void* desired, size_t desired_size, int stop) /* slibc: completeness */
 {
-  void* end = memchr(string, stop, string);
+  void* end = memchr(string, stop, string_size);
   if (end != NULL)
     string_size = (size_t)(end - string);
   return (memcasecmp)(string + (string_size - desired_size), desired, desired_size)
@@ -825,7 +830,7 @@ void* (memccaseends)(const void* string, size_t string_size, const void* desired
 
 void* (memcends)(const void* string, size_t string_size, const void* desired, size_t desired_size, int stop) /* slibc: completeness */
 {
-  void* end = wmemchr(string, stop, string);
+  void* end = memchr(string, stop, string_size);
   if (end != NULL)
     string_size = (size_t)(end - string);
   return (memcmp)(string + (string_size - desired_size), desired, desired_size)
