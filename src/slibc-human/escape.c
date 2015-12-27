@@ -41,10 +41,10 @@
  * 
  * @since  Always.
  */
-char* escape(const char* restrict str, char quote)
+char* escape(const char* restrict str, int quote)
 {
-#define OCTAL(s)   (*w++ = '0' + ((c >> (s)) & 7))
-#define MODNUL(s)  (((unsigned)((s)[0]) == 0xC0) && ((unsigned)((s)[1]) == 0x80))
+#define OCTAL(s)   (*w++ = (char)('0' + ((c >> (s)) & 7)))
+#define MODNUL(s)  (((unsigned char)((s)[0]) == 0xC0) && ((unsigned char)((s)[1]) == 0x80))
   
   const char* restrict r;
   char* restrict w;
@@ -65,7 +65,7 @@ char* escape(const char* restrict str, char quote)
       return errno = EINVAL, NULL;
     }
   
-  for (r = str; (c = *r); r++)
+  for (r = str; (c = (unsigned char)*r); r++)
     switch (c)
       {
 #define X(E, C)  case C:
@@ -89,7 +89,7 @@ char* escape(const char* restrict str, char quote)
   if (rc == NULL)
     return NULL;
   
-  for (r = str; (c = *r); r++)
+  for (r = str; (c = (unsigned char)*r); r++)
     switch (c)
       {
 #define X(E, C)  case C:  *w++ = '\\', *w++ = E;  break;
@@ -99,9 +99,9 @@ char* escape(const char* restrict str, char quote)
       default:
 	*w++ = '\\';
 	if      (MODNUL(r))   *w++ = '0', r++;
-	else if (c == quote)  *w++ = quote;
+	else if (c == quote)  *w++ = (char)quote;
 	else if (c < ' ')     OCTAL(6), OCTAL(3), OCTAL(0);
-	else                  w[-1] = c;
+	else                  w[-1] = (char)c;
 	break;
       }
   

@@ -56,18 +56,18 @@ char* unescape(char* str, enum unescape_mode mode)
 #define RANGE(a, c, z)  (((a) <= (c)) && ((c) <= (z)))
 #define CxC0(s, m)      (*w++ = (char)((m) | (v >> (s))))
 #define Cx80(s)         (*w++ = (char)(0x80 | ((v >> (s)) & 0x3F)))
-#define NEXT_OCTAL(v)   if (RANGE('0', r[1], '7'))  v = (v << 3) | (r[1] - '0'), r++;
-#define PARSE_HEX(START, COND, v)		      \
-  do  for (i = START; COND; i++)  {		      \
-    char c = r[i];				      \
-    if      (RANGE('0', c, '9'))  c -= '0';	      \
-    else if (RANGE('a', c, 'f'))  c -= 'a', c += 10;  \
-    else if (RANGE('A', c, 'F'))  c -= 'A', c += 10;  \
-    else					      \
-      goto unrecognised;			      \
-    v = (v << 4) | (unsigned long int)c;	      \
-    if (v > 0x10FFFFUL)				      \
-      goto unrecognised;			      \
+#define NEXT_OCTAL(v)   if (RANGE('0', r[1], '7'))  v = (v << 3) | (unsigned long int)(r[1] - '0'), r++;
+#define PARSE_HEX(START, COND, v)			     \
+  do  for (i = START; COND; i++)  {			     \
+      char c = r[i];					     \
+    if      (RANGE('0', c, '9'))  c = (char)(c - '0');	     \
+    else if (RANGE('a', c, 'f'))  c = (char)(c - 'a' + 10);  \
+    else if (RANGE('A', c, 'F'))  c = (char)(c - 'A' + 10);  \
+    else						     \
+      goto unrecognised;				     \
+    v = (v << 4) | (unsigned long int)c;		     \
+    if (v > 0x10FFFFUL)					     \
+      goto unrecognised;				     \
   } while (0)
 #define UNRECOGNISED(c, action)                                     \
   if      (        mode & UNESCAPE_EINVAL)     goto invalid;        \
@@ -87,9 +87,9 @@ char* unescape(char* str, enum unescape_mode mode)
   char* w;
   char* r;
   
-  if (str == NULL)  return errno = 0, NULL;
-  if (mode & ~31)   goto invalid;
-  if (mode == 0)    mode |= UNESCAPE_MOD_UTF8;
+  if (str == NULL)            return errno = 0, NULL;
+  if (mode & ~(unsigned)31)   goto invalid;
+  if (mode == 0)              mode |= UNESCAPE_MOD_UTF8;
   switch (mode & 7)
     {
     case 0:
@@ -126,7 +126,7 @@ char* unescape(char* str, enum unescape_mode mode)
 	  break;
 	  
 	case '^':
-	  if (RANGE('@', r[1], '_'))  *w++ = *++r - '@';
+	  if (RANGE('@', r[1], '_'))  *w++ = (char)(*++r - '@');
 	  else
 	    {
 	      UNRECOGNISED(r[1], *w++ = '^');
@@ -147,7 +147,7 @@ char* unescape(char* str, enum unescape_mode mode)
 	default:
 	  if (RANGE('0', *r, '7'))
 	    {
-	      v = *r - '0';
+	      v = (unsigned long int)(*r - '0');
 	      NEXT_OCTAL(v);
 	      NEXT_OCTAL(v);
 	      UTF8();

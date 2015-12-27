@@ -16,6 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <slibc-human.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <alloca.h>
@@ -69,7 +70,7 @@ static char* humansize_exact(char* buffer, size_t bufsize, enum humansize_mode m
 			     const char* restrict prefixes, const size_t* restrict values, char* restrict buf)
 {
   size_t i, n = 0;
-  char* new = NULL;
+  void* new = NULL;
   int m, saved_errno;
   
   if (detail == 0)
@@ -95,7 +96,7 @@ static char* humansize_exact(char* buffer, size_t bufsize, enum humansize_mode m
       /* Ensure the buffer is large enougth. */
       if (n + (size_t)m > bufsize / sizeof(char))
 	{
-	  bufsize = 7 * detail + strlen(interspacing) * (detail - 1) + 1;
+	  bufsize = 7 * (size_t)detail + strlen(interspacing) * ((size_t)detail - 1) + 1;
 	  new = malloc(bufsize *= sizeof(char));
 	  if (new == NULL)
 	    goto fail;
@@ -151,6 +152,7 @@ static char* humansize_round(char* buffer, size_t bufsize, enum humansize_mode m
   double total = 0, dividend = 1;
   size_t prefix = words - 1, i, n, det;
   char* p;
+  void* new = NULL;
   char c;
   int m, saved_errno;
   
@@ -190,8 +192,8 @@ static char* humansize_round(char* buffer, size_t bufsize, enum humansize_mode m
       det = (size_t)-detail;
       if (det >= n)
 	det = n - 1;
-      c = buffer[n - detail];
-      for (i = n - detail; i < n; i++)
+      c = buffer[n + (size_t)-detail];
+      for (i = n + (size_t)-detail; i < n; i++)
 	buffer[i] = '0';
       if (c >= '5')
 	{
@@ -275,7 +277,7 @@ char* humansize(char* buffer, size_t bufsize, size_t size, enum humansize_mode m
     case 0:
     case HUMANSIZE_SI:
       div = 1000;
-      prefixes[1] = 'k'
+      prefixes[1] = 'k';
       break;
       
     case HUMANSIZE_IEC:

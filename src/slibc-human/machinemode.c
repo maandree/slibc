@@ -73,7 +73,7 @@
  * 1=can write, 2=can execute/list, 3=can execute/list or/and
  * special, 4=special} to permissions bits map.
  */
-static mode_t bits[][] = {
+static mode_t bits[][5] = {
   {S_IRUSR, S_IWUSR, S_IXUSR, S_ISUSR, S_ISUID},
   {S_IRGRP, S_IWGRP, S_IXGRP, S_ISGRP, S_ISGID},
   {S_IROTH, S_IWOTH, S_IXOTH, S_ISOTH, S_ISVTX},
@@ -120,7 +120,7 @@ static inline int partial_symbolic(mode_t* restrict mode, mode_t* restrict mask,
       /* Get permissions. */
       for (partial_or = 0; *str && (*str != ','); str++)
 	for (user = first; user < last; user++)
-	  BITS(*str, partial_or, j);
+	  BITS(*str, partial_or, user);
       
       /* Apply permissions. */
       if (symbol != '-')  or   |= partial_or;

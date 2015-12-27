@@ -44,7 +44,7 @@ char* humanmode(char* restrict buffer, mode_t perm, enum humanmode_mode mode)
   int name = mode & HUMANMODE_MASK;
   char* w;
   
-  if (mode & ~3)
+  if (mode & ~(mode_t)3)
     return errno = EINVAL, NULL;
   if (!mode)
     mode = HUMANMODE_STAT;

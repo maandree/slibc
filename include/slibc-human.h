@@ -439,7 +439,7 @@ char* unescape(char*, enum unescape_mode);
  * 
  * @since  Always.
  */
-char* escape(const char* restrict)
+char* escape(const char* restrict, int quote)
   __GCC_ONLY(__attribute__((__malloc__, __warn_unused_result__)));
 
 
