@@ -55,7 +55,7 @@ static char* __pidfile = NULL;
 static int dup_at_least_3(int old)
 {
   int intermediary[] = { -1, -1, -1 };
-  int i, saved_errno;
+  int i = 0, saved_errno;
   
   do
     {
