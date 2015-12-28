@@ -57,7 +57,7 @@ static int dup_at_least_3(int old)
   int intermediary[] = { -1, -1, -1 };
   int i, saved_errno;
   
-  while (old < 3)
+  do
     {
       if (old = dup(old), old == -1)
 	goto fail;
@@ -66,6 +66,7 @@ static int dup_at_least_3(int old)
 	abort();
       intermediary[i++] = old;
     }
+  while (old < 3);
   
  fail:
   saved_errno = errno;
