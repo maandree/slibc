@@ -55,3 +55,7 @@ int creat(const char*, mode_t)
 
 #endif
 
+/*
+  TODO int reopen(int fd, int oflag); 0, on success, -1 on error
+*/
+

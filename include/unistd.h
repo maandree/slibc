@@ -1259,13 +1259,112 @@ char* getpass(const char*)
 
 
 
+#if defined(__PLAN9_SOURCE) || defined(__SLIBC_SOURCE)
+/**
+ * Variant of `read` that will read until the request
+ * amount of that has been read, or there is no more
+ * data to read. This function will block signals so
+ * that it cannot throw `EINTR`, which could mean that
+ * read data is lost. Note however, it may fail for
+ * any other reason resulting in lost data.
+ * 
+ * This is a Plan 9 from Bell Labs compliant slibc extension.
+ * 
+ * @etymology  (Read) all `(n)byte` bytes!
+ * 
+ * @param  fd     The file descriptor whence the data shall be read.
+ * @param  buf    The buffer whither the read data shall be stored.
+ * @param  nbyte  The number of bytes to read.
+ * 
+ * @throws  Any error specified for read(3), except `EINTR`.
+ * 
+ * @since  Always.
+ */
+ssize_t readn(int, void*, size_t);
+#endif
+
+#if defined(__SLIBC_SOURCE)
+/**
+ * Variant of `write` that will write until all given
+ * data has been written. This function will block signals
+ * so that it cannot throw `EINTR`, which could mean that
+ * you do not know how much data has been successfully
+ * written. Note however, it may fail for any other reason
+ * resulting in the same problem.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  (Write) all `(n)byte` bytes!
+ * 
+ * @param  fd     The file descriptor whither the data shall be write.
+ * @param  buf    The data to write.
+ * @param  nbyte  The number of bytes to write.
+ * 
+ * @throws  Any error specified for write(3), except `EINTR`.
+ * 
+ * @since  Always.
+ */
+ssize_t writen(int, const void*, size_t);
+
+/**
+ * Variant of `pread` that will read until the request
+ * amount of that has been read, or there is no more
+ * data to read. This function will block signals so
+ * that it cannot throw `EINTR`, which could mean that
+ * read data is lost. Note however, it may fail for
+ * any other reason resulting in lost data.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  Variant of `(pread)` that reads all `(n)byte` bytes!
+ * 
+ * @param  fd      The file descriptor whence the data shall be read.
+ * @param  buf     The buffer whither the read data shall be stored.
+ * @param  nbyte   The number of bytes to read.
+ * @param  offset  Whence in the file the read begins.
+ * 
+ * @throws  Any error specified for pread(3), except `EINTR`.
+ * 
+ * @since  Always.
+ */
+ssize_t preadn(int, void*, size_t, off_t);
+
+/**
+ * Variant of `pwrite` that will write until all given
+ * data has been written. This function will block signals
+ * so that it cannot throw `EINTR`, which could mean that
+ * you do not know how much data has been successfully
+ * written. Note however, it may fail for any other reason
+ * resulting in the same problem.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  Variant of `(pwrite)` that writes all `(n)byte` bytes!
+ * 
+ * @param  fd      The file descriptor whither the data shall be write.
+ * @param  buf     The data to write.
+ * @param  nbyte   The number of bytes to write.
+ * @param  offset  Whence in the file the write begins.
+ * 
+ * @throws  Any error specified for pwrite(3), except `EINTR`.
+ * 
+ * @since  Always.
+ */
+ssize_t pwriten(int, const void*, size_t);
+#endif
+
+
+
 #endif
 
 /*
-  TODO readn(plan9), writen, preadn, pwriten
-  readn: read that can only return with a short read on error
-  writen: write that can only return with a short write on error
-  preadn: pread that can only return with a short read on error
-  pwriten: pwrite that can only return with a short write on error
+  TODO ssize_t writeatleast(int, const void*, size_t min, size_t max, size_t*);
+  TODO ssize_t pwriteatleast(int, const void*, size_t min, size_t max, off_t, size_t*);
+  TODO ssize_t readatleast(int, void**, size_t min, size_t max, size_t*);
+  TODO ssize_t preadatleast(int, void**, size_t min, size_t max, off_t, size_t*);
+  TODO int dup2atleast(int, int);
+  TODO int dup3atleast(int, int, int);
+  TODO for dup3 and dup3atleast, a flag to specify the the oldfd shall close
+  TODO for dup3 and dup3atleast, a flag to specify the the oldfd shall be /dev/null
 */
 
