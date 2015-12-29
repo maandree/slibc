@@ -1354,6 +1354,33 @@ ssize_t pwriten(int, const void*, size_t);
 #endif
 
 
+#if defined(__SLIBC_SOURCE)
+/**
+ * Halt the process in definitely.
+ * This function never returns.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  (Halt)!
+ * 
+ * @since  Always.
+ */
+__noreturn void halt(void);
+
+/**
+ * Halt and catch fire!
+ * This function never returns.
+ * 
+ * This is a slibc extension.
+ * 
+ * @etymology  (H)alt and (c)atch (f)rie!
+ * 
+ * @since  Always.
+ */
+__noreturn void hcf(void);
+#endif
+
+
 
 #endif
 
