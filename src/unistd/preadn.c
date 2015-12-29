@@ -49,7 +49,7 @@ ssize_t preadn(int fd, void* buf, size_t nbyte, off_t offset)
   int saved_errno = 0;
   
   sigfillset(&mask);
-  sigprocmask(SIG_BLOCK, &mask, &oldmask);
+  pthread_sigmask(SIG_BLOCK, &mask, &oldmask);
   
   while (nbyte)
     {
@@ -64,11 +64,11 @@ ssize_t preadn(int fd, void* buf, size_t nbyte, off_t offset)
       buffer += r;
     }
 
-  sigprocmask(SIG_SETMASK, &oldmask, NULL);
+  pthread_sigmask(SIG_SETMASK, &oldmask, NULL);
   return n;
  fail:
   errno = saved_errno;
-  sigprocmask(SIG_SETMASK, &oldmask, NULL);
+  pthread_sigmask(SIG_SETMASK, &oldmask, NULL);
   saved_errno = errno;
   return -1;
 }
