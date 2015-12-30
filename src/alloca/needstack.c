@@ -58,6 +58,8 @@ int stack_will_overflow(intptr_t n)
       return 1;
     
     old_sigsegv_handler = signal(SIGSEGV, SIG_DFL);
+    /* Sorry, we cannot have a signal handler, the OS kernel
+     * will make the CPU halt and catch fire until we die. */
     if (old_sigsegv_handler == SIG_ERR)
       return 1;
     
