@@ -58,12 +58,12 @@ int stack_will_overflow(intptr_t n)
     if (old_sigsegv_handler == SIG_ERR)
       return 1;
     
-    if (sigprocmask(SIG_UNBLOCK, &new_mask, &old_mask))
+    if (pthread_sigmask(SIG_UNBLOCK, &new_mask, &old_mask))
       return 1;
     
     (void) alloca((size_t)n);
     
-    if (sigprocmask(SIG_SETMASK, &old_mask, NULL))
+    if (pthread_sigmask(SIG_SETMASK, &old_mask, NULL))
       return 1;
     
     if (signal(SIGSEGV, old_sigsegv_handler) == SIG_ERR)
