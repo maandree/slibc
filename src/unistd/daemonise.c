@@ -266,7 +266,8 @@ int daemonise(const char* name, int flags, ...)
   /* Reset all signal handlers. */
   if ((flags & DAEMONISE_NO_SIG_DFL) == 0)
     for (i = 1; i < _NSIG; i++)
-      t (signal(i, SIG_DFL) == SIG_ERR);
+      if (signal(i, SIG_DFL) == SIG_ERR)
+	t (errno != EINVAL);
   
   /* Set signal mask. */
   if ((flags & DAEMONISE_KEEP_SIGMASK) == 0)
