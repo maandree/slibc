@@ -1373,7 +1373,7 @@ __noreturn void halt(void);
  * 
  * This is a slibc extension.
  * 
- * @etymology  (H)alt and (c)atch (f)rie!
+ * @etymology  (H)alt and (c)atch (f)ire!
  * 
  * @since  Always.
  */

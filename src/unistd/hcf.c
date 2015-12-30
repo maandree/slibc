@@ -25,7 +25,7 @@
  * 
  * This is a slibc extension.
  * 
- * @etymology  (H)alt and (c)atch (f)rie!
+ * @etymology  (H)alt and (c)atch (f)ire!
  * 
  * @since  Always.
  */
@@ -34,4 +34,57 @@ void hcf(void)
  catch_fire:
   goto catch_fire;
 }
+
+
+/***  Other fun ways to catch fire include:  ***/
+
+/*
+void hcf(void)
+{
+  for (;;);
+}
+
+
+void hcf(void)
+{
+  hcf();
+  "When optimised, tail-recursion is used and it will be be translated to `for (;;);`";
+}
+
+
+#include <setjmp.h>
+void hcf(void)
+{
+  jmp_buf env;
+  setjmp(env);
+  longjmp(env, 0);
+}
+
+
+#include <limits.h>
+void hcf(void)
+{
+  unsigned long long int i = 0;
+  while (i++ != ULLONG_MAX);
+  "This is just for a limited time, but probably too long for you.";
+}
+
+
+#include <signal.h>
+static void __hcf(int signo)
+{
+  signal(signo, __hcf);
+}
+void hcf(void)
+{
+  sigset_t mask;
+  sigfillset(&mask);
+  sigdelset(&mask, SIGSEGV);
+  pthread_sigmask(SIG_SETMASK, &mask, NULL);
+  signal(SIGSEGV, __hcf);
+  if (*(int*)0)
+    abort();
+  "This is perhaps the least flammable way, but the most fun.";
+}
+*/
 
