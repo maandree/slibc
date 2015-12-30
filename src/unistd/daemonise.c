@@ -220,7 +220,7 @@ int daemonise(const char* name, int flags, ...)
   
   
   /* Find out which file descriptors not too close. */
-  if ((flags & DAEMONISE_KEEP_FDS) == 0)
+  if (flags & DAEMONISE_KEEP_FDS)
     {
       va_start(args, flags);
       while (va_arg(args, int) >= 0)
