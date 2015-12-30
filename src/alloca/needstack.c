@@ -54,6 +54,9 @@ int stack_will_overflow(intptr_t n)
     sigset_t new_mask;
     void* old_sigsegv_handler;
     
+    if (sigemptyset(&new_mask) || sigaddset(&new_mask, SIGSEGV))
+      return 1;
+    
     old_sigsegv_handler = signal(SIGSEGV, SIG_DFL);
     if (old_sigsegv_handler == SIG_ERR)
       return 1;
