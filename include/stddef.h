@@ -42,6 +42,16 @@
  * but excessive use of C++, and especially it
  * features, is harmful too.
  * 
+ * Strictly speaking, to deference `NULL` is not an
+ * illegal action, but the operating system will
+ * kill you with `SIGSEGV` (segmentation fault or
+ * acess violation), and makes your you have no reason
+ * to my never mapping any memory there. However, the
+ * operating system itself, and programs running
+ * before the operating system, that is, any program
+ * not abstracted away from the hardware by virtual
+ * memory, have use of the address 0.
+ * 
  * @etymology  Pointer with numerical value (0).
  * 
  * @since  Always.
