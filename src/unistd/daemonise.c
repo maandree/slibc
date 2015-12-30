@@ -54,7 +54,7 @@ static char* __pidfile = NULL;
  */
 static int dup_at_least_3(int old)
 {
-  int intermediary[] = { -1, -1, -1 };
+  int intermediary[3];
   int i = 0, saved_errno;
   
   do
@@ -67,12 +67,12 @@ static int dup_at_least_3(int old)
       intermediary[i++] = old;
     }
   while (old < 3);
+  i--;
   
  fail:
   saved_errno = errno;
-  if (intermediary[0] >= 0)  close(intermediary[0]);
-  if (intermediary[1] >= 0)  close(intermediary[1]);
-  if (intermediary[2] >= 0)  close(intermediary[2]);
+  while (i--)
+    close(intermediary[i]);
   errno = saved_errno;
   return old;
 }
