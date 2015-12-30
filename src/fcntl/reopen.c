@@ -15,44 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef _FCNTL_H
-#define _FCNTL_H
-#include <slibc/version.h>
-#include <slibc/features.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <stdio.h>
+#include <unistd.h>
 
 
 
-#define __NEED_off_t
-#define __NEED_pid_t
-#define __NEED_mode_t
-#include <bits/types.h>
-
-
-
-/**
- * Create a new file and open it for writing, or
- * if the file already exists, open it for rewriting,
- * in which the file will be emptied.
- * 
- * `creat(path, mode)` is identical to
- * `open(path, O_WRONLY | O_CREAT | O_TRUNC, mode)`.
- * 
- * @etymology  (Creat)e file!
- * 
- * @param   path  The pathname of the file to open.
- * @param   mode  File permissions for the new file.
- * @return        The file descriptor to the opened file, -1 on error.
- * 
- * @throws  Any error specified for open(3) except for `EEXIST`.
- * 
- * @since  Always.
- */
-int creat(const char*, mode_t)
-  __GCC_ONLY(__attribute__((__nonnull__, __warn_unused_result__)))
-  __deprecated("Use 'open' instead.");
-
-
-#if defined(__SLIBC_SOURCE)
 /**
  * Reopen a file via its file descriptor. The old file descriptor
  * is closed and replace with the new open file descriptor.
@@ -92,9 +61,19 @@ int creat(const char*, mode_t)
  * 
  * @since  Always.
  */
-int reopen(int, int);
-#endif
+int reopen(int fd, int oflag)
+{
+  char path[sizeof("/dev/fd/") + 3 * sizeof(int)];
+  int r, saved_errno;
 
+  if ((oflag & O_CREAT) || (fd < 0))
+    return errno = EINVAL, -1;
 
-#endif
+  sprintf(path, "/dev/fd/%i", fd);
+  if (r = open(path, oflag), r < 0)
+    return -1;
+  if (dup2(r, fd) == -1)
+    return saved_errno = errno, close(r), errno = saved_errno, -1;
+  return close(fd), 0;
+}
 
