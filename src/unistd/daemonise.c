@@ -161,6 +161,7 @@ static int dup_at_least_3(int old)
  *                 -  `DAEMONISE_KEEP_STDIN`
  *                 -  `DAEMONISE_KEEP_STDOUT`
  *                 -  `DAEMONISE_KEEP_FDS`
+ *                 -  `DAEMONISE_NEW_PID`
  * @param   ...    Enabled if `DAEMONISE_KEEP_FDS` is used,
  *                 do not add anything if `DAEMONISE_KEEP_FDS`
  *                 is unused. This is a `-1`-terminated list
@@ -212,7 +213,7 @@ int daemonise(const char* name, int flags, ...)
   
   
   /* Validate flags. */
-  if (flags & ~2047)
+  if (flags & (int)~(2048L * 2 - 1))
     return errno = EINVAL, -1;
   if (flags & DAEMONISE_KEEP_STDERR)
     if (flags & DAEMONISE_CLOSE_STDERR)
@@ -332,7 +333,7 @@ int daemonise(const char* name, int flags, ...)
       t (__pidfile == NULL);
       stpcpy(stpcpy(stpcpy(__pidfile, "/run/"), name), ".pid");
     }
-  fd = open(__pidfile, O_WRONLY | O_CREAT | O_EXCL, 0644);
+  fd = open(__pidfile, O_WRONLY | O_CREAT | ((flags & DAEMONISE_NEW_PID) ? 0 : O_EXCL), 0644);
   if (fd == -1)
     {
       saved_errno = errno;

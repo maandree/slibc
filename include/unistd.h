@@ -1082,6 +1082,14 @@ int daemon(int, int)
 #define DAEMONISE_KEEP_FDS  1024
 
 /**
+ * Override the PID file if it already exists,
+ * rather than failing. It is a bad idea to do
+ * this unless you already made sure that the
+ * daemon is not already running.
+ */
+#define DAEMONISE_NEW_PID  2048
+
+/**
  * Daemonise the process. This means to:
  * 
  * -  close all file descritors except for those to
@@ -1163,6 +1171,7 @@ int daemon(int, int)
  *                 -  `DAEMONISE_KEEP_STDIN`
  *                 -  `DAEMONISE_KEEP_STDOUT`
  *                 -  `DAEMONISE_KEEP_FDS`
+ *                 -  `DAEMONISE_NEW_PID`
  * @param   ...    Enabled if `DAEMONISE_KEEP_FDS` is used,
  *                 do not add anything if `DAEMONISE_KEEP_FDS`
  *                 is unused. This is a `-1`-terminated list
