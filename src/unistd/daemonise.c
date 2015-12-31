@@ -226,9 +226,10 @@ int daemonise(const char* name, int flags, ...)
   if (flags & DAEMONISE_KEEP_FDS)
     {
       va_start(args, flags);
-      while (va_arg(args, int) >= 0)
+      while ((fd = va_arg(args, int)) >= 0)
 	if ((fd > 2) && (keepmax < fd))
 	  keepmax = fd;
+      fd = -1;
       va_end(args);
       keep = calloc((size_t)keepmax + 1, sizeof(char));
       t (keep == NULL);
@@ -246,8 +247,8 @@ int daemonise(const char* name, int flags, ...)
 	    keep[fd] = 1;
 	    break;
 	  }
-      va_end(args);
       fd = -1;
+      va_end(args);
     }
   /* We assume that the maximum file descriptor is not extremely large.
    * We also assume the number of file descriptors too keep is very small,
@@ -261,7 +262,7 @@ int daemonise(const char* name, int flags, ...)
       for (i = 3; (rlim_t)i < rlimit.rlim_cur; i++)
 	/* File descriptors with numbers above and including
 	 * `rlimit.rlim_cur` cannot be created. They cause EBADF. */
-	if ((keep == NULL) || (keep[i] == 0))
+	if ((i > keepmax) || (keep[i] == 0))
 	  close(i);
     }
   free(keep), keep = NULL;
