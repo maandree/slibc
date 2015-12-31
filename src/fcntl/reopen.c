@@ -74,6 +74,6 @@ int reopen(int fd, int oflag)
     return -1;
   if (dup2(r, fd) == -1)
     return saved_errno = errno, close(r), errno = saved_errno, -1;
-  return close(fd), 0;
+  return close(r), 0;
 }
 
