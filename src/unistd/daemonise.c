@@ -177,8 +177,9 @@ static int dup_at_least_3(int old)
  *                  has exited without removing the PID file.
  * @throws  EINVAL  `flags` contains an unsupported bit, both
  *                  `DAEMONISE_KEEP_STDERR` and `DAEMONISE_CLOSE_STDERR`
- *                  are set, or both `DAEMONISE_CLOSE_STDERR` and
- *                  `DAEMONISE_KEEP_FDS` are set whilst `2` is
+ *                  are set, both `DAEMONISE_NO_PID_FILE` and
+ *                  `DAEMONISE_NEW_PID`, or both `DAEMONISE_CLOSE_STDERR`
+ *                  and `DAEMONISE_KEEP_FDS` are set whilst `2` is
  *                  in the list of file descriptor not to close.
  * @throws          Any error specified for signal(3).
  * @throws          Any error specified for sigemptyset(3).
@@ -215,9 +216,10 @@ int daemonise(const char* name, int flags, ...)
   /* Validate flags. */
   if (flags & (int)~(2048L * 2 - 1))
     return errno = EINVAL, -1;
-  if (flags & DAEMONISE_KEEP_STDERR)
-    if (flags & DAEMONISE_CLOSE_STDERR)
-      return errno = EINVAL, -1;
+  if ((flags & DAEMONISE_KEEP_STDERR) && (flags & DAEMONISE_CLOSE_STDERR))
+    return errno = EINVAL, -1;
+  if ((flags & DAEMONISE_NO_PID_FILE) && (flags & DAEMONISE_NEW_PID))
+    return errno = EINVAL, -1;
   
   
   /* Find out which file descriptors not too close. */
