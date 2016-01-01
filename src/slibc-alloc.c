@@ -58,15 +58,19 @@
  * This function is identical to `free`, except it is guaranteed not to
  * override the memory segment with zeroes before freeing the allocation.
  * 
+ * `errno` is guaranteed not to be set.
+ * 
  * @param  segment  The memory segment to free.
  * 
  * @since  Always.
  */
 void fast_free(void* segment)
 {
+  int saved_errno = errno;
   if (segment == NULL)
     return;
   munmap(PURE_ALLOC(segment), PURE_SIZE(segment));
+  errno = saved_errno;
 }
 
 
@@ -74,16 +78,20 @@ void fast_free(void* segment)
  * This function is identical to `free`, except it is guaranteed to
  * override the memory segment with zeroes before freeing the allocation.
  * 
+ * `errno` is guaranteed not to be set.
+ * 
  * @param  segment  The memory segment to free.
  * 
  * @since  Always.
  */
 void secure_free(void* segment)
 {
+  int saved_errno = errno;
   if (segment == NULL)
     return;
   explicit_bzero(PURE_ALLOC(segment), PURE_SIZE(segment));
   fast_free(segment);
+  errno = saved_errno;
 }
 
 

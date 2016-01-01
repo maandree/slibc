@@ -128,6 +128,8 @@ enum falloc_mode
  * This function is identical to `free`, except it is guaranteed not to
  * override the memory segment with zeroes before freeing the allocation.
  * 
+ * `errno` is guaranteed not to be set.
+ * 
  * @etymology  (Fast) variant of (`free`).
  * 
  * @param  segment  The memory segment to free.
@@ -139,6 +141,8 @@ void fast_free(void*);
 /**
  * This function is identical to `free`, except it is guaranteed to
  * override the memory segment with zeroes before freeing the allocation.
+ * 
+ * `errno` is guaranteed not to be set.
  * 
  * @etymology  (Secure) variant of (`free`).
  * 

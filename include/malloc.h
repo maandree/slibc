@@ -172,6 +172,8 @@ void* realloc(void*, size_t)
 /**
  * Free a memory allocation.
  * 
+ * As a slibc extension, `errno` is guaranteed not to be set.
+ * 
  * @etymology  (Free) allocated memory.
  * 
  * @param  ptr  Pointer to the beginning of the memory allocation.
@@ -190,6 +192,8 @@ void free(void*)
  * 
  * This function uses variadic arguments because there
  * there are multiple conflicting specifications for `cfree`.
+ * 
+ * As a slibc extension, `errno` is guaranteed not to be set.
  * 
  * @param  ptr  Pointer to the beginning of the memory allocation.
  *              The process may crash if it does not point to the
