@@ -186,15 +186,21 @@ int fexecv(int fd, char* const argv[])
  */
 int fexecve(int fd, char* const argv[], char* const envp[])
 {
-  char pathname[sizeof("/proc/self/fd//") + 3 * sizeof(int)];
+#if defined(_LINUX_)
+# define FD_PATH  "/proc/self/fd"  /* /dev/fd works but it is a symbolic link. */
+#else
+# define FD_PATH  "/dev/fd"
+#endif
+  
+  char pathname[sizeof(FD_PATH "//") + 3 * sizeof(int)];
   int saved_errno;
   
-  sprintf(pathname, "/proc/self/fd/%i/", fd);
+  sprintf(pathname, FD_PATH "/%i/", fd);
   
   execve(pathname, argv, envp);
   saved_errno = errno;
   
-  if (access("/proc/", X_OK))
+  if (access(FD_PATH "/", X_OK))
     saved_errno = ENOSYS;
   
   errno = saved_errno == ENOENT ? EBADF : saved_errno;

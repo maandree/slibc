@@ -69,3 +69,6 @@ resulting string to 32765 bytes!
 Can we implement any of these:
   http://www.gnu.org/fun/jokes/errno.2
 
+Macros that are used but not defined:
+  _LINUX_
+
