@@ -35,6 +35,17 @@ struct stat { int st_mode; };
 
 
 /**
+ * The directory where all the process's file descriptors are available.
+ */
+#if defined(_LINUX_)
+# define FD_PATH  "/proc/self/fd"  /* /dev/fd works but it is a symbolic link. */
+#else
+# define FD_PATH  "/dev/fd"
+#endif
+
+
+
+/**
  * The current environment variables.
  * 
  * @since  Always.
@@ -415,11 +426,11 @@ int execveat(int dirfd, const char* path, char* const argv[], char* const envp[]
 	return errno = ELOOP, -1;
     }
   
-  pathname = malloc(sizeof("/dev/fd//") + (3 * sizeof(int) + strlen(path)) * sizeof(char));
+  pathname = malloc(sizeof(FD_PATH "//") + (3 * sizeof(int) + strlen(path)) * sizeof(char));
   if (pathname == NULL)
     return -1;
   
-  sprintf(pathname, "/dev/fd/%i%s%s", dirfd, *path ? "/" : "", path);
+  sprintf(pathname, FD_PATH "/%i%s%s", dirfd, *path ? "/" : "", path);
   execve(pathname, argv, envp);
   
   saved_errno = errno;

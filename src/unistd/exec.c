@@ -285,6 +285,7 @@ int execve(const char* path, char* const argv[], char* const envp[])
   return errno = ENOTSUP, -1;
   (void) path, (void) argv, (void) envp;
   /* TODO implement execve */
+  /* TODO support wrapping in valgrind, strace, &c. */
 }
 
 
