@@ -60,6 +60,8 @@
  * 
  * `errno` is guaranteed not to be set.
  * 
+ * @etymology  (Fast) variant of (`free`).
+ * 
  * @param  segment  The memory segment to free.
  * 
  * @since  Always.
@@ -79,6 +81,8 @@ void fast_free(void* segment)
  * override the memory segment with zeroes before freeing the allocation.
  * 
  * `errno` is guaranteed not to be set.
+ * 
+ * @etymology  (Secure) variant of (`free`).
  * 
  * @param  segment  The memory segment to free.
  * 
@@ -105,6 +109,8 @@ void secure_free(void* segment)
  * or arrays.
  * 
  * `p = malloc(n), allocsize(p)` will return `n`.
+ * 
+ * @etymology  Memory (alloc)ation (size).
  * 
  * @param   segment  The memory segment.
  * @return           The size of the memory segment, 0 on error.
@@ -178,6 +184,8 @@ size_t allocsize(void* segment)
  * with zeroes, including the old allocation if it creates a
  * new allocation.
  * 
+ * @etymology  (C)lear and (realloc)ate memory.
+ * 
  * @param   ptr   The old allocation, see `realloc` for more details.
  * @param   size  The new allocation size, see `realloc` for more details.
  * @return        The new allocation, see `realloc` for more details.
@@ -196,6 +204,8 @@ void* crealloc(void* ptr, size_t size)
  * This function behaves exactly like `realloc`, except it is
  * guaranteed to never initialise or errors data.
  * 
+ * @etymology  (Fast) variant of (`realloc`).
+ * 
  * @param   ptr   The old allocation, see `realloc` for more details.
  * @param   size  The new allocation size, see `realloc` for more details.
  * @return        The new allocation, see `realloc` for more details.
@@ -213,6 +223,8 @@ void* fast_realloc(void* ptr, size_t size)
 /**
  * This function behaves exactly like `crealloc`, except it
  * does not initialise newly allocated size.
+ * 
+ * @etymology  (Secure) variant of (`realloc`).
  * 
  * @param   ptr   The old allocation, see `realloc` for more details.
  * @param   size  The new allocation size, see `realloc` for more details.
@@ -240,6 +252,8 @@ void* secure_realloc(void* ptr, size_t size)
  * 
  * `secure_realloc(p, n)` is equivalent to (but slightly fast than)
  * `custom_realloc(p, n, 1, 0, 1)`.
+ * 
+ * @etymology  (Custom)isable variant of (`realloc`).
  * 
  * @param   ptr         The old allocation, see `realloc` for more details.
  * @param   size        The new allocation size, see `realloc` for more details.
@@ -270,6 +284,8 @@ void* custom_realloc(void* ptr, size_t size, int clear_old, int clear_new, int c
  * 
  * The behaviour is undefined if `mode` does not
  * contain a valid flag-combination.
+ * 
+ * @etymology  (Ext)end memory (alloc)ation.
  * 
  * @param   ptr   The old allocation, see `realloc` for more details.
  * @param   size  The new allocation size, see `realloc` for more details.
@@ -313,6 +329,8 @@ void* extalloc(void* ptr, size_t size, enum extalloc_mode mode)
  * This function cannot be used to force realignment,
  * the aligment is applied when it is necessary to
  * create a new allocation.
+ * 
+ * @etymology  (Re)allocate (mem)ory and (align).
  * 
  * @param   ptr       The old allocation, see `realloc` for more details.
  * @param   boundary  The alignment, not checked before necessary.
@@ -392,6 +410,8 @@ void* rememalign(void* ptr, size_t boundary, size_t size, enum rememalign_mode m
  * the aligment is applied when it is necessary to
  * create a new allocation.
  * 
+ * @etymology  (Naïve) variant of (`realloc`).
+ * 
  * @param   ptr       The old allocation, see `realloc` for more details.
  * @param   boundary  The alignment, not checked before necessary.
  * @param   size      The new allocation size, see `realloc` for more details.
@@ -415,6 +435,8 @@ void* naive_realloc(void* ptr, size_t boundary, size_t size)
  * it will return `NULL` with `errno` set to zero, if it is
  * not possible to perform the shrink or grow without creating
  * new pointer.
+ * 
+ * @etymology  (Naïve) variant of (`extalloc`).
  * 
  * @param   ptr   The old allocation, see `realloc` for more details.
  * @param   size  The new allocation size, see `realloc` for more details.
@@ -512,6 +534,8 @@ static inline void* falloc_realloc(void* ptr, size_t* ptrshift, size_t alignment
  *   the new allocation if `mode & FALLOC_MEMCPY`. If
  *   `(mode & FALLOC_INIT) && !(mode & FALLOC_MEMCPY)`, the
  *   entire allocation will be cleared.
+ * 
+ * @etymology  (F)ast memory (alloc)ation.
  * 
  * @param   ptr        The old pointer, `NULL` if a new shall be created.
  * @param   ptrshift   Pointer that is used to keep track of the pointer's
