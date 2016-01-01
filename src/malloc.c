@@ -221,80 +221,6 @@ void* zalloc(size_t size)
 
 
 /**
- * Variant of `malloc` that extends, or shrinks, an existing allocation,
- * if beneficial and possible, or creates a new allocation with the new
- * size, copies the data, and frees the old allocation. The returned
- * pointer has an alignment usable for any compiler-independent intrinsic
- * data type, if a new pointer is returned.
- * 
- * On error, `ptr` is not freed.
- * 
- * @etymology  Memory (realloc)ation.
- * 
- * @param   ptr   Pointer to the beginning of the old memory allocation.
- *                The process may crash if it does not point to the
- *                beginning of a memory allocation on the heap.
- *                However, if it is `NULL`, this function will behave
- *                like `malloc`.
- * @param   size  The new allocation size. If zero, this function will
- *                behave like `free`, and will return `NULL`.
- * @return        Pointer to the beginning of the new allocation.
- *                If `size` is zero, `NULL` is returned. On error `NULL`
- *                is returned and `errno` is set to indicate the error.
- * 
- * @throws  ENOMEM  The process cannot allocate more memory.
- * 
- * @since  Always.
- */
-void* realloc(void* ptr, size_t size)
-{
-  return fast_realloc(ptr, size);
-}
-
-
-/**
- * Free a memory allocation.
- *  
- * As a slibc extension, `errno` is guaranteed not to be set.
- * 
- * @etymology  (Free) allocated memory.
- * 
- * @param  ptr  Pointer to the beginning of the memory allocation.
- *              The process may crash if it does not point to the
- *              beginning of a memory allocation on the heap.
- *              However, if it is `NULL`, nothing will happen.
- * 
- * @since  Always.
- */
-void free(void* ptr)
-{
-  fast_free(ptr);
-}
-
-
-/**
- * This function is identical to `free`.
- * Any argument beyond the first argument, is ignored.
- * 
- * This function uses variadic arguments because there
- * there are multiple conflicting specifications for `cfree`.
- * 
- * As a slibc extension, `errno` is guaranteed not to be set.
- * 
- * @param  ptr  Pointer to the beginning of the memory allocation.
- *              The process may crash if it does not point to the
- *              beginning of a memory allocation on the heap.
- *              However, if it is `NULL`, nothing will happen.
- * 
- * @since  Always.
- */
-void cfree(void* ptr, ...)
-{
-  fast_free(ptr);
-}
-
-
-/**
  * Variant of `malloc` that returns an address with a
  * specified alignment.
  * 
@@ -346,36 +272,6 @@ void* memalign(size_t boundary, size_t size)
     }
   
   return ptr;
-}
-
-
-/**
- * `posix_memalign(p, b, n)` is equivalent to
- * `(*p = memalign(b, n), *p ? 0 : errno)`, except
- * `boundary` must also be a multiple of `sizeof(void*)`,
- * and `errno` is unspecified.
- * 
- * As a GNU-compliant slibc extension, memory allocated
- * with this function can be freed with `free`.
- * 
- * @etymology  (POSIX)-extension: (mem)ory alignment.
- * 
- * @param   ptrptr    Output parameter for the allocated memory.
- * @param   boundary  The alignment.
- * @param   size      The number of bytes to allocated.
- * @return            Zero on success, a value for `errno` on error.
- * 
- * @throws  ENOMEM  The process cannot allocate more memory.
- * @throws  EINVAL  If `boundary` is not a power-of-two multiple of `sizeof(void*)`.
- * 
- * @since  Always.
- */
-int posix_memalign(void** ptrptr, size_t boundary, size_t size)
-{
-  if (boundary < sizeof(void*))
-    return EINVAL;
-  *ptrptr = memalign(boundary, size);
-  return *ptrptr ? 0 : errno;
 }
 
 
@@ -435,57 +331,5 @@ void* pvalloc(size_t size)
   
   MEM_OVERFLOW(uaddl, size, rounding, &full_size);
   return memalign(boundary, full_size);
-}
-
-
-/**
- * This function is identical to `memalign`,
- * except it can be freed with `free`.
- * 
- * Variant of `malloc` that returns an address with a
- * specified alignment.
- * 
- * It is unspecified how the function works. This implemention
- * will allocate a bit of extra memory and shift the returned
- * pointer so that it is aligned.
- * 
- * @etymology  (Alig)ned memory (alloc)ation.
- * 
- * @param   boundary  The alignment.
- * @param   size      The number of bytes to allocated.
- * @return            Pointer to the beginning of the new allocation.
- *                    If `size` is zero, this function will either return
- *                    `NULL` (that is what this implement does) or return
- *                    a unique pointer that can later be freed with `free`.
- *                    `NULL` is returned on error, and `errno` is set to
- *                    indicate the error.
- * 
- * @throws  ENOMEM  The process cannot allocate more memory.
- * @throws  EINVAL  If `boundary` is not a power of two.
- * 
- * @since  Always.
- */
-void* aligned_alloc(size_t boundary, size_t size)
-{
-  return memalign(boundary, size);
-}
-
-
-/**
- * This function returns the allocation size of
- * a memory segment.
- * 
- * `p = malloc(n), malloc_usable_size(p)` will return `n`.
- * 
- * @etymology  (`malloc`)-subsystem: user-(usable size) of allocation.
- * 
- * @param   segment  The memory segment.
- * @return           The size of the memory segment, 0 if `segment` is `NULL`.
- * 
- * @since  Always.
- */
-size_t malloc_usable_size(void* segment)
-{
-  return allocsize(segment);  
 }
 
