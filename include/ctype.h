@@ -256,11 +256,6 @@ int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
  * Convert a uppercase ASCII character to
  * an lowercase ASCII character.
  * 
- * The function's behaviour is unspecified
- * of the character is not alphabetical.
- * You should consider running
- * `(isupper(c) ? tolower(c) : c)` instead.
- * 
  * @etymology  Convert character (to) (lower)case!
  * 
  * @param   c  The character.
@@ -272,16 +267,14 @@ int (isxdigit)(int)  /* [0x30, 0x39], [0x41, 0x46], [0x61, 0x66] */
  */
 int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
   __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
-#define tolower(c)  (int)((unsigned)(c) | 0x20)
+#if defined (__GNUC__)
+# define tolower(c)  \
+  ({ int __c = (int)(unsigned)(c); (islower(__c) ? (__c | 0x20) : __c; })
+#endif
 
 /**
  * Convert a lowercase ASCII character to
  * an uppercase ASCII character.
- * 
- * The function's behaviour is unspecified
- * of the character is not alphabetical.
- * You should consider running
- * `(isupper(c) ? tolower(c) : c)` instead.
  * 
  * @etymology  Convert character (to) (upper)case!
  * 
@@ -294,7 +287,10 @@ int (tolower)(int)  /* [0x41, 0x5A] -> [0x61, 0x7A] */
  */
 int (toupper)(int)  /* [0x61, 0x7A] -> [0x41, 0x5A] */
   __GCC_ONLY(__attribute__((__const__, __warn_unused_result__)));
-#define toupper(c)  (int)((unsigned)(c) & (unsigned)~0x20)
+#if defined (__GNUC__)
+# define toupper(c)  \
+  ({ int __c = (int)(unsigned)(c); (isupper(__c) ? (__c & ~0x20) : __c; })
+#endif
 
 
 

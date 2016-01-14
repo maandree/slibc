@@ -231,11 +231,6 @@ int (isxdigit)(int c)
  * Convert a uppercase ASCII character to
  * an lowercase ASCII character.
  * 
- * The function's behaviour is unspecified
- * of the character is not alphabetical.
- * You should consider running
- * `(isupper(c) ? tolower(c) : c)` instead.
- * 
  * @etymology  Convert character (to) (lower)case!
  * 
  * @param   c  The character.
@@ -254,11 +249,6 @@ int (tolower)(int c)
 /**
  * Convert a lowercase ASCII character to
  * an uppercase ASCII character.
- * 
- * The function's behaviour is unspecified
- * of the character is not alphabetical.
- * You should consider running
- * `(isupper(c) ? tolower(c) : c)` instead.
  * 
  * @etymology  Convert character (to) (upper)case!
  * 
