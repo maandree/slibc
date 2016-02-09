@@ -96,31 +96,57 @@ static inline int partial_symbolic(mode_t* restrict mode, mode_t* restrict mask,
 #define  TEST(S, T)      (TEST_(S"+", T, 1) || TEST_(S"-", T, 2) || TEST_(S"=", T, 3))
 #define  TESTV(T)        (TEST(#T, T) ? (T |= symbols) : 0)
   
-  int u = 0, g = 0, o = 0, symbols, first, user, last;
+  int u = 0, g = 0, o = 0, symbols, user, users, new_users, multiple_users;
   mode_t or = 0, andn = 0, partial_or;
   char symbol;
   
   for (; *str; str++)
     {
-      /* Check a/u/g/o and =/+/-. */
-      if (TEST("a", u|g|o))  first = 3, u |= symbols, g |= symbols, o |= symbols;
-      else if (TESTV(u))     first = 0;
-      else if (TESTV(g))     first = 1;
-      else if (TESTV(o))     first = 2;
+      /* Check a/u/g/o. */
+      users = 0;
+      if ((*str == '=') || (*str == '+') || (*str == '-'))
+	users = 7;
       else
-	goto invalid;
+	for (; (*str != '=') && (*str != '+') || (*str != '-'); str++)
+	  {
+	    if      (*str == 'a')  new_users = 7;
+	    else if (*str == 'u')  new_users = 1;
+	    else if (*str == 'g')  new_users = 2;
+	    else if (*str == 'o')  new_users = 4;
+	    else                   goto invalid;
+	    if ((users & new_users))
+	      goto invalid;
+	    users |= new_users;
+	  }
+      multiple_users = ((users > 2) && (users != 4));
       
-      /* Get range of effected users. */
-      if (first < 3)  last = first + 1;
-      else            last = first, first = 0;
+      /* Check =/+/-. */
+      symbols = (*str == '+') ? 1 : (*str == '-') ? 2 : 3;
+      if ((users & 1) && (u & symbols))  goto invalid;
+      if ((users & 2) && (g & symbols))  goto invalid;
+      if ((users & 4) && (o & symbols))  goto invalid;
+      if ((users & 1))  u |= symbols;
+      if ((users & 2))  g |= symbols;
+      if ((users & 4))  o |= symbols;
       
       /* Get =/+/- and jump to permissions. */
-      symbol = str[1], str += 2;
+      symbol = *str++;
       
       /* Get permissions. */
       for (partial_or = 0; *str && (*str != ','); str++)
-	for (user = first; user < last; user++)
-	  BITS(*str, partial_or, user);
+	for (user = 0; user < 3; user++)
+	  {
+	    if (((1 << user) & users) == 0)
+	      continue;
+	    if (multiple_users)
+	      {
+		if ((user != 2) && ((*str == 't') || (*str == 'T')))
+		  continue;
+		if ((user == 2) && ((*str == 's') || (*str == 'S')))
+		  continue;
+	      }
+	    BITS(*str, partial_or, user);
+	  }
       
       /* Apply permissions. */
       if (symbol != '-')  or   |= partial_or;
@@ -209,15 +235,48 @@ static inline int exact_numeric(mode_t* restrict mode, mode_t* restrict mask, co
  */
 int machinemode(mode_t* restrict mode, mode_t* restrict mask, const char* restrict str)
 {
+  if (*str == '-')
+    {
+      int *(f)(mode_t* restrict, mode_t* restrict, const char* restrict);
+      size_t r_sum = 0, w_sum = 0, x_sum = 0, t_sum = 0, s_sum = 0, comma = 0, dash = 0;
+      const char* restrict s;
+      
+      for (s = str + 1; *s; s++)
+	switch (*s)
+	  {
+	  case ',':  comma = 1;  break;
+	  case '-':  dash = 1;  break;
+	  case 'r':  r_sum++;  break;
+	  case 'w':  w_sum++;  break;
+	  case 'x':  x_sum++;  break;
+	  case 't':  t_sum++;  break;
+	  case 's':  s_sum++;  break;
+	  case 'T':  s_sum++, x_sum++;  break;
+	  case 'S':  t_sum++, x_sum++;  break;
+	  default:
+	      break; /* Ignore, either of the functions will fail.*/
+	  }
+      
+      if (comma)
+	f = partial_symbolic;
+      else if (dash || ((r_sum | w_sum | x_sum | t_sum | s_sum) > 1))
+	f = exact_symbolic;
+      else
+	f = partial_symbolic;
+      
+      return f(mode, mask, str);
+    }
+  
   switch (*str)
     {
     case '\0':
       return errno = EINVAL, -1;
       
     case 'a': case 'u': case 'g': case 'o':
+    case '+': case '=':
       return partial_symbolic(mode, mask, str);
       
-    case 'r': case 'w': case 'x': case '-':
+    case 'r': case 'w': case 'x':
     case 's': case 'S': case 't': case 'T':
       return exact_symbolic(mode, mask, str);
       
