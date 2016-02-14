@@ -71,7 +71,7 @@ static char* humansize_exact(char* buffer, size_t bufsize, enum humansize_mode m
 {
   size_t i, n = 0;
   void* new = NULL;
-  int m, saved_errno;
+  int m = 0, saved_errno;
   
   if (detail == 0)
     detail = 999;
