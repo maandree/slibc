@@ -343,6 +343,36 @@ char* getenv(const char*)
   __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__)));
 
 
+/**
+ * Search for an item in a sorted list of comparable
+ * elements. The list must be sorted in ascending order.
+ * The function usually implements binary search,
+ * as is done in this implementation.
+ * 
+ * @etymology  (B)inary (search).
+ * 
+ * @param   sought  The sought item.
+ * @param   list    The beginning of the list to search.
+ * @param   n       The number of elements in the list.
+ * @param   width   The width, in bytes, of each element in the list.
+ * @param   compar  A function that shall compare two items, and return
+ *                  a value less than, equal to, or greater than zero
+ *                  if the first argument is less than, equal to, or
+ *                  greater than the second argument, respectively.
+ * @return          The address of an arbritrart element in `list` that
+ *                  is equal to `sought`, or `NULL` if no such element
+ *                  can be found (does not exist, or because `list`
+ *                  is not properly sorted.)
+ * 
+ * @since  Always.
+ */
+void* bsearch(const void*, const void*, size_t, size_t, int (*)(const void*, const void*))
+  __GCC_ONLY(__attribute__((__warn_unused_result__, __nonnull__(1, 5), __pure__)));
+#ifdef __CONST_CORRECT
+# define bsearch(...)  (__const_correct2(bsearch, __VA_ARGS__))
+#endif
+
+
 
 /* TODO implement rand-functions */
 #define RAND_MAX  1
