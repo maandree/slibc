@@ -48,7 +48,8 @@
 void* (bsearch)(const void* sought, const void* list, size_t n, size_t width,
 		int (*compar)(const void*, const void*))
 {
-  int cmp, i;
+  int cmp;
+  size_t i;
   char* test;
   if (n == 0)
     return NULL;
