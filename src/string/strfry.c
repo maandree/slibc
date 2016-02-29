@@ -43,7 +43,7 @@ char* strfry(char* anagram)
   for (i = strlen(anagram); --i;)
     {
       r = rand();
-      j = (size_t)((double)r / ((double)RAND_MAX + 1) * (double)i);
+      j = (size_t)((double)r / ((double)RAND_MAX + 1) * (double)i); /* TODO This is not uniformally random. */
       t = anagram[i], anagram[i] = anagram[j], anagram[j] = t;
     }
   return anagram;
