@@ -19,7 +19,7 @@
 #include <stdlib.h>
 
 
-/* Sattolo Cycles. */
+/* Durstenfeld's algorithm. */
 
 
 
@@ -40,7 +40,7 @@ char* strfry(char* anagram)
   char t;
   if (anagram == NULL)
     return NULL;
-  for (i = strlen(anagram); --i;)
+  for (i = strlen(anagram); i; i--)
     {
       r = rand();
       j = (size_t)((double)r / ((double)RAND_MAX + 1) * (double)i); /* TODO This is not uniformally random. */
