@@ -859,10 +859,10 @@ p = aligned_alloc(sizeof(*p), n)
 @end example
 
 @ifnottex
-Etymology: (Align)ed memory (alloc)ation.
+Etymology: (Aligned) memory (alloc)ation.
 @end ifnottex
 @iftex
-Etymology: @b{Align}ed memory @b{alloc}ation.
+Etymology: @b{Aligned} memory @b{alloc}ation.
 @end iftex
 @end table
 

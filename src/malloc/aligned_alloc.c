@@ -30,7 +30,7 @@
  * will allocate a bit of extra memory and shift the returned
  * pointer so that it is aligned.
  * 
- * @etymology  (Alig)ned memory (alloc)ation.
+ * @etymology  (Aligned) memory (alloc)ation.
  * 
  * @param   boundary  The alignment.
  * @param   size      The number of bytes to allocated.
