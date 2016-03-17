@@ -72,3 +72,5 @@ Can we implement any of these:
 Macros that are used but not defined:
   _LINUX_
 
+It is implementation-defined what happens in realloc if the
+size is zero. This should be reflected in the documentation.
