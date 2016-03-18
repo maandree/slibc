@@ -74,3 +74,5 @@ Macros that are used but not defined:
 
 It is implementation-defined what happens in realloc if the
 size is zero. This should be reflected in the documentation.
+
+The printf-functions shall have a %-code for dumping a memory segment.
