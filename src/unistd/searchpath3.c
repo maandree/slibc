@@ -138,13 +138,13 @@ char* searchpath3(const char* name, const char* fallback, const char* first)
   
   free(path);
   free(pathname);
-  return errno = (eacces ? EACCES : ENOENT), -1;
+  return errno = (eacces ? EACCES : ENOENT), NULL;
   
  fail:
   saved_errno = errno;
   free(path);
   free(pathname);
   errno = saved_errno;
-  return -1;
+  return NULL;
 }
 
