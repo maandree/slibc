@@ -35,13 +35,12 @@
  */
 char* strfry(char* anagram)
 {
-  size_t i, j, n;
+  size_t i, j;
   int r;
   char t;
   if (anagram == NULL)
     return NULL;
-  n = strlen(anagram);
-  for (i = n - 1; n && i; i--)
+  for (i = strlen(anagram); i--;)
     {
       r = rand();
       j = (size_t)((double)r / ((double)RAND_MAX + 1) * (double)i); /* TODO This is not uniformally random. */
