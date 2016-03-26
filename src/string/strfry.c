@@ -22,9 +22,40 @@
 /* Durstenfeld's algorithm. */
 
 
+/**
+ * The number of bits to retain from `rand` output.
+ */
+#define BITS  8
+
+
+/**
+ * Generate a `size_t` uniformly random.
+ * 
+ * @param   max  The largest number to generate, inclusive.
+ * @return       A random number between 0 and `max`, inclusively.
+ */
+static size_t
+uniform_random_zu(size_t max)
+{
+  size_t n = max, r = 0, mask = max, s = 1;
+  while (((mask + 1) & ~mask) != mask + 1)
+    mask |= mask >> s++;
+  do
+    for (; n; n >>= BITS)
+      {
+	b = rand();
+	b /= (double)RAND_MAX + 1;
+	r = (r << BITS) | (int)(b * (1 << BITS));
+      }
+  while (r &= mask, r > max);
+  return r;
+}
 
 /**
  * Shuffles all bytes in a string.
+ * 
+ * You should have called `srand` before
+ * calling this function.
  * 
  * This is a GNU joke extension.
  * 
@@ -36,14 +67,12 @@
 char* strfry(char* anagram)
 {
   size_t i, j;
-  int r;
   char t;
   if (anagram == NULL)
     return NULL;
   for (i = strlen(anagram); i--;)
     {
-      r = rand();
-      j = (size_t)((double)r / ((double)RAND_MAX + 1) * (double)i); /* TODO This is not uniformally random. */
+      j = uniform_random_zu(i);
       t = anagram[i], anagram[i] = anagram[j], anagram[j] = t;
     }
   return anagram;

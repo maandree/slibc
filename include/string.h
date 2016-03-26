@@ -1387,6 +1387,9 @@ char* __gnu_basename(const char*)
 /**
  * Shuffles all bytes in a string.
  * 
+ * You should have called `srand` before
+ * calling this function.
+ * 
  * This is a GNU joke extension.
  * 
  * @param   anagram  An anagram of the output, will be modified.
