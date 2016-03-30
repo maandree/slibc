@@ -37,11 +37,11 @@
 static size_t
 uniform_random_zu(size_t max)
 {
-  size_t n = max, r = 0, mask = max, s = 1;
+  size_t n, r = 0, mask = max, s = 1;
   while (((mask + 1) & ~mask) != mask + 1)
     mask |= mask >> s++;
   do
-    for (; n; n >>= BITS)
+    for (n = max; n; n >>= BITS)
       {
 	b = rand();
 	b /= (double)RAND_MAX + 1;
