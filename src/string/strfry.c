@@ -38,7 +38,7 @@ static size_t
 uniform_random_zu(size_t max)
 {
   size_t n, r = 0, mask = max, s = 1;
-  int b;
+  double b;
   while (((mask + 1) & ~mask) != mask + 1)
     mask |= mask >> s++;
   do
