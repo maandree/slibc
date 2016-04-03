@@ -42,6 +42,7 @@ void* (*volatile __slibc_explicit_memset)(void*, int, size_t) = memset;
  */
 void explicit_bzero(void* segment, size_t size)
 {
+  __slibc_explicit_memset(segment, ~0, size);
   __slibc_explicit_memset(segment, 0, size);
 }
 
