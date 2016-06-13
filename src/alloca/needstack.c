@@ -39,6 +39,9 @@ int stack_will_overflow(intptr_t n)
 {
   void* prev_brk;
   
+  /* TODO an alternative way is to fork and let the child
+   *      do the test. */
+  
   /* TODO This function shall block calls to brk and sbrk. */
   
   prev_brk = sbrk(n);
