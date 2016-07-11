@@ -59,6 +59,9 @@ Extensions:
   base16 -d
   variable argument string concat
   string manipulation
+  procinit(int skip)
+    perform stuff that all programs should when they start
+    (but don't actually do in the real world)
 
 POSIX specifies that *printf shall fail with EOVERFLOW is the
 length of the constructed string is greater than INT_MAX.
