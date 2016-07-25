@@ -178,7 +178,8 @@ void secure_free(void*);
  * @since  Always.
  */
 size_t allocsize(void*)
-  __GCC_ONLY(__attribute__((__warn_unused_result__)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)))
+  __warning("This function is dangerous, avoid using it instead of manual bookkeeping.");
 
 /**
  * Variant of `realloc` that overrides newly allocated space

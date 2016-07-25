@@ -364,7 +364,8 @@ void* aligned_alloc(size_t, size_t)
  * @since  Always.
  */
 size_t malloc_usable_size(void*)
-  __GCC_ONLY(__attribute__((__warn_unused_result__)));
+  __GCC_ONLY(__attribute__((__warn_unused_result__)))
+  __warning("This function is dangerous, avoid using it instead of manual bookkeeping.");
 #endif
 
 /* TODO add mallopt, M_TRIME_THRESHOLD, M_TOP_PAD, M_MMAP_THRESHOLD, and M_MMAP_MAX */
