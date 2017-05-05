@@ -337,7 +337,7 @@ int asprintf(char** restrict, const char* restrict, ...)
     if (*buffer = NULL, __size += 1, __r >= 0)				\
       *buffer = __builtin_alloca((size_t)__size * sizeof(char)),	\
 	__r = sprintf(*buffer, format, ##__VA_ARGS__);			\
-    __r;							\
+    __r;								\
   })
 # endif
 
