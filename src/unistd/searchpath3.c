@@ -48,7 +48,7 @@
  * 
  * This is a slibc extension.
  * 
- * @etymology  Variant of (searchpath) that takes (2) arguments.
+ * @etymology  Variant of (searchpath) that takes (3) arguments.
  * 
  * @param   name      The name of the sought executable. Must not be `NULL`.
  * @param   fallback  Value to use instead of the value of $PATH, if
