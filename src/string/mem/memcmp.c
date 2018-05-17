@@ -32,8 +32,8 @@
  */
 int memcmp(const void* a, const void* b, size_t size)
 {
-  const signed char* s1 = a;
-  const signed char* s2 = b;
+  const unsigned char* s1 = a;
+  const unsigned char* s2 = b;
   while (size--)
     if (*s1 == *s2)
       s1++, s2++;
