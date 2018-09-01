@@ -34,7 +34,7 @@
 char* strdup(const char* string)
 {
   size_t n = strlen(string) + 1;
-  char* r = malloc(n * sizeof(char));
+  char* r = aligned_alloc(1, n * sizeof(char));
   return r == NULL ? NULL : memcpy(r, string, n * sizeof(char));
 }
 

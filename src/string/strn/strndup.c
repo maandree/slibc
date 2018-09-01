@@ -39,7 +39,7 @@
 char* strndup(const char* string, size_t maxlen)
 {
   size_t n = strnlen(string, maxlen) + 1;
-  char* r = malloc(n * sizeof(char));
+  char* r = aligned_alloc(1, n * sizeof(char));
   return r == NULL ? NULL : memcpy(r, string, n * sizeof(char));
 }
 
