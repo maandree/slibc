@@ -31,7 +31,7 @@ Printed by:
 X
 
 @*@*
-Copyright @copyright{} 2015  Mattias Andrée @e{maandree@@member.fsf.org}
+Copyright @copyright{} 2015  Mattias Andrée @e{m@@maandree.se}
 @*
 
 @c The copyright information from the main file, add any required

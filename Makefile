@@ -1,5 +1,5 @@
 # slibc — Yet another C library
-# Copyright © 2015  Mattias Andrée (maandree@member.fsf.org)
+# Copyright © 2015  Mattias Andrée (m@maandree.se)
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

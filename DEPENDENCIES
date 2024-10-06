@@ -10,7 +10,7 @@ BUILD DEPENDENCIES:
 	coreutils
 	sed
 	texinfo>=4.11 (optional)
-	https://github.com/maandree/gpp (only utilisable if not cross-compiling, optional)
+	https://codeberg.org/maandree/gpp (only utilisable if not cross-compiling, optional)
 	libc (only utilisable if not cross-compiling, optional, can be slibc itself)
 
 
