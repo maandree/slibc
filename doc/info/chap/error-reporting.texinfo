@@ -32,18 +32,18 @@ Most functions return a sentinel value when an
 exceptional condition occurs, typically a negative
 value (actually @code{-1}), a constant such as
 @code{EOF}, or @code{NULL}@. This return value only
-tells you that an exeception condition has occurred.
+tells you that an exception condition has occurred.
 
 @hfindex errno.h
 @lvindex errno
 By including the header file @file{<errno.h>}, the
 modifiable lvalue @code{errno} is made available.
 @sc{ISO}@tie{}C specifies that @code{errno} is not
-necessarily a variable, but rather just an modifiable
-lvalue. In fact, must @code{libc}:s, including
-@code{slibc} defines it as a macro that calls a
+necessarily a variable, but rather just a modifiable
+lvalue. In fact, most @code{libc}:s, including
+@code{slibc}, define it as a macro that calls a
 function and uses the unary @code{*}-operator on the
-return.
+return value.
 
 @code{errno} is often thought of as a variable
 declared as @code{int errno}, or @code{volatile int errno}.
@@ -53,17 +53,17 @@ of this, the @code{errno} is defined as a macro that
 calls a function. Otherwise, it would not be
 implementable without @sc{ISO}@tie{}C11.
 
-The value of @code{errno} is describes the error,
+The value of @code{errno} describes the error,
 if and only if the function returned a value indicating
-an error. Some, function can return the sentinel
+an error. Some functions can return the sentinel
 value both on success and error. Therefore, the value
 @code{0} on @code{errno} means that the function
 returned after successful completion rather than on
-failure. Exceptional conditions are describe by
+failure. Exceptional conditions are described by
 non-zero values listed in @ref{Error codes}.
 
 The state of @code{errno} is undefined unless otherwise
-specified after a succesful completion of a function call.
+specified after a successful completion of a function call.
 This means that you, generally, cannot check whether an
 error has occurred by checking the value of @code{errno}
 rather than the return value.

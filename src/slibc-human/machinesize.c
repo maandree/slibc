@@ -85,7 +85,7 @@ static size_t prefix(char** restrict str, enum machinesize_mode mode)
 /**
  * Parses a human representation of storage size or file offset.
  * 
- * If no unit is used, bytes are assumed. If you rather it be
+ * If no unit is used, bytes are assumed. If you would rather it be
  * (for example) kilobytes, you can multiply it if
  * `strpbrk(str, "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM") == NULL`.
  * 

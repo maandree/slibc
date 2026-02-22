@@ -318,7 +318,7 @@ char* humansize(char*, size_t, size_t, enum humansize_mode, int, const char* res
 /**
  * Parses a human representation of storage size or file offset.
  * 
- * If no unit is used, bytes are assumed. If you rather it be
+ * If no unit is used, bytes are assumed. If you would rather it be
  * (for example) kilobytes, you can multiply it if
  * `strpbrk(str, "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM") == NULL`.
  * 
